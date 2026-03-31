@@ -9,11 +9,11 @@
       }
     </style>
     <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
       <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
     <filter id="glow-dot" x="-80%" y="-80%" width="260%" height="260%">
-      <feGaussianBlur stdDeviation="3.5" result="coloredBlur"/>
+      <feGaussianBlur stdDeviation="4.5" result="coloredBlur"/>
       <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
@@ -77,12 +77,12 @@
     <circle cx="130.05" cy="63.31" r="3.2" fill="#00BFA6"/>
     <circle cx="122.05" cy="76.54" r="2.2" fill="#00BFA6"/>
   </g>
-  <circle cx="85" cy="85" r="5" fill="#00BFA6" filter="url(#glow-dot)"/>
+  <circle cx="85" cy="85" r="5" fill="#33D9C7" filter="url(#glow-dot)"/>
   <text x="170" y="124"
         font-family="'Bungee', sans-serif"
         font-weight="400"
         font-size="96"
         letter-spacing="0">
-    <tspan fill="#1a1a1a">360</tspan><tspan fill="#00BFA6">ai</tspan>
+    <tspan fill="#ffffff">360</tspan><tspan fill="#00BFA6">ai</tspan>
   </text>
 </svg>
