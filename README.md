@@ -1,77 +1,74 @@
-# 360ai – Firmen-Website
+# 360ai Website
 
-One-Pager für **360ai** (KI-gestützte Automatisierung & Webpräsenzen für KMU).  
-Enthält Startseite, Impressum, Datenschutzerklärung, AGB und ist für Hosting bei **GitHub Pages** bzw. **Cloudflare Pages** vorbereitet.
+Statische Onepager-Website fuer **360ai**: KI-Beratung, KI-Readiness Checks, Prozess- und Engpassanalyse sowie moderne Onepager-Websites fuer KMU aus Frankenberg (Eder), Waldeck-Frankenberg und darueber hinaus.
 
----
+Der aktuelle Stand basiert auf dem neuen Branding mit `LogoOhneHintergrund.png`. Die visuelle Linie ist in [`360ai_Design_Spezifikationen.md`](360ai_Design_Spezifikationen.md) dokumentiert und dient als Referenz fuer kuenftige Layout-, Farb- und Logo-Entscheidungen.
 
-## Vor dem Deployment
+## Aktueller Aufbau
 
-1. **Impressum anpassen**  
-   In `impressum.html` die Platzhalter ersetzen:
-   - Firmenname / Name Inhaber
-   - Straße, PLZ, Ort
-   - USt-IdNr. (falls vorhanden)
+| Datei | Zweck |
+| --- | --- |
+| `index.html` | Startseite mit Beratungs-Hero, Problemsektion, Leistungen, Ablauf, Ueber-mich-Bereich, CTA und Kontakt |
+| `LogoOhneHintergrund.png` | Aktuelles 360ai Logo und zentrale Bildmarke |
+| `360ai_Design_Spezifikationen.md` | Branding- und Logo-Spezifikation |
+| `impressum.html` | Impressum |
+| `datenschutz.html` | Datenschutzerklaerung |
+| `agb.html` | Allgemeine Geschaeftsbedingungen |
+| `404.html` | Fehlerseite mit `noindex` |
+| `robots.txt` | Crawler-Freigabe und Sitemap-Verweis |
+| `sitemap.xml` | Sitemap fuer Suchmaschinen |
 
-2. **Logo**  
-   Die Datei `360ai_logo.svg` muss im gleichen Ordner wie `index.html` liegen. Ohne diese Datei erscheint das Logo nicht.
+## SEO / GEO
 
-3. **Optional: Google Fonts**  
-   Für strenge DSGVO-Optimierung können Google Fonts durch lokale Schriften ersetzt werden (Hinweis dazu steht in `index.html`).
+Die Startseite enthaelt:
 
----
+- Title, Meta Description, Canonical und Robots-Meta.
+- Open-Graph- und Twitter-Bilddaten fuer Social Previews.
+- JSON-LD als `ProfessionalService` mit Leistungsangeboten und lokalem Bezug.
+- Sichtbare lokale Signale fuer Frankenberg (Eder), Waldeck-Frankenberg, Nordhessen und Deutschland.
+- Neue Hauptpositionierung: KI-Beratung vor Investitions- und Implementierungsentscheidungen.
 
-## Hosting bei GitHub Pages
+Referenzen sind aktuell bewusst entfernt, bis echte Kundenlogos oder freigegebene Case Studies vorliegen.
 
-1. Repository auf GitHub anlegen (z. B. `360ai-website`).
-2. Alle Dateien aus diesem Ordner ins Repository pushen:
-   - `index.html`, `impressum.html`, `datenschutz.html`, `agb.html`, `404.html`
-   - `360ai_logo.svg`
-   - optional: `README.md`, `.gitignore`
-3. **Settings → Pages**:  
-   - Source: **Deploy from a branch**  
-   - Branch: `main` (oder `master`)  
-   - Folder: **/ (root)**  
-   - Save.
-4. Nach wenigen Minuten ist die Seite unter  
-   `https://<username>.github.io/<repo-name>/` erreichbar.  
-   Custom Domain kann unter Pages-Einstellungen hinterlegt werden.
+## Branding
 
----
+Aktive Logo-Datei:
 
-## Hosting bei Cloudflare Pages
+```text
+LogoOhneHintergrund.png
+```
 
-1. Bei [Cloudflare Dashboard](https://dash.cloudflare.com) → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**.
-2. GitHub-Repository auswählen (oder zuerst Repo wie oben anlegen und pushen).
-3. Build-Einstellungen:
-   - **Framework preset:** None
-   - **Build command:** leer lassen
-   - **Build output directory:** `.` (oder der Ordner, in dem `index.html` liegt – bei Monorepo ggf. z. B. `website2`)
-4. **Save and Deploy**.  
-   Die Seite erhält eine URL wie `https://<projekt>.pages.dev`.  
-   Unter **Custom domains** kann z. B. `360-ai.org` verbunden werden.
+Alte SVG-Logo-Varianten sollen nicht mehr verwendet werden. Neue Designarbeiten sollen auf der dokumentierten Farbpalette und dem minimalistischen 360ai-Logo-Konzept aufbauen.
 
-**Hinweis:** Die `404.html` wird von Cloudflare Pages automatisch bei unbekannten Pfaden ausgeliefert.
+## Hosting
 
----
+Die Seite benoetigt keinen Build-Schritt.
 
-## Dateien im Überblick
+### Cloudflare Pages
 
-| Datei              | Beschreibung                    |
-|--------------------|----------------------------------|
-| `index.html`       | Startseite (Hero, Leistungen, Kontakt) |
-| `impressum.html`   | Impressum (§ 5 TMG)             |
-| `datenschutz.html` | Datenschutzerklärung (DSGVO)    |
-| `agb.html`         | Allgemeine Geschäftsbedingungen |
-| `404.html`         | Fehlerseite (Cloudflare/GitHub)  |
-| `360ai_logo.svg`   | Logo (muss von dir bereitgestellt werden) |
+- Framework preset: `None`
+- Build command: leer lassen
+- Build output directory: `.`
+- Custom Domain: `360-ai.org`
 
----
+### GitHub Pages
+
+- Source: Deploy from a branch
+- Branch: `main`
+- Folder: `/ (root)`
+
+## Deployment-Hinweise
+
+- Vor Livegang pruefen, ob alle Rechtstexte inhaltlich aktuell sind.
+- Es werden keine externen Google Fonts geladen; die Seite nutzt eine lokale Systemschrift-Auswahl.
+- Nach Aenderungen an Seitenstruktur oder URLs `sitemap.xml` aktualisieren.
 
 ## Kontakt
 
-Der Kontakt erfolgt per E-Mail: Ein Klick auf „E-Mail schreiben“ öffnet das Standard-E-Mail-Programm des Besuchers (mailto:). Bei Bedarf kann später wieder ein Kontaktformular mit Backend (z. B. Formspree, n8n-Webhook) ergänzt werden.
+Kontakt erfolgt aktuell per E-Mail-Link:
 
----
+```text
+info@360-ai.org
+```
 
-© 2026 360ai
+Ein Kontaktformular kann spaeter wieder ergaenzt werden, wenn ein passendes Backend oder ein datenschutzkonformer Formularanbieter festgelegt ist.
