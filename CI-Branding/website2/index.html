@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>360ai - KI-Beratung & Readiness Check in Frankenberg (Eder)</title>
+  <meta name="description" content="360ai berät KMU vor teuren KI-Fehlinvestitionen: KI-Readiness, Prozessanalyse, Engpass-Analyse, ROI-Einschätzung und moderne Onepager Websites." />
+  <link rel="canonical" href="https://360-ai.org/" />
+  <meta name="robots" content="index,follow" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://360-ai.org/" />
+  <meta property="og:title" content="360ai - KI-Beratung, bevor Sie investieren" />
+  <meta property="og:description" content="KI-Readiness und Prozess-Assessment für KMU: erst prüfen, dann entscheiden. Plus moderne Onepager Websites." />
+  <meta property="og:image" content="https://360-ai.org/LogoOhneHintergrund.png" />
+  <meta property="og:image:alt" content="360ai Logo" />
+  <meta property="og:site_name" content="360ai" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://360-ai.org/LogoOhneHintergrund.png" />
+  <link rel="icon" href="/LogoOhneHintergrund.png" type="image/png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": "https://360-ai.org/#business",
+    "name": "360ai",
+    "url": "https://360-ai.org/",
+    "logo": "https://360-ai.org/LogoOhneHintergrund.png",
+    "image": "https://360-ai.org/LogoOhneHintergrund.png",
+    "description": "360ai berät kleine und mittlere Unternehmen vor KI-Investitionen mit KI-Readiness Check, Prozessanalyse, Engpass-Analyse und ROI-Einschätzung.",
+    "email": "info@360-ai.org",
+    "areaServed": ["Frankenberg (Eder)", "Waldeck-Frankenberg", "Nordhessen", "Deutschland"],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Frankenberg (Eder)",
+      "addressRegion": "Hessen",
+      "addressCountry": "DE"
+    },
+    "knowsAbout": [
+      "KI-Beratung",
+      "unabhängige KI-Beratung",
+      "Vendor-neutrale Technologieberatung",
+      "KI-Readiness",
+      "Prozessanalyse",
+      "Engpass-Analyse",
+      "ROI-Einschätzung",
+      "Digitale Reifegradanalyse",
+      "Onepager Websites"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "360ai Leistungen",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "KI-Readiness & Prozess-Assessment",
+            "description": "Strukturierte Analyse von Prozessen, Datenbasis, Reifegrad, Engpässen und wirtschaftlichem KI-Potenzial."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "KI-Roadmap & Lastenheft",
+            "description": "Klare Entscheidungsgrundlage für sinnvolle KI-Projekte, Vorarbeiten oder bewussten Verzicht."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Onepager Websites",
+            "description": "Moderne, schnelle und klare Onepager-Websites für Unternehmen."
+          }
+        }
+      ]
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --lavender: #7B8CB6;
+      --steel: #97B9C1;
+      --mint: #84C1BC;
+      --dark: #171A30;
+      --dark-2: #232842;
+      --ink: #171827;
+      --muted: #626978;
+      --paper: #F9F9F9;
+      --paper-2: #F0F3FA;
+      --card: #FFFFFF;
+      --border: #E1E6EF;
+      --gradient: linear-gradient(90deg, #7B8CB6, #84C1BC);
+      --gradient-soft: linear-gradient(135deg, rgba(123,140,182,0.16), rgba(132,193,188,0.12));
+      --shadow: 0 18px 70px rgba(23, 26, 48, 0.12);
+      --shadow-soft: 0 10px 36px rgba(23, 26, 48, 0.08);
+      --font: "Outfit", "Montserrat", "Trebuchet MS", sans-serif;
+      --ease: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(123,140,182,0.18), transparent 32rem),
+        radial-gradient(circle at 88% 2%, rgba(132,193,188,0.20), transparent 30rem),
+        var(--paper);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .container { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      color: var(--lavender); font-size: 11px; font-weight: 800;
+      letter-spacing: 0.22em; text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 34px; height: 1px; background: currentColor; opacity: 0.75; }
+    .section-title { font-size: clamp(30px, 4vw, 48px); line-height: 1.08; letter-spacing: -0.04em; margin-top: 12px; }
+    .section-sub { color: var(--muted); max-width: 680px; margin-top: 16px; font-size: 16px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      min-height: 48px; padding: 13px 24px; border-radius: 14px;
+      font-size: 14px; font-weight: 800; letter-spacing: 0.02em;
+      border: 1px solid transparent; transition: var(--ease);
+    }
+    .btn-primary { background: var(--gradient); color: #fff; box-shadow: 0 12px 34px rgba(123,140,182,0.28); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 42px rgba(123,140,182,0.34); }
+    .btn-ghost { border-color: rgba(255,255,255,0.22); color: rgba(255,255,255,0.86); background: rgba(255,255,255,0.04); }
+    .btn-ghost:hover { color: #fff; border-color: rgba(132,193,188,0.8); background: rgba(132,193,188,0.10); }
+    .btn-outline { border-color: var(--border); color: var(--ink); background: #fff; }
+    .btn-outline:hover { transform: translateY(-2px); border-color: rgba(123,140,182,0.45); box-shadow: var(--shadow-soft); }
+
+    .navbar {
+      position: fixed; z-index: 50; top: 0; left: 0; right: 0;
+      padding: 18px 0; transition: var(--ease);
+    }
+    .navbar.scrolled { background: rgba(23,26,48,0.92); backdrop-filter: blur(18px); padding: 10px 0; box-shadow: 0 10px 34px rgba(0,0,0,0.22); }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo img { width: 154px; height: auto; filter: drop-shadow(0 8px 22px rgba(0,0,0,0.22)); }
+    .nav-links { display: flex; align-items: center; gap: 28px; color: rgba(255,255,255,0.72); font-size: 14px; font-weight: 700; }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta { padding: 10px 18px; border-radius: 999px; color: #fff !important; background: rgba(132,193,188,0.18); border: 1px solid rgba(132,193,188,0.35); }
+    .hamburger { display: none; background: none; border: 0; flex-direction: column; gap: 5px; padding: 8px; }
+    .hamburger span { width: 24px; height: 2px; background: #fff; }
+    .mobile-menu {
+      position: fixed; inset: 0; z-index: 60; display: grid; place-items: center;
+      background: rgba(23,26,48,0.98); opacity: 0; pointer-events: none; transition: var(--ease);
+    }
+    .mobile-menu.active { opacity: 1; pointer-events: all; }
+    .mobile-menu a { display: block; color: #fff; font-size: 26px; font-weight: 800; padding: 13px; text-align: center; }
+    .mobile-close { position: absolute; top: 26px; right: 26px; background: none; border: 0; color: #fff; font-size: 30px; cursor: pointer; }
+
+    .hero {
+      min-height: 100vh; position: relative; display: flex; align-items: center;
+      color: #fff; overflow: hidden; padding: 126px 0 84px;
+      background: linear-gradient(135deg, #171A30 0%, #232842 58%, #1B3B42 100%);
+    }
+    .hero::before {
+      content: ""; position: absolute; inset: -20%;
+      background:
+        radial-gradient(circle at 22% 24%, rgba(123,140,182,0.42), transparent 28rem),
+        radial-gradient(circle at 78% 18%, rgba(132,193,188,0.36), transparent 30rem),
+        linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.06) 46%, transparent 62%);
+      animation: heroDrift 14s ease-in-out infinite alternate;
+    }
+    .hero::after {
+      content: ""; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent 88%);
+    }
+    @keyframes heroDrift { from { transform: translate3d(-2%, -1%, 0) scale(1); } to { transform: translate3d(2%, 1%, 0) scale(1.04); } }
+    .hero-grid { position: relative; z-index: 2; max-width: 920px; }
+    .hero-pill {
+      display: inline-flex; gap: 10px; align-items: center; padding: 8px 13px; border-radius: 999px;
+      color: rgba(255,255,255,0.86); background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.13);
+      font-size: 13px; font-weight: 800; margin-bottom: 24px;
+    }
+    .hero-pill span { width: 8px; height: 8px; border-radius: 999px; background: var(--mint); box-shadow: 0 0 18px var(--mint); }
+    .hero h1 { font-size: clamp(42px, 7vw, 82px); line-height: 0.98; letter-spacing: -0.065em; max-width: 860px; }
+    .hero-word-line { display: block; min-height: 1.08em; position: relative; color: var(--mint); overflow: hidden; }
+    .hero-word { display: none; background: linear-gradient(90deg, #C9D2EB, #84C1BC); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero-word.active { display: inline-block; animation: wordRise 0.55s cubic-bezier(0.22,1,0.36,1); }
+    @keyframes wordRise { from { opacity: 0; transform: translateY(42px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-sub { max-width: 760px; margin: 24px 0 0; color: rgba(255,255,255,0.78); font-size: clamp(17px, 2vw, 20px); }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
+    .hero-proof { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 42px; max-width: 760px; }
+    .proof-card { border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); border-radius: 18px; padding: 18px; backdrop-filter: blur(12px); }
+    .proof-card strong { display: block; color: #fff; font-size: 24px; line-height: 1; }
+    .proof-card span { display: block; color: rgba(255,255,255,0.66); font-size: 12px; margin-top: 9px; line-height: 1.4; }
+    .ticker { overflow: hidden; background: #fff; border-bottom: 1px solid var(--border); }
+    .ticker-inner { display: inline-flex; gap: 38px; padding: 16px 0; min-width: max-content; animation: ticker 28s linear infinite; color: var(--muted); font-weight: 800; font-size: 13px; }
+    .ticker-inner span::before { content: "◆"; color: var(--mint); margin-right: 38px; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    section { padding: 108px 0; }
+    .problem-grid, .about-grid, .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+    .problem-list { display: grid; gap: 14px; }
+    .problem-item { padding: 20px; border-radius: 20px; background: #fff; border: 1px solid var(--border); box-shadow: var(--shadow-soft); }
+    .problem-item b { display: block; font-size: 17px; margin-bottom: 5px; }
+    .problem-item p { color: var(--muted); font-size: 14px; }
+
+    .independence { background: #fff; padding-top: 0; }
+    .independence-panel {
+      display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 32px; align-items: stretch;
+      padding: 34px; border-radius: 30px; background: linear-gradient(135deg, #F8FAFF, #F1F8F7);
+      border: 1px solid var(--border); box-shadow: var(--shadow-soft);
+    }
+    .independence-copy { padding: 8px 0; }
+    .independence-list { display: grid; gap: 14px; }
+    .independence-item { display: grid; grid-template-columns: 34px 1fr; gap: 14px; padding: 18px; border-radius: 18px; background: rgba(255,255,255,0.78); border: 1px solid rgba(123,140,182,0.16); }
+    .independence-item span { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--gradient); color: #fff; font-weight: 900; }
+    .independence-item b { display: block; margin-bottom: 4px; }
+    .independence-item p { color: var(--muted); font-size: 14px; }
+
+    .services { background: var(--paper-2); }
+    .services-header { text-align: center; max-width: 790px; margin: 0 auto 54px; }
+    .services-header .eyebrow { justify-content: center; }
+    .services-header .eyebrow::before { display: none; }
+    .services-header .section-sub { margin-left: auto; margin-right: auto; }
+    .services-grid { display: grid; grid-template-columns: 1.18fr 0.82fr; gap: 24px; align-items: stretch; }
+    .service-card { position: relative; overflow: hidden; border: 1px solid var(--border); background: #fff; border-radius: 26px; padding: 30px; box-shadow: var(--shadow-soft); }
+    .service-card.primary { background: linear-gradient(135deg, #fff, #F2F8F8); }
+    .service-kicker { color: var(--lavender); font-weight: 900; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; }
+    .service-card h3 { margin-top: 12px; font-size: clamp(24px, 3vw, 38px); line-height: 1.08; letter-spacing: -0.04em; }
+    .service-card p { margin-top: 14px; color: var(--muted); }
+    .check-grid { margin-top: 24px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .check { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--ink); }
+    .check::before { content: "✓"; color: var(--mint); font-weight: 900; }
+    .mini-stack { display: grid; gap: 24px; }
+    .mini-stack .service-card h3 { font-size: 25px; }
+
+    .deliverables-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 46px; }
+    .deliverable { background: #fff; border: 1px solid var(--border); border-radius: 22px; padding: 24px; box-shadow: var(--shadow-soft); }
+    .deliverable .num { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; color: #fff; background: var(--gradient); font-weight: 900; margin-bottom: 18px; }
+    .deliverable h3 { font-size: 18px; margin-bottom: 8px; }
+    .deliverable p { color: var(--muted); font-size: 14px; }
+
+    .process { background: #fff; }
+    .timeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 46px; }
+    .step { padding: 22px; border-radius: 22px; background: var(--paper); border: 1px solid var(--border); position: relative; }
+    .step b { color: var(--mint); font-size: 13px; }
+    .step h3 { font-size: 17px; margin: 8px 0; line-height: 1.25; }
+    .step p { color: var(--muted); font-size: 13px; }
+
+    .about { background: var(--paper); }
+    .about-card { padding: 30px; border-radius: 28px; background: #fff; box-shadow: var(--shadow); border: 1px solid var(--border); }
+    .badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .badge { padding: 9px 12px; border-radius: 999px; background: rgba(123,140,182,0.10); color: #4B5573; font-weight: 800; font-size: 12px; }
+    .quote-card { border-radius: 28px; padding: 34px; background: var(--dark); color: #fff; box-shadow: var(--shadow); }
+    .quote-card p { font-size: 24px; line-height: 1.25; letter-spacing: -0.03em; }
+    .quote-card span { display: block; margin-top: 18px; color: rgba(255,255,255,0.62); }
+
+    .cta-section { background: var(--dark); color: #fff; text-align: center; position: relative; overflow: hidden; }
+    .cta-section::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(132,193,188,0.25), transparent 42rem); }
+    .cta-section .container { position: relative; }
+    .cta-section .section-sub { color: rgba(255,255,255,0.72); margin-left: auto; margin-right: auto; }
+    .cta-actions { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
+
+    .contact { background: var(--paper-2); }
+    .contact-card { background: #fff; border: 1px solid var(--border); border-radius: 26px; padding: 28px; box-shadow: var(--shadow-soft); }
+    .contact-card h3 { font-size: 28px; line-height: 1.15; margin-bottom: 12px; }
+    .contact-card p { color: var(--muted); }
+    .contact-options { display: grid; gap: 13px; margin-top: 22px; }
+    .contact-option { display: flex; gap: 14px; align-items: center; padding: 16px; border: 1px solid var(--border); border-radius: 16px; background: #fff; transition: var(--ease); }
+    .contact-option:hover { transform: translateY(-2px); border-color: rgba(123,140,182,0.45); }
+    .contact-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; background: rgba(132,193,188,0.14); color: var(--mint); font-weight: 900; }
+
+    .footer { padding: 54px 0 28px; background: #15182B; color: rgba(255,255,255,0.72); }
+    .footer-top { display: flex; justify-content: space-between; gap: 38px; padding-bottom: 32px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-brand img { width: 128px; margin-bottom: 12px; }
+    .footer-brand p { max-width: 330px; font-size: 13px; color: rgba(255,255,255,0.54); }
+    .footer-links { display: flex; gap: 46px; }
+    .footer-links h5 { color: var(--mint); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 14px; }
+    .footer-links a { display: block; margin-bottom: 8px; font-size: 13px; color: rgba(255,255,255,0.58); }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding-top: 22px; font-size: 12px; color: rgba(255,255,255,0.44); }
+    .footer-legal a { margin-left: 18px; }
+    .back-to-top { position: fixed; right: 24px; bottom: 24px; z-index: 45; width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--lavender); color: #fff; opacity: 0; pointer-events: none; transition: var(--ease); cursor: pointer; }
+    .back-to-top.visible { opacity: 1; pointer-events: all; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 960px) {
+      .hero-grid, .problem-grid, .independence-panel, .about-grid, .contact-grid, .services-grid { grid-template-columns: 1fr; }
+      .timeline, .deliverables-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 720px) {
+      .container { width: min(100% - 32px, 1120px); }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-logo img { width: 132px; }
+      .hero { padding-top: 112px; }
+      .hero-proof, .timeline, .deliverables-grid, .check-grid { grid-template-columns: 1fr; }
+      .hero-actions, .cta-actions { flex-direction: column; }
+      .btn { width: 100%; }
+      .footer-top, .footer-bottom, .footer-links { flex-direction: column; }
+      .footer-legal a { margin-left: 0; margin-right: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="#" class="nav-logo" aria-label="360ai Startseite">
+        <img src="LogoOhneHintergrund.png" alt="360ai Logo" />
+      </a>
+      <nav class="nav-links" aria-label="Hauptnavigation">
+        <a href="#problem">Warum Beratung?</a>
+        <a href="#unabhaengig">Unabhängig</a>
+        <a href="#services">Leistungen</a>
+        <a href="#process">Ablauf</a>
+        <a href="#about">Über mich</a>
+        <a href="#kontakt" class="nav-cta">Erstgespräch</a>
+      </nav>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menü öffnen">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose" aria-label="Menü schließen">×</button>
+    <nav>
+      <a href="#problem">Warum Beratung?</a>
+      <a href="#unabhaengig">Unabhängig</a>
+      <a href="#services">Leistungen</a>
+      <a href="#process">Ablauf</a>
+      <a href="#about">Über mich</a>
+      <a href="#kontakt">Erstgespräch</a>
+    </nav>
+  </div>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-pill"><span></span> KI-Beratung aus Frankenberg (Eder)</div>
+        <h1>
+          KI-Beratung, bevor Sie
+          <span class="hero-word-line" aria-live="polite">
+            <span class="hero-word active">investieren</span>
+            <span class="hero-word">automatisieren</span>
+            <span class="hero-word">Tools kaufen</span>
+            <span class="hero-word">Budgets verbrennen</span>
+            <span class="hero-word">Projekte starten</span>
+          </span>
+        </h1>
+        <p class="hero-sub">
+          Viele Unternehmen wollen jetzt „irgendwas mit KI“ machen. 360ai prüft zuerst, ob KI überhaupt sinnvoll ist: Prozesse, Datenbasis, Engpässe, Verantwortlichkeiten und wirtschaftlicher Nutzen. Damit Sie nicht blind in überteuerte oder unnötige Lösungen laufen.
+        </p>
+        <div class="hero-actions">
+          <a href="#kontakt" class="btn btn-primary">Kostenlosen KI-Erstcheck anfragen →</a>
+          <a href="#services" class="btn btn-ghost">Assessment ansehen</a>
+        </div>
+        <div class="hero-proof">
+          <div class="proof-card"><strong>5</strong><span>Readiness-Dimensionen statt Bauchgefühl</span></div>
+          <div class="proof-card"><strong>ROI</strong><span>Nutzen und Aufwand realistisch einschätzen</span></div>
+          <div class="proof-card"><strong>Nein</strong><span>ist manchmal die beste KI-Empfehlung</span></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-inner">
+        <span>KI-Readiness</span><span>Fehlinvestitionen vermeiden</span><span>Engpass-Analyse</span><span>ROI-Einschätzung</span><span>Onepager Websites bleiben</span><span>Prozessklarheit</span><span>Datenbasis prüfen</span>
+        <span>KI-Readiness</span><span>Fehlinvestitionen vermeiden</span><span>Engpass-Analyse</span><span>ROI-Einschätzung</span><span>Onepager Websites bleiben</span><span>Prozessklarheit</span><span>Datenbasis prüfen</span>
+      </div>
+    </div>
+
+    <section class="problem" id="problem">
+      <div class="container problem-grid">
+        <div class="reveal">
+          <span class="eyebrow">Das eigentliche Problem</span>
+          <h2 class="section-title">Nicht jede KI-Idee ist ein gutes KI-Projekt.</h2>
+          <p class="section-sub">
+            KI scheitert selten nur an der Technik. Häufig fehlen saubere Prozesse, belastbare Daten, interne Rollen, Datenschutzklarheit oder ein echter wirtschaftlicher Hebel.
+          </p>
+        </div>
+        <div class="problem-list">
+          <div class="problem-item reveal"><b>Hype statt Bedarf</b><p>„Wir brauchen KI“ klingt modern, löst aber noch kein konkretes Geschäftsproblem.</p></div>
+          <div class="problem-item reveal"><b>Chaotische Prozesse</b><p>KI automatisiert keinen unklaren Ablauf. Erst muss der Engpass verstanden werden.</p></div>
+          <div class="problem-item reveal"><b>Teure Fehlkäufe</b><p>Tools, Lizenzen und Integrationen werden schnell teuer, wenn vorher kein Nutzen geprüft wurde.</p></div>
+          <div class="problem-item reveal"><b>Unklare Verantwortung</b><p>Ohne Management-Support, Prozessverantwortliche und Fach-Know-how bleiben Projekte stecken.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="independence" id="unabhaengig">
+      <div class="container">
+        <div class="independence-panel reveal">
+          <div class="independence-copy">
+            <span class="eyebrow">Warum unabhängig?</span>
+            <h2 class="section-title">Wer ein Produkt verkauft, bewertet selten völlig neutral.</h2>
+            <p class="section-sub">
+              Viele Anbieter machen eine Analyse kostenlos oder verrechnen sie im Paketpreis. Das kann praktisch sein, wenn die Entscheidung für genau diese Lösung schon gefallen ist. Wenn Sie aber noch nicht wissen, ob KI überhaupt sinnvoll ist, brauchen Sie zuerst eine Meinung, die nicht an Lizenzverkauf, Plattformbindung oder Implementierungsstunden hängt.
+            </p>
+          </div>
+          <div class="independence-list">
+            <div class="independence-item">
+              <span>1</span>
+              <div><b>Andere Anreize</b><p>Ein Softwareanbieter verdient meist an Tool, Lizenz, Plattform oder Umsetzung. Die Empfehlung läuft dadurch schnell in Richtung des eigenen Angebots.</p></div>
+            </div>
+            <div class="independence-item">
+              <span>2</span>
+              <div><b>Bessere Vorentscheidung</b><p>Unabhängige Beratung prüft zuerst Problem, Prozess, Datenbasis, Kosten und Risiken. Erst danach stellt sich die Frage nach einem passenden Anbieter.</p></div>
+            </div>
+            <div class="independence-item">
+              <span>3</span>
+              <div><b>Auch ein klares Nein ist wertvoll</b><p>Manchmal ist die beste Empfehlung: noch kein KI-Projekt, erst Prozesse dokumentieren, Daten ordnen oder Verantwortlichkeiten klären.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services" id="services">
+      <div class="container">
+        <div class="services-header reveal">
+          <span class="eyebrow">Leistungen</span>
+          <h2 class="section-title">Erst prüfen. Dann entscheiden. Erst danach umsetzen.</h2>
+          <p class="section-sub">Der Schwerpunkt liegt auf unabhängiger KI-Beratung für KMU. Moderne Onepager bleiben als klares zweites Angebot bestehen.</p>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card primary reveal">
+            <div class="service-kicker">Hauptangebot</div>
+            <h3>KI-Readiness & Prozess-Assessment</h3>
+            <p>
+              Wir analysieren gemeinsam, ob KI für Ihr Unternehmen gerade sinnvoll ist, welcher Prozess wirklich bremst und welche Grundlagen zuerst geschaffen werden müssen.
+            </p>
+            <div class="check-grid">
+              <div class="check">Erstgespräch mit strukturiertem Fragenkatalog</div>
+              <div class="check">Readiness-Score für Prozesse, Daten, Kultur und Technik</div>
+              <div class="check">Engpass-Analyse nach dem Prinzip: ein Hebel statt zehn Baustellen</div>
+              <div class="check">ROI- und Aufwandseinschätzung statt reiner Tool-Euphorie</div>
+              <div class="check">Promotoren-Check: Budget, Prozessverantwortung, Fachkompetenz</div>
+              <div class="check">Klare Empfehlung: KI, Vorarbeit oder bewusster Verzicht</div>
+            </div>
+          </article>
+
+          <div class="mini-stack">
+            <article class="service-card reveal">
+              <div class="service-kicker">Ergebnis</div>
+              <h3>KI-Roadmap & Lastenheft</h3>
+              <p>Wenn KI sinnvoll ist, entsteht eine klare Entscheidungsgrundlage für Umsetzungspartner, IT-Dienstleister oder spätere interne Projekte.</p>
+            </article>
+            <article class="service-card reveal">
+              <div class="service-kicker">Weiterhin verfügbar</div>
+              <h3>Moderne Onepager Websites</h3>
+              <p>Schnelle, klare und mobiloptimierte Websites für Unternehmen, die online professionell wirken und verständlich verkaufen wollen.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="deliverables">
+      <div class="container">
+        <span class="eyebrow">Was Sie bekommen</span>
+        <h2 class="section-title">Keine Buzzwords. Eine belastbare Empfehlung.</h2>
+        <div class="deliverables-grid">
+          <article class="deliverable reveal"><div class="num">1</div><h3>Readiness-Score</h3><p>Wo steht Ihr Unternehmen in Technologie, Prozessqualität, Datenbasis, Kundennutzen sowie Skills & Kultur?</p></article>
+          <article class="deliverable reveal"><div class="num">2</div><h3>Engpass-Landkarte</h3><p>Welcher Prozess kostet wirklich Zeit, Geld oder Qualität und ist er überhaupt ein KI-Problem?</p></article>
+          <article class="deliverable reveal"><div class="num">3</div><h3>ROI-Einschätzung</h3><p>Konservative Nutzenrechnung: Zeitersparnis, Kosten, Amortisation und Risiken.</p></article>
+          <article class="deliverable reveal"><div class="num">4</div><h3>Risiko-Check</h3><p>DSGVO, Datenqualität, Medienbrüche, fehlende Rollen und interne Umsetzungsfähigkeit.</p></article>
+          <article class="deliverable reveal"><div class="num">5</div><h3>Nächste Schritte</h3><p>Konkrete Handlungsempfehlung: KI starten, Grundlagen schaffen oder Thema bewusst zurückstellen.</p></article>
+          <article class="deliverable reveal"><div class="num">6</div><h3>Entscheidungsbericht</h3><p>Eine verständliche Zusammenfassung für Geschäftsführung, Team oder Umsetzungspartner.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="process" id="process">
+      <div class="container">
+        <span class="eyebrow">Ablauf</span>
+        <h2 class="section-title">So läuft die KI-Beratung ab.</h2>
+        <p class="section-sub">Der Ablauf ist bewusst kompakt: genug Struktur für gute Entscheidungen, ohne aus dem Erstgespräch ein Großprojekt zu machen.</p>
+        <div class="timeline">
+          <article class="step reveal"><b>01</b><h3>Erstgespräch</h3><p>Ausgangslage, Ziele, Erwartungen und aktuelle Pain Points verstehen.</p></article>
+          <article class="step reveal"><b>02</b><h3>Readiness Check</h3><p>Digitalisierung, Datenbasis, Prozesse, Skills und Kultur bewerten.</p></article>
+          <article class="step reveal"><b>03</b><h3>Prozessblick</h3><p>Engpässe, Medienbrüche und manuelle Übergaben sichtbar machen.</p></article>
+          <article class="step reveal"><b>04</b><h3>ROI & Risiken</h3><p>Aufwand, Nutzen, Datenschutz und Umsetzungsfähigkeit realistisch einordnen.</p></article>
+          <article class="step reveal"><b>05</b><h3>Empfehlung</h3><p>Klare Roadmap: KI-Projekt, Vorarbeit oder aktuell kein KI-Einsatz.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="container about-grid">
+        <div class="about-card reveal">
+          <span class="eyebrow">Über mich</span>
+          <h2 class="section-title">Operative Erfahrung statt KI-Theater.</h2>
+          <p class="section-sub">
+            Über 20 Jahre operatives Geschäft, Controlling, Einkauf, Buchhaltung, Gesundheitswesen und Informationssicherheit. Genau dieser Blick hilft, KI nicht als Selbstzweck zu behandeln, sondern als mögliche Antwort auf konkrete Prozess- und Datenprobleme.
+          </p>
+          <div class="badges">
+            <span class="badge">20+ Jahre operatives Geschäft</span>
+            <span class="badge">Controlling & Einkauf</span>
+            <span class="badge">Informationssicherheit</span>
+            <span class="badge">TÜV SÜD AI Automation Manager</span>
+            <span class="badge">KMU-Fokus</span>
+          </div>
+        </div>
+        <div class="quote-card reveal">
+          <p>„Eine ehrliche Empfehlung ist wertvoller als eine schnelle Implementierung.“</p>
+          <span>360ai prüft, ob KI wirklich hilft oder ob erst Prozesse, Daten und Verantwortlichkeiten geklärt werden müssen.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container reveal">
+        <span class="eyebrow">Bereit?</span>
+        <h2 class="section-title">Bevor Sie in KI investieren: Lassen Sie uns prüfen, ob es sich lohnt.</h2>
+        <p class="section-sub">Das erste Gespräch dient der Orientierung. Ziel ist nicht, Ihnen sofort ein Tool zu verkaufen, sondern die richtige Entscheidung vorzubereiten.</p>
+        <div class="cta-actions">
+          <a href="mailto:info@360-ai.org?subject=KI-Erstcheck%20anfragen" class="btn btn-primary">KI-Erstcheck anfragen →</a>
+          <a href="#services" class="btn btn-ghost">Leistungen ansehen</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="kontakt">
+      <div class="container contact-grid">
+        <div class="reveal">
+          <span class="eyebrow">Kontakt</span>
+          <h2 class="section-title">Lassen Sie uns über Ihre Ausgangslage sprechen.</h2>
+          <p class="section-sub">Schreiben Sie kurz, worum es geht: KI-Idee, Prozessproblem, Tool-Frage oder Onepager-Projekt. Ich melde mich in der Regel innerhalb von 24 Stunden.</p>
+        </div>
+        <div class="contact-card reveal">
+          <h3>Kontakt aufnehmen</h3>
+          <p>Ein Klick öffnet Ihr E-Mail-Programm. So bleiben Ihre Daten zunächst bei Ihnen.</p>
+          <div class="contact-options">
+            <a href="mailto:info@360-ai.org?subject=KI-Erstcheck%20anfragen" class="contact-option"><span class="contact-icon">@</span><span><b>E-Mail</b><br>info@360-ai.org</span></a>
+            <a href="https://360-ai.org" class="contact-option" target="_blank" rel="noopener"><span class="contact-icon">↗</span><span><b>Website</b><br>360-ai.org</span></a>
+          </div>
+          <p style="font-size:12px;margin-top:16px"><a href="datenschutz.html" style="text-decoration:underline">Datenschutzerklärung</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="LogoOhneHintergrund.png" alt="360ai" />
+          <p>KI-Beratung, Readiness Checks und moderne Onepager Websites für KMU. Aus Frankenberg (Eder), für Waldeck-Frankenberg und darüber hinaus.</p>
+        </div>
+        <div class="footer-links">
+          <div><h5>Navigation</h5><a href="#problem">Warum Beratung?</a><a href="#unabhaengig">Unabhängig</a><a href="#services">Leistungen</a><a href="#process">Ablauf</a><a href="#kontakt">Kontakt</a></div>
+          <div><h5>Kontakt</h5><a href="mailto:info@360-ai.org">info@360-ai.org</a><a href="https://360-ai.org" target="_blank" rel="noopener">360-ai.org</a></div>
+          <div><h5>Rechtliches</h5><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="agb.html">AGB</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 360ai. Alle Rechte vorbehalten.</span>
+        <div class="footer-legal"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Nach oben scrollen">↑</button>
+
+  <script>
+    const words = Array.from(document.querySelectorAll(".hero-word"));
+    let wordIndex = 0;
+    setInterval(() => {
+      words[wordIndex].classList.remove("active");
+      wordIndex = (wordIndex + 1) % words.length;
+      words[wordIndex].classList.add("active");
+    }, 2100);
+
+    const navbar = document.getElementById("navbar");
+    window.addEventListener("scroll", () => {
+      navbar.classList.toggle("scrolled", window.scrollY > 50);
+    });
+
+    const btt = document.getElementById("backToTop");
+    window.addEventListener("scroll", () => {
+      btt.classList.toggle("visible", window.scrollY > 520);
+    });
+    btt.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+    const hamburger = document.getElementById("hamburgerBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const mobileClose = document.getElementById("mobileClose");
+    hamburger.addEventListener("click", () => mobileMenu.classList.add("active"));
+    mobileClose.addEventListener("click", () => mobileMenu.classList.remove("active"));
+    mobileMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => mobileMenu.classList.remove("active"));
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener("click", (event) => {
+        const target = document.querySelector(link.getAttribute("href"));
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: "0px 0px -20px 0px" });
+    document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
+  </script>
+</body>
+</html>
