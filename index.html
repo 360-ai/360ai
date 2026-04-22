@@ -3,1094 +3,621 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>360ai – KI-Automatisierung & Onepager Websites in Frankenberg (Eder)</title>
-  <meta name="description" content="360ai unterstützt Unternehmen in Frankenberg (Eder) und im Landkreis Waldeck-Frankenberg mit KI-Automatisierung und modernen Onepager Websites – effizient, DSGVO-konform und praxisnah." />
+  <title>360ai - KI-Beratung & Readiness Check in Frankenberg (Eder)</title>
+  <meta name="description" content="360ai berät KMU vor teuren KI-Fehlinvestitionen: KI-Readiness, Prozessanalyse, Engpass-Analyse, ROI-Einschätzung und moderne Onepager Websites." />
   <link rel="canonical" href="https://360-ai.org/" />
   <meta name="robots" content="index,follow" />
 
-  <!-- Open Graph / Social -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://360-ai.org/" />
-  <meta property="og:title" content="360ai – KI-Automatisierung & Onepager Websites in Frankenberg (Eder)" />
-  <meta property="og:description" content="KI-Automatisierung und Onepager Websites für Unternehmen in Frankenberg (Eder), Waldeck-Frankenberg und ganz Deutschland." />
+  <meta property="og:title" content="360ai - KI-Beratung, bevor Sie investieren" />
+  <meta property="og:description" content="KI-Readiness und Prozess-Assessment für KMU: erst prüfen, dann entscheiden. Plus moderne Onepager Websites." />
+  <meta property="og:image" content="https://360-ai.org/LogoOhneHintergrund.png" />
+  <meta property="og:image:alt" content="360ai Logo" />
   <meta property="og:site_name" content="360ai" />
-
-  <!-- Optional: Twitter cards (nutzt Open-Graph-Tags) -->
   <meta name="twitter:card" content="summary_large_image" />
-  <!--
-    ⚠️ DEPLOYMENT: Google Fonts durch lokale @font-face ersetzen!
-    Download: https://gwfh.mranftl.com/fonts/outfit + playfair-display
-    Dann: /fonts/outfit-400.woff2 etc.
-  -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <meta name="twitter:image" content="https://360-ai.org/LogoOhneHintergrund.png" />
+  <link rel="icon" href="/LogoOhneHintergrund.png" type="image/png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": "https://360-ai.org/#business",
+    "name": "360ai",
+    "url": "https://360-ai.org/",
+    "logo": "https://360-ai.org/LogoOhneHintergrund.png",
+    "image": "https://360-ai.org/LogoOhneHintergrund.png",
+    "description": "360ai berät kleine und mittlere Unternehmen vor KI-Investitionen mit KI-Readiness Check, Prozessanalyse, Engpass-Analyse und ROI-Einschätzung.",
+    "email": "info@360-ai.org",
+    "areaServed": ["Frankenberg (Eder)", "Waldeck-Frankenberg", "Nordhessen", "Deutschland"],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Frankenberg (Eder)",
+      "addressRegion": "Hessen",
+      "addressCountry": "DE"
+    },
+    "knowsAbout": [
+      "KI-Beratung",
+      "unabhängige KI-Beratung",
+      "Vendor-neutrale Technologieberatung",
+      "KI-Readiness",
+      "Prozessanalyse",
+      "Engpass-Analyse",
+      "ROI-Einschätzung",
+      "Digitale Reifegradanalyse",
+      "Onepager Websites"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "360ai Leistungen",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "KI-Readiness & Prozess-Assessment",
+            "description": "Strukturierte Analyse von Prozessen, Datenbasis, Reifegrad, Engpässen und wirtschaftlichem KI-Potenzial."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "KI-Roadmap & Lastenheft",
+            "description": "Klare Entscheidungsgrundlage für sinnvolle KI-Projekte, Vorarbeiten oder bewussten Verzicht."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Onepager Websites",
+            "description": "Moderne, schnelle und klare Onepager-Websites für Unternehmen."
+          }
+        }
+      ]
+    }
+  }
+  </script>
+
   <style>
-    /* ==================== 1. CSS CUSTOM PROPERTIES ==================== */
     :root {
-      --primary:       #1a1a1a;
-      --primary-2:     #2a2a2a;
-      --primary-dark:  #0d1212;
-      --accent:        #00BFA6;
-      --accent-2:      #33D9C7;
-      --accent-dim:    rgba(0,191,166,0.12);
-      --accent-glow:   rgba(0,191,166,0.25);
-      --accent-border: rgba(0,191,166,0.22);
-      --bg:            #ffffff;
-      --bg-soft:       #F0F6F5;
-      --bg-muted:      #D0EFEC;
-      --text:          #1a1a2e;
-      --text-muted:    #6b7080;
-      --text-light:    rgba(255,255,255,0.85);
-      --text-faint:    rgba(255,255,255,0.45);
-      --font-display:  'Playfair Display', Georgia, serif;
-      --font-body:     'Outfit', -apple-system, sans-serif;
-      --radius:        8px;
-      --radius-lg:     12px;
-      --radius-xl:     16px;
-      --radius-pill:   50px;
-      --shadow:        0 8px 40px rgba(0,0,0,0.10);
-      --shadow-lg:     0 20px 80px rgba(0,0,0,0.18);
-      --shadow-t:      0 4px 24px rgba(0,191,166,0.30);
-      --ease:          0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      --lavender: #7B8CB6;
+      --steel: #97B9C1;
+      --mint: #84C1BC;
+      --dark: #171A30;
+      --dark-2: #232842;
+      --ink: #171827;
+      --muted: #626978;
+      --paper: #F9F9F9;
+      --paper-2: #F0F3FA;
+      --card: #FFFFFF;
+      --border: #E1E6EF;
+      --gradient: linear-gradient(90deg, #7B8CB6, #84C1BC);
+      --gradient-soft: linear-gradient(135deg, rgba(123,140,182,0.16), rgba(132,193,188,0.12));
+      --shadow: 0 18px 70px rgba(23, 26, 48, 0.12);
+      --shadow-soft: 0 10px 36px rgba(23, 26, 48, 0.08);
+      --font: "Outfit", "Montserrat", "Trebuchet MS", sans-serif;
+      --ease: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    /* ==================== 2. RESET + BASE ==================== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: var(--font-body);
-      color: var(--text);
-      background: var(--bg);
-      line-height: 1.7;
+      font-family: var(--font);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(123,140,182,0.18), transparent 32rem),
+        radial-gradient(circle at 88% 2%, rgba(132,193,188,0.20), transparent 30rem),
+        var(--paper);
+      line-height: 1.65;
       overflow-x: hidden;
     }
-    img { max-width: 100%; display: block; }
-    a { text-decoration: none; color: inherit; }
-
-    /* ==================== 3. UTILITIES ==================== */
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .container { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
     .eyebrow {
-      font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
-      color: var(--accent); display: inline-flex; align-items: center; gap: 12px;
-    }
-    .eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--accent); }
-    .sec-title {
-      font-family: var(--font-display); font-size: 38px; font-weight: 700; line-height: 1.2;
-      margin-top: 14px;
-    }
-    .sec-sub { color: var(--text-muted); font-size: 15px; max-width: 560px; margin-top: 14px; line-height: 1.8; }
-    .btn {
       display: inline-flex; align-items: center; gap: 10px;
-      padding: 14px 32px; border-radius: var(--radius); font-weight: 700;
-      font-size: 0.85rem; letter-spacing: 0.04em; cursor: pointer;
-      transition: var(--ease); border: none; font-family: var(--font-body);
-      text-decoration: none;
+      color: var(--lavender); font-size: 11px; font-weight: 800;
+      letter-spacing: 0.22em; text-transform: uppercase;
     }
-    .btn-primary { background: var(--accent); color: #fff; box-shadow: var(--shadow-t); }
-    .btn-primary:hover { background: var(--accent-2); transform: translateY(-2px); }
-    .btn-ghost {
-      border: 1.5px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.75);
-      background: transparent;
+    .eyebrow::before { content: ""; width: 34px; height: 1px; background: currentColor; opacity: 0.75; }
+    .section-title { font-size: clamp(30px, 4vw, 48px); line-height: 1.08; letter-spacing: -0.04em; margin-top: 12px; }
+    .section-sub { color: var(--muted); max-width: 680px; margin-top: 16px; font-size: 16px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      min-height: 48px; padding: 13px 24px; border-radius: 14px;
+      font-size: 14px; font-weight: 800; letter-spacing: 0.02em;
+      border: 1px solid transparent; transition: var(--ease);
     }
-    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-    .btn-outline { border: 1.5px solid var(--accent-border); color: var(--accent); background: transparent; }
-    .btn-outline:hover { background: var(--accent-dim); transform: translateY(-2px); }
+    .btn-primary { background: var(--gradient); color: #fff; box-shadow: 0 12px 34px rgba(123,140,182,0.28); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 42px rgba(123,140,182,0.34); }
+    .btn-ghost { border-color: rgba(255,255,255,0.22); color: rgba(255,255,255,0.86); background: rgba(255,255,255,0.04); }
+    .btn-ghost:hover { color: #fff; border-color: rgba(132,193,188,0.8); background: rgba(132,193,188,0.10); }
+    .btn-outline { border-color: var(--border); color: var(--ink); background: #fff; }
+    .btn-outline:hover { transform: translateY(-2px); border-color: rgba(123,140,182,0.45); box-shadow: var(--shadow-soft); }
 
-    /* ==================== 4. NAVBAR ==================== */
     .navbar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      padding: 20px 0; transition: var(--ease);
+      position: fixed; z-index: 50; top: 0; left: 0; right: 0;
+      padding: 18px 0; transition: var(--ease);
     }
-    .navbar.scrolled {
-      background: rgba(13,18,18,0.95); backdrop-filter: blur(20px);
-      padding: 12px 0; box-shadow: 0 4px 30px rgba(0,0,0,0.3);
-    }
-    .navbar .container { display: flex; align-items: center; justify-content: space-between; }
-    .nav-logo {
-      display: flex; align-items: center; gap: 10px;
-      font-family: var(--font-display); font-size: 24px; font-weight: 700; color: #fff;
-    }
-    .nav-links { display: flex; align-items: center; gap: 32px; }
-    .nav-links a {
-      color: rgba(255,255,255,0.65); font-size: 0.85rem; font-weight: 500;
-      letter-spacing: 0.02em; transition: var(--ease); position: relative;
-    }
+    .navbar.scrolled { background: rgba(23,26,48,0.92); backdrop-filter: blur(18px); padding: 10px 0; box-shadow: 0 10px 34px rgba(0,0,0,0.22); }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo img { width: 154px; height: auto; filter: drop-shadow(0 8px 22px rgba(0,0,0,0.22)); }
+    .nav-links { display: flex; align-items: center; gap: 28px; color: rgba(255,255,255,0.72); font-size: 14px; font-weight: 700; }
     .nav-links a:hover { color: #fff; }
-    .nav-links a::after {
-      content: ''; position: absolute; bottom: -4px; left: 0; width: 0;
-      height: 2px; background: var(--accent); transition: var(--ease);
-    }
-    .nav-links a:hover::after { width: 100%; }
-    .nav-cta {
-      background: var(--accent); color: #fff !important; padding: 10px 24px;
-      border-radius: var(--radius); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.03em;
-    }
-    .nav-cta::after { display: none !important; }
-    .nav-cta:hover { background: var(--accent-2); transform: translateY(-1px); }
-    .hamburger {
-      display: none; flex-direction: column; gap: 5px; cursor: pointer;
-      background: none; border: none; padding: 8px;
-    }
-    .hamburger span { width: 24px; height: 2px; background: #fff; transition: var(--ease); display: block; }
-
-    /* ==================== 5. HERO ==================== */
-    .hero {
-      background: var(--primary-dark); color: #fff; min-height: 100vh;
-      display: flex; align-items: center; position: relative; overflow: hidden;
-      padding: 120px 0 100px;
-    }
-    /* WebGL ShaderBackground canvas */
-    #shader-canvas {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      pointer-events: none; z-index: 0;
-    }
-    /* subtle teal tint overlay so shader blends with brand color */
-    .hero-shader-overlay {
-      position: absolute; inset: 0; z-index: 1;
-      background: linear-gradient(
-        135deg,
-        rgba(13,18,18,0.55) 0%,
-        rgba(0,191,166,0.08) 50%,
-        rgba(13,18,18,0.55) 100%
-      );
-      pointer-events: none;
-    }
-    .hero .container { position: relative; z-index: 2; text-align: center; }
-    /* Hero logo removed (we only show navbar logo) */
-    .hero h1 {
-      font-family: var(--font-display); font-size: clamp(36px, 5vw, 62px);
-      font-weight: 700; line-height: 1.15; margin-bottom: 16px;
-      animation: fadeInUp 1s ease 0.2s both;
-    }
-    .hero h1 .teal { color: var(--accent); }
-
-    /* ── Gradient separator (ShaderBackground demo style) ── */
-    .hero-grad-sep {
-      width: min(40rem, 90vw); height: 40px; margin: 0 auto 8px; position: relative;
-      animation: fadeInUp 1s ease 0.32s both; overflow: hidden;
-    }
-    .hero-grad-sep .gl1 {
-      position: absolute; left: 25%; width: 50%; top: 0; height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(0,191,166,0.9), transparent);
-      filter: blur(2px);
-    }
-    .hero-grad-sep .gl2 {
-      position: absolute; left: 25%; width: 50%; top: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(0,191,166,0.75), transparent);
-    }
-    .hero-grad-sep .gl3 {
-      position: absolute; left: 37%; width: 26%; top: 0; height: 5px;
-      background: linear-gradient(90deg, transparent, var(--accent-2), transparent);
-      filter: blur(3px);
-    }
-    .hero-grad-sep .gl4 {
-      position: absolute; left: 37%; width: 26%; top: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent-2), transparent);
-    }
-    /* Mask removed: it created a dark bar on some screens */
-
-    .hero-sub {
-      font-size: 17px; color: var(--text-light); max-width: 600px;
-      margin: 0 auto 40px; line-height: 1.8;
-      animation: fadeInUp 1s ease 0.4s both;
-    }
-    .hero-btns {
-      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
-      animation: fadeInUp 1s ease 0.6s both;
-    }
-    .hero-stats {
-      display: flex; justify-content: center; align-items: flex-start;
-      gap: 60px; margin-top: 60px;
-      animation: fadeInUp 1s ease 0.8s both;
-    }
-    .hero-stat {
-      text-align: center; display: flex; flex-direction: column;
-      align-items: center; min-width: 140px;
-    }
-    .hero-stat-num {
-      font-family: var(--font-display); font-size: 36px; font-weight: 700;
-      color: var(--accent); min-height: 1.2em; display: flex; align-items: center; justify-content: center;
-    }
-    .hero-stat-label { font-size: 12px; color: var(--text-faint); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ==================== TICKER ==================== */
-    .ticker-strip {
-      background: var(--accent); color: #fff; padding: 14px 0;
-      overflow: hidden; white-space: nowrap; font-weight: 700;
-      font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
-    }
-    .ticker-inner { display: inline-block; animation: ticker 35s linear infinite; }
-    .ticker-inner span { margin: 0 40px; }
-    .ticker-inner span::before { content: '◆'; margin-right: 40px; opacity: 0.5; }
-    @keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-
-    /* ==================== SERVICES ==================== */
-    .services { padding: 110px 0; background: var(--bg); }
-    .services-header { text-align: center; margin-bottom: 60px; }
-    .services-header .sec-sub { margin-left: auto; margin-right: auto; }
-    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .service-card {
-      background: #fff; border: 1.5px solid #E0EDEB; border-radius: var(--radius-xl);
-      padding: 36px 28px; transition: var(--ease); position: relative; overflow: hidden;
-    }
-    .service-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, transparent, var(--accent), var(--accent-2), transparent);
-      opacity: 0; transition: var(--ease);
-    }
-    .service-card:hover { border-color: var(--accent-border); transform: translateY(-6px); box-shadow: var(--shadow); }
-    .service-card:hover::before { opacity: 1; }
-    .service-icon {
-      width: 56px; height: 56px; border-radius: var(--radius-lg);
-      background: var(--accent-dim); display: flex; align-items: center;
-      justify-content: center; margin-bottom: 20px; font-size: 24px; color: var(--accent);
-    }
-    .service-card h3 { font-family: var(--font-display); font-size: 20px; margin-bottom: 10px; }
-    .service-card p { color: var(--text-muted); font-size: 14px; line-height: 1.7; }
-
-    /* ==================== ABOUT / FOUNDER ==================== */
-    .about {
-      padding: 110px 0; background: var(--primary-dark); color: #fff;
-      position: relative; overflow: hidden;
-    }
-    .about::before {
-      content: ''; position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(0,191,166,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,191,166,0.03) 1px, transparent 1px);
-      background-size: 64px 64px;
-    }
-    .about .container { position: relative; z-index: 2; }
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-    .about-content .eyebrow { color: var(--accent); }
-    .about-content .eyebrow::before { background: var(--accent); }
-    .about-content .sec-title { color: #fff; }
-    .about-text { color: var(--text-light); font-size: 15px; line-height: 1.9; margin-top: 20px; }
-    .about-highlights { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-    .about-badge {
-      background: rgba(0,191,166,0.12); border: 1px solid rgba(0,191,166,0.25);
-      color: var(--accent); font-size: 11px; font-weight: 700;
-      padding: 6px 14px; border-radius: 20px; letter-spacing: 0.5px;
-    }
-    .about-visual { display: flex; flex-direction: column; align-items: center; gap: 24px; }
-    .founder-avatar {
-      width: 200px; height: 200px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary-2), var(--accent-dim));
-      border: 3px solid var(--accent-border);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 64px; color: var(--accent); position: relative;
-    }
-    .founder-avatar::after {
-      content: ''; position: absolute; inset: -8px; border-radius: 50%;
-      border: 1px solid rgba(0,191,166,0.15);
-      animation: rotateSlow 20s linear infinite;
-    }
-    @keyframes rotateSlow { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
-    .cert-badge {
-      background: rgba(255,255,255,0.05); border: 1px solid rgba(0,191,166,0.2);
-      border-radius: var(--radius-lg); padding: 16px 24px;
-      cursor: pointer; transition: var(--ease); text-align: center; position: relative;
-    }
-    .cert-badge:hover { background: rgba(0,191,166,0.08); border-color: var(--accent); transform: scale(1.03); }
-    .cert-badge-icon { font-size: 28px; margin-bottom: 8px; }
-    .cert-badge-title { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; }
-    .cert-badge-sub   { font-size: 10px; color: var(--text-faint); margin-top: 4px; }
-    .cert-badge-hint  { font-size: 9px; color: var(--text-faint); margin-top: 8px; opacity: 0.6; }
-
-    /* Certificate Modal */
-    .cert-modal {
-      position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center;
-      opacity: 0; transition: opacity 0.3s ease;
-    }
-    .cert-modal.active { display: flex; opacity: 1; }
-    .cert-modal-content {
-      background: var(--primary-2); border: 1px solid var(--accent-border);
-      border-radius: var(--radius-xl); padding: 48px; max-width: 480px; width: 90%;
-      text-align: center; position: relative; color: #fff;
-      animation: modalIn 0.4s ease;
-    }
-    @keyframes modalIn { from { transform: scale(0.9) translateY(20px); opacity:0; } to { transform: none; opacity:1; } }
-    .cert-modal-close {
-      position: absolute; top: 16px; right: 16px; width: 32px; height: 32px;
-      border-radius: 50%; border: 1px solid rgba(255,255,255,0.1);
-      background: transparent; color: #fff; font-size: 16px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; transition: var(--ease);
-    }
-    .cert-modal-close:hover { border-color: var(--accent); color: var(--accent); }
-    .cert-modal-icon { font-size: 64px; margin-bottom: 20px; }
-    .cert-modal h3 { font-family: var(--font-display); font-size: 24px; margin-bottom: 12px; }
-    .cert-modal p { color: var(--text-light); font-size: 14px; line-height: 1.7; }
-    .cert-details {
-      margin-top: 24px; padding: 20px; background: rgba(0,191,166,0.08);
-      border-radius: var(--radius); border: 1px solid rgba(0,191,166,0.15); text-align: left;
-    }
-    .cert-detail-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-    .cert-detail-row:last-child { border-bottom: none; }
-    .cert-detail-label { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 1px; }
-    .cert-detail-value { font-size: 13px; color: var(--accent); font-weight: 600; }
-
-    /* ==================== PROCESS ==================== */
-    .process { padding: 110px 0; background: var(--bg-soft); }
-    .process-header { text-align: center; margin-bottom: 60px; }
-    .process-header .sec-sub { margin-left: auto; margin-right: auto; }
-    .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; position: relative; }
-    .process-steps::before {
-      content: ''; position: absolute; top: 40px; left: 12.5%; right: 12.5%;
-      height: 2px; background: linear-gradient(90deg, var(--accent-dim), var(--accent), var(--accent-dim));
-    }
-    .process-step { text-align: center; position: relative; }
-    .process-num {
-      width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 20px;
-      background: var(--accent); color: #fff; font-family: var(--font-display);
-      font-size: 22px; font-weight: 700; display: flex; align-items: center;
-      justify-content: center; position: relative; z-index: 2; box-shadow: var(--shadow-t);
-    }
-    .process-step h4 { font-family: var(--font-display); font-size: 17px; margin-bottom: 8px; }
-    .process-step p { color: var(--text-muted); font-size: 13px; line-height: 1.6; padding: 0 8px; }
-
-    /* ==================== CTA SECTION ==================== */
-    .cta-section {
-      padding: 110px 0; background: var(--primary-dark); color: #fff;
-      text-align: center; position: relative; overflow: hidden;
-    }
-    .cta-section::before {
-      content: ''; position: absolute; width: 500px; height: 500px;
-      top: 50%; left: 50%; transform: translate(-50%, -50%);
-      background: radial-gradient(circle, rgba(0,191,166,0.18) 0%, transparent 60%);
-      filter: blur(80px); border-radius: 50%;
-    }
-    .cta-section .container { position: relative; z-index: 2; }
-    .cta-section .sec-title { color: #fff; font-size: clamp(30px, 4vw, 48px); }
-    .cta-section .sec-sub { color: var(--text-light); margin: 0 auto; }
-    .cta-btns { display: flex; gap: 16px; justify-content: center; margin-top: 40px; flex-wrap: wrap; }
-
-    /* ==================== CONTACT ==================== */
-    .contact { padding: 110px 0; background: var(--bg-soft); }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
-    .contact-info h3 { font-family: var(--font-display); font-size: 28px; margin-bottom: 16px; }
-    .contact-info p { color: var(--text-muted); font-size: 14px; line-height: 1.8; margin-bottom: 30px; }
-    .contact-channels { display: flex; flex-direction: column; gap: 16px; }
-    .contact-ch {
-      display: flex; align-items: center; gap: 16px; padding: 18px 24px;
-      background: #fff; border: 1.5px solid #E0EDEB; border-radius: var(--radius-lg);
-      transition: var(--ease); cursor: pointer; text-decoration: none;
-    }
-    .contact-ch:hover { border-color: var(--accent-border); transform: translateY(-3px); box-shadow: var(--shadow); }
-    .contact-ch-icon {
-      width: 44px; height: 44px; border-radius: 50%; background: var(--accent-dim);
-      display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
-    }
-    .contact-ch-text strong { display: block; font-size: 14px; }
-    .contact-ch-text span   { font-size: 12px; color: var(--text-muted); }
-    .contact-form {
-      background: #fff; border: 1.5px solid #E0EDEB; border-radius: var(--radius-xl);
-      padding: 36px; box-shadow: var(--shadow);
-    }
-    .contact-form h4 { font-family: var(--font-display); font-size: 20px; margin-bottom: 24px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-    .form-group { margin-bottom: 16px; }
-    .form-group label {
-      display: block; font-size: 11px; font-weight: 700; letter-spacing: 1px;
-      text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;
-    }
-    .form-group input, .form-group textarea {
-      width: 100%; padding: 12px 16px; border: 1.5px solid #E0EDEB;
-      border-radius: var(--radius); font-family: var(--font-body); font-size: 14px;
-      transition: var(--ease); outline: none; background: var(--bg-soft);
-    }
-    .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); background: #fff; }
-    .form-group textarea { min-height: 100px; resize: vertical; }
-    .form-submit { width: 100%; justify-content: center; margin-top: 8px; }
-    .form-hint { font-size: 11px; color: var(--text-muted); margin-top: 12px; }
-    .form-hint a { text-decoration: underline; }
-
-    /* ==================== FOOTER ==================== */
-    .footer { background: var(--primary-dark); color: var(--text-light); padding: 60px 0 30px; }
-    .footer-top {
-      display: flex; justify-content: space-between; align-items: flex-start;
-      padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .footer-brand .nav-logo { margin-bottom: 12px; }
-    .footer-brand p { color: var(--text-faint); font-size: 13px; max-width: 280px; }
-    .footer-links { display: flex; gap: 48px; }
-    .footer-links-col h5 {
-      font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 16px;
-    }
-    .footer-links-col a {
-      display: block; font-size: 13px; color: var(--text-faint);
-      margin-bottom: 10px; transition: var(--ease);
-    }
-    .footer-links-col a:hover { color: var(--accent); }
-    .footer-bottom {
-      display: flex; justify-content: space-between; align-items: center;
-      padding-top: 24px; font-size: 12px; color: var(--text-faint);
-    }
-    .footer-legal a { margin-left: 20px; transition: var(--ease); }
-    .footer-legal a:hover { color: var(--accent); }
-
-    /* ==================== BACK TO TOP ==================== */
-    .back-to-top {
-      position: fixed; bottom: 30px; right: 30px; width: 44px; height: 44px;
-      border-radius: 50%; background: var(--accent); color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; opacity: 0; transform: translateY(20px);
-      transition: var(--ease); z-index: 900; border: none;
-      box-shadow: var(--shadow-t); font-size: 18px;
-    }
-    .back-to-top.visible { opacity: 1; transform: translateY(0); }
-    .back-to-top:hover { background: var(--accent-2); transform: translateY(-3px); }
-
-    /* ==================== MOBILE MENU ==================== */
+    .nav-cta { padding: 10px 18px; border-radius: 999px; color: #fff !important; background: rgba(132,193,188,0.18); border: 1px solid rgba(132,193,188,0.35); }
+    .hamburger { display: none; background: none; border: 0; flex-direction: column; gap: 5px; padding: 8px; }
+    .hamburger span { width: 24px; height: 2px; background: #fff; }
     .mobile-menu {
-      position: fixed; inset: 0; z-index: 999; background: rgba(13,18,18,0.98);
-      backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: center;
-      opacity: 0; pointer-events: none; transition: var(--ease);
+      position: fixed; inset: 0; z-index: 60; display: grid; place-items: center;
+      background: rgba(23,26,48,0.98); opacity: 0; pointer-events: none; transition: var(--ease);
     }
     .mobile-menu.active { opacity: 1; pointer-events: all; }
-    .mobile-menu nav { text-align: center; }
-    .mobile-menu a {
-      display: block; font-size: 24px; font-family: var(--font-display);
-      color: #fff; padding: 16px; transition: var(--ease);
+    .mobile-menu a { display: block; color: #fff; font-size: 26px; font-weight: 800; padding: 13px; text-align: center; }
+    .mobile-close { position: absolute; top: 26px; right: 26px; background: none; border: 0; color: #fff; font-size: 30px; cursor: pointer; }
+
+    .hero {
+      min-height: 100vh; position: relative; display: flex; align-items: center;
+      color: #fff; overflow: hidden; padding: 126px 0 84px;
+      background: linear-gradient(135deg, #171A30 0%, #232842 58%, #1B3B42 100%);
     }
-    .mobile-menu a:hover { color: var(--accent); }
-    .mobile-close { position: absolute; top: 24px; right: 24px; background: none; border: none; color: #fff; font-size: 28px; cursor: pointer; }
+    .hero::before {
+      content: ""; position: absolute; inset: -20%;
+      background:
+        radial-gradient(circle at 22% 24%, rgba(123,140,182,0.42), transparent 28rem),
+        radial-gradient(circle at 78% 18%, rgba(132,193,188,0.36), transparent 30rem),
+        linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.06) 46%, transparent 62%);
+      animation: heroDrift 14s ease-in-out infinite alternate;
+    }
+    .hero::after {
+      content: ""; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent 88%);
+    }
+    @keyframes heroDrift { from { transform: translate3d(-2%, -1%, 0) scale(1); } to { transform: translate3d(2%, 1%, 0) scale(1.04); } }
+    .hero-grid { position: relative; z-index: 2; max-width: 920px; }
+    .hero-pill {
+      display: inline-flex; gap: 10px; align-items: center; padding: 8px 13px; border-radius: 999px;
+      color: rgba(255,255,255,0.86); background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.13);
+      font-size: 13px; font-weight: 800; margin-bottom: 24px;
+    }
+    .hero-pill span { width: 8px; height: 8px; border-radius: 999px; background: var(--mint); box-shadow: 0 0 18px var(--mint); }
+    .hero h1 { font-size: clamp(42px, 7vw, 82px); line-height: 0.98; letter-spacing: -0.065em; max-width: 860px; }
+    .hero-word-line { display: block; min-height: 1.08em; position: relative; color: var(--mint); overflow: hidden; }
+    .hero-word { display: none; background: linear-gradient(90deg, #C9D2EB, #84C1BC); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero-word.active { display: inline-block; animation: wordRise 0.55s cubic-bezier(0.22,1,0.36,1); }
+    @keyframes wordRise { from { opacity: 0; transform: translateY(42px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-sub { max-width: 760px; margin: 24px 0 0; color: rgba(255,255,255,0.78); font-size: clamp(17px, 2vw, 20px); }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
+    .hero-proof { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 42px; max-width: 760px; }
+    .proof-card { border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); border-radius: 18px; padding: 18px; backdrop-filter: blur(12px); }
+    .proof-card strong { display: block; color: #fff; font-size: 24px; line-height: 1; }
+    .proof-card span { display: block; color: rgba(255,255,255,0.66); font-size: 12px; margin-top: 9px; line-height: 1.4; }
+    .ticker { overflow: hidden; background: #fff; border-bottom: 1px solid var(--border); }
+    .ticker-inner { display: inline-flex; gap: 38px; padding: 16px 0; min-width: max-content; animation: ticker 28s linear infinite; color: var(--muted); font-weight: 800; font-size: 13px; }
+    .ticker-inner span::before { content: "◆"; color: var(--mint); margin-right: 38px; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-    /* ==================== REVEAL ANIMATIONS ==================== */
-    .reveal       { opacity: 1; transform: none; transition: opacity 0.65s ease, transform 0.65s ease; }
-    .reveal-left  { opacity: 1; transform: none; transition: opacity 0.65s ease, transform 0.65s ease; }
-    .reveal-right { opacity: 1; transform: none; transition: opacity 0.65s ease, transform 0.65s ease; }
+    section { padding: 108px 0; }
+    .problem-grid, .about-grid, .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+    .problem-list { display: grid; gap: 14px; }
+    .problem-item { padding: 20px; border-radius: 20px; background: #fff; border: 1px solid var(--border); box-shadow: var(--shadow-soft); }
+    .problem-item b { display: block; font-size: 17px; margin-bottom: 5px; }
+    .problem-item p { color: var(--muted); font-size: 14px; }
 
-    /* ==================== RESPONSIVE ==================== */
+    .independence { background: #fff; padding-top: 0; }
+    .independence-panel {
+      display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 32px; align-items: stretch;
+      padding: 34px; border-radius: 30px; background: linear-gradient(135deg, #F8FAFF, #F1F8F7);
+      border: 1px solid var(--border); box-shadow: var(--shadow-soft);
+    }
+    .independence-copy { padding: 8px 0; }
+    .independence-list { display: grid; gap: 14px; }
+    .independence-item { display: grid; grid-template-columns: 34px 1fr; gap: 14px; padding: 18px; border-radius: 18px; background: rgba(255,255,255,0.78); border: 1px solid rgba(123,140,182,0.16); }
+    .independence-item span { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--gradient); color: #fff; font-weight: 900; }
+    .independence-item b { display: block; margin-bottom: 4px; }
+    .independence-item p { color: var(--muted); font-size: 14px; }
+
+    .services { background: var(--paper-2); }
+    .services-header { text-align: center; max-width: 790px; margin: 0 auto 54px; }
+    .services-header .eyebrow { justify-content: center; }
+    .services-header .eyebrow::before { display: none; }
+    .services-header .section-sub { margin-left: auto; margin-right: auto; }
+    .services-grid { display: grid; grid-template-columns: 1.18fr 0.82fr; gap: 24px; align-items: stretch; }
+    .service-card { position: relative; overflow: hidden; border: 1px solid var(--border); background: #fff; border-radius: 26px; padding: 30px; box-shadow: var(--shadow-soft); }
+    .service-card.primary { background: linear-gradient(135deg, #fff, #F2F8F8); }
+    .service-kicker { color: var(--lavender); font-weight: 900; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; }
+    .service-card h3 { margin-top: 12px; font-size: clamp(24px, 3vw, 38px); line-height: 1.08; letter-spacing: -0.04em; }
+    .service-card p { margin-top: 14px; color: var(--muted); }
+    .check-grid { margin-top: 24px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .check { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--ink); }
+    .check::before { content: "✓"; color: var(--mint); font-weight: 900; }
+    .mini-stack { display: grid; gap: 24px; }
+    .mini-stack .service-card h3 { font-size: 25px; }
+
+    .deliverables-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 46px; }
+    .deliverable { background: #fff; border: 1px solid var(--border); border-radius: 22px; padding: 24px; box-shadow: var(--shadow-soft); }
+    .deliverable .num { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; color: #fff; background: var(--gradient); font-weight: 900; margin-bottom: 18px; }
+    .deliverable h3 { font-size: 18px; margin-bottom: 8px; }
+    .deliverable p { color: var(--muted); font-size: 14px; }
+
+    .process { background: #fff; }
+    .timeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 46px; }
+    .step { padding: 22px; border-radius: 22px; background: var(--paper); border: 1px solid var(--border); position: relative; }
+    .step b { color: var(--mint); font-size: 13px; }
+    .step h3 { font-size: 17px; margin: 8px 0; line-height: 1.25; }
+    .step p { color: var(--muted); font-size: 13px; }
+
+    .about { background: var(--paper); }
+    .about-card { padding: 30px; border-radius: 28px; background: #fff; box-shadow: var(--shadow); border: 1px solid var(--border); }
+    .badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .badge { padding: 9px 12px; border-radius: 999px; background: rgba(123,140,182,0.10); color: #4B5573; font-weight: 800; font-size: 12px; }
+    .quote-card { border-radius: 28px; padding: 34px; background: var(--dark); color: #fff; box-shadow: var(--shadow); }
+    .quote-card p { font-size: 24px; line-height: 1.25; letter-spacing: -0.03em; }
+    .quote-card span { display: block; margin-top: 18px; color: rgba(255,255,255,0.62); }
+
+    .cta-section { background: var(--dark); color: #fff; text-align: center; position: relative; overflow: hidden; }
+    .cta-section::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(132,193,188,0.25), transparent 42rem); }
+    .cta-section .container { position: relative; }
+    .cta-section .section-sub { color: rgba(255,255,255,0.72); margin-left: auto; margin-right: auto; }
+    .cta-actions { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
+
+    .contact { background: var(--paper-2); }
+    .contact-card { background: #fff; border: 1px solid var(--border); border-radius: 26px; padding: 28px; box-shadow: var(--shadow-soft); }
+    .contact-card h3 { font-size: 28px; line-height: 1.15; margin-bottom: 12px; }
+    .contact-card p { color: var(--muted); }
+    .contact-options { display: grid; gap: 13px; margin-top: 22px; }
+    .contact-option { display: flex; gap: 14px; align-items: center; padding: 16px; border: 1px solid var(--border); border-radius: 16px; background: #fff; transition: var(--ease); }
+    .contact-option:hover { transform: translateY(-2px); border-color: rgba(123,140,182,0.45); }
+    .contact-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; background: rgba(132,193,188,0.14); color: var(--mint); font-weight: 900; }
+
+    .footer { padding: 54px 0 28px; background: #15182B; color: rgba(255,255,255,0.72); }
+    .footer-top { display: flex; justify-content: space-between; gap: 38px; padding-bottom: 32px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-brand img { width: 128px; margin-bottom: 12px; }
+    .footer-brand p { max-width: 330px; font-size: 13px; color: rgba(255,255,255,0.54); }
+    .footer-links { display: flex; gap: 46px; }
+    .footer-links h5 { color: var(--mint); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 14px; }
+    .footer-links a { display: block; margin-bottom: 8px; font-size: 13px; color: rgba(255,255,255,0.58); }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding-top: 22px; font-size: 12px; color: rgba(255,255,255,0.44); }
+    .footer-legal a { margin-left: 18px; }
+    .back-to-top { position: fixed; right: 24px; bottom: 24px; z-index: 45; width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--lavender); color: #fff; opacity: 0; pointer-events: none; transition: var(--ease); cursor: pointer; }
+    .back-to-top.visible { opacity: 1; pointer-events: all; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
     @media (max-width: 960px) {
-      .services-grid { grid-template-columns: repeat(2, 1fr); }
-      .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      .about-visual { order: -1; }
-      .process-steps { grid-template-columns: repeat(2, 1fr); gap: 40px; }
-      .process-steps::before { display: none; }
-      .contact-grid { grid-template-columns: 1fr; }
-      .footer-top { flex-direction: column; gap: 32px; }
-      .hero-stats { gap: 32px; }
+      .hero-grid, .problem-grid, .independence-panel, .about-grid, .contact-grid, .services-grid { grid-template-columns: 1fr; }
+      .timeline, .deliverables-grid { grid-template-columns: repeat(2, 1fr); }
     }
-    @media (max-width: 680px) {
+    @media (max-width: 720px) {
+      .container { width: min(100% - 32px, 1120px); }
       .nav-links { display: none; }
       .hamburger { display: flex; }
-      .services-grid { grid-template-columns: 1fr; }
-      .process-steps { grid-template-columns: 1fr; }
-      .hero h1 { font-size: 32px; }
-      /* hero logo removed */
-      .hero-stats { flex-direction: column; gap: 20px; }
-      .form-row { grid-template-columns: 1fr; }
-      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
-      .footer-links { flex-direction: column; gap: 24px; }
-      .sec-title { font-size: 28px; }
-      .hero-grad-sep { display: none; }
+      .nav-logo img { width: 132px; }
+      .hero { padding-top: 112px; }
+      .hero-proof, .timeline, .deliverables-grid, .check-grid { grid-template-columns: 1fr; }
+      .hero-actions, .cta-actions { flex-direction: column; }
+      .btn { width: 100%; }
+      .footer-top, .footer-bottom, .footer-links { flex-direction: column; }
+      .footer-legal a { margin-left: 0; margin-right: 18px; }
     }
   </style>
 </head>
 <body>
-
-  <!-- ==================== NAVBAR ==================== -->
   <header class="navbar" id="navbar">
-    <div class="container">
-      <a href="#" class="nav-logo">
-        <img src="360ai_logo.svg" alt="360ai Logo" style="height:95px;width:auto;" />
+    <div class="container nav-inner">
+      <a href="#" class="nav-logo" aria-label="360ai Startseite">
+        <img src="LogoOhneHintergrund.png" alt="360ai Logo" />
       </a>
-      <div class="nav-links">
+      <nav class="nav-links" aria-label="Hauptnavigation">
+        <a href="#problem">Warum Beratung?</a>
+        <a href="#unabhaengig">Unabhängig</a>
         <a href="#services">Leistungen</a>
+        <a href="#process">Ablauf</a>
         <a href="#about">Über mich</a>
-        <a href="#process">So arbeiten wir</a>
-        <a href="#kontakt" class="nav-cta">Kontakt</a>
-      </div>
+        <a href="#kontakt" class="nav-cta">Erstgespräch</a>
+      </nav>
       <button class="hamburger" id="hamburgerBtn" aria-label="Menü öffnen">
         <span></span><span></span><span></span>
       </button>
     </div>
   </header>
 
-  <!-- ==================== MOBILE MENU ==================== -->
   <div class="mobile-menu" id="mobileMenu">
-    <button class="mobile-close" id="mobileClose" aria-label="Menü schließen">✕</button>
+    <button class="mobile-close" id="mobileClose" aria-label="Menü schließen">×</button>
     <nav>
+      <a href="#problem">Warum Beratung?</a>
+      <a href="#unabhaengig">Unabhängig</a>
       <a href="#services">Leistungen</a>
+      <a href="#process">Ablauf</a>
       <a href="#about">Über mich</a>
-      <a href="#process">So arbeiten wir</a>
-      <a href="#kontakt">Kontakt</a>
+      <a href="#kontakt">Erstgespräch</a>
     </nav>
   </div>
 
-  <!-- ==================== HERO (WebGL ShaderBackground) ==================== -->
-  <section class="hero" id="hero">
-    <!-- WebGL Shader canvas — ported from shader-background.tsx -->
-    <canvas id="shader-canvas"></canvas>
-    <!-- Teal brand-color overlay -->
-    <div class="hero-shader-overlay"></div>
-
-    <div class="container">
-      <h1>Willkommen in der Zukunft<br>deiner <span class="teal">Geschäftsprozesse</span></h1>
-
-      <!-- Gradient separator (ShaderBackground demo style) -->
-      <div class="hero-grad-sep">
-        <div class="gl1"></div>
-        <div class="gl2"></div>
-        <div class="gl3"></div>
-        <div class="gl4"></div>
+  <main>
+    <section class="hero" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-pill"><span></span> KI-Beratung aus Frankenberg (Eder)</div>
+        <h1>
+          KI-Beratung, bevor Sie
+          <span class="hero-word-line" aria-live="polite">
+            <span class="hero-word active">investieren</span>
+            <span class="hero-word">automatisieren</span>
+            <span class="hero-word">Tools kaufen</span>
+            <span class="hero-word">Budgets verbrennen</span>
+            <span class="hero-word">Projekte starten</span>
+          </span>
+        </h1>
+        <p class="hero-sub">
+          Viele Unternehmen wollen jetzt „irgendwas mit KI“ machen. 360ai prüft zuerst, ob KI überhaupt sinnvoll ist: Prozesse, Datenbasis, Engpässe, Verantwortlichkeiten und wirtschaftlicher Nutzen. Damit Sie nicht blind in überteuerte oder unnötige Lösungen laufen.
+        </p>
+        <div class="hero-actions">
+          <a href="#kontakt" class="btn btn-primary">Kostenlosen KI-Erstcheck anfragen →</a>
+          <a href="#services" class="btn btn-ghost">Assessment ansehen</a>
+        </div>
+        <div class="hero-proof">
+          <div class="proof-card"><strong>5</strong><span>Readiness-Dimensionen statt Bauchgefühl</span></div>
+          <div class="proof-card"><strong>ROI</strong><span>Nutzen und Aufwand realistisch einschätzen</span></div>
+          <div class="proof-card"><strong>Nein</strong><span>ist manchmal die beste KI-Empfehlung</span></div>
+        </div>
       </div>
+    </section>
 
-      <p class="hero-sub">
-        KI-gestützte Automatisierung und moderne Webpräsenzen für kleine und mittlere Unternehmen.
-        Wir machen dein Business fit für morgen – effizient, smart und ohne Technik-Kopfschmerzen.
-      </p>
-      <div class="hero-btns">
-        <a href="#kontakt" class="btn btn-primary">Kostenlos beraten lassen ↗</a>
-        <a href="#services" class="btn btn-ghost">Was wir tun →</a>
-      </div>
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <div class="hero-stat-num">TÜV Süd</div>
-          <div class="hero-stat-label">AI Automations Manager</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-num">100%</div>
-          <div class="hero-stat-label">DSGVO-konform</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-num">KI</div>
-          <div class="hero-stat-label">First Approach</div>
-        </div>
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-inner">
+        <span>KI-Readiness</span><span>Fehlinvestitionen vermeiden</span><span>Engpass-Analyse</span><span>ROI-Einschätzung</span><span>Onepager Websites bleiben</span><span>Prozessklarheit</span><span>Datenbasis prüfen</span>
+        <span>KI-Readiness</span><span>Fehlinvestitionen vermeiden</span><span>Engpass-Analyse</span><span>ROI-Einschätzung</span><span>Onepager Websites bleiben</span><span>Prozessklarheit</span><span>Datenbasis prüfen</span>
       </div>
     </div>
-  </section>
 
-  <!-- ==================== TICKER ==================== -->
-  <div class="ticker-strip">
-    <span class="ticker-inner">
-      <span>KI-Automatisierung</span>
-      <span>Onepager Websites</span>
-      <span>Workflow-Optimierung</span>
-      <span>Prozessdigitalisierung</span>
-      <span>Datengetrieben</span>
-      <span>DSGVO-konform</span>
-      <span>Made in Germany</span>
-      <span>KI-Automatisierung</span>
-      <span>Onepager Websites</span>
-      <span>Workflow-Optimierung</span>
-      <span>Prozessdigitalisierung</span>
-      <span>Datengetrieben</span>
-      <span>DSGVO-konform</span>
-      <span>Made in Germany</span>
-    </span>
-  </div>
-
-  <!-- ==================== SERVICES ==================== -->
-  <section class="services" id="services">
-    <div class="container">
-      <div class="services-header reveal">
-        <span class="eyebrow">Unsere Leistungen</span>
-        <h2 class="sec-title">Was wir für dich tun</h2>
-        <p class="sec-sub">Von der digitalen Visitenkarte bis zur vollautomatisierten Prozesskette – wir begleiten dich auf jedem Schritt.</p>
-      </div>
-      <div class="services-grid">
-        <div class="service-card reveal">
-          <div class="service-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          </div>
-          <h3>Onepager Websites</h3>
-          <p>Professionelle, blitzschnelle Webseiten für dein Unternehmen. DSGVO-konform, mobiloptimiert und bereit in wenigen Tagen.</p>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-          </div>
-          <h3>KI-Automatisierung</h3>
-          <p>Wiederkehrende Aufgaben automatisieren, Workflows optimieren und Ressourcen sparen. Wir setzen KI dort ein, wo sie den größten Hebel hat – und dich entlastet.</p>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-          </div>
-          <h3>Prozessberatung</h3>
-          <p>Gemeinsam analysieren wir deine bestehenden Abläufe und identifizieren Potenziale. Wo kann KI helfen? Wo lohnt sich Automatisierung? Praxisnah und auf Augenhöhe.</p>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-          </div>
-          <h3>Digitale Dokumente</h3>
-          <p>Automatisierte Angebote, Rechnungen und Berichte. Keine manuellen Fehler mehr – deine Dokumente erstellen sich praktisch von selbst.</p>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          </div>
-          <h3>Monitoring & Support</h3>
-          <p>Unser Engagement endet nicht beim Go-Live. Wir bieten laufende Betreuung, um deine Lösung kontinuierlich zu verbessern, neue Features einzubauen und dein Business weiter voranzubringen.</p>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </div>
-          <h3>KMU-Fokus</h3>
-          <p>Wir sprechen deine Sprache. Keine Buzzwords, keine unnötige Komplexität. Lösungen, die im Alltag funktionieren und echten Mehrwert schaffen.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== ABOUT ==================== -->
-  <section class="about" id="about">
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-content reveal-left">
-          <span class="eyebrow">Über mich</span>
-          <h2 class="sec-title">Erfahrung trifft Innovation</h2>
-          <p class="about-text">
-            Über 20 Jahre Erfahrung im operativen Geschäft – von Controlling über Einkauf (beides in Teamleitungsfunktion) bis hin zur Buchhaltung, unter anderem im Gesundheitswesen. Als Informationssicherheitsbeauftragter (ISB) kenne ich zudem die Anforderungen an IT-Sicherheit und Datenschutz in sensiblen Branchen. Im Controlling habe ich gelernt, Prozesse in Zahlen zu denken, Muster zu erkennen und datenbasiert zu entscheiden – genau die Fähigkeiten, die heute den Unterschied machen, wenn KI sinnvoll eingesetzt werden soll.
+    <section class="problem" id="problem">
+      <div class="container problem-grid">
+        <div class="reveal">
+          <span class="eyebrow">Das eigentliche Problem</span>
+          <h2 class="section-title">Nicht jede KI-Idee ist ein gutes KI-Projekt.</h2>
+          <p class="section-sub">
+            KI scheitert selten nur an der Technik. Häufig fehlen saubere Prozesse, belastbare Daten, interne Rollen, Datenschutzklarheit oder ein echter wirtschaftlicher Hebel.
           </p>
-          <p class="about-text" style="margin-top:12px">
-            Als zertifizierter AI Automation Manager (TÜV SÜD) bringe ich nicht nur das technische Know-how mit, sondern verstehe deine täglichen Herausforderungen aus erster Hand. Wer jahrelang operative Kennzahlen (KPIs) analysiert und Abläufe optimiert hat, erkennt sofort, wo KI echten Mehrwert liefert – und wo nicht. Bei 360ai baue ich diese Brücke zwischen deinem Tagesgeschäft und den Möglichkeiten moderner Technologie.
-          </p>
-          <div class="about-highlights">
-            <span class="about-badge">20+ Jahre operatives Geschäft</span>
-            <span class="about-badge">Teamleitung Einkauf & Controlling</span>
-            <span class="about-badge">AI Automation Manager</span>
-            <span class="about-badge">TÜV SÜD zertifiziert</span>
-            <span class="about-badge">Gesundheitswesen</span>
-            <span class="about-badge">Informationssicherheit</span>
-            <span class="about-badge">Datengetriebene Entscheidungen</span>
-          </div>
         </div>
-        <div class="about-visual reveal-right">
-          <div class="founder-avatar">
-            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#00BFA6" stroke-width="1.5" stroke-linecap="round">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-              <circle cx="12" cy="7" r="4"/>
-            </svg>
+        <div class="problem-list">
+          <div class="problem-item reveal"><b>Hype statt Bedarf</b><p>„Wir brauchen KI“ klingt modern, löst aber noch kein konkretes Geschäftsproblem.</p></div>
+          <div class="problem-item reveal"><b>Chaotische Prozesse</b><p>KI automatisiert keinen unklaren Ablauf. Erst muss der Engpass verstanden werden.</p></div>
+          <div class="problem-item reveal"><b>Teure Fehlkäufe</b><p>Tools, Lizenzen und Integrationen werden schnell teuer, wenn vorher kein Nutzen geprüft wurde.</p></div>
+          <div class="problem-item reveal"><b>Unklare Verantwortung</b><p>Ohne Management-Support, Prozessverantwortliche und Fach-Know-how bleiben Projekte stecken.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="independence" id="unabhaengig">
+      <div class="container">
+        <div class="independence-panel reveal">
+          <div class="independence-copy">
+            <span class="eyebrow">Warum unabhängig?</span>
+            <h2 class="section-title">Wer ein Produkt verkauft, bewertet selten völlig neutral.</h2>
+            <p class="section-sub">
+              Viele Anbieter machen eine Analyse kostenlos oder verrechnen sie im Paketpreis. Das kann praktisch sein, wenn die Entscheidung für genau diese Lösung schon gefallen ist. Wenn Sie aber noch nicht wissen, ob KI überhaupt sinnvoll ist, brauchen Sie zuerst eine Meinung, die nicht an Lizenzverkauf, Plattformbindung oder Implementierungsstunden hängt.
+            </p>
           </div>
-          <div class="cert-badge" onclick="document.getElementById('certModal').classList.add('active')">
-            <div class="cert-badge-icon">🏅</div>
-            <div class="cert-badge-title">TÜV SÜD Zertifikat</div>
-            <div class="cert-badge-sub">AI Automation Manager</div>
-            <div class="cert-badge-hint">Klicken für Details →</div>
+          <div class="independence-list">
+            <div class="independence-item">
+              <span>1</span>
+              <div><b>Andere Anreize</b><p>Ein Softwareanbieter verdient meist an Tool, Lizenz, Plattform oder Umsetzung. Die Empfehlung läuft dadurch schnell in Richtung des eigenen Angebots.</p></div>
+            </div>
+            <div class="independence-item">
+              <span>2</span>
+              <div><b>Bessere Vorentscheidung</b><p>Unabhängige Beratung prüft zuerst Problem, Prozess, Datenbasis, Kosten und Risiken. Erst danach stellt sich die Frage nach einem passenden Anbieter.</p></div>
+            </div>
+            <div class="independence-item">
+              <span>3</span>
+              <div><b>Auch ein klares Nein ist wertvoll</b><p>Manchmal ist die beste Empfehlung: noch kein KI-Projekt, erst Prozesse dokumentieren, Daten ordnen oder Verantwortlichkeiten klären.</p></div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ==================== CERTIFICATE MODAL ==================== -->
-  <div class="cert-modal" id="certModal" onclick="if(event.target===this)this.classList.remove('active')">
-    <div class="cert-modal-content">
-      <button class="cert-modal-close" onclick="document.getElementById('certModal').classList.remove('active')">✕</button>
-      <div class="cert-modal-icon">🏅</div>
-      <h3>Zertifizierung</h3>
-      <p>Professionell ausgebildet und geprüft in der Konzeption, Implementierung und Optimierung von KI-gestützten Automatisierungslösungen.</p>
-      <div class="cert-details">
-        <div class="cert-detail-row">
-          <span class="cert-detail-label">Abschluss</span>
-          <span class="cert-detail-value">AI Automation Manager</span>
+    <section class="services" id="services">
+      <div class="container">
+        <div class="services-header reveal">
+          <span class="eyebrow">Leistungen</span>
+          <h2 class="section-title">Erst prüfen. Dann entscheiden. Erst danach umsetzen.</h2>
+          <p class="section-sub">Der Schwerpunkt liegt auf unabhängiger KI-Beratung für KMU. Moderne Onepager bleiben als klares zweites Angebot bestehen.</p>
         </div>
-        <div class="cert-detail-row">
-          <span class="cert-detail-label">Zertifizierung</span>
-          <span class="cert-detail-value">TÜV SÜD</span>
-        </div>
-        <div class="cert-detail-row">
-          <span class="cert-detail-label">Schwerpunkte</span>
-          <span class="cert-detail-value">KI, Workflows, Automation</span>
-        </div>
-        <div class="cert-detail-row">
-          <span class="cert-detail-label">Tools</span>
-          <span class="cert-detail-value">n8n, Make, KI-Plattformen</span>
+
+        <div class="services-grid">
+          <article class="service-card primary reveal">
+            <div class="service-kicker">Hauptangebot</div>
+            <h3>KI-Readiness & Prozess-Assessment</h3>
+            <p>
+              Wir analysieren gemeinsam, ob KI für Ihr Unternehmen gerade sinnvoll ist, welcher Prozess wirklich bremst und welche Grundlagen zuerst geschaffen werden müssen.
+            </p>
+            <div class="check-grid">
+              <div class="check">Erstgespräch mit strukturiertem Fragenkatalog</div>
+              <div class="check">Readiness-Score für Prozesse, Daten, Kultur und Technik</div>
+              <div class="check">Engpass-Analyse nach dem Prinzip: ein Hebel statt zehn Baustellen</div>
+              <div class="check">ROI- und Aufwandseinschätzung statt reiner Tool-Euphorie</div>
+              <div class="check">Promotoren-Check: Budget, Prozessverantwortung, Fachkompetenz</div>
+              <div class="check">Klare Empfehlung: KI, Vorarbeit oder bewusster Verzicht</div>
+            </div>
+          </article>
+
+          <div class="mini-stack">
+            <article class="service-card reveal">
+              <div class="service-kicker">Ergebnis</div>
+              <h3>KI-Roadmap & Lastenheft</h3>
+              <p>Wenn KI sinnvoll ist, entsteht eine klare Entscheidungsgrundlage für Umsetzungspartner, IT-Dienstleister oder spätere interne Projekte.</p>
+            </article>
+            <article class="service-card reveal">
+              <div class="service-kicker">Weiterhin verfügbar</div>
+              <h3>Moderne Onepager Websites</h3>
+              <p>Schnelle, klare und mobiloptimierte Websites für Unternehmen, die online professionell wirken und verständlich verkaufen wollen.</p>
+            </article>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- ==================== PROCESS ==================== -->
-  <section class="process" id="process">
-    <div class="container">
-      <div class="process-header reveal">
+    <section class="deliverables">
+      <div class="container">
+        <span class="eyebrow">Was Sie bekommen</span>
+        <h2 class="section-title">Keine Buzzwords. Eine belastbare Empfehlung.</h2>
+        <div class="deliverables-grid">
+          <article class="deliverable reveal"><div class="num">1</div><h3>Readiness-Score</h3><p>Wo steht Ihr Unternehmen in Technologie, Prozessqualität, Datenbasis, Kundennutzen sowie Skills & Kultur?</p></article>
+          <article class="deliverable reveal"><div class="num">2</div><h3>Engpass-Landkarte</h3><p>Welcher Prozess kostet wirklich Zeit, Geld oder Qualität und ist er überhaupt ein KI-Problem?</p></article>
+          <article class="deliverable reveal"><div class="num">3</div><h3>ROI-Einschätzung</h3><p>Konservative Nutzenrechnung: Zeitersparnis, Kosten, Amortisation und Risiken.</p></article>
+          <article class="deliverable reveal"><div class="num">4</div><h3>Risiko-Check</h3><p>DSGVO, Datenqualität, Medienbrüche, fehlende Rollen und interne Umsetzungsfähigkeit.</p></article>
+          <article class="deliverable reveal"><div class="num">5</div><h3>Nächste Schritte</h3><p>Konkrete Handlungsempfehlung: KI starten, Grundlagen schaffen oder Thema bewusst zurückstellen.</p></article>
+          <article class="deliverable reveal"><div class="num">6</div><h3>Entscheidungsbericht</h3><p>Eine verständliche Zusammenfassung für Geschäftsführung, Team oder Umsetzungspartner.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="process" id="process">
+      <div class="container">
         <span class="eyebrow">Ablauf</span>
-        <h2 class="sec-title">So arbeiten wir zusammen</h2>
-        <p class="sec-sub">In vier einfachen Schritten zu deiner maßgeschneiderten Lösung – transparent, planbar und ohne Überraschungen.</p>
-      </div>
-      <div class="process-steps">
-        <div class="process-step reveal">
-          <div class="process-num">1</div>
-          <h4>Erstgespräch</h4>
-          <p>Wir lernen uns kennen und sprechen über deine Ziele, Herausforderungen und Wünsche. Kostenlos und unverbindlich.</p>
-        </div>
-        <div class="process-step reveal">
-          <div class="process-num">2</div>
-          <h4>Analyse & Konzept</h4>
-          <p>Wir analysieren deine Prozesse und erstellen ein individuelles Konzept – maßgeschneidert auf dein Unternehmen.</p>
-        </div>
-        <div class="process-step reveal">
-          <div class="process-num">3</div>
-          <h4>Umsetzung</h4>
-          <p>Wir setzen dein Projekt um – mit regelmäßigen Abstimmungen und voller Transparenz über den Fortschritt.</p>
-        </div>
-        <div class="process-step reveal">
-          <div class="process-num">4</div>
-          <h4>Launch & Support</h4>
-          <p>Dein Projekt geht live. Danach begleiten wir dich weiter mit Updates, Optimierung und persönlichem Support.</p>
+        <h2 class="section-title">So läuft die KI-Beratung ab.</h2>
+        <p class="section-sub">Der Ablauf ist bewusst kompakt: genug Struktur für gute Entscheidungen, ohne aus dem Erstgespräch ein Großprojekt zu machen.</p>
+        <div class="timeline">
+          <article class="step reveal"><b>01</b><h3>Erstgespräch</h3><p>Ausgangslage, Ziele, Erwartungen und aktuelle Pain Points verstehen.</p></article>
+          <article class="step reveal"><b>02</b><h3>Readiness Check</h3><p>Digitalisierung, Datenbasis, Prozesse, Skills und Kultur bewerten.</p></article>
+          <article class="step reveal"><b>03</b><h3>Prozessblick</h3><p>Engpässe, Medienbrüche und manuelle Übergaben sichtbar machen.</p></article>
+          <article class="step reveal"><b>04</b><h3>ROI & Risiken</h3><p>Aufwand, Nutzen, Datenschutz und Umsetzungsfähigkeit realistisch einordnen.</p></article>
+          <article class="step reveal"><b>05</b><h3>Empfehlung</h3><p>Klare Roadmap: KI-Projekt, Vorarbeit oder aktuell kein KI-Einsatz.</p></article>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ==================== CTA SECTION ==================== -->
-  <section class="cta-section">
-    <div class="container reveal">
-      <span class="eyebrow" style="color:var(--accent)">Bereit?</span>
-      <h2 class="sec-title" style="color:#fff; margin-bottom: 16px;">Die Welt wird zu einem besonderen Ort,<br>wenn wir <span style="color:var(--accent)">Automatisierung</span> vorantreiben</h2>
-      <p class="sec-sub" style="color:var(--text-light); margin: 0 auto;">Lass uns gemeinsam herausfinden, wie KI dein Unternehmen aufs nächste Level bringt. Das erste Gespräch ist kostenlos.</p>
-      <div class="cta-btns">
-        <a href="#kontakt" class="btn btn-primary" style="font-size:1rem;padding:16px 40px;">Jetzt Kontakt aufnehmen ↗</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== CONTACT ==================== -->
-  <section class="contact" id="kontakt">
-    <div class="container">
-      <div class="contact-grid">
-        <div class="contact-info reveal-left">
-          <span class="eyebrow">Kontakt</span>
-          <h3>Lass uns sprechen</h3>
-          <p>Du hast eine Idee, eine Frage oder möchtest einfach herausfinden, ob 360ai der richtige Partner für dich ist? Dann schreib mir per E-Mail – ich melde mich in der Regel innerhalb von 24 Stunden.</p>
-          <div class="contact-channels">
-            <a href="mailto:info@360-ai.org" class="contact-ch">
-              <div class="contact-ch-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00BFA6" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              </div>
-              <div class="contact-ch-text">
-                <strong>E-Mail</strong>
-                <span>info@360-ai.org</span>
-              </div>
-            </a>
-            <a href="https://360-ai.org" class="contact-ch" target="_blank" rel="noopener">
-              <div class="contact-ch-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00BFA6" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-              </div>
-              <div class="contact-ch-text">
-                <strong>Website</strong>
-                <span>360-ai.org</span>
-              </div>
-            </a>
+    <section class="about" id="about">
+      <div class="container about-grid">
+        <div class="about-card reveal">
+          <span class="eyebrow">Über mich</span>
+          <h2 class="section-title">Operative Erfahrung statt KI-Theater.</h2>
+          <p class="section-sub">
+            Über 20 Jahre operatives Geschäft, Controlling, Einkauf, Buchhaltung, Gesundheitswesen und Informationssicherheit. Genau dieser Blick hilft, KI nicht als Selbstzweck zu behandeln, sondern als mögliche Antwort auf konkrete Prozess- und Datenprobleme.
+          </p>
+          <div class="badges">
+            <span class="badge">20+ Jahre operatives Geschäft</span>
+            <span class="badge">Controlling & Einkauf</span>
+            <span class="badge">Informationssicherheit</span>
+            <span class="badge">TÜV SÜD AI Automation Manager</span>
+            <span class="badge">KMU-Fokus</span>
           </div>
         </div>
-        <div class="contact-form reveal-right">
-          <h4>Kontakt aufnehmen</h4>
-          <p style="color:var(--text-muted);font-size:14px;margin-bottom:24px;">Ein Klick öffnet dein E-Mail-Programm – so bleiben deine Daten bei dir.</p>
-          <a href="mailto:info@360-ai.org" class="btn btn-primary" style="width:100%;justify-content:center;font-size:1rem;padding:16px 32px;">E-Mail schreiben ↗</a>
-          <p class="form-hint" style="margin-top:16px;"><a href="datenschutz.html">Datenschutzerklärung</a></p>
+        <div class="quote-card reveal">
+          <p>„Eine ehrliche Empfehlung ist wertvoller als eine schnelle Implementierung.“</p>
+          <span>360ai prüft, ob KI wirklich hilft oder ob erst Prozesse, Daten und Verantwortlichkeiten geklärt werden müssen.</span>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ==================== FOOTER ==================== -->
+    <section class="cta-section">
+      <div class="container reveal">
+        <span class="eyebrow">Bereit?</span>
+        <h2 class="section-title">Bevor Sie in KI investieren: Lassen Sie uns prüfen, ob es sich lohnt.</h2>
+        <p class="section-sub">Das erste Gespräch dient der Orientierung. Ziel ist nicht, Ihnen sofort ein Tool zu verkaufen, sondern die richtige Entscheidung vorzubereiten.</p>
+        <div class="cta-actions">
+          <a href="mailto:info@360-ai.org?subject=KI-Erstcheck%20anfragen" class="btn btn-primary">KI-Erstcheck anfragen →</a>
+          <a href="#services" class="btn btn-ghost">Leistungen ansehen</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="kontakt">
+      <div class="container contact-grid">
+        <div class="reveal">
+          <span class="eyebrow">Kontakt</span>
+          <h2 class="section-title">Lassen Sie uns über Ihre Ausgangslage sprechen.</h2>
+          <p class="section-sub">Schreiben Sie kurz, worum es geht: KI-Idee, Prozessproblem, Tool-Frage oder Onepager-Projekt. Ich melde mich in der Regel innerhalb von 24 Stunden.</p>
+        </div>
+        <div class="contact-card reveal">
+          <h3>Kontakt aufnehmen</h3>
+          <p>Ein Klick öffnet Ihr E-Mail-Programm. So bleiben Ihre Daten zunächst bei Ihnen.</p>
+          <div class="contact-options">
+            <a href="mailto:info@360-ai.org?subject=KI-Erstcheck%20anfragen" class="contact-option"><span class="contact-icon">@</span><span><b>E-Mail</b><br>info@360-ai.org</span></a>
+            <a href="https://360-ai.org" class="contact-option" target="_blank" rel="noopener"><span class="contact-icon">↗</span><span><b>Website</b><br>360-ai.org</span></a>
+          </div>
+          <p style="font-size:12px;margin-top:16px"><a href="datenschutz.html" style="text-decoration:underline">Datenschutzerklärung</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
   <footer class="footer">
     <div class="container">
       <div class="footer-top">
         <div class="footer-brand">
-          <div class="nav-logo" style="font-size:22px;">
-            <img src="360ai_logo.svg" alt="360ai" style="height:32px;width:auto;" />
-          </div>
-          <p>KI-gestützte Automatisierung und moderne Webpräsenzen für KMU. Made with ♥ in Germany.</p>
+          <img src="LogoOhneHintergrund.png" alt="360ai" />
+          <p>KI-Beratung, Readiness Checks und moderne Onepager Websites für KMU. Aus Frankenberg (Eder), für Waldeck-Frankenberg und darüber hinaus.</p>
         </div>
         <div class="footer-links">
-          <div class="footer-links-col">
-            <h5>Navigation</h5>
-            <a href="#services">Leistungen</a>
-            <a href="#about">Über mich</a>
-            <a href="#process">So arbeiten wir</a>
-            <a href="#kontakt">Kontakt</a>
-          </div>
-          <div class="footer-links-col">
-            <h5>Kontakt</h5>
-            <a href="mailto:info@360-ai.org">info@360-ai.org</a>
-            <a href="https://360-ai.org" target="_blank" rel="noopener">360-ai.org</a>
-          </div>
-          <div class="footer-links-col">
-            <h5>Rechtliches</h5>
-            <a href="impressum.html">Impressum</a>
-            <a href="datenschutz.html">Datenschutz</a>
-            <a href="agb.html">AGB</a>
-          </div>
+          <div><h5>Navigation</h5><a href="#problem">Warum Beratung?</a><a href="#unabhaengig">Unabhängig</a><a href="#services">Leistungen</a><a href="#process">Ablauf</a><a href="#kontakt">Kontakt</a></div>
+          <div><h5>Kontakt</h5><a href="mailto:info@360-ai.org">info@360-ai.org</a><a href="https://360-ai.org" target="_blank" rel="noopener">360-ai.org</a></div>
+          <div><h5>Rechtliches</h5><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="agb.html">AGB</a></div>
         </div>
       </div>
       <div class="footer-bottom">
         <span>© 2026 360ai. Alle Rechte vorbehalten.</span>
-        <div class="footer-legal">
-          <a href="impressum.html">Impressum</a>
-          <a href="datenschutz.html">Datenschutz</a>
-        </div>
+        <div class="footer-legal"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></div>
       </div>
     </div>
   </footer>
 
-  <!-- ==================== BACK TO TOP ==================== -->
   <button class="back-to-top" id="backToTop" aria-label="Nach oben scrollen">↑</button>
 
-  <!-- ==================== SCRIPTS ==================== -->
   <script>
-    /* ============================================================
-       ShaderBackground — Vanilla JS / WebGL Implementation
-       Ported from shader-background.tsx (React component).
-       No external dependencies. No CDN. DSGVO-compliant.
+    const words = Array.from(document.querySelectorAll(".hero-word"));
+    let wordIndex = 0;
+    setInterval(() => {
+      words[wordIndex].classList.remove("active");
+      wordIndex = (wordIndex + 1) % words.length;
+      words[wordIndex].classList.add("active");
+    }, 2100);
 
-       Fragment shader: animated plasma wave lines with circles,
-       dual-color background gradient and vertical/horizontal fade.
-       ============================================================ */
-
-    (function initShaderBackground() {
-      const canvas = document.getElementById('shader-canvas');
-      if (!canvas) return;
-
-      const gl = canvas.getContext('webgl');
-      if (!gl) {
-        console.warn('WebGL not supported — hero falls back to CSS gradient.');
-        return;
-      }
-
-      /* ── Vertex Shader ── */
-      const vsSource = `
-        attribute vec4 aVertexPosition;
-        void main() {
-          gl_Position = aVertexPosition;
-        }
-      `;
-
-      /* ── Fragment Shader (identical to shader-background.tsx) ── */
-      const fsSource = `
-        precision highp float;
-        uniform vec2  iResolution;
-        uniform float iTime;
-
-        const float overallSpeed      = 0.2;
-        const float gridSmoothWidth   = 0.015;
-        const float axisWidth         = 0.05;
-        const float majorLineWidth    = 0.025;
-        const float minorLineWidth    = 0.0125;
-        const float majorLineFrequency = 5.0;
-        const float minorLineFrequency = 1.0;
-        const float scale             = 5.0;
-        // CI tweak: shift plasma lines from purple → teal (360ai accent)
-        const vec4  lineColor         = vec4(0.0, 0.75, 0.65, 1.0);
-        const float minLineWidth      = 0.01;
-        const float maxLineWidth      = 0.2;
-        const float lineSpeed         = 1.0 * overallSpeed;
-        const float lineAmplitude     = 1.0;
-        const float lineFrequency     = 0.2;
-        const float warpSpeed         = 0.2 * overallSpeed;
-        const float warpFrequency     = 0.5;
-        const float warpAmplitude     = 1.0;
-        const float offsetFrequency   = 0.5;
-        const float offsetSpeed       = 1.33 * overallSpeed;
-        const float minOffsetSpread   = 0.6;
-        const float maxOffsetSpread   = 2.0;
-        const int   linesPerGroup     = 16;
-
-        #define drawCircle(pos, radius, coord) \
-          smoothstep(radius + gridSmoothWidth, radius, length(coord - (pos)))
-        #define drawSmoothLine(pos, halfWidth, t) \
-          smoothstep(halfWidth, 0.0, abs(pos - (t)))
-        #define drawCrispLine(pos, halfWidth, t) \
-          smoothstep(halfWidth + gridSmoothWidth, halfWidth, abs(pos - (t)))
-        #define drawPeriodicLine(freq, width, t) \
-          drawCrispLine(freq / 2.0, width, abs(mod(t, freq) - (freq) / 2.0))
-
-        float random(float t) {
-          return (cos(t) + cos(t * 1.3 + 1.3) + cos(t * 1.4 + 1.4)) / 3.0;
-        }
-
-        float getPlasmaY(float x, float horizontalFade, float offset) {
-          return random(x * lineFrequency + iTime * lineSpeed)
-                 * horizontalFade * lineAmplitude + offset;
-        }
-
-        void main() {
-          vec2 fragCoord = gl_FragCoord.xy;
-          vec2 uv    = fragCoord / iResolution.xy;
-          vec2 space = (fragCoord - iResolution.xy / 2.0) / iResolution.x * 2.0 * scale;
-
-          float horizontalFade = 1.0 - (cos(uv.x * 6.28) * 0.5 + 0.5);
-          float verticalFade   = 1.0 - (cos(uv.y * 6.28) * 0.5 + 0.5);
-
-          space.y += random(space.x * warpFrequency + iTime * warpSpeed)
-                     * warpAmplitude * (0.5 + horizontalFade);
-          space.x += random(space.y * warpFrequency + iTime * warpSpeed + 2.0)
-                     * warpAmplitude * horizontalFade;
-
-          vec4 lines    = vec4(0.0);
-          // CI tweak: dark teal base gradient instead of purple
-          vec4 bgColor1 = vec4(0.05, 0.08, 0.08, 1.0);
-          vec4 bgColor2 = vec4(0.03, 0.18, 0.16, 1.0);
-
-          for (int l = 0; l < linesPerGroup; l++) {
-            float normalizedLineIndex = float(l) / float(linesPerGroup);
-            float offsetTime     = iTime * offsetSpeed;
-            float offsetPosition = float(l) + space.x * offsetFrequency;
-            float rand     = random(offsetPosition + offsetTime) * 0.5 + 0.5;
-            float halfWidth = mix(minLineWidth, maxLineWidth, rand * horizontalFade) / 2.0;
-            float offset   = random(offsetPosition + offsetTime * (1.0 + normalizedLineIndex))
-                             * mix(minOffsetSpread, maxOffsetSpread, horizontalFade);
-            float linePosition = getPlasmaY(space.x, horizontalFade, offset);
-            float line = drawSmoothLine(linePosition, halfWidth, space.y) / 2.0
-                       + drawCrispLine(linePosition,  halfWidth * 0.15, space.y);
-
-            float circleX = mod(float(l) + iTime * lineSpeed, 25.0) - 12.0;
-            vec2  circlePosition = vec2(circleX, getPlasmaY(circleX, horizontalFade, offset));
-            float circle = drawCircle(circlePosition, 0.01, space) * 4.0;
-
-            line  = line + circle;
-            lines += line * lineColor * rand;
-          }
-
-          vec4 fragColor = mix(bgColor1, bgColor2, uv.x);
-          fragColor *= verticalFade;
-          fragColor.a = 1.0;
-          fragColor  += lines;
-          gl_FragColor = fragColor;
-        }
-      `;
-
-      /* ── Compile helper ── */
-      function loadShader(type, source) {
-        const shader = gl.createShader(type);
-        gl.shaderSource(shader, source);
-        gl.compileShader(shader);
-        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-          console.error('Shader compile error:', gl.getShaderInfoLog(shader));
-          gl.deleteShader(shader);
-          return null;
-        }
-        return shader;
-      }
-
-      /* ── Link program ── */
-      const vs = loadShader(gl.VERTEX_SHADER,   vsSource);
-      const fs = loadShader(gl.FRAGMENT_SHADER, fsSource);
-      const program = gl.createProgram();
-      gl.attachShader(program, vs);
-      gl.attachShader(program, fs);
-      gl.linkProgram(program);
-      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-        console.error('Shader link error:', gl.getProgramInfoLog(program));
-        return;
-      }
-
-      /* ── Fullscreen quad ── */
-      const positionBuffer = gl.createBuffer();
-      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
-
-      const vertexPosition  = gl.getAttribLocation(program, 'aVertexPosition');
-      const uResolution     = gl.getUniformLocation(program, 'iResolution');
-      const uTime           = gl.getUniformLocation(program, 'iTime');
-
-      /* ── Resize to hero section (not full window) ── */
-      function resizeCanvas() {
-        const rect = canvas.parentElement.getBoundingClientRect();
-        canvas.width  = rect.width;
-        canvas.height = rect.height;
-        gl.viewport(0, 0, canvas.width, canvas.height);
-      }
-      window.addEventListener('resize', resizeCanvas);
-      resizeCanvas();
-
-      /* ── Render loop ── */
-      const startTime = performance.now();
-      function render() {
-        const t = (performance.now() - startTime) / 1000;
-        gl.clearColor(0, 0, 0, 1);
-        gl.clear(gl.COLOR_BUFFER_BIT);
-        gl.useProgram(program);
-        gl.uniform2f(uResolution, canvas.width, canvas.height);
-        gl.uniform1f(uTime, t);
-        gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-        gl.vertexAttribPointer(vertexPosition, 2, gl.FLOAT, false, 0, 0);
-        gl.enableVertexAttribArray(vertexPosition);
-        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-        requestAnimationFrame(render);
-      }
-      requestAnimationFrame(render);
-    })();
-
-    /* ── Navbar scroll effect ── */
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    const navbar = document.getElementById("navbar");
+    window.addEventListener("scroll", () => {
+      navbar.classList.toggle("scrolled", window.scrollY > 50);
     });
 
-    /* ── Back to top ── */
-    const btt = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-      btt.classList.toggle('visible', window.scrollY > 500);
+    const btt = document.getElementById("backToTop");
+    window.addEventListener("scroll", () => {
+      btt.classList.toggle("visible", window.scrollY > 520);
     });
-    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    btt.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
-    /* ── Mobile menu ── */
-    const hamburger   = document.getElementById('hamburgerBtn');
-    const mobileMenu  = document.getElementById('mobileMenu');
-    const mobileClose = document.getElementById('mobileClose');
-    hamburger.addEventListener('click', () => mobileMenu.classList.add('active'));
-    mobileClose.addEventListener('click', () => mobileMenu.classList.remove('active'));
-    mobileMenu.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => mobileMenu.classList.remove('active'));
+    const hamburger = document.getElementById("hamburgerBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const mobileClose = document.getElementById("mobileClose");
+    hamburger.addEventListener("click", () => mobileMenu.classList.add("active"));
+    mobileClose.addEventListener("click", () => mobileMenu.classList.remove("active"));
+    mobileMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => mobileMenu.classList.remove("active"));
     });
 
-    /* ── Smooth scroll ── */
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        e.preventDefault();
-        const target = document.querySelector(a.getAttribute('href'));
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener("click", (event) => {
+        const target = document.querySelector(link.getAttribute("href"));
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
       });
     });
 
-    /* ── Reveal animation (progressive enhancement) ── */
-    const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-    revealEls.forEach(el => {
-      el.style.opacity    = '0';
-      el.style.transition = 'opacity 0.65s ease, transform 0.65s ease';
-      if      (el.classList.contains('reveal-left'))  el.style.transform = 'translateX(-30px)';
-      else if (el.classList.contains('reveal-right')) el.style.transform = 'translateX(30px)';
-      else                                             el.style.transform = 'translateY(30px)';
-    });
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.style.opacity   = '1';
-          e.target.style.transform = 'none';
-          io.unobserve(e.target);
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.01, rootMargin: '0px 0px 50px 0px' });
-    revealEls.forEach(el => io.observe(el));
-    setTimeout(() => {
-      revealEls.forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
-    }, 300);
-
-    /* ── Hero stats stagger-in ── */
-    setTimeout(() => {
-      document.querySelectorAll('.hero-stat').forEach((el, i) => {
-        el.style.opacity    = '0';
-        el.style.transform  = 'translateY(10px)';
-        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        setTimeout(() => {
-          el.style.opacity   = '1';
-          el.style.transform = 'translateY(0)';
-        }, 1200 + i * 200);
-      });
-    }, 0);
+    }, { threshold: 0.08, rootMargin: "0px 0px -20px 0px" });
+    document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
   </script>
 </body>
 </html>
