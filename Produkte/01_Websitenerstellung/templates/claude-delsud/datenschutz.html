@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Datenschutz – Del Sud | Bar Ristorante Pizzeria Frankenberg (Eder)</title>
+  <meta name="description" content="Datenschutzerklärung der Pizzeria Del Sud in Frankenberg (Eder). Informationen zur Datenverarbeitung, Cookies und Ihren Rechten." />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://delsud-frankenberg.de/datenschutz.html" />
+  <link rel="icon" type="image/jpeg" href="images/logodelsud.jfif" />
+  <link rel="apple-touch-icon" href="images/logodelsud.jfif" />
+
+  <meta property="og:title" content="Datenschutz – Del Sud Frankenberg" />
+  <meta property="og:description" content="Datenschutzerklärung der Pizzeria Del Sud in Frankenberg (Eder)." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://delsud-frankenberg.de/datenschutz.html" />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:site_name" content="Del Sud Frankenberg" />
+
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+
+  <style>
+    @font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/cormorant-garamond-600.ttf') format('truetype');}
+    @font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/cormorant-garamond-700.ttf') format('truetype');}
+    @font-face{font-family:'Mulish';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/mulish-400.ttf') format('truetype');}
+    @font-face{font-family:'Mulish';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/mulish-700.ttf') format('truetype');}
+    :root {
+      --burg: #3D1010;
+      --gold: #C9963A;
+      --gold-lt: #E8BF7A;
+      --gold-border: rgba(201,150,58,0.30);
+      --cream: #FAF6EE;
+      --text: #1A0F0A;
+      --muted: #6B5040;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Mulish', 'Trebuchet MS', sans-serif;
+      --ease: 0.35s ease;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:var(--font-sans);background:var(--cream);color:var(--text);line-height:1.65;}
+    a{color:inherit;text-decoration:none;}
+
+    .skip-link{position:absolute;top:-999px;left:-999px;z-index:10000;padding:10px 18px;background:var(--gold);color:var(--burg);font-weight:700;text-decoration:none;border-radius:4px;}
+    .skip-link:focus{top:12px;left:12px;}
+
+    .topbar{background:var(--burg);color:#fff;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;border-bottom:1px solid var(--gold-border);}
+    .topbar .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;}
+    .topbar .brand img{width:36px;height:36px;border-radius:50%;object-fit:cover;border:1.5px solid var(--gold);}
+    .topbar .brand span{font-family:var(--font-serif);font-weight:700;font-size:1.2rem;letter-spacing:0.08em;}
+    .topbar .brand:hover span{color:var(--gold-lt);}
+    .topbar-nav{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;}
+    .topbar-nav a{color:rgba(255,255,255,0.82);font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;}
+    .topbar-nav a:hover{color:var(--gold-lt);}
+    .topbar-nav a[aria-current="page"]{color:var(--gold-lt);border-bottom:2px solid var(--gold);padding-bottom:2px;}
+    .hamburger-sub{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;}
+    .hamburger-sub span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:var(--ease);}
+    .mobile-sub-menu{display:none;position:fixed;top:53px;left:0;right:0;bottom:0;background:rgba(14,5,5,0.97);backdrop-filter:blur(18px);padding:32px 24px;flex-direction:column;gap:0;z-index:999;border-top:2px solid var(--gold);overflow-y:auto;}
+    .mobile-sub-menu.open{display:flex;}
+    .mobile-sub-menu a{font-size:0.85rem;font-weight:700;color:rgba(255,255,255,0.65);letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;padding:16px 0;border-bottom:1px solid rgba(201,150,58,0.12);transition:color 0.35s ease,padding-left 0.35s ease;}
+    .mobile-sub-menu a:hover,.mobile-sub-menu a:active{color:var(--gold-lt);padding-left:8px;}
+    .mobile-sub-menu a[aria-current="page"]{color:var(--gold-lt);}
+
+    .page{max-width:720px;margin:0 auto;padding:40px 24px 64px;}
+    h1{font-family:var(--font-serif);font-weight:700;font-size:2rem;color:var(--burg);margin-bottom:8px;}
+    .lead{font-size:0.9rem;color:var(--muted);margin-bottom:28px;}
+    h2{font-size:1rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--burg);margin:28px 0 10px;}
+    p,li{font-size:0.95rem;margin-bottom:10px;}
+    ul{margin:0 0 12px 1.2rem;}
+    .content-link{color:var(--gold);text-decoration:underline;text-underline-offset:2px;}
+    .content-link:hover{color:var(--burg);}
+    .note{margin-top:36px;padding:16px 18px;background:rgba(61,16,16,0.06);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;font-size:0.82rem;color:var(--muted);}
+    .placeholder{background:rgba(201,150,58,0.15);padding:2px 6px;border-radius:4px;font-style:italic;}
+
+    footer{margin-top:48px;padding:28px 24px;background:#0E0505;text-align:center;}
+    .foot-copy{font-size:0.72rem;color:rgba(255,255,255,0.22);}
+    .foot-copy a{color:var(--gold);opacity:0.7;text-decoration:none;}
+    .foot-links{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-bottom:14px;}
+    .foot-links a{font-size:0.75rem;color:rgba(255,255,255,0.38);text-decoration:none;}
+    .foot-links a:hover{color:var(--gold-lt);}
+
+    @media(max-width:680px){
+      .topbar-nav{display:none;}
+      .hamburger-sub{display:flex;}
+    }
+  </style>
+</head>
+<body>
+  <a href="#inhalt" class="skip-link">Zum Inhalt springen</a>
+
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <img src="images/site-embed-01.jpg" alt="" width="36" height="36" />
+      <span>DEL SUD</span>
+    </a>
+    <nav class="topbar-nav" aria-label="Hauptnavigation">
+      <a href="index.html">Start</a>
+      <a href="index.html#about">Über uns</a>
+      <a href="index.html#offer">Angebot</a>
+      <a href="index.html#hours">Öffnungszeiten</a>
+      <a href="speisekarte.html">Speisekarte</a>
+      <a href="index.html#contact">Kontakt</a>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html" aria-current="page">Datenschutz</a>
+    </nav>
+    <button class="hamburger-sub" id="ham-sub" aria-label="Navigation öffnen" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+  <div class="mobile-sub-menu" id="mob-sub">
+    <a href="index.html">Start</a>
+    <a href="speisekarte.html">Speisekarte</a>
+    <a href="index.html#hours">Öffnungszeiten</a>
+    <a href="index.html#contact">Kontakt</a>
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html" aria-current="page">Datenschutz</a>
+  </div>
+
+  <main id="inhalt" class="page">
+    <h1>Datenschutzerklärung</h1>
+    <p class="lead">Stand: Mai 2026. Bitte vor Livegang mit Ihrer tatsächlichen Datenverarbeitung (Hosting, Formular, ggf. Reservierungssystem) abstimmen.</p>
+
+    <h2>1. Verantwortlicher</h2>
+    <p>
+      Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br />
+      Del Sud – Bar Ristorante Pizzeria<br />
+      <span class="placeholder">Name / Rechtsform des Verantwortlichen wie im Impressum</span><br />
+      Ritterstraße 3, 35066 Frankenberg (Eder)<br />
+      Telefon: <a class="content-link" href="tel:+491703678734">+49 170 3678734</a><br />
+      E-Mail: <span class="placeholder">geschäftliche E-Mail-Adresse bitte eintragen</span>
+    </p>
+
+    <h2>2. Hosting und Server-Logfiles</h2>
+    <p>
+      Beim Aufruf der Website verarbeitet der Hosting-Anbieter technisch notwendige Daten (z. B. IP-Adresse, Zeitpunkt, angeforderte Datei, Browserkennung), um die Seite auszuliefern und Störungen zu erkennen.
+      <span class="placeholder">Name und Anschrift des Hosters sowie ggf. Auftragsverarbeitung – bitte eintragen.</span>
+    </p>
+    <p>
+      Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (betriebliches Interesse an sicherem, stabilem Webauftritt).
+    </p>
+
+    <h2>3. Kontakt / Reservierungsanfragen</h2>
+    <p>
+      Wenn Sie uns über ein Formular oder per E-Mail kontaktieren, verarbeiten wir die von Ihnen mitgeteilten Daten zur Bearbeitung der Anfrage.
+      Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen) bzw. Art. 6 Abs. 1 lit. f DSGVO, soweit allgemeine Anfragen.
+    </p>
+    <p>
+      <span class="placeholder">Beschreiben Sie hier konkret: Wohin das Formular technisch gesendet wird (E-Mail, Drittanbieter, CRM) und wie lange Anfragen aufbewahrt werden.</span>
+    </p>
+
+    <h2>4. Cookies</h2>
+    <p>
+      Es werden keine Tracking- oder Marketing-Cookies zu Analyse- oder Werbezwecken gesetzt, die einer Einwilligung bedürfen.
+      <span class="placeholder">Falls Ihr Hoster oder ein Plugin notwendige Session-Cookies setzt, hier kurz benennen.</span>
+    </p>
+
+    <h2>5. Schriftarten (lokal)</h2>
+    <p>
+      Die Schriftarten <strong>Cormorant Garamond</strong> und <strong>Mulish</strong> werden als Dateien vom selben Server wie diese Website ausgeliefert.
+      Dabei findet <strong>kein Abruf bei Drittanbietern</strong> (z. B. Google Fonts) statt; insoweit werden keine Nutzerdaten zu Font-Zwecken an solche Anbieter übermittelt.
+    </p>
+
+    <h2>6. Externe Inhalte</h2>
+    <p>
+      Eine Einbindung von Kartendiensten (Google Maps, OpenStreetMap o. Ä.) erfolgt auf dieser statischen Vorlage nicht.
+      Wenn Sie später Karten, Videos oder Social-Plugins einbinden, muss dieser Absatz und ggf. die Einwilligung (Cookie-Banner) angepasst werden.
+    </p>
+
+    <h2>7. Speicherdauer</h2>
+    <p>
+      Wir speichern personenbezogene Daten nur so lange, wie es für den jeweiligen Zweck erforderlich ist oder gesetzliche Pflichten bestehen.
+    </p>
+
+    <h2>8. Ihre Rechte</h2>
+    <p>Sie haben nach der DSGVO insbesondere:</p>
+    <ul>
+      <li>Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung (Art. 18),</li>
+      <li>Datenübertragbarkeit (Art. 20), Widerspruch (Art. 21),</li>
+      <li>Beschwerde bei einer Aufsichtsbehörde (Art. 77), z. B. in Hessen bei der zuständigen Landesbehörde.</li>
+    </ul>
+
+    <h2>9. Widerruf von Einwilligungen</h2>
+    <p>
+      Soweit Sie eine Einwilligung erteilt haben, können Sie diese mit Wirkung für die Zukunft widerrufen. Die Rechtmäßigkeit der bis dahin erfolgten Verarbeitung bleibt unberührt.
+    </p>
+
+    <p class="note">
+      Diese Erklärung ist eine Vorlage. Abhängig von Hosting, Formularversand, Reservierungssystem, Statistik und Social Media kann sie unvollständig sein – bitte rechtlich prüfen lassen.
+    </p>
+  </main>
+
+  <footer>
+    <div class="foot-links">
+      <a href="index.html">Start</a>
+      <a href="speisekarte.html">Speisekarte</a>
+      <a href="index.html#hours">Öffnungszeiten</a>
+      <a href="index.html#contact">Kontakt</a>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+    </div>
+    <p class="foot-copy">© 2026 Bar Ristorante Pizzeria Del Sud · Ritterstraße 3 · 35066 Frankenberg (Eder)<br/>Website erstellt von <a href="https://360-ai.org" target="_blank" rel="noopener noreferrer">360ai</a></p>
+  </footer>
+
+  <script>
+    var h=document.getElementById('ham-sub'),m=document.getElementById('mob-sub');
+    if(h&&m){h.addEventListener('click',function(){var o=m.classList.toggle('open');h.setAttribute('aria-expanded',o);});}
+  </script>
+</body>
+</html>
