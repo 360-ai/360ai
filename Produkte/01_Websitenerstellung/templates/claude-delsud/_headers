@@ -1,6 +1,0 @@
-# Cloudflare Pages: PDF im Browser anzeigen (iframe/object), nicht nur Download
-# Ohne "inline" senden manche CDNs Content-Disposition: attachment → leere Vorschau
-/Del-Sud-Speisekarte.pdf
-  Content-Disposition: inline
-/downloads/*
-  Content-Disposition: inline
