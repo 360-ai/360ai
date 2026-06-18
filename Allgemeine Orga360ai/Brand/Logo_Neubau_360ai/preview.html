@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>360ai Logo Neubau Preview</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1f2633;
+      --muted: #687386;
+      --line: #dbe3ea;
+      --paper: #f7f8fb;
+      --panel: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Segoe UI, Arial, sans-serif;
+    }
+    main {
+      width: min(1180px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 38px 0 56px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      font-weight: 760;
+      letter-spacing: 0;
+    }
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .grid {
+      display: grid;
+      gap: 18px;
+      margin-top: 28px;
+    }
+    .row {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+    }
+    .label {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 650;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .logo-stage {
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      background:
+        linear-gradient(45deg, rgba(31,38,51,.045) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(31,38,51,.045) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(31,38,51,.045) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(31,38,51,.045) 75%);
+      background-size: 22px 22px;
+      background-position: 0 0, 0 11px, 11px -11px, -11px 0;
+      overflow: hidden;
+    }
+    img, object {
+      display: block;
+      max-width: 100%;
+      max-height: 220px;
+    }
+    .threesixty img {
+      max-height: 170px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>360ai Logo-Neubau</h1>
+    <p>Vergleich der PNG-Referenz, der 1:1-nahen SVG-Vektorversion und des neuen ThreesixtyAI-Wortmarken-Vorschlags.</p>
+
+    <section class="grid" aria-label="Logo-Vergleich">
+      <article class="row">
+        <div class="label"><span>Referenz</span><span>Logo/LogoOhneHintergrund.png</span></div>
+        <div class="logo-stage">
+          <img src="../Logo/LogoOhneHintergrund.png" alt="360ai PNG Referenz">
+        </div>
+      </article>
+
+      <article class="row">
+        <div class="label"><span>Neubau</span><span>360ai-logo-1zu1.svg</span></div>
+        <div class="logo-stage">
+          <img src="360ai-logo-1zu1.svg" alt="360ai SVG Neubau">
+        </div>
+      </article>
+
+      <article class="row threesixty">
+        <div class="label"><span>Vorschlag</span><span>threesixtyai-logo-vorschlag.svg</span></div>
+        <div class="logo-stage">
+          <img src="threesixtyai-logo-vorschlag.svg" alt="ThreesixtyAI Wortmarke">
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
