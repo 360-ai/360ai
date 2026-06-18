@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="520" viewBox="0 0 2400 520" role="img" aria-labelledby="title desc">
+  <title id="title">ThreesixtyAI logo proposal</title>
+  <desc id="desc">Rounded wordmark in the 360ai lavender blue to mint teal gradient style.</desc>
+  <defs>
+    <linearGradient id="threesixtyGradient" x1="80" y1="0" x2="2320" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#B7B8E0"/>
+      <stop offset="0.18" stop-color="#AAA8DA"/>
+      <stop offset="0.36" stop-color="#8CB7D9"/>
+      <stop offset="0.56" stop-color="#9EC5D7"/>
+      <stop offset="0.76" stop-color="#7CCBC8"/>
+      <stop offset="1" stop-color="#A5D5CC"/>
+    </linearGradient>
+    <linearGradient id="softHighlight" x1="0" y1="95" x2="0" y2="360" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
+      <stop offset="0.52" stop-color="#FFFFFF" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="softShadow" x="-5%" y="-20%" width="110%" height="150%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#7397A8" flood-opacity="0.12"/>
+    </filter>
+    <mask id="wordMask">
+      <rect width="2400" height="520" fill="black"/>
+      <text x="78" y="336"
+            font-family="Segoe UI, Arial Rounded MT Bold, Nunito, Quicksand, Arial, sans-serif"
+            font-size="286"
+            font-weight="800"
+            fill="white">Threesixty</text>
+      <text x="1786" y="336"
+            font-family="Segoe UI, Arial Rounded MT Bold, Nunito, Quicksand, Arial, sans-serif"
+            font-size="286"
+            font-weight="900"
+            fill="white">AI</text>
+    </mask>
+  </defs>
+
+  <g filter="url(#softShadow)">
+    <rect x="0" y="0" width="2400" height="520" fill="url(#threesixtyGradient)" mask="url(#wordMask)"/>
+    <rect x="0" y="0" width="2400" height="240" fill="url(#softHighlight)" mask="url(#wordMask)"/>
+  </g>
+
+  <path d="M2058 120 C2162 120 2240 198 2240 302 C2240 406 2162 484 2058 484 C1954 484 1876 406 1876 302 C1876 198 1954 120 2058 120 Z"
+        fill="#7CCBC8" opacity="0.06"/>
+  <path d="M78 390 C430 430 720 418 1008 386 C1296 354 1588 344 1910 386"
+        fill="none" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round" opacity="0.16"/>
+</svg>
