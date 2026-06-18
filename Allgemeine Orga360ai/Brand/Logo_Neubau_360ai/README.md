@@ -9,6 +9,7 @@ Dieser Ordner enthaelt neue Logo-Artefakte fuer 360ai.
 - `threesixtyai-logo-vorschlag.svg`: Wortmarken-Vorschlag fuer `ThreesixtyAI` im 360ai-Stil.
 - `threesixtyai-logo-vorschlag-preview.png`: schnelle PNG-Vorschau der Wortmarke.
 - `preview.html`: Vergleichsansicht mit der PNG-Referenz und den neuen SVGs.
+- `README.md`: kurze Herkunfts- und Nutzungshinweise zu diesen Logo-Artefakten.
 
 ## Hinweise
 
