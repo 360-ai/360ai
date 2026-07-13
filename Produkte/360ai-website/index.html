@@ -174,14 +174,39 @@
       animation: heroDrift 14s ease-in-out infinite alternate;
     }
     .hero::after {
-      content: ""; position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
-      background-size: 72px 72px;
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent 88%);
+      content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background:
+        radial-gradient(circle at 74% 42%,
+          transparent 0,
+          transparent 118px, rgba(255,255,255,0.08) 119px, transparent 121px,
+          transparent 208px, rgba(132,193,188,0.10) 209px, transparent 212px,
+          transparent 318px, rgba(123,140,182,0.09) 319px, transparent 323px,
+          transparent 448px, rgba(255,255,255,0.06) 449px, transparent 454px,
+          transparent 600px);
+      mask-image: radial-gradient(circle at 74% 42%, rgba(0,0,0,0.9), transparent 70%);
+      -webkit-mask-image: radial-gradient(circle at 74% 42%, rgba(0,0,0,0.9), transparent 70%);
+    }
+    .hero-orbit {
+      position: absolute; z-index: 1; pointer-events: none;
+      top: 42%; left: 74%; width: 900px; height: 900px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%; opacity: 0.10;
+      background: conic-gradient(from 0deg,
+        transparent 0deg,
+        rgba(132,193,188,0.55) 40deg,
+        rgba(123,140,182,0.35) 120deg,
+        transparent 180deg,
+        transparent 360deg);
+      mask-image: radial-gradient(circle, transparent 61%, #000 62%, #000 66%, transparent 67%);
+      -webkit-mask-image: radial-gradient(circle, transparent 61%, #000 62%, #000 66%, transparent 67%);
+      animation: spin360 40s linear infinite;
     }
     @keyframes heroDrift { from { transform: translate3d(-2%, -1%, 0) scale(1); } to { transform: translate3d(2%, 1%, 0) scale(1.04); } }
+    @keyframes spin360 { to { transform: translate(-50%, -50%) rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-orbit { animation: none; }
+      .hero::before { animation: none; }
+    }
     .hero-grid { position: relative; z-index: 2; max-width: 920px; }
     .hero-pill {
       display: inline-flex; gap: 10px; align-items: center; padding: 8px 13px; border-radius: 999px;
@@ -347,6 +372,7 @@
 
   <main>
     <section class="hero" id="hero">
+      <div class="hero-orbit" aria-hidden="true"></div>
       <div class="container hero-grid">
         <div class="hero-pill"><span></span> KI-Beratung aus Frankenberg (Eder)</div>
         <h1>
