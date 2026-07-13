@@ -230,7 +230,7 @@
     .services-header .eyebrow { justify-content: center; }
     .services-header .eyebrow::before { display: none; }
     .services-header .section-sub { margin-left: auto; margin-right: auto; }
-    .services-grid { display: grid; grid-template-columns: 1.18fr 0.82fr; gap: 24px; align-items: stretch; }
+    .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; }
     .service-card { position: relative; overflow: hidden; border: 1px solid var(--border); background: #fff; border-radius: 26px; padding: 30px; box-shadow: var(--shadow-soft); }
     .service-card.primary { background: linear-gradient(135deg, #fff, #F2F8F8); }
     .service-kicker { color: var(--lavender); font-weight: 900; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; }
@@ -239,8 +239,10 @@
     .check-grid { margin-top: 24px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .check { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--ink); }
     .check::before { content: "✓"; color: var(--mint); font-weight: 900; }
-    .mini-stack { display: grid; gap: 24px; }
-    .mini-stack .service-card h3 { font-size: 25px; }
+    .service-result { grid-column: 1 / -1; display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: center; }
+    .service-result h3 { margin-top: 6px; font-size: 22px; }
+    .service-result p { margin-top: 6px; }
+    @media (max-width: 720px) { .service-result { grid-template-columns: 1fr; } }
 
     .deliverables-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 46px; }
     .deliverable { background: #fff; border: 1px solid var(--border); border-radius: 22px; padding: 24px; box-shadow: var(--shadow-soft); }
@@ -358,7 +360,7 @@
           </span>
         </h1>
         <p class="hero-sub">
-          Viele Unternehmen wollen jetzt „irgendwas mit KI“ machen. 360ai prüft zuerst, ob KI überhaupt sinnvoll ist: Prozesse, Datenbasis, Engpässe, Verantwortlichkeiten und wirtschaftlicher Nutzen. Damit Sie nicht blind in überteuerte oder unnötige Lösungen laufen.
+          Viele Unternehmen wollen jetzt „irgendwas mit KI“ machen. 360ai prüft zuerst, ob KI überhaupt sinnvoll ist: Prozesse, Datenbasis, Engpässe, Verantwortlichkeiten und wirtschaftlicher Nutzen. Und wenn Sie online sichtbar werden wollen, bauen wir dazu die passende, moderne Website.
         </p>
         <div class="hero-actions">
           <a href="#kontakt" class="btn btn-primary">Kostenlosen KI-Erstcheck anfragen →</a>
@@ -374,8 +376,8 @@
 
     <div class="ticker" aria-hidden="true">
       <div class="ticker-inner">
-        <span>KI-Readiness</span><span>Fehlinvestitionen vermeiden</span><span>Engpass-Analyse</span><span>ROI-Einschätzung</span><span>Onepager Websites bleiben</span><span>Prozessklarheit</span><span>Datenbasis prüfen</span>
-        <span>KI-Readiness</span><span>Fehlinvestitionen vermeiden</span><span>Engpass-Analyse</span><span>ROI-Einschätzung</span><span>Onepager Websites bleiben</span><span>Prozessklarheit</span><span>Datenbasis prüfen</span>
+        <span>KI-Readiness</span><span>Fehlinvestitionen vermeiden</span><span>Engpass-Analyse</span><span>ROI-Einschätzung</span><span>Webdesign & Onepager</span><span>Prozessklarheit</span><span>Datenbasis prüfen</span>
+        <span>KI-Readiness</span><span>Fehlinvestitionen vermeiden</span><span>Engpass-Analyse</span><span>ROI-Einschätzung</span><span>Webdesign & Onepager</span><span>Prozessklarheit</span><span>Datenbasis prüfen</span>
       </div>
     </div>
 
@@ -430,7 +432,7 @@
         <div class="services-header reveal">
           <span class="eyebrow">Leistungen</span>
           <h2 class="section-title">Erst prüfen. Dann entscheiden. Erst danach umsetzen.</h2>
-          <p class="section-sub">Der Schwerpunkt liegt auf unabhängiger KI-Beratung für KMU. Moderne Onepager bleiben als klares zweites Angebot bestehen.</p>
+          <p class="section-sub">Zwei Hauptangebote für KMU: unabhängige KI-Beratung, die vor Fehlinvestitionen schützt, und modernes Webdesign, das Ihr Angebot klar nach außen bringt.</p>
         </div>
 
         <div class="services-grid">
@@ -450,18 +452,29 @@
             </div>
           </article>
 
-          <div class="mini-stack">
-            <article class="service-card reveal">
+          <article class="service-card primary reveal">
+            <div class="service-kicker">Hauptangebot</div>
+            <h3>Webdesign & Onepager</h3>
+            <p>
+              Moderne, schnelle Websites, die Ihr Angebot klar erklären und auf jedem Gerät sauber funktionieren. Kein Baukasten-Look, sondern eine durchdachte Struktur, die verkauft.
+            </p>
+            <div class="check-grid">
+              <div class="check">Modern, schnell, mobiloptimiert</div>
+              <div class="check">SEO-Grundausstattung (Meta, JSON-LD, Sitemap)</div>
+              <div class="check">DSGVO-konforme Rechtstexte</div>
+              <div class="check">Klare Struktur statt Baukasten-Look</div>
+              <div class="check">Hosting & Pflege optional</div>
+              <div class="check">Übergabe oder laufende Betreuung</div>
+            </div>
+          </article>
+
+          <article class="service-card service-result reveal">
+            <div>
               <div class="service-kicker">Ergebnis</div>
               <h3>KI-Roadmap & Lastenheft</h3>
-              <p>Wenn KI sinnvoll ist, entsteht eine klare Entscheidungsgrundlage für Umsetzungspartner, IT-Dienstleister oder spätere interne Projekte.</p>
-            </article>
-            <article class="service-card reveal">
-              <div class="service-kicker">Weiterhin verfügbar</div>
-              <h3>Moderne Onepager Websites</h3>
-              <p>Schnelle, klare und mobiloptimierte Websites für Unternehmen, die online professionell wirken und verständlich verkaufen wollen.</p>
-            </article>
-          </div>
+            </div>
+            <p>Wenn KI sinnvoll ist, entsteht aus dem Assessment eine klare Entscheidungsgrundlage: ein konkretes Lastenheft für Umsetzungspartner, IT-Dienstleister oder spätere interne Projekte.</p>
+          </article>
         </div>
       </div>
     </section>
