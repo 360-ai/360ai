@@ -1,0 +1,27 @@
+{
+  "name": "360ai-akquise-crm",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Mobiles Cloudflare-Pages-Dashboard fuer die 360ai-Lead-Pipeline",
+  "scripts": {
+    "build": "node scripts/build-assets.mjs",
+    "predev": "npm run build",
+    "dev": "wrangler pages dev public",
+    "test": "node --test \"tests/*.test.mjs\"",
+    "check": "node --check public/domain.js && node --check public/app.js",
+    "predeploy": "npm run build && npm test",
+    "deploy": "wrangler pages deploy public"
+  },
+  "dependencies": {
+    "@fontsource-variable/outfit": "^5.2.8",
+    "jose": "^6.1.2"
+  },
+  "devDependencies": {
+    "jsdom": "^29.1.1",
+    "wrangler": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,834 @@
+{
+  "name": "360ai Akquise — WF6 BCC-Mail-Import",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 5
+            }
+          ]
+        }
+      },
+      "id": "b6000000-0001-4000-8000-000000000001",
+      "name": "Alle 5 Minuten",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1100,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://gmail.googleapis.com/gmail/v1/users/me/messages?maxResults=100&q=in%3Asent%20bcc%3Ainfo%40360-ai.org%20subject%3A%22%23Anfrage%22%20newer_than%3A14d",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "gmailOAuth2",
+        "options": {}
+      },
+      "id": "b6000000-0002-4000-8000-000000000002",
+      "name": "Gmail BCC-Mails suchen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -880,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const antwort = $input.first().json || {};\n  const nachrichten = Array.isArray(antwort.messages) ? antwort.messages : [];\n  const gesehen = new Set();\n  return nachrichten\n    .filter((nachricht) => nachricht && typeof nachricht.id === 'string' && nachricht.id)\n    .filter((nachricht) => {\n      if (gesehen.has(nachricht.id)) return false;\n      gesehen.add(nachricht.id);\n      return true;\n    })\n    .map((nachricht) => ({ json: { gmail_message_id: nachricht.id } }));"
+      },
+      "id": "b6000000-0003-4000-8000-000000000003",
+      "name": "Gmail-IDs isolieren",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -660,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://gmail.googleapis.com/gmail/v1/users/me/messages/{{ $json.gmail_message_id }}?format=metadata&metadataHeaders=From&metadataHeaders=To&metadataHeaders=Bcc&metadataHeaders=Subject&metadataHeaders=Date&metadataHeaders=Message-ID",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "gmailOAuth2",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "id": "b6000000-0004-4000-8000-000000000004",
+      "name": "Mail-Metadaten lesen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -440,
+        0
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const EIGENE_ADRESSE = 'info@360-ai.org';\n  const MARKER = '#Anfrage';\n  const emailMuster = /[A-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\\.[A-Z]{2,}/gi;\n  const kopf = (nachricht, name) => {\n    const headers = (nachricht.payload && nachricht.payload.headers) || [];\n    const treffer = headers.find((header) =>\n      String(header.name || '').toLowerCase() === name.toLowerCase());\n    return treffer ? String(treffer.value || '') : '';\n  };\n  const adressen = (wert) => [...new Set(\n    (String(wert || '').match(emailMuster) || []).map((adresse) => adresse.toLowerCase()),\n  )];\n  const eigene = EIGENE_ADRESSE.toLowerCase();\n  const markerMuster = /(^|\\s)#anfrage(?=$|[\\s)\\]:;,.!?-])/i;\n  const result = [];\n\n  for (const item of $input.all()) {\n    const nachricht = item.json || {};\n    const id = String(nachricht.id || '').trim();\n    const ungueltig = (fehler) => result.push({\n      json: { ok: false, gmail_message_id: id, fehler },\n    });\n    if (!id || !nachricht.threadId) {\n      ungueltig('Gmail-Metadaten unvollstaendig');\n      continue;\n    }\n    if (!(nachricht.labelIds || []).includes('SENT')) {\n      ungueltig('Nachricht liegt nicht in Gesendet');\n      continue;\n    }\n    if (!adressen(kopf(nachricht, 'From')).includes(eigene)) {\n      ungueltig('Absender ist nicht ' + EIGENE_ADRESSE);\n      continue;\n    }\n    if (!adressen(kopf(nachricht, 'Bcc')).includes(eigene)) {\n      ungueltig('BCC an ' + EIGENE_ADRESSE + ' fehlt');\n      continue;\n    }\n    const betreff = kopf(nachricht, 'Subject').trim();\n    if (!markerMuster.test(betreff)) {\n      ungueltig('Betreffmarker ' + MARKER + ' fehlt');\n      continue;\n    }\n    const empfaenger = adressen(kopf(nachricht, 'To')).filter((adresse) => adresse !== eigene);\n    if (empfaenger.length !== 1) {\n      ungueltig('Genau ein externer Empfaenger im An-Feld erwartet');\n      continue;\n    }\n    const toHeader = kopf(nachricht, 'To');\n    let name = toHeader.replace(/<[^>]+>/g, '').replace(/^\\s*\"|\"\\s*$/g, '').trim();\n    if (!name || /@|^=\\?/i.test(name)) name = '';\n    const zeit = Number(nachricht.internalDate);\n    const datum = Number.isFinite(zeit) && zeit > 0 ? new Date(zeit) : new Date();\n    result.push({ json: {\n      ok: true,\n      gmail_message_id: id,\n      gmail_thread_id: String(nachricht.threadId),\n      empfaenger: empfaenger[0],\n      ansprechpartner: name.slice(0, 200),\n      betreff: betreff.slice(0, 500),\n      gesendet_am: datum.toISOString(),\n    } });\n  }\n  return result;"
+      },
+      "id": "b6000000-0005-4000-8000-000000000005",
+      "name": "Nachrichten normalisieren",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -220,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Sheet-Leseoperationen koennen viele Items liefern. Der naechste Read darf\n  // trotzdem nur einmal laufen, sonst vervielfacht sich die API-Last pro Zeile.\n  return [{ json: { weiter: true } }];"
+      },
+      "id": "b6000000-0006-4000-8000-000000000006",
+      "name": "Nachrichten gesammelt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "SHEET_ID_HIER",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "id": "b6000000-0007-4000-8000-000000000007",
+      "name": "Leads lesen",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        220,
+        0
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Sheet-Leseoperationen koennen viele Items liefern. Der naechste Read darf\n  // trotzdem nur einmal laufen, sonst vervielfacht sich die API-Last pro Zeile.\n  return [{ json: { weiter: true } }];"
+      },
+      "id": "b6000000-0008-4000-8000-000000000008",
+      "name": "Leads gesammelt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "SHEET_ID_HIER",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Activities",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "id": "b6000000-0009-4000-8000-000000000009",
+      "name": "Activities lesen",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        660,
+        0
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const nachrichten = $('Nachrichten normalisieren').all().map((item) => item.json);\n  const leads = $('Leads lesen').all().map((item) => item.json)\n    .filter((lead) => lead && lead.lead_id);\n  const activities = $('Activities lesen').all().map((item) => item.json)\n    .filter((activity) => activity && activity.activity_id);\n  const externeIds = new Set(activities.map((activity) => String(activity.external_id || ''))\n    .filter(Boolean));\n  const perMail = new Map();\n  const mail = (wert) => String(wert || '').trim().toLowerCase();\n  const indexiere = (lead) => {\n    for (const adresse of new Set([mail(lead.mail), mail(lead.gmail_empfaenger)])) {\n      if (!adresse) continue;\n      const liste = perMail.get(adresse) || [];\n      if (!liste.some((eintrag) => eintrag.lead_id === lead.lead_id)) liste.push(lead);\n      perMail.set(adresse, liste);\n    }\n  };\n  leads.forEach(indexiere);\n  const sheetText = (wert, laenge = 500) => {\n    let text = String(wert || '').trim().slice(0, laenge);\n    if (/^[=+\\-@]/.test(text)) text = \"'\" + text;\n    return text;\n  };\n  const plusTage = (iso, tage) => {\n    const datum = new Date(iso);\n    datum.setUTCDate(datum.getUTCDate() + tage);\n    return datum.toISOString().slice(0, 10);\n  };\n  const leadZeilen = [];\n  const activityZeilen = [];\n  const fehler = [];\n  let neu = 0;\n  let ergaenzt = 0;\n  let duplikate = 0;\n\n  for (const nachricht of nachrichten) {\n    if (!nachricht.ok) {\n      fehler.push(nachricht.fehler || 'Unbekannter Importfehler');\n      continue;\n    }\n    const externalId = 'gmail:' + nachricht.gmail_message_id;\n    if (externeIds.has(externalId)) {\n      duplikate += 1;\n      continue;\n    }\n    const treffer = perMail.get(mail(nachricht.empfaenger)) || [];\n    if (treffer.length > 1) {\n      fehler.push('Mehrere Leads verwenden ' + nachricht.empfaenger + '; Mail nicht zugeordnet');\n      continue;\n    }\n    const sendetag = String(nachricht.gesendet_am).slice(0, 10);\n    let lead;\n    if (treffer.length === 1) {\n      lead = treffer[0];\n      const aktuell = String(lead.status || 'neu');\n      const frueh = ['neu', 'analysiert'].includes(aktuell);\n      const zeile = {\n        lead_id: lead.lead_id,\n        gmail_thread_id: nachricht.gmail_thread_id,\n        gmail_empfaenger: nachricht.empfaenger,\n        gmail_betreff: sheetText(nachricht.betreff),\n        unterlagen_gesendet_am: lead.unterlagen_gesendet_am || sendetag,\n      };\n      if (!lead.mail) zeile.mail = nachricht.empfaenger;\n      if (!lead.ansprechpartner && nachricht.ansprechpartner) {\n        zeile.ansprechpartner = sheetText(nachricht.ansprechpartner, 200);\n      }\n      if (frueh) {\n        zeile.status = 'kontaktiert';\n        zeile.next_action = 'followup_call';\n        zeile.next_action_at = plusTage(nachricht.gesendet_am, 14);\n      } else if (aktuell === 'kontaktiert' && !lead.next_action) {\n        zeile.next_action = 'followup_call';\n        zeile.next_action_at = plusTage(nachricht.gesendet_am, 14);\n      }\n      leadZeilen.push(zeile);\n      Object.assign(lead, zeile);\n      ergaenzt += 1;\n    } else {\n      const suffix = String(nachricht.gmail_message_id).replace(/[^A-Za-z0-9]/g, '').slice(-12);\n      const leadId = 'L-' + sendetag.replace(/-/g, '') + '-mail-' + suffix;\n      lead = {\n        lead_id: leadId,\n        firma: '', website: '', ort: '', branche: '',\n        ansprechpartner: sheetText(nachricht.ansprechpartner, 200), anrede: 'sie',\n        mail: nachricht.empfaenger, telefon: '', kontaktquelle: 'direkt_mail',\n        website_score: '', akquise_score: '', akquise_ansatz: '', compliance: '',\n        status: 'kontaktiert', next_action: 'followup_call',\n        next_action_at: plusTage(nachricht.gesendet_am, 14),\n        email_freigabe: 'nein', email_freigabe_am: '', email_freigabe_notiz: '',\n        gmail_draft_id: '', gmail_thread_id: nachricht.gmail_thread_id,\n        gmail_empfaenger: nachricht.empfaenger,\n        gmail_betreff: sheetText(nachricht.betreff),\n        unterlagen_gesendet_am: sendetag, ende_grund: '', wiedervorlage_am: '',\n        notiz: 'Automatisch aus gesendeter BCC-Mail mit #Anfrage erfasst.',\n        berichte_pfad: '', berichte_drive_url: '', mail_betreff: '', mail_entwurf: '',\n      };\n      leadZeilen.push(lead);\n      leads.push(lead);\n      indexiere(lead);\n      neu += 1;\n    }\n    activityZeilen.push({\n      activity_id: 'A-mail-' + String(nachricht.gmail_message_id).replace(/[^A-Za-z0-9_-]/g, ''),\n      lead_id: lead.lead_id,\n      datum: nachricht.gesendet_am,\n      typ: 'mail', richtung: 'raus', verwendete_argumente: '', ergebnis: 'offen',\n      notiz: sheetText('Betreff: ' + nachricht.betreff, 1000),\n      external_id: externalId,\n    });\n    externeIds.add(externalId);\n  }\n  return [{ json: { leadZeilen, activityZeilen, neu, ergaenzt, duplikate, fehler } }];"
+      },
+      "id": "b6000000-0010-4000-8000-000000000010",
+      "name": "BCC-Import vorbereiten",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const daten = $input.first().json || {};\n  return (daten.leadZeilen || []).map((zeile) => ({\n    json: zeile, pairedItem: { item: 0 },\n  }));"
+      },
+      "id": "b6000000-0011-4000-8000-000000000011",
+      "name": "Leadzeilen isolieren",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        -180
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "SHEET_ID_HIER",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "matchingColumns": [
+            "lead_id"
+          ],
+          "schema": [
+            {
+              "id": "lead_id",
+              "displayName": "lead_id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "firma",
+              "displayName": "firma",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "website",
+              "displayName": "website",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ort",
+              "displayName": "ort",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "branche",
+              "displayName": "branche",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ansprechpartner",
+              "displayName": "ansprechpartner",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "anrede",
+              "displayName": "anrede",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "mail",
+              "displayName": "mail",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "telefon",
+              "displayName": "telefon",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "kontaktquelle",
+              "displayName": "kontaktquelle",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "website_score",
+              "displayName": "website_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "akquise_score",
+              "displayName": "akquise_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "akquise_ansatz",
+              "displayName": "akquise_ansatz",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "compliance",
+              "displayName": "compliance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "next_action",
+              "displayName": "next_action",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "next_action_at",
+              "displayName": "next_action_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email_freigabe",
+              "displayName": "email_freigabe",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email_freigabe_am",
+              "displayName": "email_freigabe_am",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email_freigabe_notiz",
+              "displayName": "email_freigabe_notiz",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "gmail_draft_id",
+              "displayName": "gmail_draft_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "gmail_thread_id",
+              "displayName": "gmail_thread_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "gmail_empfaenger",
+              "displayName": "gmail_empfaenger",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "gmail_betreff",
+              "displayName": "gmail_betreff",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "unterlagen_gesendet_am",
+              "displayName": "unterlagen_gesendet_am",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ende_grund",
+              "displayName": "ende_grund",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "wiedervorlage_am",
+              "displayName": "wiedervorlage_am",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "notiz",
+              "displayName": "notiz",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "berichte_pfad",
+              "displayName": "berichte_pfad",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "berichte_drive_url",
+              "displayName": "berichte_drive_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "mail_betreff",
+              "displayName": "mail_betreff",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "mail_entwurf",
+              "displayName": "mail_entwurf",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b6000000-0012-4000-8000-000000000012",
+      "name": "Leads schreiben",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1320,
+        -180
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const daten = $input.first().json || {};\n  return (daten.activityZeilen || []).map((zeile) => ({\n    json: zeile, pairedItem: { item: 0 },\n  }));"
+      },
+      "id": "b6000000-0013-4000-8000-000000000013",
+      "name": "Activityzeilen isolieren",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "SHEET_ID_HIER",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Activities",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "schema": [
+            {
+              "id": "activity_id",
+              "displayName": "activity_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "lead_id",
+              "displayName": "lead_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "datum",
+              "displayName": "datum",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "typ",
+              "displayName": "typ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "richtung",
+              "displayName": "richtung",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "verwendete_argumente",
+              "displayName": "verwendete_argumente",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ergebnis",
+              "displayName": "ergebnis",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "notiz",
+              "displayName": "notiz",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "external_id",
+              "displayName": "external_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b6000000-0014-4000-8000-000000000014",
+      "name": "Activities schreiben",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1320,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const daten = $input.first().json || {};\n  const fehler = Array.isArray(daten.fehler) ? daten.fehler : [];\n  if (!daten.neu && !daten.ergaenzt && !fehler.length) return [];\n  const zeilen = [\n    'BCC-Import #Anfrage:',\n    String(daten.neu || 0) + ' Lead(s) neu angelegt',\n    String(daten.ergaenzt || 0) + ' bestehende Lead(s) ergaenzt',\n  ];\n  if (fehler.length) {\n    zeilen.push('Bitte pruefen:');\n    zeilen.push(...fehler.slice(0, 10).map((fehlertext) => '- ' + fehlertext));\n  }\n  return [{ json: { text: zeilen.join('\\n') } }];"
+      },
+      "id": "b6000000-0015-4000-8000-000000000015",
+      "name": "Meldung bauen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "116755995",
+        "text": "={{ $json.text }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "b6000000-0016-4000-8000-000000000016",
+      "name": "Import melden",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1320,
+        180
+      ]
+    }
+  ],
+  "connections": {
+    "Alle 5 Minuten": {
+      "main": [
+        [
+          {
+            "node": "Gmail BCC-Mails suchen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail BCC-Mails suchen": {
+      "main": [
+        [
+          {
+            "node": "Gmail-IDs isolieren",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail-IDs isolieren": {
+      "main": [
+        [
+          {
+            "node": "Mail-Metadaten lesen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mail-Metadaten lesen": {
+      "main": [
+        [
+          {
+            "node": "Nachrichten normalisieren",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nachrichten normalisieren": {
+      "main": [
+        [
+          {
+            "node": "Nachrichten gesammelt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nachrichten gesammelt": {
+      "main": [
+        [
+          {
+            "node": "Leads lesen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leads lesen": {
+      "main": [
+        [
+          {
+            "node": "Leads gesammelt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leads gesammelt": {
+      "main": [
+        [
+          {
+            "node": "Activities lesen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Activities lesen": {
+      "main": [
+        [
+          {
+            "node": "BCC-Import vorbereiten",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BCC-Import vorbereiten": {
+      "main": [
+        [
+          {
+            "node": "Leadzeilen isolieren",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Activityzeilen isolieren",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Meldung bauen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leadzeilen isolieren": {
+      "main": [
+        [
+          {
+            "node": "Leads schreiben",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Activityzeilen isolieren": {
+      "main": [
+        [
+          {
+            "node": "Activities schreiben",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meldung bauen": {
+      "main": [
+        [
+          {
+            "node": "Import melden",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Berlin",
+    "saveDataErrorExecution": "none",
+    "saveDataSuccessExecution": "none",
+    "saveExecutionProgress": false,
+    "saveManualExecutions": false
+  },
+  "tags": [
+    {
+      "name": "akquise"
+    }
+  ]
+}

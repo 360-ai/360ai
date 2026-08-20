@@ -1,0 +1,20 @@
+{
+  "name": "360ai-akquise-tool",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Deterministischer Website-Collector und Regelwerk fuer die 360ai-Akquise",
+  "bin": {
+    "akquise-scan": "./collector/scan.mjs"
+  },
+  "scripts": {
+    "scan": "node collector/scan.mjs",
+    "rules": "node rules/engine.mjs",
+    "workflows:build": "node scripts/build-crm-workflows.mjs",
+    "test": "node --test \"tests/*.test.mjs\""
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "playwright": "^1.49.0"
+  }
+}

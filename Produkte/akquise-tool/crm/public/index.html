@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0f1421">
+  <title>360ai Akquise CRM</title>
+  <meta name="description" content="Internes Lead-Dashboard für die 360ai Akquise-Pipeline">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Hauptnavigation">
+      <a class="brand" href="#dashboard" aria-label="360ai Akquise CRM">
+        <img class="brand-mark" src="/assets/360ai-logo.svg" alt="" aria-hidden="true">
+        <span class="brand-copy"><strong>Akquise</strong><span>CRM</span></span>
+      </a>
+      <nav class="side-nav" aria-label="Hauptnavigation">
+        <a href="#dashboard" data-nav="dashboard"><span aria-hidden="true">◫</span>Dashboard</a>
+        <a href="#leads" data-nav="leads"><span aria-hidden="true">≡</span>Leads</a>
+        <a href="#kanban" data-nav="kanban"><span aria-hidden="true">▥</span>Kanban</a>
+        <a href="#archiv" data-nav="archiv"><span aria-hidden="true">▤</span>Archiv</a>
+      </nav>
+      <div class="sidebar-foot">
+        <span class="live-dot" aria-hidden="true"></span>
+        <!-- Das Ziel setzt app.js aus SHEET_URL, damit die Tabellen-ID nur an einer
+             Stelle steht und diese Datei frei von externen Adressen bleibt. -->
+        <a id="sheet-link" target="_blank" rel="noopener noreferrer"
+           title="Google Sheet in neuem Tab öffnen">Google Sheet ist führend</a>
+      </div>
+    </aside>
+
+    <section class="workspace">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Lead-Pipeline</p>
+          <p class="topbar-date" id="today-label"></p>
+        </div>
+        <div class="topbar-actions">
+          <span class="sync-state" id="sync-state" role="status"><i aria-hidden="true"></i>Wird geladen</span>
+          <button class="icon-button" id="refresh-button" type="button" aria-label="Daten neu laden" title="Daten neu laden">↻</button>
+        </div>
+      </header>
+      <main id="main-content" tabindex="-1">
+        <div class="loading-state" aria-live="polite">
+          <div class="loading-mark" aria-hidden="true"></div>
+          <p>Pipeline wird geladen …</p>
+        </div>
+      </main>
+    </section>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile Hauptnavigation">
+    <a href="#dashboard" data-nav="dashboard"><span aria-hidden="true">◫</span><small>Dashboard</small></a>
+    <a href="#leads" data-nav="leads"><span aria-hidden="true">≡</span><small>Leads</small></a>
+    <a href="#kanban" data-nav="kanban"><span aria-hidden="true">▥</span><small>Kanban</small></a>
+    <a href="#neu" data-nav="neu"><span aria-hidden="true">＋</span><small>Neu</small></a>
+  </nav>
+
+  <div class="toast-region" id="toast-region" aria-live="polite"></div>
+  <!-- Fehler brauchen eine eigene Region: role="alert" unterbricht die Vorlesereihenfolge,
+       polite-Meldungen koennen dagegen verschluckt werden. -->
+  <div class="toast-region toast-region-alert" id="alert-region" role="alert"></div>
+  <dialog class="confirm-dialog" id="confirm-dialog"
+          aria-labelledby="dialog-title" aria-describedby="dialog-message">
+    <form method="dialog">
+      <div class="dialog-mark" aria-hidden="true">!</div>
+      <h2 id="dialog-title">Status ändern?</h2>
+      <p id="dialog-message"></p>
+      <label class="dialog-field" id="dialog-reason-wrap" hidden>
+        <span>Abschlussgrund</span>
+        <select id="dialog-reason"></select>
+      </label>
+      <!-- Bestätigen steht im Markup zuerst, damit Enter im Formular bestätigt statt
+           abzubrechen. Die Optik dreht die Reihenfolge per CSS wieder um. -->
+      <div class="dialog-actions">
+        <button class="button button-primary" id="dialog-confirm" value="confirm">Bestätigen</button>
+        <button class="button button-secondary" id="dialog-cancel" value="cancel" type="submit">Abbrechen</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>

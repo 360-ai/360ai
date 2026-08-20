@@ -1,0 +1,13 @@
+# Nur fuer lokale Entwicklung. Niemals echte Secrets committen.
+LOCAL_DEV_BYPASS=true
+LOCAL_DEMO_DATA=true
+
+TEAM_DOMAIN=https://DEIN-TEAM.cloudflareaccess.com
+POLICY_AUD=ACCESS_APPLICATION_AUD
+ALLOWED_EMAIL=info@360-ai.org
+
+CRM_READ_WEBHOOK_URL=https://n8n.example.org/webhook/akquise-crm-read
+CRM_READ_WEBHOOK_TOKEN=EIGENER_LANGER_ZUFAELLIGER_READ_TOKEN
+
+CRM_WEBHOOK_URL=https://n8n.example.org/webhook/akquise-crm-write
+CRM_WEBHOOK_TOKEN=EIGENER_LANGER_ZUFAELLIGER_WRITE_TOKEN

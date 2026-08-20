@@ -1,0 +1,212 @@
+{
+  "meta": {
+    "lead_id": "TEST-helfri",
+    "url": "https://helfri-bau.de/",
+    "bewertet_am": "2026-08-15",
+    "modell": "claude-opus-5"
+  },
+  "vision": {
+    "design": 50,
+    "conversion": 35,
+    "vertrauen": 45,
+    "sicherheit": "mittel",
+    "designstand": "deutlich_aelter",
+    "begruendung": "Standardlayout des eingesetzten Baukastens mit grossflaechigem Titelbild unter dunkler Ueberblendung und einer Kachelspalte mit Piktogrammen daneben. Schrift und Abstaende sind sauber gesetzt, die Farbfuehrung aus Blau und Rot ist konsequent. Der Aufbau folgt jedoch einem Muster, das vor einigen Jahren ueblich war: viel Flaeche fuer die Begruessung, wenig fuer den naechsten Schritt. Im ersten Bildschirm gibt es genau eine Schaltflaeche, und die fuehrt zur Leistungsuebersicht statt zu einem Kontaktweg. Das Logo wird klein und unscharf ausgeliefert. Der Einwilligungshinweis verdeckt auf dem Handy den unteren Bildschirmrand vollstaendig."
+  },
+  "feststellungen": [
+    {
+      "id": "F1",
+      "kategorie": "local",
+      "feststellung": "Die Telefonnummer laesst sich auf dem Smartphone nicht antippen.",
+      "beleg": "Auf keiner der 12 geprueften Seiten gibt es einen anwaehlbaren Telefonverweis. Im oberen Bereich steht die Nummer nur als Text und muss abgetippt werden.",
+      "rule_ids": ["LOC-01", "LOC-02"],
+      "sicherheit": "hoch",
+      "aufwand": "gering",
+      "wirkung": "hoch",
+      "mail_tauglich": true
+    },
+    {
+      "id": "F2",
+      "kategorie": "air",
+      "feststellung": "Fuer Google und KI-Antwortsysteme ist die Website ein Textblock ohne erkennbare Firmendaten.",
+      "beleg": "Es sind weder strukturierte Unternehmensdaten noch Angaben als lokaler Betrieb noch Angaben zu einzelnen Leistungen hinterlegt.",
+      "rule_ids": ["AIR-01", "LOC-08", "AIR-02"],
+      "sicherheit": "hoch",
+      "aufwand": "mittel",
+      "wirkung": "hoch",
+      "mail_tauglich": true
+    },
+    {
+      "id": "F3",
+      "kategorie": "seo",
+      "feststellung": "Auf allen Seiten fehlt der Text, den Google im Suchergebnis anzeigt.",
+      "beleg": "Auf 12 von 12 geprueften Seiten fehlt die Beschreibung fuer Suchergebnisse. Google setzt den Vorschautext dann selbst zusammen.",
+      "rule_ids": ["SEO-03"],
+      "sicherheit": "hoch",
+      "aufwand": "gering",
+      "wirkung": "mittel",
+      "mail_tauglich": true
+    },
+    {
+      "id": "F4",
+      "kategorie": "air",
+      "feststellung": "Das Unternehmen wird auf der eigenen Website in drei verschiedenen Schreibweisen genannt.",
+      "beleg": "In Seitentitel, Fusszeile und Impressum stehen drei unterschiedliche Fassungen des Firmennamens. Google und KI-Systeme koennen die Eintraege dadurch nicht sicher demselben Unternehmen zuordnen.",
+      "rule_ids": ["AIR-07"],
+      "sicherheit": "hoch",
+      "aufwand": "gering",
+      "wirkung": "mittel",
+      "mail_tauglich": true
+    },
+    {
+      "id": "F5",
+      "kategorie": "local",
+      "feststellung": "Das Einzugsgebiet steht nirgends ausgeschrieben.",
+      "beleg": "Im Text wird kein zusammenhaengendes Einzugsgebiet benannt, und der Ort steht nur im Seitentitel, nicht in der Hauptueberschrift der Startseite.",
+      "rule_ids": ["LOC-07", "LOC-04"],
+      "sicherheit": "hoch",
+      "aufwand": "gering",
+      "wirkung": "mittel",
+      "mail_tauglich": true
+    },
+    {
+      "id": "F6",
+      "kategorie": "technik",
+      "feststellung": "Die Bilder sind deutlich groesser als noetig und bremsen die Seite auf dem Handy.",
+      "beleg": "Kein Bild nutzt ein modernes Format. 4 Bilder liegen ueber der empfohlenen Groesse, das groesste mit 870 KB.",
+      "rule_ids": ["TEC-08", "TEC-09"],
+      "sicherheit": "hoch",
+      "aufwand": "gering",
+      "wirkung": "mittel",
+      "mail_tauglich": true
+    },
+    {
+      "id": "F7",
+      "kategorie": "technik",
+      "feststellung": "Der Server braucht bis zur ersten Antwort laenger als eine Sekunde.",
+      "beleg": "Der Median aus drei Messungen liegt bei 1,57 Sekunden. Fuer eine reine Firmenseite ist das langsam.",
+      "rule_ids": ["TEC-05"],
+      "sicherheit": "hoch",
+      "aufwand": "mittel",
+      "wirkung": "mittel",
+      "mail_tauglich": true
+    },
+    {
+      "id": "F8",
+      "kategorie": "technik",
+      "feststellung": "Auf dem Smartphone laesst sich die Schrift nicht vergroessern.",
+      "beleg": "Das Vergroessern ist auf der Seite gesperrt, und der Fliesstext ist auf dem Handy nur 12 Pixel gross. Das trifft ausgerechnet die Altersgruppe, die bauen laesst.",
+      "rule_ids": ["MOB-02", "MOB-04"],
+      "sicherheit": "hoch",
+      "aufwand": "gering",
+      "wirkung": "mittel",
+      "mail_tauglich": true
+    },
+    {
+      "id": "F9",
+      "kategorie": "air",
+      "feststellung": "Der Inhaltsstand der Seite ist seit Jahren unveraendert.",
+      "beleg": "Die Fusszeile weist das Jahr 2020 aus.",
+      "rule_ids": ["AIR-08"],
+      "sicherheit": "hoch",
+      "aufwand": "hoch",
+      "wirkung": "mittel",
+      "mail_tauglich": true
+    },
+    {
+      "id": "F10",
+      "kategorie": "compliance",
+      "feststellung": "Das Impressum verweist auf ein Gesetz, das in dieser Form nicht mehr gilt.",
+      "beleg": "Es wird auf das Telemediengesetz verwiesen. Dieses wurde im Mai 2024 durch das Digitale-Dienste-Gesetz abgeloest. Ausserdem fehlen die Angaben zur zustaendigen Handwerkskammer und zur Berufsbezeichnung.",
+      "rule_ids": ["CMP-02", "CMP-03"],
+      "sicherheit": "hoch",
+      "aufwand": "gering",
+      "wirkung": "mittel",
+      "mail_tauglich": true
+    },
+    {
+      "id": "F11",
+      "kategorie": "seo",
+      "feststellung": "Mehrere Seiten liegen unter automatisch vergebenen Adressen.",
+      "beleg": "3 Seiten sind nur ueber Adressen wie /339-2/ erreichbar statt ueber sprechende Namen. Solche Adressen sagen weder Besuchern noch Suchmaschinen etwas.",
+      "rule_ids": ["SEO-10"],
+      "sicherheit": "hoch",
+      "aufwand": "mittel",
+      "wirkung": "mittel",
+      "mail_tauglich": true
+    },
+    {
+      "id": "F12",
+      "kategorie": "seo",
+      "feststellung": "Beim Teilen per WhatsApp oder in sozialen Netzwerken erscheint weder Bild noch Titel.",
+      "beleg": "Es sind keine Angaben fuer die Linkvorschau hinterlegt. Geteilte Links erscheinen als nackte Adresse.",
+      "rule_ids": ["SEO-12"],
+      "sicherheit": "hoch",
+      "aufwand": "gering",
+      "wirkung": "niedrig",
+      "mail_tauglich": true
+    },
+    {
+      "id": "F13",
+      "kategorie": "vertrauen",
+      "feststellung": "Es gibt keine Seite, die das Unternehmen selbst vorstellt, und keine Kundenstimmen.",
+      "beleg": "Eine Ueber-uns-Seite fehlt, Kundenstimmen fehlen, und die Referenzlogos werden ohne Zuordnung zum jeweiligen Auftraggeber gezeigt.",
+      "rule_ids": ["TRU-06", "TRU-04", "TRU-03"],
+      "sicherheit": "hoch",
+      "aufwand": "mittel",
+      "wirkung": "mittel",
+      "mail_tauglich": true
+    },
+    {
+      "id": "F14",
+      "kategorie": "technik",
+      "feststellung": "Das eingesetzte Theme ist mehrere Jahre alt.",
+      "beleg": "Im Einsatz ist Divi 4.20.4, veroeffentlicht 2023.",
+      "rule_ids": ["TEC-15"],
+      "sicherheit": "hoch",
+      "aufwand": "hoch",
+      "wirkung": "niedrig",
+      "mail_tauglich": true
+    },
+    {
+      "id": "F15",
+      "kategorie": "visuell",
+      "feststellung": "Der Auftritt wirkt gestalterisch aelter als heute ueblich und fuehrt kaum zur Kontaktaufnahme.",
+      "beleg": "Standardlayout des eingesetzten Baukastens mit grosser Bildflaeche unter dunkler Ueberblendung. Im ersten Bildschirm gibt es nur eine Schaltflaeche, und die fuehrt zur Leistungsuebersicht statt zu einem Kontaktweg.",
+      "rule_ids": [],
+      "sicherheit": "mittel",
+      "aufwand": "hoch",
+      "wirkung": "hoch",
+      "mail_tauglich": false
+    }
+  ],
+  "staerken": [
+    {
+      "text": "Die Schriften werden von der eigenen Domain ausgeliefert, und der Einwilligungshinweis blockiert korrekt: vor der Zustimmung werden keine Daten an fremde Server uebertragen. Das ist der haeufigste Mangel bei Seiten dieses Baujahrs und hier sauber geloest.",
+      "rule_ids": ["CMP-09", "CMP-06", "CMP-07"]
+    },
+    {
+      "text": "Die Inhalte sind fachlich substanziell. Im Text stehen 14 konkrete, belegbare Angaben, und alles liegt als auslesbarer Text vor, nicht als Bild.",
+      "rule_ids": ["AIR-05", "AIR-06", "AIR-09"]
+    },
+    {
+      "text": "Adresse und Telefonnummer sind ueber alle Fundstellen hinweg identisch, und das Team wird mit Namen und Funktionen vorgestellt.",
+      "rule_ids": ["LOC-03", "TRU-01", "TRU-02"]
+    },
+    {
+      "text": "Technisch ist die Grundlage in Ordnung: durchgehend verschluesselt, moderne Uebertragung, keine defekten internen Verweise und keine Fehler beim Seitenaufbau.",
+      "rule_ids": ["TEC-01", "TEC-04", "TEC-06", "TEC-07"]
+    }
+  ],
+  "nicht_sagen": [
+    "Nicht mit \"Ihre Website ist veraltet\" einsteigen. Die Inhalte sind besser als bei den meisten Wettbewerbern im Kreis - vollstaendige Leistungslisten, kompletter Maschinenpark, Team mit Funktionen. Das Material ist gut, nur die Verpackung ist alt. Wer das Gegenteil behauptet, wirkt unaufmerksam.",
+    "Nicht ueber Cookies oder Datenschutz argumentieren. Das ist auf dieser Seite sauber geloest, inklusive lokaler Schriften und blockierendem Einwilligungshinweis. Ein Vorwurf in dieser Richtung faellt sofort auf.",
+    "Die eingesetzte Software nicht kritisieren. Der Baukasten war eine Entscheidung des Vorgaengers, der Betrieb kann nichts dafuer, und es klingt nach Fachjargon statt nach Nutzen."
+  ],
+  "akquise": {
+    "ansatz": "relaunch",
+    "projektumfang": "mittel",
+    "begruendung": "Die inhaltliche Substanz ist vorhanden und ungewoehnlich gut, aber sie liegt in einer Struktur, die weder lokal noch fuer KI-Antwortsysteme auffindbar ist. Einzelne Korrekturen wuerden die groessten Luecken nicht schliessen: fehlende Strukturdaten, uneinheitliche Firmierung, automatisch vergebene Adressen und ein Inhaltsstand von 2020 haengen zusammen. Der Einstieg laeuft trotzdem ueber einen Sofort-Punkt, der nichts kostet und sofort einleuchtet - die nicht antippbare Telefonnummer. Wer bei einem Bauunternehmen anruft statt Formulare auszufuellen, versteht das in einem Satz.",
+    "reihenfolge": ["F1", "F2", "F10"]
+  }
+}

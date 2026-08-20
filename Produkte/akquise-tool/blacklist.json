@@ -1,0 +1,13 @@
+{
+  "_hinweis": "Firmen und Domains, die nie kontaktiert werden. Fuehrt zum Knock-out mit Akquise-Score 0. Bestandskunden, erledigte Absagen, Mitbewerber und eigene Projekte gehoeren hierher. Domains ohne www und ohne Protokoll eintragen.",
+  "domains": [
+    "360-ai.org",
+    "schreck-kunststofftechnik.de",
+    "milelemitherz.de",
+    "meinumzugsrechner.de"
+  ],
+  "firmen": [
+    "Schreck Kunststofftechnik GmbH",
+    "Milele mit Herz"
+  ]
+}

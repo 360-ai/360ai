@@ -1,0 +1,233 @@
+{
+  "_hinweis": "Branchenprofile fuer Regelgewichtung und Akquise-Score. 'ticket' = geschaetzte Projektgroesse 1-5 (fliesst in den Block 'Wirtschaftliches Potenzial'). 'telefon_affin' steuert den Faktor fuer LOC-01, LOC-02 und MOB-06: hoch=1.5, normal=1.0, niedrig=0.5. 'handwerk_anlage_a' aktiviert die Kammer-Pruefung in CMP-03. Unbekannte Branchen fallen auf '_default' zurueck.",
+  "_version": "1.0.0",
+
+  "_default": {
+    "label": "Unbekannt",
+    "ticket": 3,
+    "telefon_affin": "normal",
+    "oeffnungszeiten_relevant": true,
+    "handwerk_anlage_a": false,
+    "testimonials_unueblich": false
+  },
+
+  "bauunternehmen": {
+    "label": "Bauunternehmen / Hoch- und Tiefbau",
+    "ticket": 5,
+    "telefon_affin": "hoch",
+    "oeffnungszeiten_relevant": false,
+    "handwerk_anlage_a": true,
+    "testimonials_unueblich": false
+  },
+  "dachdecker": {
+    "label": "Dachdecker",
+    "ticket": 4,
+    "telefon_affin": "hoch",
+    "oeffnungszeiten_relevant": false,
+    "handwerk_anlage_a": true,
+    "testimonials_unueblich": false
+  },
+  "zimmerei": {
+    "label": "Zimmerei / Holzbau",
+    "ticket": 4,
+    "telefon_affin": "hoch",
+    "oeffnungszeiten_relevant": false,
+    "handwerk_anlage_a": true,
+    "testimonials_unueblich": false
+  },
+  "elektro": {
+    "label": "Elektrotechnik",
+    "ticket": 4,
+    "telefon_affin": "hoch",
+    "oeffnungszeiten_relevant": true,
+    "handwerk_anlage_a": true,
+    "testimonials_unueblich": false
+  },
+  "sanitaer_heizung": {
+    "label": "Sanitaer, Heizung, Klima",
+    "ticket": 5,
+    "telefon_affin": "hoch",
+    "oeffnungszeiten_relevant": true,
+    "handwerk_anlage_a": true,
+    "testimonials_unueblich": false
+  },
+  "maler": {
+    "label": "Maler und Lackierer",
+    "ticket": 3,
+    "telefon_affin": "hoch",
+    "oeffnungszeiten_relevant": false,
+    "handwerk_anlage_a": true,
+    "testimonials_unueblich": false
+  },
+  "schreinerei": {
+    "label": "Tischlerei / Schreinerei",
+    "ticket": 4,
+    "telefon_affin": "hoch",
+    "oeffnungszeiten_relevant": true,
+    "handwerk_anlage_a": true,
+    "testimonials_unueblich": false
+  },
+  "metallbau": {
+    "label": "Metallbau / Schlosserei",
+    "ticket": 4,
+    "telefon_affin": "hoch",
+    "oeffnungszeiten_relevant": true,
+    "handwerk_anlage_a": true,
+    "testimonials_unueblich": false
+  },
+  "kfz": {
+    "label": "Kfz-Werkstatt",
+    "ticket": 3,
+    "telefon_affin": "hoch",
+    "oeffnungszeiten_relevant": true,
+    "handwerk_anlage_a": true,
+    "testimonials_unueblich": false
+  },
+  "schornsteinfeger": {
+    "label": "Schornsteinfeger",
+    "ticket": 2,
+    "telefon_affin": "hoch",
+    "oeffnungszeiten_relevant": false,
+    "handwerk_anlage_a": true,
+    "testimonials_unueblich": false
+  },
+  "friseur": {
+    "label": "Friseur",
+    "ticket": 2,
+    "telefon_affin": "hoch",
+    "oeffnungszeiten_relevant": true,
+    "handwerk_anlage_a": true,
+    "testimonials_unueblich": false
+  },
+  "garten_landschaftsbau": {
+    "label": "Garten- und Landschaftsbau",
+    "ticket": 4,
+    "telefon_affin": "hoch",
+    "oeffnungszeiten_relevant": false,
+    "handwerk_anlage_a": false,
+    "testimonials_unueblich": false
+  },
+  "fliesenleger": {
+    "label": "Fliesen-, Platten- und Mosaikleger",
+    "ticket": 3,
+    "telefon_affin": "hoch",
+    "oeffnungszeiten_relevant": false,
+    "handwerk_anlage_a": false,
+    "testimonials_unueblich": false
+  },
+  "gebaeudereinigung": {
+    "label": "Gebaeudereinigung",
+    "ticket": 3,
+    "telefon_affin": "normal",
+    "oeffnungszeiten_relevant": false,
+    "handwerk_anlage_a": false,
+    "testimonials_unueblich": false
+  },
+
+  "arztpraxis": {
+    "label": "Arztpraxis",
+    "ticket": 4,
+    "telefon_affin": "hoch",
+    "oeffnungszeiten_relevant": true,
+    "handwerk_anlage_a": false,
+    "testimonials_unueblich": true
+  },
+  "zahnarzt": {
+    "label": "Zahnarztpraxis",
+    "ticket": 5,
+    "telefon_affin": "hoch",
+    "oeffnungszeiten_relevant": true,
+    "handwerk_anlage_a": false,
+    "testimonials_unueblich": true
+  },
+  "physiotherapie": {
+    "label": "Physiotherapie / Heilpraktiker",
+    "ticket": 3,
+    "telefon_affin": "hoch",
+    "oeffnungszeiten_relevant": true,
+    "handwerk_anlage_a": false,
+    "testimonials_unueblich": true
+  },
+  "pflegedienst": {
+    "label": "Pflegedienst",
+    "ticket": 4,
+    "telefon_affin": "hoch",
+    "oeffnungszeiten_relevant": true,
+    "handwerk_anlage_a": false,
+    "testimonials_unueblich": true
+  },
+
+  "gastronomie": {
+    "label": "Restaurant / Gastronomie",
+    "ticket": 2,
+    "telefon_affin": "hoch",
+    "oeffnungszeiten_relevant": true,
+    "handwerk_anlage_a": false,
+    "testimonials_unueblich": false
+  },
+  "hotel": {
+    "label": "Hotel / Pension",
+    "ticket": 3,
+    "telefon_affin": "normal",
+    "oeffnungszeiten_relevant": true,
+    "handwerk_anlage_a": false,
+    "testimonials_unueblich": false
+  },
+  "einzelhandel": {
+    "label": "Einzelhandel",
+    "ticket": 2,
+    "telefon_affin": "normal",
+    "oeffnungszeiten_relevant": true,
+    "handwerk_anlage_a": false,
+    "testimonials_unueblich": false
+  },
+
+  "industrie_b2b": {
+    "label": "Industrie / Zulieferer B2B",
+    "ticket": 5,
+    "telefon_affin": "niedrig",
+    "oeffnungszeiten_relevant": false,
+    "handwerk_anlage_a": false,
+    "testimonials_unueblich": false
+  },
+  "maschinenbau": {
+    "label": "Maschinenbau",
+    "ticket": 5,
+    "telefon_affin": "niedrig",
+    "oeffnungszeiten_relevant": false,
+    "handwerk_anlage_a": false,
+    "testimonials_unueblich": false
+  },
+  "logistik": {
+    "label": "Spedition / Logistik",
+    "ticket": 4,
+    "telefon_affin": "normal",
+    "oeffnungszeiten_relevant": false,
+    "handwerk_anlage_a": false,
+    "testimonials_unueblich": false
+  },
+  "steuerberatung": {
+    "label": "Steuerberatung / Kanzlei",
+    "ticket": 4,
+    "telefon_affin": "normal",
+    "oeffnungszeiten_relevant": true,
+    "handwerk_anlage_a": false,
+    "testimonials_unueblich": true
+  },
+  "immobilien": {
+    "label": "Immobilienmakler / Hausverwaltung",
+    "ticket": 4,
+    "telefon_affin": "hoch",
+    "oeffnungszeiten_relevant": true,
+    "handwerk_anlage_a": false,
+    "testimonials_unueblich": false
+  },
+  "verein": {
+    "label": "Verein / Gemeinnuetzig",
+    "ticket": 1,
+    "telefon_affin": "niedrig",
+    "oeffnungszeiten_relevant": false,
+    "handwerk_anlage_a": false,
+    "testimonials_unueblich": false
+  }
+}

@@ -1,0 +1,3475 @@
+{
+  "meta": {
+    "collector_version": "1.0.0",
+    "scanned_at": "2026-08-14T23:33:48.861Z",
+    "user_agent": "Mozilla/5.0 (compatible; 360ai-Akquise-Check/1.0; +https://www.360-ai.org/bot)",
+    "lead_id": "REF-sauber",
+    "branche": "maschinenbau",
+    "keyword": null,
+    "input_url": "https://www.schreck-kunststofftechnik.de/",
+    "audit_dir": "(fixture)",
+    "pages_checked": [
+      {
+        "url": "https://www.schreck-kunststofftechnik.de/",
+        "rolle": "startseite",
+        "status": 200
+      },
+      {
+        "url": "https://www.schreck-kunststofftechnik.de/impressum/",
+        "rolle": "impressum",
+        "status": 200
+      },
+      {
+        "url": "https://www.schreck-kunststofftechnik.de/datenschutz/",
+        "rolle": "datenschutz",
+        "status": 200
+      },
+      {
+        "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+        "rolle": "kontakt",
+        "status": 200
+      },
+      {
+        "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+        "rolle": "leistungen",
+        "status": 200
+      },
+      {
+        "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+        "rolle": "ueber_uns",
+        "status": 200
+      },
+      {
+        "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+        "rolle": "karriere",
+        "status": 200
+      },
+      {
+        "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+        "rolle": "sonstige",
+        "status": 200
+      }
+    ],
+    "errors": [
+      "PageSpeed mobil nicht verfuegbar: kein PSI_API_KEY gesetzt"
+    ],
+    "candidates_total": 8,
+    "skipped_by_robots": [],
+    "eingefroren_am": "2026-08-15",
+    "fixture_quelle": "www.schreck-kunststofftechnik.de (von 360ai gebaut), Live-Scan 14.08.2026"
+  },
+  "http": {
+    "reachable": true,
+    "requested_url": "https://www.schreck-kunststofftechnik.de/",
+    "final_url": "https://www.schreck-kunststofftechnik.de/",
+    "status": 200,
+    "redirect_chain": [
+      {
+        "url": "https://www.schreck-kunststofftechnik.de/",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "https": true,
+    "hsts": false,
+    "http_protocol": "h2",
+    "ttfb_ms": {
+      "median": 54,
+      "min": 47,
+      "max": 104,
+      "runs": 3
+    },
+    "http_variant": {
+      "status": 200,
+      "redirect_chain": [
+        {
+          "url": "http://www.schreck-kunststofftechnik.de/",
+          "status": 301,
+          "location": "https://www.schreck-kunststofftechnik.de/"
+        },
+        {
+          "url": "https://www.schreck-kunststofftechnik.de/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "lands_on_https": true
+    },
+    "other_host": {
+      "host": "schreck-kunststofftechnik.de",
+      "status": null,
+      "final_url": null,
+      "redirects_to_primary": null
+    }
+  },
+  "tech": {
+    "generator": null,
+    "cms": "Astro",
+    "cms_version": null,
+    "theme": null,
+    "jquery_version": null,
+    "server": "cloudflare",
+    "powered_by": null,
+    "theme_version": null
+  },
+  "pages": [
+    {
+      "url": "https://www.schreck-kunststofftechnik.de/",
+      "status": 200,
+      "title": "Werkzeugbau für Kunststoff, Aluminium und Zinkdruckguss | Schreck Kunststofftechnik GmbH",
+      "meta_description": "Präziser Werkzeugbau von der Produktidee bis zur Serienreife. Seit 1984 in Burgwald-Bottendorf, ISO 9001:2015 zertifiziert. Projektanfrage mit CAD-Upload.",
+      "meta_robots": null,
+      "x_robots_tag": null,
+      "canonical": "https://www.schreck-kunststofftechnik.de/",
+      "viewport_meta": "width=device-width, initial-scale=1",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Präzisionsformen für Kunststoffteile"
+        },
+        {
+          "level": 2,
+          "text": "Projekt anfragen"
+        },
+        {
+          "level": 3,
+          "text": "Ihr E-Mail-Programm öffnet sich jetzt"
+        },
+        {
+          "level": 2,
+          "text": "Sechs Produktgruppen im Formenbau"
+        },
+        {
+          "level": 2,
+          "text": "Montageservice"
+        },
+        {
+          "level": 2,
+          "text": "Von der Idee bis zur Serienreife"
+        },
+        {
+          "level": 3,
+          "text": "Konzeptionierung"
+        },
+        {
+          "level": 3,
+          "text": "Konstruktion"
+        },
+        {
+          "level": 3,
+          "text": "Entwicklung"
+        },
+        {
+          "level": 3,
+          "text": "Abmusterung"
+        },
+        {
+          "level": 3,
+          "text": "Vermessung"
+        },
+        {
+          "level": 3,
+          "text": "Optimierung"
+        },
+        {
+          "level": 3,
+          "text": "Dokumentation"
+        },
+        {
+          "level": 2,
+          "text": "Reparatur & Schulung"
+        },
+        {
+          "level": 3,
+          "text": "Reparatur und Ersatzteile"
+        },
+        {
+          "level": 3,
+          "text": "Schulung vor Ort"
+        },
+        {
+          "level": 2,
+          "text": "Formenbau aus Burgwald-Bottendorf"
+        },
+        {
+          "level": 2,
+          "text": "Projekt besprechen?"
+        }
+      ],
+      "h1": [
+        "Präzisionsformen für Kunststoffteile"
+      ],
+      "word_count": 780,
+      "text": "Zum Inhalt springen Produkte Über uns Karriere Downloads Kontakt +49 6451 5000-0 Anrufen Projekt anfragen Produkte Über uns Karriere Downloads Kontakt Projekt anfragen Schreck Kunststofftechnik GmbH Präzisionsformen für Kunststoffteile Von der Produktidee bis zur Serienreife. Schreck entwickelt, fertigt und optimiert Formen für Medizin, Labor, Verpackung und technische Kleinteile. Seit 1984 ISO 9001:2015 zertifiziert Von der Idee bis zur Serienreife Projekt anfragen In drei Schritten zu Ihrer Anfrage. Schritt 1 von 3 Worum geht es? Neuwerkzeugbau Spritzgussteile Ersatzteile oder Reparatur Montageservice Sonstiges Bitte wählen Sie ein Anliegen aus. Weiter Ihr Projekt Projektbeschreibung * Bauteil, Werkstoff, Stückzahl: alles hilft, nichts ist Pflicht im Detail. Bitte beschreiben Sie Ihr Projekt kurz. Branche (optional) Bitte wählen Medizin Labor Kosmetik Verpackung Filtertechnik Automobil Elektronik Sonstiges Zeichnungen, CAD-Daten oder andere Unterlagen können Sie im letzten Schritt direkt an die sich öffnende E-Mail anhängen. Zurück Weiter Ihre Kontaktdaten Firma * Bitte geben Sie Ihre Firma an. Name * Bitte geben Sie Ihren Namen an. E-Mail * Bitte geben Sie eine gültige E-Mail-Adresse an. Telefon * Bitte geben Sie Ihre Telefonnummer an. Ergänzende Nachricht (optional) Zurück Anfrage senden Öffnet eine vorausgefüllte Nachricht in Ihrem E-Mail-Programm. Ihre Angaben werden dabei nicht an unseren Server übertragen. Details in der Datenschutzerklärung . Ihr E-Mail-Programm öffnet sich jetzt Bitte prüfen Sie die vorausgefüllte Nachricht und senden Sie sie ab. Falls sich nichts öffnet, erreichen Sie uns direkt: +49 6451 5000-0 oder info@schreck-kunststofftechnik.com . Kopieren Sie Ihre gemachten Angaben und fügen Sie diese in eine neue Mail ein. In Zwischenablage kopieren Seit 1984 Formenbau aus Hessen 1.000+ Formen bis zur Serienreife 30+ ausgebildete Lehrlinge ISO 9001 zertifiziert bis Juni 2027 Produkte Sechs Produktgruppen im Formenbau Jede Form entsteht nach Ihren Vorgaben. Die Prospekt-Inhalte finden Sie ausführlich auf der Produktseite und als PDF. KI generiert Medizin Formen für Einmalspritzen, Schutzkappen und Kleinstteile. Partikelfreiheit und lange Lebensdauer sind dokumentierte Ansprüche. EinmalspritzenSchutzkappenKleinstteile Mehr zu Medizin KI generiert Mehr-Komponenten-Formen Formen, die zwei oder mehr Komponenten in einem Werkzeug verbinden. Ausgelegt auf schnelle Zyklen und abfallfreie Produktion. DreiwegehahnFunkschlüsselEinstellrad Mehr zu Mehr-Komponenten-Formen KI generiert Innenanspritzung Werkzeuge für Produkte ohne sichtbare Anspritzpunkte. Der Anspritzpunkt liegt im Inneren des Bauteils. Verschlusstechnik Mehr zu Innenanspritzung KI generiert Labor Formen für Pipetten, Küvetten, PCR-Gefäße und Filtertechnik. Mit Anforderungen an Partikelfreiheit und balancierte Fließwege. PipettenPCR-GefäßeKüvetten Mehr zu Labor KI generiert Miniaturteile Formen für Kleinstartikel wie Verriegelungspins, Zahnräder und optische Gehäuse. Auch als Metallumspritzung und in zwei Komponenten. ZahnräderMetallumspritzungOptische Gehäuse Mehr zu Miniaturteile KI generiert Verpackung Formen für Verschlusstechnik, Schraubkappen und Inlays. Ausgelegt auf schnelle Zyklen und wartungsarmen Betrieb. VerschlusstechnikSchraubkappenInlays Mehr zu Verpackung Die Produktbeispiele oben sind KI-generierte Abbildungen zum Schutz vertraulicher Kundendaten. Mehr dazu . Leistung Montageservice SKT liefert auf Wunsch nicht nur Einzelteile, sondern einbaufertige Baugruppen. Von der Montage bis zur Endbearbeitung erhalten Sie fertige Komponenten aus einer Hand. Montage von Baugruppen aus Ihren Spritzgussteilen Entgraten und Endbearbeitung Montage anfragen Leistungsspektrum Von der Idee bis zur Serienreife Sieben Schritte, von der Konzeptionierung bis zur Dokumentation: Ihre Form bleibt durchgehend in einer Hand. 01 Konzeptionierung Aus Ihren Zeichnungen, Mustern oder Vorgaben entsteht das Werkzeugkonzept. 02 Konstruktion Die Form wird im CAD konstruiert, inklusive Auslegung der Fließwege und Ersatzteile. 03 Entwicklung Die Werkzeugkomponenten werden gefertigt und zur einbaufertigen Form montiert. 04 Abmusterung Die fertige Form wird auf eigenen Spritzgießmaschinen abgemustert. 05 Vermessung Musterteile werden vermessen, die Ergebnisse fließen in die Bewertung ein. 06 Optimierung Erkenntnisse aus Abmusterung und Vermessung führen zur optimierten Serienform. 07 Dokumentation Sie erhalten die Dokumentation des Werkzeugs zur Serienfreigabe. Nach der Serie Reparatur & Schulung Zwei Leistungen, die nach der Serienfreigabe weiterlaufen. Reparatur und Ersatzteile SKT repariert Spritzgusswerkzeuge und fertigt austauschbare Ersatzteile. Senden Sie Ihre Anfrage mit dem Anliegen Ersatzteile oder Reparatur, gern mit Fotos der Form. Reparatur anfragen Schulung vor Ort SKT schult Ihr Team im Umgang mit der Form, vor Ort in Ihrer Produktion. Termin und Umfang stimmen Sie direkt mit uns ab. Schulung anfragen Über uns Formenbau aus Burgwald-Bottendorf Die Schreck Kunststofftechnik GmbH steht seit 1984 für präzisen Werkzeugbau in Kunststoff, Aluminium und Zinkdruckguss. Ein erfahrenes Team begleitet Ihr Werkzeug von der Produktidee über Konstruktion bis zur Serienreife. Das Qualitätsmanagement ist nach DIN EN ISO 9001:2015 zertifiziert. Kunden kommen aus verschiedenen Industriezweigen, insbesondere aus Medizintechnik, Kosmetik und Verpackungstechnik. Mehr über SKT Kontakt Projekt besprechen? Senden Sie Ihre Anfrage mit Zeichnung oder CAD-Daten, rufen Sie an oder schreiben Sie eine E-Mail. Projekt anfragen +49 6451 5000-0 E-Mail schreiben Schreck Kunststofftechnik GmbH Wolkersdorfer Straße 28 35099 Burgwald-Bottendorf Telefon +49 6451 5000-0 Fax +49 6451 5000-10 info@schreck-kunststofftechnik.com Instagram Seiten Produkte Über uns Karriere Downloads Kontakt Projekt anfragen Qualität Zertifiziert nach DIN EN ISO 9001:2015, Formenbau von der Konstruktion bis zur Serienreife. Ausgestellt von SKZ-Cert GmbH, gültig bis 27.06.2027. Zertifikat als PDF © 2026 Schreck Kunststofftechnik GmbH Impressum Datenschutz Anrufen E-Mail Anfrage",
+      "images": [
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/logo-schreck.png",
+          "alt": "Schreck Kunststofftechnik GmbH",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 560,
+          "height_attr": 148,
+          "bytes": 17203,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/hero-werkzeug.webp",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 1920,
+          "height_attr": 1951,
+          "bytes": 98969,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/produkt-medizin-2.webp",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 1200,
+          "height_attr": 900,
+          "bytes": 11187,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/produkt-mehrkomponenten-1.webp",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 1200,
+          "height_attr": 800,
+          "bytes": 10178,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/produkt-innenanspritzung-2.webp",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 1200,
+          "height_attr": 687,
+          "bytes": 10406,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/produkt-labor-1.webp",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 1200,
+          "height_attr": 797,
+          "bytes": 6512,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/produkt-miniaturteile-1.webp",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 1200,
+          "height_attr": 717,
+          "bytes": 10977,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/produkt-verpackung-1.webp",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 1200,
+          "height_attr": 814,
+          "bytes": 22119,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/montageservice.webp",
+          "alt": "Mitarbeiter montiert ein Spritzgusswerkzeug bei SKT",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1086,
+          "height_attr": 1448,
+          "bytes": 88589,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/reparatur-ki.webp",
+          "alt": "Reparatur eines Spritzgusswerkzeugs bei SKT",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1086,
+          "height_attr": 1448,
+          "bytes": 157244,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/einweisung-ki.webp",
+          "alt": "Einweisung an der Maschine durch SKT",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1086,
+          "height_attr": 1448,
+          "bytes": 112259,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/luftbild-skt.webp",
+          "alt": "Luftaufnahme des SKT-Firmengebäudes in Burgwald-Bottendorf",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1451,
+          "height_attr": 1084,
+          "bytes": 326234,
+          "mime": "image/webp",
+          "format": "webp"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/datenschutz/",
+            "text": "Datenschutzerklärung",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produktseite",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "KI generiert Medizin Formen für Einmalspritzen, Schutzkappen und Kleinstteile. Partikelfreiheit und lange Lebensdauer si",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "KI generiert Mehr-Komponenten-Formen Formen, die zwei oder mehr Komponenten in einem Werkzeug verbinden. Ausgelegt auf s",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "KI generiert Innenanspritzung Werkzeuge für Produkte ohne sichtbare Anspritzpunkte. Der Anspritzpunkt liegt im Inneren d",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "KI generiert Labor Formen für Pipetten, Küvetten, PCR-Gefäße und Filtertechnik. Mit Anforderungen an Partikelfreiheit un",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "KI generiert Miniaturteile Formen für Kleinstartikel wie Verriegelungspins, Zahnräder und optische Gehäuse. Auch als Met",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "KI generiert Verpackung Formen für Verschlusstechnik, Schraubkappen und Inlays. Ausgelegt auf schnelle Zyklen und wartun",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Mehr dazu",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Montage anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Reparatur anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Schulung anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Mehr über SKT",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/iso-9001-zertifikat-2024-2027.pdf",
+            "text": "Zertifikat als PDF",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/impressum/",
+            "text": "Impressum",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/datenschutz/",
+            "text": "Datenschutz",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Anfrage",
+            "hash_route": false
+          }
+        ],
+        "external": [
+          {
+            "url": "https://www.instagram.com/schreck_kunststofftechnik_gmbh/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/schreck_kunststofftechnik_gmbh/",
+            "text": "Instagram",
+            "hash_route": false
+          }
+        ]
+      },
+      "tel_links": [
+        "tel:+49645150000"
+      ],
+      "mailto_links": [
+        "mailto:info@schreck-kunststofftechnik.com"
+      ],
+      "forms": 1,
+      "jsonld_types": [
+        "LocalBusiness"
+      ],
+      "jsonld": [
+        {
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "@id": "https://www.schreck-kunststofftechnik.de/#organization",
+          "name": "Schreck Kunststofftechnik GmbH",
+          "url": "https://www.schreck-kunststofftechnik.de/",
+          "logo": "https://www.schreck-kunststofftechnik.de/images/logo-schreck.png",
+          "foundingDate": "1984",
+          "numberOfEmployees": {
+            "@type": "QuantitativeValue",
+            "value": 14
+          },
+          "telephone": "+49 6451 5000-0",
+          "faxNumber": "+49 6451 5000-10",
+          "email": "info@schreck-kunststofftechnik.com",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Wolkersdorfer Straße 28",
+            "postalCode": "35099",
+            "addressLocality": "Burgwald-Bottendorf",
+            "addressRegion": "Hessen",
+            "addressCountry": "DE"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 51.017,
+            "longitude": 8.832
+          },
+          "hasCredential": {
+            "@type": "EducationalOccupationalCredential",
+            "name": "DIN EN ISO 9001:2015",
+            "description": "Formenbau von der Konstruktion bis zur Serienreife",
+            "credentialCategory": "certification"
+          }
+        }
+      ],
+      "og": {
+        "og:type": "website",
+        "og:site_name": "Schreck Kunststofftechnik GmbH",
+        "og:title": "Werkzeugbau für Kunststoff, Aluminium und Zinkdruckguss | Schreck Kunststofftechnik GmbH",
+        "og:description": "Präziser Werkzeugbau von der Produktidee bis zur Serienreife. Seit 1984 in Burgwald-Bottendorf, ISO 9001:2015 zertifiziert. Projektanfrage mit CAD-Upload.",
+        "og:url": "https://www.schreck-kunststofftechnik.de/",
+        "og:image": "https://www.schreck-kunststofftechnik.de/images/og-schreck-fable.png",
+        "og:image:width": "1200",
+        "og:image:height": "630",
+        "og:locale": "de_DE"
+      },
+      "og_site_name": "Schreck Kunststofftechnik GmbH",
+      "html_bytes": 46268,
+      "rolle": "startseite",
+      "quelle": "startseite",
+      "hash_route": false,
+      "raw_word_count": 780,
+      "rendered_word_count": 780,
+      "raw_html_bytes": 44780,
+      "response_headers": {
+        "server": "cloudflare",
+        "content-type": "text/html; charset=utf-8",
+        "cache-control": "public, max-age=0, must-revalidate"
+      }
+    },
+    {
+      "url": "https://www.schreck-kunststofftechnik.de/impressum/",
+      "status": 200,
+      "title": "Impressum | Schreck Kunststofftechnik GmbH",
+      "meta_description": "Impressum der Schreck Kunststofftechnik GmbH, Wolkersdorfer Straße 28, 35099 Burgwald-Bottendorf.",
+      "meta_robots": null,
+      "x_robots_tag": null,
+      "canonical": "https://www.schreck-kunststofftechnik.de/impressum/",
+      "viewport_meta": "width=device-width, initial-scale=1",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Impressum"
+        },
+        {
+          "level": 2,
+          "text": "Schreck Kunststofftechnik GmbH"
+        },
+        {
+          "level": 3,
+          "text": "Kontakt"
+        },
+        {
+          "level": 3,
+          "text": "Gesellschafter und Geschäftsführer"
+        },
+        {
+          "level": 3,
+          "text": "Registerangaben"
+        },
+        {
+          "level": 3,
+          "text": "Verbraucherstreitbeilegung"
+        }
+      ],
+      "h1": [
+        "Impressum"
+      ],
+      "word_count": 138,
+      "text": "Zum Inhalt springen Produkte Über uns Karriere Downloads Kontakt +49 6451 5000-0 Anrufen Projekt anfragen Produkte Über uns Karriere Downloads Kontakt Projekt anfragen Rechtliches Impressum Schreck Kunststofftechnik GmbH Wolkersdorfer Straße 28 35099 Burgwald-Bottendorf Kontakt Telefon: +49 6451 5000-0 Telefax: +49 6451 5000-10 E-Mail: info@schreck-kunststofftechnik.com Gesellschafter und Geschäftsführer Maximilian Grebe, Roman Manz Registerangaben Amtsgericht Marburg/Lahn, Handelsregister HRB 3981 USt.-Id.-Nr.: DE 113086891 Verbraucherstreitbeilegung Wir sind nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen (§ 36 VSBG). Schreck Kunststofftechnik GmbH Wolkersdorfer Straße 28 35099 Burgwald-Bottendorf Telefon +49 6451 5000-0 Fax +49 6451 5000-10 info@schreck-kunststofftechnik.com Instagram Seiten Produkte Über uns Karriere Downloads Kontakt Projekt anfragen Qualität Zertifiziert nach DIN EN ISO 9001:2015, Formenbau von der Konstruktion bis zur Serienreife. Ausgestellt von SKZ-Cert GmbH, gültig bis 27.06.2027. Zertifikat als PDF © 2026 Schreck Kunststofftechnik GmbH Impressum Datenschutz Anrufen E-Mail Anfrage",
+      "images": [
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/logo-schreck.png",
+          "alt": "Schreck Kunststofftechnik GmbH",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 560,
+          "height_attr": 148,
+          "bytes": 17203,
+          "mime": "image/png",
+          "format": "png"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/iso-9001-zertifikat-2024-2027.pdf",
+            "text": "Zertifikat als PDF",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/impressum/",
+            "text": "Impressum",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/datenschutz/",
+            "text": "Datenschutz",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Anfrage",
+            "hash_route": false
+          }
+        ],
+        "external": [
+          {
+            "url": "https://www.instagram.com/schreck_kunststofftechnik_gmbh/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/schreck_kunststofftechnik_gmbh/",
+            "text": "Instagram",
+            "hash_route": false
+          }
+        ]
+      },
+      "tel_links": [
+        "tel:+49645150000"
+      ],
+      "mailto_links": [
+        "mailto:info@schreck-kunststofftechnik.com"
+      ],
+      "forms": 0,
+      "jsonld_types": [
+        "LocalBusiness",
+        "BreadcrumbList"
+      ],
+      "jsonld": [
+        {
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "@id": "https://www.schreck-kunststofftechnik.de/#organization",
+          "name": "Schreck Kunststofftechnik GmbH",
+          "url": "https://www.schreck-kunststofftechnik.de/",
+          "logo": "https://www.schreck-kunststofftechnik.de/images/logo-schreck.png",
+          "foundingDate": "1984",
+          "numberOfEmployees": {
+            "@type": "QuantitativeValue",
+            "value": 14
+          },
+          "telephone": "+49 6451 5000-0",
+          "faxNumber": "+49 6451 5000-10",
+          "email": "info@schreck-kunststofftechnik.com",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Wolkersdorfer Straße 28",
+            "postalCode": "35099",
+            "addressLocality": "Burgwald-Bottendorf",
+            "addressRegion": "Hessen",
+            "addressCountry": "DE"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 51.017,
+            "longitude": 8.832
+          },
+          "hasCredential": {
+            "@type": "EducationalOccupationalCredential",
+            "name": "DIN EN ISO 9001:2015",
+            "description": "Formenbau von der Konstruktion bis zur Serienreife",
+            "credentialCategory": "certification"
+          }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Startseite",
+              "item": "https://www.schreck-kunststofftechnik.de/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Impressum",
+              "item": "https://www.schreck-kunststofftechnik.de/impressum/"
+            }
+          ]
+        }
+      ],
+      "og": {
+        "og:type": "website",
+        "og:site_name": "Schreck Kunststofftechnik GmbH",
+        "og:title": "Impressum | Schreck Kunststofftechnik GmbH",
+        "og:description": "Impressum der Schreck Kunststofftechnik GmbH, Wolkersdorfer Straße 28, 35099 Burgwald-Bottendorf.",
+        "og:url": "https://www.schreck-kunststofftechnik.de/impressum/",
+        "og:image": "https://www.schreck-kunststofftechnik.de/images/og-schreck-fable.png",
+        "og:image:width": "1200",
+        "og:image:height": "630",
+        "og:locale": "de_DE"
+      },
+      "og_site_name": "Schreck Kunststofftechnik GmbH",
+      "html_bytes": 14727,
+      "rolle": "impressum",
+      "quelle": "link",
+      "hash_route": false,
+      "raw_word_count": 138,
+      "rendered_word_count": 138,
+      "raw_html_bytes": 14333,
+      "response_headers": {
+        "server": "cloudflare",
+        "content-type": "text/html; charset=utf-8",
+        "cache-control": "public, max-age=0, must-revalidate"
+      }
+    },
+    {
+      "url": "https://www.schreck-kunststofftechnik.de/datenschutz/",
+      "status": 200,
+      "title": "Datenschutzerklärung | Schreck Kunststofftechnik GmbH",
+      "meta_description": "Datenschutzerklärung der Schreck Kunststofftechnik GmbH: Hosting, Projektanfrage-Formular, Ihre Rechte.",
+      "meta_robots": "noindex, follow",
+      "x_robots_tag": null,
+      "canonical": "https://www.schreck-kunststofftechnik.de/datenschutz/",
+      "viewport_meta": "width=device-width, initial-scale=1",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Datenschutzerklärung"
+        },
+        {
+          "level": 2,
+          "text": "1. Verantwortlicher"
+        },
+        {
+          "level": 2,
+          "text": "2. Hosting und Server-Logfiles"
+        },
+        {
+          "level": 2,
+          "text": "3. SSL-Verschlüsselung"
+        },
+        {
+          "level": 2,
+          "text": "4. Projektanfrage-Formular"
+        },
+        {
+          "level": 2,
+          "text": "5. Kontaktaufnahme per Telefon und E-Mail"
+        },
+        {
+          "level": 2,
+          "text": "6. Bewerbungen"
+        },
+        {
+          "level": 2,
+          "text": "7. Cookies und datensparsame Webanalyse mit Umami"
+        },
+        {
+          "level": 2,
+          "text": "8. Schriftarten und externe Inhalte"
+        },
+        {
+          "level": 2,
+          "text": "9. Speicherdauer"
+        },
+        {
+          "level": 2,
+          "text": "10. Ihre Rechte"
+        },
+        {
+          "level": 2,
+          "text": "11. Widerruf von Einwilligungen"
+        }
+      ],
+      "h1": [
+        "Datenschutzerklärung"
+      ],
+      "word_count": 954,
+      "text": "Zum Inhalt springen Produkte Über uns Karriere Downloads Kontakt +49 6451 5000-0 Anrufen Projekt anfragen Produkte Über uns Karriere Downloads Kontakt Projekt anfragen Rechtliches Datenschutzerklärung Stand: August 2026 1. Verantwortlicher Verantwortlich für die Datenverarbeitung auf dieser Website ist: Schreck Kunststofftechnik GmbH Wolkersdorfer Straße 28, 35099 Burgwald-Bottendorf Telefon: +49 6451 5000-0 E-Mail: info@schreck-kunststofftechnik.com 2. Hosting und Server-Logfiles Diese Website wird gehostet bei Cloudflare Pages, einem Dienst der Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA. Beim Aufruf der Website verarbeitet Cloudflare technisch notwendige Daten (z. B. IP-Adresse, Zeitpunkt des Zugriffs, angeforderte Datei, Browserkennung), um die Seite auszuliefern, Störungen zu erkennen und Angriffe abzuwehren. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einem sicheren und stabilen Webauftritt). Mit Cloudflare besteht ein Auftragsverarbeitungsvertrag (Data Processing Addendum). Soweit Daten in die USA übermittelt werden, stützt sich dies auf das EU-US Data Privacy Framework, unter dem Cloudflare zertifiziert ist, sowie auf EU-Standardvertragsklauseln. 3. SSL-Verschlüsselung Diese Website nutzt aus Sicherheitsgründen eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie an „https://\" und dem Schloss-Symbol in der Adresszeile Ihres Browsers. 4. Projektanfrage-Formular Auf der Startseite können Sie uns eine Projektanfrage senden. Das Formular übermittelt die von Ihnen eingegebenen Angaben (Anliegen, Projektbeschreibung, Branche optional, Firma, Name, E-Mail-Adresse, Telefonnummer, Nachricht optional) nicht an unseren Server, sondern öffnet damit eine vorausgefüllte Nachricht in Ihrem eigenen E-Mail-Programm. Erst wenn Sie diese E-Mail dort selbst absenden, erreichen uns Ihre Angaben, über Ihr eigenes E-Mail-Konto und dessen Anbieter. Zweck der Verarbeitung ist die Prüfung und Beantwortung Ihrer Anfrage sowie die Erstellung eines Angebots. Bitte übermitteln Sie über dieses Formular keine Zeichnungen, CAD-Daten oder sonstigen sensiblen Unterlagen. Für den Austausch solcher Dateien nehmen wir direkt telefonisch oder per E-Mail Kontakt mit Ihnen auf. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Durchführung vorvertraglicher Maßnahmen auf Ihre Anfrage). Bei allgemeinen Nachrichten ohne vorvertraglichen Bezug (Anliegen „Sonstiges\") ist die Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO; unser berechtigtes Interesse liegt in der Beantwortung der an uns gerichteten Nachricht. Die E-Mail geht in unserem geschäftlichen Postfach bei Microsoft 365 (Microsoft Ireland Operations Ltd.) ein und wird dort gespeichert, bis Ihre Anfrage abschließend bearbeitet ist und keine gesetzlichen Aufbewahrungspflichten mehr bestehen. 5. Kontaktaufnahme per Telefon und E-Mail Wenn Sie uns anrufen oder direkt eine E-Mail schreiben, verarbeiten wir die von Ihnen mitgeteilten Angaben (z. B. Name, Firma, Kontaktdaten, Inhalt der Anfrage) ausschließlich zur Bearbeitung Ihres Anliegens. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Vertrag bzw. vorvertragliche Maßnahmen) oder Art. 6 Abs. 1 lit. f DSGVO bei allgemeinen Anfragen. Anfragen werden gelöscht, sobald sie abschließend bearbeitet sind und keine gesetzlichen Aufbewahrungspflichten entgegenstehen. 6. Bewerbungen Wenn Sie sich auf eine ausgeschriebene Stelle oder initiativ bewerben, verarbeiten wir Ihre Bewerbungsunterlagen ausschließlich zur Durchführung des Bewerbungsverfahrens. Rechtsgrundlage ist § 26 BDSG i. V. m. Art. 6 Abs. 1 lit. b DSGVO. Unterlagen abgelehnter Bewerber werden spätestens sechs Monate nach Abschluss des Verfahrens gelöscht, sofern keine Einwilligung zur längeren Aufbewahrung vorliegt. 7. Cookies und datensparsame Webanalyse mit Umami Diese Website nutzt die selbst gehostete Open-Source-Software Umami zur statistischen Auswertung von Seitenaufrufen. Die Umami-Instanz wird unter stats.360-ai.org von 360ai, Denis Schmidt, Wangershäuser Str. 7, 35066 Frankenberg, technisch betrieben. Für die Reichweitenmessung werden keine Cookies gesetzt und keine Informationen im Browser gespeichert. Eine aktivierte „Do Not Track“-Einstellung Ihres Browsers wird berücksichtigt. Erfasst werden der aufgerufene Seitenpfad und Seitentitel, Zeitpunkt des Aufrufs, Referrer, Browsersprache und Bildschirmgröße sowie Angaben zu Browser, Betriebssystem, Gerätetyp und ungefährem Herkunftsland. Suchparameter und URL-Fragmente werden nicht übertragen. Die IP-Adresse wird nur während der Anfrage zur anonymen Sitzungs- und Länderermittlung verarbeitet und nicht gespeichert. Formulareingaben, Namen, E-Mail-Adressen, hochgeladene Dateien oder andere direkte Identifikatoren werden nicht an Umami übermittelt. Es findet weder websiteübergreifendes Tracking noch eine Profilbildung zu Werbezwecken statt. Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt in der anonymen Reichweitenmessung und der Verbesserung unseres Internetangebots. Die Analysedaten verbleiben in der selbst gehosteten Umami-Instanz, werden nicht für Werbezwecke weitergegeben und nur so lange gespeichert, wie sie für die statistische Auswertung erforderlich sind. Die Erforderlichkeit wird regelmäßig überprüft; nicht mehr benötigte Daten werden gelöscht. Sie können der Verarbeitung aus Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit widersprechen. 8. Schriftarten und externe Inhalte Die Schriftarten dieser Website (Oswald und Inter) sind lokal auf unserem Webspace gespeichert und werden von dort geladen. Ein Abruf bei Drittanbietern (z. B. Google Fonts) findet nicht statt. Kartendienste sind nicht eingebettet: Der Link zur Routenplanung öffnet Google Maps erst nach Ihrem Klick in einem neuen Fenster; ab dann gelten die Datenschutzhinweise von Google. 9. Speicherdauer Wir speichern personenbezogene Daten nur so lange, wie es für den jeweiligen Zweck erforderlich ist oder gesetzliche Aufbewahrungspflichten (z. B. nach HGB oder AO) bestehen. 10. Ihre Rechte Sie haben nach der DSGVO insbesondere folgende Rechte: Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20), Widerspruch gegen Verarbeitungen auf Grundlage von Art. 6 Abs. 1 lit. f (Art. 21), Beschwerde bei einer Aufsichtsbehörde (Art. 77); zuständig ist der Hessische Beauftragte für Datenschutz und Informationsfreiheit (HBDI), Wiesbaden. 11. Widerruf von Einwilligungen Soweit Sie eine Einwilligung erteilt haben, können Sie diese jederzeit mit Wirkung für die Zukunft widerrufen. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Verarbeitung bleibt unberührt. Hinweis: Diese Erklärung wurde sorgfältig erstellt, ersetzt aber keine Rechtsberatung. Vor dem Livegang durch einen Generator (z. B. eRecht24) oder Fachanwalt gegenprüfen lassen. Schreck Kunststofftechnik GmbH Wolkersdorfer Straße 28 35099 Burgwald-Bottendorf Telefon +49 6451 5000-0 Fax +49 6451 5000-10 info@schreck-kunststofftechnik.com Instagram Seiten Produkte Über uns Karriere Downloads Kontakt Projekt anfragen Qualität Zertifiziert nach DIN EN ISO 9001:2015, Formenbau von der Konstruktion bis zur Serienreife. Ausgestellt von SKZ-Cert GmbH, gültig bis 27.06.2027. Zertifikat als PDF © 2026 Schreck Kunststofftechnik GmbH Impressum Datenschutz Anrufen E-Mail Anfrage",
+      "images": [
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/logo-schreck.png",
+          "alt": "Schreck Kunststofftechnik GmbH",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 560,
+          "height_attr": 148,
+          "bytes": 17203,
+          "mime": "image/png",
+          "format": "png"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/iso-9001-zertifikat-2024-2027.pdf",
+            "text": "Zertifikat als PDF",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/impressum/",
+            "text": "Impressum",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/datenschutz/",
+            "text": "Datenschutz",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Anfrage",
+            "hash_route": false
+          }
+        ],
+        "external": [
+          {
+            "url": "https://www.instagram.com/schreck_kunststofftechnik_gmbh/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/schreck_kunststofftechnik_gmbh/",
+            "text": "Instagram",
+            "hash_route": false
+          }
+        ]
+      },
+      "tel_links": [
+        "tel:+49645150000"
+      ],
+      "mailto_links": [
+        "mailto:info@schreck-kunststofftechnik.com"
+      ],
+      "forms": 0,
+      "jsonld_types": [
+        "LocalBusiness",
+        "BreadcrumbList"
+      ],
+      "jsonld": [
+        {
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "@id": "https://www.schreck-kunststofftechnik.de/#organization",
+          "name": "Schreck Kunststofftechnik GmbH",
+          "url": "https://www.schreck-kunststofftechnik.de/",
+          "logo": "https://www.schreck-kunststofftechnik.de/images/logo-schreck.png",
+          "foundingDate": "1984",
+          "numberOfEmployees": {
+            "@type": "QuantitativeValue",
+            "value": 14
+          },
+          "telephone": "+49 6451 5000-0",
+          "faxNumber": "+49 6451 5000-10",
+          "email": "info@schreck-kunststofftechnik.com",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Wolkersdorfer Straße 28",
+            "postalCode": "35099",
+            "addressLocality": "Burgwald-Bottendorf",
+            "addressRegion": "Hessen",
+            "addressCountry": "DE"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 51.017,
+            "longitude": 8.832
+          },
+          "hasCredential": {
+            "@type": "EducationalOccupationalCredential",
+            "name": "DIN EN ISO 9001:2015",
+            "description": "Formenbau von der Konstruktion bis zur Serienreife",
+            "credentialCategory": "certification"
+          }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Startseite",
+              "item": "https://www.schreck-kunststofftechnik.de/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Datenschutz",
+              "item": "https://www.schreck-kunststofftechnik.de/datenschutz/"
+            }
+          ]
+        }
+      ],
+      "og": {
+        "og:type": "website",
+        "og:site_name": "Schreck Kunststofftechnik GmbH",
+        "og:title": "Datenschutzerklärung | Schreck Kunststofftechnik GmbH",
+        "og:description": "Datenschutzerklärung der Schreck Kunststofftechnik GmbH: Hosting, Projektanfrage-Formular, Ihre Rechte.",
+        "og:url": "https://www.schreck-kunststofftechnik.de/datenschutz/",
+        "og:image": "https://www.schreck-kunststofftechnik.de/images/og-schreck-fable.png",
+        "og:image:width": "1200",
+        "og:image:height": "630",
+        "og:locale": "de_DE"
+      },
+      "og_site_name": "Schreck Kunststofftechnik GmbH",
+      "html_bytes": 22513,
+      "rolle": "datenschutz",
+      "quelle": "link",
+      "hash_route": false,
+      "raw_word_count": 954,
+      "rendered_word_count": 954,
+      "raw_html_bytes": 22035,
+      "response_headers": {
+        "server": "cloudflare",
+        "content-type": "text/html; charset=utf-8",
+        "cache-control": "public, max-age=0, must-revalidate"
+      }
+    },
+    {
+      "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+      "status": 200,
+      "title": "Kontakt und Anfahrt | Schreck Kunststofftechnik GmbH",
+      "meta_description": "Schreck Kunststofftechnik GmbH, Wolkersdorfer Straße 28, 35099 Burgwald-Bottendorf. Telefon +49 6451 5000-0, Projektanfrage mit Datei-Upload.",
+      "meta_robots": null,
+      "x_robots_tag": null,
+      "canonical": "https://www.schreck-kunststofftechnik.de/kontakt/",
+      "viewport_meta": "width=device-width, initial-scale=1",
+      "headings": [
+        {
+          "level": 1,
+          "text": "So erreichen Sie SKT"
+        },
+        {
+          "level": 2,
+          "text": "Telefon"
+        },
+        {
+          "level": 2,
+          "text": "E-Mail"
+        },
+        {
+          "level": 2,
+          "text": "Fax"
+        },
+        {
+          "level": 2,
+          "text": "Adresse"
+        },
+        {
+          "level": 2,
+          "text": "Standort Burgwald-Bottendorf"
+        }
+      ],
+      "h1": [
+        "So erreichen Sie SKT"
+      ],
+      "word_count": 164,
+      "text": "Zum Inhalt springen Produkte Über uns Karriere Downloads Kontakt +49 6451 5000-0 Anrufen Projekt anfragen Produkte Über uns Karriere Downloads Kontakt Projekt anfragen Kontakt So erreichen Sie SKT Für Projektanfragen mit Zeichnung oder CAD-Daten nutzen Sie am besten das Anfrage-Formular auf der Startseite . Für alles andere: anrufen oder schreiben. Telefon +49 6451 5000-0 E-Mail info@schreck-kunststofftechnik.com Fax +49 6451 5000-10 Adresse Wolkersdorfer Straße 28 35099 Burgwald-Bottendorf Anfahrt Standort Burgwald-Bottendorf SKT sitzt in der Wolkersdorfer Straße 28 in 35099 Burgwald-Bottendorf, Nordhessen. Die Route öffnet sich erst nach Ihrem Klick bei Google Maps; vorher lädt diese Seite nichts von Google. Route in Google Maps öffnen Schreck Kunststofftechnik GmbH Wolkersdorfer Straße 28 35099 Burgwald-Bottendorf Telefon +49 6451 5000-0 Fax +49 6451 5000-10 info@schreck-kunststofftechnik.com Instagram Seiten Produkte Über uns Karriere Downloads Kontakt Projekt anfragen Qualität Zertifiziert nach DIN EN ISO 9001:2015, Formenbau von der Konstruktion bis zur Serienreife. Ausgestellt von SKZ-Cert GmbH, gültig bis 27.06.2027. Zertifikat als PDF © 2026 Schreck Kunststofftechnik GmbH Impressum Datenschutz Anrufen E-Mail Anfrage",
+      "images": [
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/logo-schreck.png",
+          "alt": "Schreck Kunststofftechnik GmbH",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 560,
+          "height_attr": 148,
+          "bytes": 17203,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/kontakt-buero.webp",
+          "alt": "Arbeitsplatz im Büro von SKT in Burgwald-Bottendorf",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1200,
+          "height_attr": 900,
+          "bytes": 100919,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/luftbild-skt.webp",
+          "alt": "Luftaufnahme des SKT-Standorts in Burgwald-Bottendorf",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1451,
+          "height_attr": 1084,
+          "bytes": 326234,
+          "mime": "image/webp",
+          "format": "webp"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Anfrage-Formular auf der Startseite",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/iso-9001-zertifikat-2024-2027.pdf",
+            "text": "Zertifikat als PDF",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/impressum/",
+            "text": "Impressum",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/datenschutz/",
+            "text": "Datenschutz",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Anfrage",
+            "hash_route": false
+          }
+        ],
+        "external": [
+          {
+            "url": "https://www.instagram.com/schreck_kunststofftechnik_gmbh/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.google.com/maps/search/?api=1&query=Schreck+Kunststofftechnik+Wolkersdorfer+Str.+28+35099+Burgwald",
+            "text": "Route in Google Maps öffnen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/schreck_kunststofftechnik_gmbh/",
+            "text": "Instagram",
+            "hash_route": false
+          }
+        ]
+      },
+      "tel_links": [
+        "tel:+49645150000"
+      ],
+      "mailto_links": [
+        "mailto:info@schreck-kunststofftechnik.com"
+      ],
+      "forms": 0,
+      "jsonld_types": [
+        "LocalBusiness",
+        "BreadcrumbList"
+      ],
+      "jsonld": [
+        {
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "@id": "https://www.schreck-kunststofftechnik.de/#organization",
+          "name": "Schreck Kunststofftechnik GmbH",
+          "url": "https://www.schreck-kunststofftechnik.de/",
+          "logo": "https://www.schreck-kunststofftechnik.de/images/logo-schreck.png",
+          "foundingDate": "1984",
+          "numberOfEmployees": {
+            "@type": "QuantitativeValue",
+            "value": 14
+          },
+          "telephone": "+49 6451 5000-0",
+          "faxNumber": "+49 6451 5000-10",
+          "email": "info@schreck-kunststofftechnik.com",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Wolkersdorfer Straße 28",
+            "postalCode": "35099",
+            "addressLocality": "Burgwald-Bottendorf",
+            "addressRegion": "Hessen",
+            "addressCountry": "DE"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 51.017,
+            "longitude": 8.832
+          },
+          "hasCredential": {
+            "@type": "EducationalOccupationalCredential",
+            "name": "DIN EN ISO 9001:2015",
+            "description": "Formenbau von der Konstruktion bis zur Serienreife",
+            "credentialCategory": "certification"
+          }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Startseite",
+              "item": "https://www.schreck-kunststofftechnik.de/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Kontakt",
+              "item": "https://www.schreck-kunststofftechnik.de/kontakt/"
+            }
+          ]
+        }
+      ],
+      "og": {
+        "og:type": "website",
+        "og:site_name": "Schreck Kunststofftechnik GmbH",
+        "og:title": "Kontakt und Anfahrt | Schreck Kunststofftechnik GmbH",
+        "og:description": "Schreck Kunststofftechnik GmbH, Wolkersdorfer Straße 28, 35099 Burgwald-Bottendorf. Telefon +49 6451 5000-0, Projektanfrage mit Datei-Upload.",
+        "og:url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+        "og:image": "https://www.schreck-kunststofftechnik.de/images/og-schreck-fable.png",
+        "og:image:width": "1200",
+        "og:image:height": "630",
+        "og:locale": "de_DE"
+      },
+      "og_site_name": "Schreck Kunststofftechnik GmbH",
+      "html_bytes": 20247,
+      "rolle": "kontakt",
+      "quelle": "link",
+      "hash_route": false,
+      "raw_word_count": 164,
+      "rendered_word_count": 164,
+      "raw_html_bytes": 19713,
+      "response_headers": {
+        "server": "cloudflare",
+        "content-type": "text/html; charset=utf-8",
+        "cache-control": "public, max-age=0, must-revalidate"
+      }
+    },
+    {
+      "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+      "status": 200,
+      "title": "Produkte: Spritzgusswerkzeuge und Formenbau | Schreck Kunststofftechnik GmbH",
+      "meta_description": "Mehr-Komponenten-Formen, Innenanspritzung, Labor, Medizin, Miniaturteile und Verpackung: sechs Produktgruppen mit Prospekten als PDF.",
+      "meta_robots": null,
+      "x_robots_tag": null,
+      "canonical": "https://www.schreck-kunststofftechnik.de/produkte/",
+      "viewport_meta": "width=device-width, initial-scale=1",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Spritzgusswerkzeuge für sechs Produktgruppen"
+        },
+        {
+          "level": 2,
+          "text": "Formen für die Medizintechnik"
+        },
+        {
+          "level": 3,
+          "text": "Produkte"
+        },
+        {
+          "level": 3,
+          "text": "Ansprüche an die Form"
+        },
+        {
+          "level": 2,
+          "text": "Mehr-Komponenten-Formen"
+        },
+        {
+          "level": 3,
+          "text": "Produktbeispiele"
+        },
+        {
+          "level": 3,
+          "text": "Ansprüche an die Form"
+        },
+        {
+          "level": 2,
+          "text": "Innenanspritzung"
+        },
+        {
+          "level": 3,
+          "text": "Anwendung"
+        },
+        {
+          "level": 3,
+          "text": "Ansprüche an die Form"
+        },
+        {
+          "level": 2,
+          "text": "Formen für die Labortechnik"
+        },
+        {
+          "level": 3,
+          "text": "Produkte"
+        },
+        {
+          "level": 3,
+          "text": "Ansprüche an die Form"
+        },
+        {
+          "level": 2,
+          "text": "Kleinstartikel-Formen"
+        },
+        {
+          "level": 3,
+          "text": "Artikel"
+        },
+        {
+          "level": 3,
+          "text": "Ansprüche an die Form"
+        },
+        {
+          "level": 2,
+          "text": "Formen für die Verpackungstechnik"
+        },
+        {
+          "level": 3,
+          "text": "Produkte"
+        },
+        {
+          "level": 3,
+          "text": "Ansprüche an die Form"
+        }
+      ],
+      "h1": [
+        "Spritzgusswerkzeuge für sechs Produktgruppen"
+      ],
+      "word_count": 551,
+      "text": "Zum Inhalt springen Produkte Über uns Karriere Downloads Kontakt +49 6451 5000-0 Anrufen Projekt anfragen Produkte Über uns Karriere Downloads Kontakt Projekt anfragen Produkte Spritzgusswerkzeuge für sechs Produktgruppen Alle Inhalte stammen aus den SKT-Prospekten. Jede Gruppe hat einen eigenen Prospekt als PDF, den Sie direkt herunterladen können. Medizin Mehr-Komponenten-Formen Innenanspritzung Labor Miniaturteile Verpackung Hinweis zu den Abbildungen Produktgruppe Formen für die Medizintechnik Für die Medizintechnik fertigt SKT Formen für Einmalspritzen, Adaptionen, Schutzkappen, Verbindungselemente und Kleinstteile. Partikelfreiheit, austauschbare Ersatzteile und lange Lebensdauer sind die im Prospekt dokumentierten Ansprüche an diese Formen. Produkte Einmalspritzen Adaption Schutzkappen Verbindungselemente Kleinstteile Ansprüche an die Form Reproduzierbare Qualität Abfallfreie Produktion Lange Lebensdauer Austauschbare Ersatzteile Partikelfreiheit Wartungsarme Auslegung Prospekt als PDF Projekt anfragen KI generiert KI generiert Produktgruppe Mehr-Komponenten-Formen Mehr-Komponenten-Formen verbinden zwei oder mehr Kunststoffkomponenten in einem Werkzeug. SKT legt diese Formen auf reproduzierbare Qualität und abfallfreie Produktion aus. Belegte Produktbeispiele aus dem Prospekt: Dreiwegehahn, Funkschlüssel und Air-Condition-Einstellrad. Produktbeispiele Dreiwegehahn Funkschlüssel Air-Condition-Einstellrad Ansprüche an die Form Reproduzierbare Qualität Abfallfreie Produktion Austauschbare Ersatzteile Schneller Zyklus Wartungsarme Auslegung Lange Lebensdauer Prospekt als PDF Projekt anfragen KI generiert KI generiert Produktgruppe Innenanspritzung Bei der Innenanspritzung liegt der Anspritzpunkt im Inneren des Bauteils. Das Ergebnis sind Produkte ohne sichtbare Anspritzpunkte. Belegte Anwendung aus dem Prospekt ist die Verschlusstechnik. Anwendung Verschlusstechnik Ansprüche an die Form Höchste Oberflächengüte Reproduzierbare Maßqualität Schneller Zyklus Abfallfreie Produktion Balancierte Fließwege Prospekt als PDF Projekt anfragen KI generiert KI generiert Produktgruppe Formen für die Labortechnik Für die Labortechnik fertigt SKT Formen für Pipetten, Küvetten, Verbindungselemente, PCR-Gefäße und Filtertechnik. Der Prospekt nennt Partikelfreiheit und balancierte Fließwege als zentrale Ansprüche an diese Formen. Produkte Pipetten Küvetten Verbindungselemente PCR-Gefäße Filtertechnik Ansprüche an die Form Reproduzierbare Qualität Schneller Zyklus Abfallfreie Produktion Balancierte Fließwege Austauschbare Ersatzteile Partikelfreiheit Wartungsarme Auslegung Prospekt als PDF Projekt anfragen KI generiert KI generiert Produktgruppe Kleinstartikel-Formen Kleinstartikel-Formen fertigen Bauteile, deren Größe im Prospekt mit einem Streichholz verglichen wird. Reinraumtauglichkeit und optimale Entlüftung gehören zu den dokumentierten Ansprüchen. Zu den belegten Artikeln zählen Lichtwellenleiter-Stecker (im Prospekt: Optik und Verriegelung), eine künstliche Pupille aus zwei Komponenten und Metallumspritzungen. Artikel Optik und Verriegelung (Lichtwellenleiter-Stecker) Verriegelungspin Künstliche Pupille (zwei Komponenten) Metallumspritzung Rollen und Zahnräder Funktionsteile Wippe (zwei Komponenten) Optische Gehäuse Verriegelungsgehäuse Clip Ansprüche an die Form Reproduzierbare Qualität Austauschbare Ersatzteile Schneller Zyklus Wartungsarme Auslegung Lange Lebensdauer Optimale Entlüftung Reinraumtaugliche Form Prospekt als PDF Projekt anfragen KI generiert KI generiert Produktgruppe Formen für die Verpackungstechnik Für die Verpackungstechnik fertigt SKT Formen für Verschlusstechnik, Schraubkappen und Inlays. Schnelle Zyklen, abfallfreie Produktion und wartungsarme Auslegung sind die im Prospekt dokumentierten Ansprüche. Produkte Verschlusstechnik Schraubkappen Inlays Ansprüche an die Form Reproduzierbare Qualität Abfallfreie Produktion Austauschbare Ersatzteile Schneller Zyklus Wartungsarme Auslegung Prospekt als PDF Projekt anfragen KI generiert KI generiert Hinweis zu den Produktabbildungen Die auf dieser Seite gezeigten Produktbeispiele sind KI-generierte Abbildungen. Reale Bauteile aus laufenden Kundenprojekten enthalten häufig vertrauliche Konstruktionsdetails – deshalb zeigen wir keine Originalteile, sondern KI-generierte Darstellungen. Sie veranschaulichen die Formen, Materialien und Geometrien, die im Werkzeug- und Spritzguss bei SKT realistisch umsetzbar sind. Schreck Kunststofftechnik GmbH Wolkersdorfer Straße 28 35099 Burgwald-Bottendorf Telefon +49 6451 5000-0 Fax +49 6451 5000-10 info@schreck-kunststofftechnik.com Instagram Seiten Produkte Über uns Karriere Downloads Kontakt Projekt anfragen Qualität Zertifiziert nach DIN EN ISO 9001:2015, Formenbau von der Konstruktion bis zur Serienreife. Ausgestellt von SKZ-Cert GmbH, gültig bis 27.06.2027. Zertifikat als PDF © 2026 Schreck Kunststofftechnik GmbH Impressum Datenschutz Anrufen E-Mail Anfrage",
+      "images": [
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/logo-schreck.png",
+          "alt": "Schreck Kunststofftechnik GmbH",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 560,
+          "height_attr": 148,
+          "bytes": 17203,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/produkt-medizin-1.webp",
+          "alt": "Transparente medizinische Kunststoffspitzen mit rotem Musterteil",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1086,
+          "height_attr": 1448,
+          "bytes": 22606,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/produkt-medizin-2.webp",
+          "alt": "Transparente medizinische Kunststoffteile mit Kanuele",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1200,
+          "height_attr": 900,
+          "bytes": 11187,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/produkt-mehrkomponenten-1.webp",
+          "alt": "Weisses Mehrkomponenten-Kunststoffteil mit blauem Einsatz",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1200,
+          "height_attr": 800,
+          "bytes": 10178,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/produkt-mehrkomponenten-2.webp",
+          "alt": "Blau-weisses Mehrkomponenten-Kunststoffteil im Groessenvergleich mit einem Streichholz",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1200,
+          "height_attr": 800,
+          "bytes": 8305,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/produkt-innenanspritzung-1.webp",
+          "alt": "Farbige Kunststofftuben mit schwarzen Verschluessen fuer Innenanspritzung",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1024,
+          "height_attr": 1536,
+          "bytes": 17180,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/produkt-innenanspritzung-2.webp",
+          "alt": "Blauer und transparenter Kunststoffbecher fuer Innenanspritzung",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1200,
+          "height_attr": 687,
+          "bytes": 10406,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/produkt-labor-1.webp",
+          "alt": "Blaue Kunststoffstaebe fuer Laboranwendungen",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1200,
+          "height_attr": 797,
+          "bytes": 6512,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/produkt-labor-2.webp",
+          "alt": "Transparente Labor-Kunststoffteile aus Spritzguss",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 900,
+          "height_attr": 675,
+          "bytes": null,
+          "mime": null,
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/produkt-miniaturteile-1.webp",
+          "alt": "Miniaturteil aus weissem Kunststoff neben einem Streichholz",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1200,
+          "height_attr": 717,
+          "bytes": 10977,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/produkt-miniaturteile-2.webp",
+          "alt": "Kleine Kunststoffpraezisionsteile im Groessenvergleich mit einem Streichholz",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1200,
+          "height_attr": 704,
+          "bytes": null,
+          "mime": null,
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/produkt-verpackung-1.webp",
+          "alt": "Schraubkappen, Verschluesse und Verpackungsteile aus Kunststoff",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1200,
+          "height_attr": 814,
+          "bytes": 22119,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/produkt-verpackung-2.webp",
+          "alt": "Runde Kunststoffdeckel und Verpackungskomponenten",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1200,
+          "height_attr": 412,
+          "bytes": null,
+          "mime": null,
+          "format": "webp"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/skt-flyer-medizin.pdf",
+            "text": "Prospekt als PDF",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/skt-flyer-mehrkomponenten.pdf",
+            "text": "Prospekt als PDF",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/skt-flyer-innenanspritzung.pdf",
+            "text": "Prospekt als PDF",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/skt-flyer-labor.pdf",
+            "text": "Prospekt als PDF",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/skt-flyer-miniaturteile.pdf",
+            "text": "Prospekt als PDF",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/skt-flyer-verpackung.pdf",
+            "text": "Prospekt als PDF",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/iso-9001-zertifikat-2024-2027.pdf",
+            "text": "Zertifikat als PDF",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/impressum/",
+            "text": "Impressum",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/datenschutz/",
+            "text": "Datenschutz",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Anfrage",
+            "hash_route": false
+          }
+        ],
+        "external": [
+          {
+            "url": "https://www.instagram.com/schreck_kunststofftechnik_gmbh/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/schreck_kunststofftechnik_gmbh/",
+            "text": "Instagram",
+            "hash_route": false
+          }
+        ]
+      },
+      "tel_links": [
+        "tel:+49645150000"
+      ],
+      "mailto_links": [
+        "mailto:info@schreck-kunststofftechnik.com"
+      ],
+      "forms": 0,
+      "jsonld_types": [
+        "LocalBusiness",
+        "BreadcrumbList"
+      ],
+      "jsonld": [
+        {
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "@id": "https://www.schreck-kunststofftechnik.de/#organization",
+          "name": "Schreck Kunststofftechnik GmbH",
+          "url": "https://www.schreck-kunststofftechnik.de/",
+          "logo": "https://www.schreck-kunststofftechnik.de/images/logo-schreck.png",
+          "foundingDate": "1984",
+          "numberOfEmployees": {
+            "@type": "QuantitativeValue",
+            "value": 14
+          },
+          "telephone": "+49 6451 5000-0",
+          "faxNumber": "+49 6451 5000-10",
+          "email": "info@schreck-kunststofftechnik.com",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Wolkersdorfer Straße 28",
+            "postalCode": "35099",
+            "addressLocality": "Burgwald-Bottendorf",
+            "addressRegion": "Hessen",
+            "addressCountry": "DE"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 51.017,
+            "longitude": 8.832
+          },
+          "hasCredential": {
+            "@type": "EducationalOccupationalCredential",
+            "name": "DIN EN ISO 9001:2015",
+            "description": "Formenbau von der Konstruktion bis zur Serienreife",
+            "credentialCategory": "certification"
+          }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Startseite",
+              "item": "https://www.schreck-kunststofftechnik.de/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Produkte",
+              "item": "https://www.schreck-kunststofftechnik.de/produkte/"
+            }
+          ]
+        }
+      ],
+      "og": {
+        "og:type": "website",
+        "og:site_name": "Schreck Kunststofftechnik GmbH",
+        "og:title": "Produkte: Spritzgusswerkzeuge und Formenbau | Schreck Kunststofftechnik GmbH",
+        "og:description": "Mehr-Komponenten-Formen, Innenanspritzung, Labor, Medizin, Miniaturteile und Verpackung: sechs Produktgruppen mit Prospekten als PDF.",
+        "og:url": "https://www.schreck-kunststofftechnik.de/produkte/",
+        "og:image": "https://www.schreck-kunststofftechnik.de/images/og-schreck-fable.png",
+        "og:image:width": "1200",
+        "og:image:height": "630",
+        "og:locale": "de_DE"
+      },
+      "og_site_name": "Schreck Kunststofftechnik GmbH",
+      "html_bytes": 43223,
+      "rolle": "leistungen",
+      "quelle": "link",
+      "hash_route": false,
+      "raw_word_count": 551,
+      "rendered_word_count": 551,
+      "raw_html_bytes": 41972,
+      "response_headers": {
+        "server": "cloudflare",
+        "content-type": "text/html; charset=utf-8",
+        "cache-control": "public, max-age=0, must-revalidate"
+      }
+    },
+    {
+      "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+      "status": 200,
+      "title": "Über uns: Werkzeugbau seit 1984 | Schreck Kunststofftechnik GmbH",
+      "meta_description": "Die Schreck Kunststofftechnik GmbH steht seit 1984 für präzisen Werkzeugbau in Burgwald-Bottendorf. Kunden aus Medizintechnik, Kosmetik und Verpackungstechnik, ISO 9001:2015 zertifiziert.",
+      "meta_robots": null,
+      "x_robots_tag": null,
+      "canonical": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+      "viewport_meta": "width=device-width, initial-scale=1",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Formenbau seit 1984"
+        },
+        {
+          "level": 2,
+          "text": "Ein Einblick in unseren Maschinenpark"
+        },
+        {
+          "level": 2,
+          "text": "DIN EN ISO 9001:2015"
+        }
+      ],
+      "h1": [
+        "Formenbau seit 1984"
+      ],
+      "word_count": 454,
+      "text": "Zum Inhalt springen Produkte Über uns Karriere Downloads Kontakt +49 6451 5000-0 Anrufen Projekt anfragen Produkte Über uns Karriere Downloads Kontakt Projekt anfragen Über uns Formenbau seit 1984 Die Schreck Kunststofftechnik GmbH blickt auf eine langjährige Tradition im Werkzeugbau zurück. Die Wurzeln des Unternehmens reichen bis in das Jahr 1984 zurück, als Hans Schreck das Einzelunternehmen Hans Schreck Kunststofftechnik gründete. Von Beginn an lag der Fokus auf der Entwicklung und Fertigung hochwertiger Werkzeuge für die industrielle Fertigung. Im Jahr 1991 wurde das Unternehmen in die Schreck Kunststofftechnik GmbH umgewandelt und in das Handelsregister unter HRB 276 beim Amtsgericht Frankenberg eingetragen. Später erfolgte die Änderung des Registereintrags auf HRB 3981 beim Amtsgericht Marburg. Als Gesellschafter wurden Hans Schreck und Ursula Schreck geführt. Mit der Umwandlung in eine GmbH wurde der Grundstein für weiteres Wachstum und eine langfristige Unternehmensentwicklung gelegt. Im Jahr 2013 trat Erwin Schunke als weiterer Gesellschafter in das Unternehmen ein und beteiligte sich an der Weiterentwicklung der Firma. Ein bedeutender Schritt in der Unternehmensgeschichte folgte im Jahr 2025: Die Schreck Kunststofftechnik GmbH wurde zu 100 % von den neuen Gesellschaftern Maximilian Grebe und Roman Manz übernommen. Mit der neuen Geschäftsführung wird die langjährige Tradition des Unternehmens fortgeführt und gleichzeitig der Fokus auf Innovation, Qualität und Zukunftsfähigkeit weiter gestärkt. Heute steht die Schreck Kunststofftechnik GmbH für präzisen Werkzeugbau im Bereich der Kunststoff-, Aluminium- und Zinkdruckgussverarbeitung. Das Leistungsspektrum reicht von der ersten Produktidee über die Entwicklung und Konstruktion bis hin zur Serienreife des Werkzeuges. Neben der Neuanfertigung gehören auch Änderungen, Wartungen und Reparaturen bestehender Werkzeuge zum festen Bestandteil des Leistungsangebots. Der Kundenstamm umfasst Unternehmen aus verschiedenen Industriezweigen, insbesondere aus den Bereichen Medizintechnik, Kosmetik und Verpackungstechnik. Darüber hinaus realisiert das Unternehmen auch Projekte für zahlreiche weitere Anwendungen der industriellen Fertigung. Mit jahrzehntelanger Erfahrung, technischem Know-how und einem hohen Qualitätsanspruch versteht sich die Schreck Kunststofftechnik GmbH als zuverlässiger Partner für anspruchsvolle Werkzeuglösungen – von der ersten Idee bis zur erfolgreichen Serienproduktion. Seit 1984 Formenbau aus Hessen 1.000+ Formen bis zur Serienreife 30+ ausgebildete Lehrlinge ISO 9001 zertifiziert bis Juni 2027 Ausstattung Ein Einblick in unseren Maschinenpark Vier Stationen auf dem Weg vom Rohteil zur fertigen Form: Fräsen, Drehen, Spritzguss und Senkerodieren. CNC-Fräsen Konventionelle Drehmaschine Spritzguss Senkerodieren Qualität DIN EN ISO 9001:2015 Zertifizierter Geltungsbereich: Formenbau von der Konstruktion bis zur Serienreife. Ausgestellt von der SKZ-Cert GmbH, Zertifikat Nr. 000854.Q/24.R, gültig vom 28.06.2024 bis 27.06.2027. Zertifikat als PDF Schreck Kunststofftechnik GmbH Wolkersdorfer Straße 28 35099 Burgwald-Bottendorf Telefon +49 6451 5000-0 Fax +49 6451 5000-10 info@schreck-kunststofftechnik.com Instagram Seiten Produkte Über uns Karriere Downloads Kontakt Projekt anfragen Qualität Zertifiziert nach DIN EN ISO 9001:2015, Formenbau von der Konstruktion bis zur Serienreife. Ausgestellt von SKZ-Cert GmbH, gültig bis 27.06.2027. Zertifikat als PDF © 2026 Schreck Kunststofftechnik GmbH Impressum Datenschutz Anrufen E-Mail Anfrage",
+      "images": [
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/logo-schreck.png",
+          "alt": "Schreck Kunststofftechnik GmbH",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 560,
+          "height_attr": 148,
+          "bytes": 17203,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/skt-eingang.webp",
+          "alt": "Eingang der Schreck Kunststofftechnik GmbH",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1200,
+          "height_attr": 900,
+          "bytes": 231816,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/maschinenpark-fraesen.webp",
+          "alt": "DMG Mori CMX 600 V bei SKT",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1086,
+          "height_attr": 1448,
+          "bytes": 111056,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/maschinenpark-drehen.webp",
+          "alt": "Konventionelle Drehmaschine bei SKT",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1086,
+          "height_attr": 1448,
+          "bytes": 115815,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/maschinenpark-spritzguss.webp",
+          "alt": "ENGEL Spritzgussmaschine bei SKT",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1086,
+          "height_attr": 1448,
+          "bytes": 172832,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/maschinenpark-erodieren.webp",
+          "alt": "OPS Ingersoll Gantry Eagle 400 bei SKT",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1086,
+          "height_attr": 1448,
+          "bytes": 136483,
+          "mime": "image/webp",
+          "format": "webp"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/iso-9001-zertifikat-2024-2027.pdf",
+            "text": "Zertifikat als PDF",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/iso-9001-zertifikat-2024-2027.pdf",
+            "text": "Zertifikat als PDF",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/impressum/",
+            "text": "Impressum",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/datenschutz/",
+            "text": "Datenschutz",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Anfrage",
+            "hash_route": false
+          }
+        ],
+        "external": [
+          {
+            "url": "https://www.instagram.com/schreck_kunststofftechnik_gmbh/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/schreck_kunststofftechnik_gmbh/",
+            "text": "Instagram",
+            "hash_route": false
+          }
+        ]
+      },
+      "tel_links": [
+        "tel:+49645150000"
+      ],
+      "mailto_links": [
+        "mailto:info@schreck-kunststofftechnik.com"
+      ],
+      "forms": 0,
+      "jsonld_types": [
+        "LocalBusiness",
+        "BreadcrumbList"
+      ],
+      "jsonld": [
+        {
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "@id": "https://www.schreck-kunststofftechnik.de/#organization",
+          "name": "Schreck Kunststofftechnik GmbH",
+          "url": "https://www.schreck-kunststofftechnik.de/",
+          "logo": "https://www.schreck-kunststofftechnik.de/images/logo-schreck.png",
+          "foundingDate": "1984",
+          "numberOfEmployees": {
+            "@type": "QuantitativeValue",
+            "value": 14
+          },
+          "telephone": "+49 6451 5000-0",
+          "faxNumber": "+49 6451 5000-10",
+          "email": "info@schreck-kunststofftechnik.com",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Wolkersdorfer Straße 28",
+            "postalCode": "35099",
+            "addressLocality": "Burgwald-Bottendorf",
+            "addressRegion": "Hessen",
+            "addressCountry": "DE"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 51.017,
+            "longitude": 8.832
+          },
+          "hasCredential": {
+            "@type": "EducationalOccupationalCredential",
+            "name": "DIN EN ISO 9001:2015",
+            "description": "Formenbau von der Konstruktion bis zur Serienreife",
+            "credentialCategory": "certification"
+          }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Startseite",
+              "item": "https://www.schreck-kunststofftechnik.de/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Über uns",
+              "item": "https://www.schreck-kunststofftechnik.de/ueber-uns/"
+            }
+          ]
+        }
+      ],
+      "og": {
+        "og:type": "website",
+        "og:site_name": "Schreck Kunststofftechnik GmbH",
+        "og:title": "Über uns: Werkzeugbau seit 1984 | Schreck Kunststofftechnik GmbH",
+        "og:description": "Die Schreck Kunststofftechnik GmbH steht seit 1984 für präzisen Werkzeugbau in Burgwald-Bottendorf. Kunden aus Medizintechnik, Kosmetik und Verpackungstechnik, ISO 9001:2015 zertifiziert.",
+        "og:url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+        "og:image": "https://www.schreck-kunststofftechnik.de/images/og-schreck-fable.png",
+        "og:image:width": "1200",
+        "og:image:height": "630",
+        "og:locale": "de_DE"
+      },
+      "og_site_name": "Schreck Kunststofftechnik GmbH",
+      "html_bytes": 23456,
+      "rolle": "ueber_uns",
+      "quelle": "link",
+      "hash_route": false,
+      "raw_word_count": 454,
+      "rendered_word_count": 454,
+      "raw_html_bytes": 22937,
+      "response_headers": {
+        "server": "cloudflare",
+        "content-type": "text/html; charset=utf-8",
+        "cache-control": "public, max-age=0, must-revalidate"
+      }
+    },
+    {
+      "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+      "status": 200,
+      "title": "Karriere im Werkzeugbau | Schreck Kunststofftechnik GmbH",
+      "meta_description": "Arbeiten bei SKT in Burgwald-Bottendorf: Stellenangebote und Initiativbewerbung im Werkzeugbau für Kunststoff, Aluminium und Zinkdruckguss.",
+      "meta_robots": null,
+      "x_robots_tag": null,
+      "canonical": "https://www.schreck-kunststofftechnik.de/karriere/",
+      "viewport_meta": "width=device-width, initial-scale=1",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Arbeiten bei SKT"
+        },
+        {
+          "level": 2,
+          "text": "Karriere bei Schreck Kunststofftechnik"
+        },
+        {
+          "level": 2,
+          "text": "Initiativbewerbung"
+        }
+      ],
+      "h1": [
+        "Arbeiten bei SKT"
+      ],
+      "word_count": 225,
+      "text": "Zum Inhalt springen Produkte Über uns Karriere Downloads Kontakt +49 6451 5000-0 Anrufen Projekt anfragen Produkte Über uns Karriere Downloads Kontakt Projekt anfragen Karriere Arbeiten bei SKT Einstieg & Entwicklung Karriere bei Schreck Kunststofftechnik Bei Schreck Kunststofftechnik arbeiten Sie in einem technischen Umfeld, in dem Genauigkeit, Eigenverantwortung und die Freude an guten Lösungen zählen. Wir entwickeln und fertigen Werkzeuge für Kunststoff, Aluminium und Zinkdruckguss, von der ersten Produktidee bis zur serienreifen Form. Einstiegsmöglichkeiten gibt es bei uns in verschiedenen Bereichen: in der Ausbildung, in Konstruktion und CAD, im Werkzeugbau und in der Fertigung sowie in kaufmännischen und organisatorischen Aufgaben im Büro. Auch wenn aktuell keine passende Stelle ausgeschrieben ist, freuen wir uns jederzeit über Initiativbewerbungen von Menschen, die mitdenken, sauber arbeiten und ihre Erfahrung, ihr handwerkliches Können oder ihre Lernbereitschaft einbringen möchten. Jederzeit möglich Initiativbewerbung Wenn gerade keine passende Stelle ausgeschrieben ist, können Sie sich trotzdem gern initiativ bewerben. Senden Sie Lebenslauf und ein kurzes Anschreiben per E-Mail. Bewerbung per E-Mail +49 6451 5000-0 Schreck Kunststofftechnik GmbH Wolkersdorfer Straße 28 35099 Burgwald-Bottendorf Telefon +49 6451 5000-0 Fax +49 6451 5000-10 info@schreck-kunststofftechnik.com Instagram Seiten Produkte Über uns Karriere Downloads Kontakt Projekt anfragen Qualität Zertifiziert nach DIN EN ISO 9001:2015, Formenbau von der Konstruktion bis zur Serienreife. Ausgestellt von SKZ-Cert GmbH, gültig bis 27.06.2027. Zertifikat als PDF © 2026 Schreck Kunststofftechnik GmbH Impressum Datenschutz Anrufen E-Mail Anfrage",
+      "images": [
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/logo-schreck.png",
+          "alt": "Schreck Kunststofftechnik GmbH",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 560,
+          "height_attr": 148,
+          "bytes": 17203,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/karriere.webp",
+          "alt": "Azubi, Geselle und Mitarbeiter aus der Konstruktion stimmen sich an einem Spritzgusswerkzeug ab",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1086,
+          "height_attr": 1448,
+          "bytes": 99043,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/karriere-buero-cad.webp",
+          "alt": "Mitarbeiter stimmen ein Werkzeugmodell am CAD-Arbeitsplatz ab",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1086,
+          "height_attr": 1448,
+          "bytes": 98337,
+          "mime": "image/webp",
+          "format": "webp"
+        },
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/karriere-maschine.webp",
+          "alt": "Mitarbeiter bedient eine CNC-Fräsmaschine bei SKT",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1086,
+          "height_attr": 1448,
+          "bytes": 90513,
+          "mime": "image/webp",
+          "format": "webp"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/iso-9001-zertifikat-2024-2027.pdf",
+            "text": "Zertifikat als PDF",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/impressum/",
+            "text": "Impressum",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/datenschutz/",
+            "text": "Datenschutz",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Anfrage",
+            "hash_route": false
+          }
+        ],
+        "external": [
+          {
+            "url": "https://www.instagram.com/schreck_kunststofftechnik_gmbh/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/schreck_kunststofftechnik_gmbh/",
+            "text": "Instagram",
+            "hash_route": false
+          }
+        ]
+      },
+      "tel_links": [
+        "tel:+49645150000"
+      ],
+      "mailto_links": [
+        "mailto:info@schreck-kunststofftechnik.com?subject=Initiativbewerbung",
+        "mailto:info@schreck-kunststofftechnik.com"
+      ],
+      "forms": 0,
+      "jsonld_types": [
+        "LocalBusiness",
+        "BreadcrumbList"
+      ],
+      "jsonld": [
+        {
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "@id": "https://www.schreck-kunststofftechnik.de/#organization",
+          "name": "Schreck Kunststofftechnik GmbH",
+          "url": "https://www.schreck-kunststofftechnik.de/",
+          "logo": "https://www.schreck-kunststofftechnik.de/images/logo-schreck.png",
+          "foundingDate": "1984",
+          "numberOfEmployees": {
+            "@type": "QuantitativeValue",
+            "value": 14
+          },
+          "telephone": "+49 6451 5000-0",
+          "faxNumber": "+49 6451 5000-10",
+          "email": "info@schreck-kunststofftechnik.com",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Wolkersdorfer Straße 28",
+            "postalCode": "35099",
+            "addressLocality": "Burgwald-Bottendorf",
+            "addressRegion": "Hessen",
+            "addressCountry": "DE"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 51.017,
+            "longitude": 8.832
+          },
+          "hasCredential": {
+            "@type": "EducationalOccupationalCredential",
+            "name": "DIN EN ISO 9001:2015",
+            "description": "Formenbau von der Konstruktion bis zur Serienreife",
+            "credentialCategory": "certification"
+          }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Startseite",
+              "item": "https://www.schreck-kunststofftechnik.de/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Karriere",
+              "item": "https://www.schreck-kunststofftechnik.de/karriere/"
+            }
+          ]
+        }
+      ],
+      "og": {
+        "og:type": "website",
+        "og:site_name": "Schreck Kunststofftechnik GmbH",
+        "og:title": "Karriere im Werkzeugbau | Schreck Kunststofftechnik GmbH",
+        "og:description": "Arbeiten bei SKT in Burgwald-Bottendorf: Stellenangebote und Initiativbewerbung im Werkzeugbau für Kunststoff, Aluminium und Zinkdruckguss.",
+        "og:url": "https://www.schreck-kunststofftechnik.de/karriere/",
+        "og:image": "https://www.schreck-kunststofftechnik.de/images/og-schreck-fable.png",
+        "og:image:width": "1200",
+        "og:image:height": "630",
+        "og:locale": "de_DE"
+      },
+      "og_site_name": "Schreck Kunststofftechnik GmbH",
+      "html_bytes": 19021,
+      "rolle": "karriere",
+      "quelle": "link",
+      "hash_route": false,
+      "raw_word_count": 225,
+      "rendered_word_count": 225,
+      "raw_html_bytes": 18566,
+      "response_headers": {
+        "server": "cloudflare",
+        "content-type": "text/html; charset=utf-8",
+        "cache-control": "public, max-age=0, must-revalidate"
+      }
+    },
+    {
+      "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+      "status": 200,
+      "title": "Downloads: Prospekte und Zertifikat | Schreck Kunststofftechnik GmbH",
+      "meta_description": "Sechs Produktprospekte und das ISO-9001-Zertifikat als PDF: Mehr-Komponenten-Formen, Innenanspritzung, Labor, Medizin, Miniaturteile, Verpackung.",
+      "meta_robots": null,
+      "x_robots_tag": null,
+      "canonical": "https://www.schreck-kunststofftechnik.de/downloads/",
+      "viewport_meta": "width=device-width, initial-scale=1",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Prospekte und Zertifikat"
+        },
+        {
+          "level": 2,
+          "text": "Prospekt Mehr-Komponenten-Formen"
+        },
+        {
+          "level": 2,
+          "text": "Prospekt Innenanspritzung"
+        },
+        {
+          "level": 2,
+          "text": "Prospekt Labor"
+        },
+        {
+          "level": 2,
+          "text": "Prospekt Medizin"
+        },
+        {
+          "level": 2,
+          "text": "Prospekt Miniaturteile"
+        },
+        {
+          "level": 2,
+          "text": "Prospekt Verpackung"
+        },
+        {
+          "level": 2,
+          "text": "ISO-9001-Zertifikat"
+        }
+      ],
+      "h1": [
+        "Prospekte und Zertifikat"
+      ],
+      "word_count": 184,
+      "text": "Zum Inhalt springen Produkte Über uns Karriere Downloads Kontakt +49 6451 5000-0 Anrufen Projekt anfragen Produkte Über uns Karriere Downloads Kontakt Projekt anfragen Downloads Prospekte und Zertifikat Alle Unterlagen als PDF, ohne Anmeldung. Prospekt Mehr-Komponenten-Formen Formen für zwei und mehr Komponenten, mit Produktbeispielen. PDF herunterladen (730 KB) Prospekt Innenanspritzung Produkte ohne sichtbare Anspritzpunkte, Anwendung Verschlusstechnik. PDF herunterladen (573 KB) Prospekt Labor Formen für Pipetten, Küvetten, PCR-Gefäße und Filtertechnik. PDF herunterladen (646 KB) Prospekt Medizin Formen für Einmalspritzen, Schutzkappen und Kleinstteile. PDF herunterladen (777 KB) Prospekt Miniaturteile Kleinstartikel-Formen, vom Verriegelungspin bis zum Zahnrad. PDF herunterladen (1,1 MB) Prospekt Verpackung Formen für Verschlusstechnik, Schraubkappen und Inlays. PDF herunterladen (722 KB) ISO-9001-Zertifikat DIN EN ISO 9001:2015, ausgestellt von SKZ-Cert, gültig bis 27.06.2027. PDF herunterladen (256 KB) Schreck Kunststofftechnik GmbH Wolkersdorfer Straße 28 35099 Burgwald-Bottendorf Telefon +49 6451 5000-0 Fax +49 6451 5000-10 info@schreck-kunststofftechnik.com Instagram Seiten Produkte Über uns Karriere Downloads Kontakt Projekt anfragen Qualität Zertifiziert nach DIN EN ISO 9001:2015, Formenbau von der Konstruktion bis zur Serienreife. Ausgestellt von SKZ-Cert GmbH, gültig bis 27.06.2027. Zertifikat als PDF © 2026 Schreck Kunststofftechnik GmbH Impressum Datenschutz Anrufen E-Mail Anfrage",
+      "images": [
+        {
+          "src": "https://www.schreck-kunststofftechnik.de/images/logo-schreck.png",
+          "alt": "Schreck Kunststofftechnik GmbH",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 560,
+          "height_attr": 148,
+          "bytes": 17203,
+          "mime": "image/png",
+          "format": "png"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/skt-flyer-mehrkomponenten.pdf",
+            "text": "PDF herunterladen (730 KB)",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/skt-flyer-innenanspritzung.pdf",
+            "text": "PDF herunterladen (573 KB)",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/skt-flyer-labor.pdf",
+            "text": "PDF herunterladen (646 KB)",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/skt-flyer-medizin.pdf",
+            "text": "PDF herunterladen (777 KB)",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/skt-flyer-miniaturteile.pdf",
+            "text": "PDF herunterladen (1,1 MB)",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/skt-flyer-verpackung.pdf",
+            "text": "PDF herunterladen (722 KB)",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/iso-9001-zertifikat-2024-2027.pdf",
+            "text": "PDF herunterladen (256 KB)",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/produkte/",
+            "text": "Produkte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+            "text": "Über uns",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/karriere/",
+            "text": "Karriere",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/",
+            "text": "Downloads",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/kontakt/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Projekt anfragen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/downloads/iso-9001-zertifikat-2024-2027.pdf",
+            "text": "Zertifikat als PDF",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/impressum/",
+            "text": "Impressum",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/datenschutz/",
+            "text": "Datenschutz",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.schreck-kunststofftechnik.de/",
+            "text": "Anfrage",
+            "hash_route": false
+          }
+        ],
+        "external": [
+          {
+            "url": "https://www.instagram.com/schreck_kunststofftechnik_gmbh/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/schreck_kunststofftechnik_gmbh/",
+            "text": "Instagram",
+            "hash_route": false
+          }
+        ]
+      },
+      "tel_links": [
+        "tel:+49645150000"
+      ],
+      "mailto_links": [
+        "mailto:info@schreck-kunststofftechnik.com"
+      ],
+      "forms": 0,
+      "jsonld_types": [
+        "LocalBusiness",
+        "BreadcrumbList"
+      ],
+      "jsonld": [
+        {
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "@id": "https://www.schreck-kunststofftechnik.de/#organization",
+          "name": "Schreck Kunststofftechnik GmbH",
+          "url": "https://www.schreck-kunststofftechnik.de/",
+          "logo": "https://www.schreck-kunststofftechnik.de/images/logo-schreck.png",
+          "foundingDate": "1984",
+          "numberOfEmployees": {
+            "@type": "QuantitativeValue",
+            "value": 14
+          },
+          "telephone": "+49 6451 5000-0",
+          "faxNumber": "+49 6451 5000-10",
+          "email": "info@schreck-kunststofftechnik.com",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Wolkersdorfer Straße 28",
+            "postalCode": "35099",
+            "addressLocality": "Burgwald-Bottendorf",
+            "addressRegion": "Hessen",
+            "addressCountry": "DE"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 51.017,
+            "longitude": 8.832
+          },
+          "hasCredential": {
+            "@type": "EducationalOccupationalCredential",
+            "name": "DIN EN ISO 9001:2015",
+            "description": "Formenbau von der Konstruktion bis zur Serienreife",
+            "credentialCategory": "certification"
+          }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Startseite",
+              "item": "https://www.schreck-kunststofftechnik.de/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Downloads",
+              "item": "https://www.schreck-kunststofftechnik.de/downloads/"
+            }
+          ]
+        }
+      ],
+      "og": {
+        "og:type": "website",
+        "og:site_name": "Schreck Kunststofftechnik GmbH",
+        "og:title": "Downloads: Prospekte und Zertifikat | Schreck Kunststofftechnik GmbH",
+        "og:description": "Sechs Produktprospekte und das ISO-9001-Zertifikat als PDF: Mehr-Komponenten-Formen, Innenanspritzung, Labor, Medizin, Miniaturteile, Verpackung.",
+        "og:url": "https://www.schreck-kunststofftechnik.de/downloads/",
+        "og:image": "https://www.schreck-kunststofftechnik.de/images/og-schreck-fable.png",
+        "og:image:width": "1200",
+        "og:image:height": "630",
+        "og:locale": "de_DE"
+      },
+      "og_site_name": "Schreck Kunststofftechnik GmbH",
+      "html_bytes": 20581,
+      "rolle": "sonstige",
+      "quelle": "link",
+      "hash_route": false,
+      "raw_word_count": 184,
+      "rendered_word_count": 184,
+      "raw_html_bytes": 19963,
+      "response_headers": {
+        "server": "cloudflare",
+        "content-type": "text/html; charset=utf-8",
+        "cache-control": "public, max-age=0, must-revalidate"
+      }
+    }
+  ],
+  "resources": {
+    "total": 92,
+    "errors": [],
+    "hosts": [
+      "www.schreck-kunststofftechnik.de",
+      "stats.360-ai.org"
+    ]
+  },
+  "links": {
+    "checked": 15,
+    "broken": []
+  },
+  "mobile": {
+    "viewport_meta": "width=device-width, initial-scale=1",
+    "user_scalable": true,
+    "maximum_scale": null,
+    "has_width_device_width": true,
+    "horizontal_overflow_px": 0,
+    "base_font_px": 16,
+    "contrast_ratio": 8.99,
+    "interactive_total": 24,
+    "interactive_small": 3,
+    "interactive_inline_links": 12,
+    "first_screen_elements": [
+      {
+        "tag": "a",
+        "text": "Zum Inhalt springen",
+        "href": "#main",
+        "is_tel": false,
+        "is_mail": false
+      },
+      {
+        "tag": "a",
+        "text": "",
+        "href": "/",
+        "is_tel": false,
+        "is_mail": false
+      },
+      {
+        "tag": "a",
+        "text": "+49 6451 5000-0 Anrufen",
+        "href": "tel:+49645150000",
+        "is_tel": true,
+        "is_mail": false
+      },
+      {
+        "tag": "a",
+        "text": "",
+        "href": "https://www.instagram.com/schreck_kunststofftechnik_gmbh/",
+        "is_tel": false,
+        "is_mail": false
+      },
+      {
+        "tag": "button",
+        "text": "",
+        "href": null,
+        "is_tel": false,
+        "is_mail": false
+      }
+    ],
+    "overflow_pages": [],
+    "overflow_checked": 6
+  },
+  "consent": {
+    "clean": {
+      "mode": "clean",
+      "reachable": true,
+      "hosts": [
+        "www.schreck-kunststofftechnik.de",
+        "stats.360-ai.org"
+      ],
+      "cookies": [],
+      "storage": {
+        "local": [],
+        "session": []
+      },
+      "consent_click": {
+        "clicked": false,
+        "label": null
+      },
+      "banner_detected": false,
+      "error": null
+    },
+    "reject": {
+      "mode": "reject",
+      "reachable": true,
+      "hosts": [
+        "www.schreck-kunststofftechnik.de",
+        "stats.360-ai.org"
+      ],
+      "cookies": [],
+      "storage": {
+        "local": [],
+        "session": []
+      },
+      "consent_click": {
+        "clicked": false,
+        "label": null,
+        "pattern": null
+      },
+      "banner_detected": false,
+      "error": null
+    },
+    "accept": {
+      "mode": "accept",
+      "reachable": true,
+      "hosts": [
+        "www.schreck-kunststofftechnik.de",
+        "stats.360-ai.org"
+      ],
+      "cookies": [],
+      "storage": {
+        "local": [],
+        "session": []
+      },
+      "consent_click": {
+        "clicked": false,
+        "label": null,
+        "pattern": null
+      },
+      "banner_detected": false,
+      "error": null
+    },
+    "own_host": "www.schreck-kunststofftechnik.de"
+  },
+  "impressum": {
+    "found": true,
+    "url": "https://www.schreck-kunststofftechnik.de/impressum/",
+    "chars": 1195,
+    "rechtsform": "GmbH",
+    "firmenname": "Schreck Kunststofftechnik GmbH",
+    "vertretung": "Maximilian Grebe, Roman Manz Registerangaben Amtsgericht Marburg/Lahn",
+    "register": "HRB 3981",
+    "registergericht": "Marburg/Lahn",
+    "ustid": "DE113086891",
+    "telefon": "+49 6451 5000-0",
+    "email": "info@schreck-kunststofftechnik.com",
+    "adresse": {
+      "strasse": "Wolkersdorfer Straße 28",
+      "plz": "35099",
+      "ort": "Burgwald-Bottendorf",
+      "raw": "Wolkersdorfer Straße 28, 35099 Burgwald-Bottendorf"
+    },
+    "mentions_tmg": false,
+    "mentions_ddg": false,
+    "mentions_kammer": false,
+    "mentions_berufsbezeichnung": false,
+    "odr_link": false,
+    "vsbg_hinweis": true,
+    "placeholders": []
+  },
+  "datenschutz": {
+    "found": true,
+    "url": "https://www.schreck-kunststofftechnik.de/datenschutz/",
+    "chars": 7412,
+    "services": {
+      "google_maps": true,
+      "google_fonts": true,
+      "google_analytics": false,
+      "google_tag_manager": false,
+      "youtube": false,
+      "vimeo": false,
+      "facebook": false,
+      "instagram": true,
+      "recaptcha": false,
+      "hotjar": false,
+      "matomo": false,
+      "cloudflare": true
+    },
+    "mentions_hosting": true,
+    "mentions_tdddg": false,
+    "mentions_auftragsverarbeitung": true,
+    "mentions_speicherdauer": true,
+    "placeholders": []
+  },
+  "company_names": {
+    "raw": [
+      {
+        "source": "title",
+        "value": "Schreck Kunststofftechnik GmbH"
+      },
+      {
+        "source": "og:site_name",
+        "value": "Schreck Kunststofftechnik GmbH"
+      },
+      {
+        "source": "footer",
+        "value": "Schreck Kunststofftechnik GmbH",
+        "page": "https://www.schreck-kunststofftechnik.de/"
+      },
+      {
+        "source": "jsonld",
+        "value": "Schreck Kunststofftechnik GmbH"
+      },
+      {
+        "source": "jsonld",
+        "value": "Schreck Kunststofftechnik GmbH"
+      },
+      {
+        "source": "jsonld",
+        "value": "Schreck Kunststofftechnik GmbH"
+      },
+      {
+        "source": "jsonld",
+        "value": "Schreck Kunststofftechnik GmbH"
+      },
+      {
+        "source": "jsonld",
+        "value": "Schreck Kunststofftechnik GmbH"
+      },
+      {
+        "source": "jsonld",
+        "value": "Schreck Kunststofftechnik GmbH"
+      },
+      {
+        "source": "jsonld",
+        "value": "Schreck Kunststofftechnik GmbH"
+      },
+      {
+        "source": "jsonld",
+        "value": "Schreck Kunststofftechnik GmbH"
+      },
+      {
+        "source": "impressum",
+        "value": "Schreck Kunststofftechnik GmbH"
+      }
+    ],
+    "schreibweisen": [
+      "Schreck Kunststofftechnik GmbH"
+    ],
+    "variants": [
+      {
+        "key": "schreckkunststofftechnik",
+        "sources": [
+          {
+            "source": "title",
+            "value": "Schreck Kunststofftechnik GmbH"
+          },
+          {
+            "source": "og:site_name",
+            "value": "Schreck Kunststofftechnik GmbH"
+          },
+          {
+            "source": "footer",
+            "value": "Schreck Kunststofftechnik GmbH",
+            "page": "https://www.schreck-kunststofftechnik.de/"
+          },
+          {
+            "source": "jsonld",
+            "value": "Schreck Kunststofftechnik GmbH"
+          },
+          {
+            "source": "jsonld",
+            "value": "Schreck Kunststofftechnik GmbH"
+          },
+          {
+            "source": "jsonld",
+            "value": "Schreck Kunststofftechnik GmbH"
+          },
+          {
+            "source": "jsonld",
+            "value": "Schreck Kunststofftechnik GmbH"
+          },
+          {
+            "source": "jsonld",
+            "value": "Schreck Kunststofftechnik GmbH"
+          },
+          {
+            "source": "jsonld",
+            "value": "Schreck Kunststofftechnik GmbH"
+          },
+          {
+            "source": "jsonld",
+            "value": "Schreck Kunststofftechnik GmbH"
+          },
+          {
+            "source": "jsonld",
+            "value": "Schreck Kunststofftechnik GmbH"
+          },
+          {
+            "source": "impressum",
+            "value": "Schreck Kunststofftechnik GmbH"
+          }
+        ]
+      }
+    ],
+    "rechtsform_konflikte": []
+  },
+  "nap": [
+    {
+      "source": "startseite",
+      "adresse": {
+        "strasse": "Wolkersdorfer Straße 28",
+        "plz": "35099",
+        "ort": "Burgwald-Bottendorf",
+        "raw": "Wolkersdorfer Straße 28, 35099 Burgwald-Bottendorf"
+      },
+      "adresse_norm": "wolkersdorferstr2835099burgwaldbottendorf",
+      "telefon": "+49 6451 5000-0",
+      "telefon_norm": "0645150000"
+    },
+    {
+      "source": "https://www.schreck-kunststofftechnik.de/impressum/",
+      "adresse": {
+        "strasse": "Wolkersdorfer Straße 28",
+        "plz": "35099",
+        "ort": "Burgwald-Bottendorf",
+        "raw": "Wolkersdorfer Straße 28, 35099 Burgwald-Bottendorf"
+      },
+      "adresse_norm": "wolkersdorferstr2835099burgwaldbottendorf",
+      "telefon": "+49 6451 5000-0",
+      "telefon_norm": "0645150000"
+    },
+    {
+      "source": "https://www.schreck-kunststofftechnik.de/datenschutz/",
+      "adresse": {
+        "strasse": "Wolkersdorfer Straße 28",
+        "plz": "35099",
+        "ort": "Burgwald-Bottendorf",
+        "raw": "Wolkersdorfer Straße 28, 35099 Burgwald-Bottendorf"
+      },
+      "adresse_norm": "wolkersdorferstr2835099burgwaldbottendorf",
+      "telefon": "+49 6451 5000-0",
+      "telefon_norm": "0645150000"
+    },
+    {
+      "source": "https://www.schreck-kunststofftechnik.de/kontakt/",
+      "adresse": {
+        "strasse": "Wolkersdorfer Straße 28",
+        "plz": "35099",
+        "ort": "Burgwald-Bottendorf",
+        "raw": "Wolkersdorfer Straße 28, 35099 Burgwald-Bottendorf"
+      },
+      "adresse_norm": "wolkersdorferstr2835099burgwaldbottendorf",
+      "telefon": "+49 6451 5000-0",
+      "telefon_norm": "0645150000"
+    },
+    {
+      "source": "https://www.schreck-kunststofftechnik.de/produkte/",
+      "adresse": {
+        "strasse": "Wolkersdorfer Straße 28",
+        "plz": "35099",
+        "ort": "Burgwald-Bottendorf",
+        "raw": "Wolkersdorfer Straße 28, 35099 Burgwald-Bottendorf"
+      },
+      "adresse_norm": "wolkersdorferstr2835099burgwaldbottendorf",
+      "telefon": "+49 6451 5000-0",
+      "telefon_norm": "0645150000"
+    },
+    {
+      "source": "https://www.schreck-kunststofftechnik.de/ueber-uns/",
+      "adresse": {
+        "strasse": "Wolkersdorfer Straße 28",
+        "plz": "35099",
+        "ort": "Burgwald-Bottendorf",
+        "raw": "Wolkersdorfer Straße 28, 35099 Burgwald-Bottendorf"
+      },
+      "adresse_norm": "wolkersdorferstr2835099burgwaldbottendorf",
+      "telefon": "+49 6451 5000-0",
+      "telefon_norm": "0645150000"
+    },
+    {
+      "source": "https://www.schreck-kunststofftechnik.de/karriere/",
+      "adresse": {
+        "strasse": "Wolkersdorfer Straße 28",
+        "plz": "35099",
+        "ort": "Burgwald-Bottendorf",
+        "raw": "Wolkersdorfer Straße 28, 35099 Burgwald-Bottendorf"
+      },
+      "adresse_norm": "wolkersdorferstr2835099burgwaldbottendorf",
+      "telefon": "+49 6451 5000-0",
+      "telefon_norm": "0645150000"
+    },
+    {
+      "source": "https://www.schreck-kunststofftechnik.de/downloads/",
+      "adresse": {
+        "strasse": "Wolkersdorfer Straße 28",
+        "plz": "35099",
+        "ort": "Burgwald-Bottendorf",
+        "raw": "Wolkersdorfer Straße 28, 35099 Burgwald-Bottendorf"
+      },
+      "adresse_norm": "wolkersdorferstr2835099burgwaldbottendorf",
+      "telefon": "+49 6451 5000-0",
+      "telefon_norm": "0645150000"
+    },
+    {
+      "source": "jsonld",
+      "adresse": {
+        "raw": "Wolkersdorfer Straße 28 35099 Burgwald-Bottendorf"
+      },
+      "adresse_norm": "wolkersdorferstr2835099burgwaldbottendorf",
+      "telefon": "+49 6451 5000-0",
+      "telefon_norm": "0645150000"
+    },
+    {
+      "source": "jsonld",
+      "adresse": {
+        "raw": "Wolkersdorfer Straße 28 35099 Burgwald-Bottendorf"
+      },
+      "adresse_norm": "wolkersdorferstr2835099burgwaldbottendorf",
+      "telefon": "+49 6451 5000-0",
+      "telefon_norm": "0645150000"
+    },
+    {
+      "source": "jsonld",
+      "adresse": {
+        "raw": "Wolkersdorfer Straße 28 35099 Burgwald-Bottendorf"
+      },
+      "adresse_norm": "wolkersdorferstr2835099burgwaldbottendorf",
+      "telefon": "+49 6451 5000-0",
+      "telefon_norm": "0645150000"
+    },
+    {
+      "source": "jsonld",
+      "adresse": {
+        "raw": "Wolkersdorfer Straße 28 35099 Burgwald-Bottendorf"
+      },
+      "adresse_norm": "wolkersdorferstr2835099burgwaldbottendorf",
+      "telefon": "+49 6451 5000-0",
+      "telefon_norm": "0645150000"
+    },
+    {
+      "source": "jsonld",
+      "adresse": {
+        "raw": "Wolkersdorfer Straße 28 35099 Burgwald-Bottendorf"
+      },
+      "adresse_norm": "wolkersdorferstr2835099burgwaldbottendorf",
+      "telefon": "+49 6451 5000-0",
+      "telefon_norm": "0645150000"
+    },
+    {
+      "source": "jsonld",
+      "adresse": {
+        "raw": "Wolkersdorfer Straße 28 35099 Burgwald-Bottendorf"
+      },
+      "adresse_norm": "wolkersdorferstr2835099burgwaldbottendorf",
+      "telefon": "+49 6451 5000-0",
+      "telefon_norm": "0645150000"
+    },
+    {
+      "source": "jsonld",
+      "adresse": {
+        "raw": "Wolkersdorfer Straße 28 35099 Burgwald-Bottendorf"
+      },
+      "adresse_norm": "wolkersdorferstr2835099burgwaldbottendorf",
+      "telefon": "+49 6451 5000-0",
+      "telefon_norm": "0645150000"
+    },
+    {
+      "source": "jsonld",
+      "adresse": {
+        "raw": "Wolkersdorfer Straße 28 35099 Burgwald-Bottendorf"
+      },
+      "adresse_norm": "wolkersdorferstr2835099burgwaldbottendorf",
+      "telefon": "+49 6451 5000-0",
+      "telefon_norm": "0645150000"
+    }
+  ],
+  "robots_txt": {
+    "found": true,
+    "sitemaps": [
+      "https://www.schreck-kunststofftechnik.de/sitemap-index.xml"
+    ],
+    "disallow": [],
+    "ai_crawlers": {
+      "gptbot": "not_mentioned",
+      "claudebot": "not_mentioned",
+      "anthropic-ai": "not_mentioned",
+      "perplexitybot": "not_mentioned",
+      "google-extended": "not_mentioned",
+      "ccbot": "not_mentioned",
+      "bytespider": "not_mentioned"
+    }
+  },
+  "sitemap": {
+    "found": true,
+    "source": "https://www.schreck-kunststofftechnik.de/sitemap-index.xml",
+    "entries": 8
+  },
+  "llms_txt": {
+    "found": true
+  },
+  "psi": {
+    "mobile": {
+      "available": false,
+      "reason": "kein PSI_API_KEY gesetzt",
+      "strategy": "mobile"
+    },
+    "desktop": {
+      "available": false,
+      "reason": "kein PSI_API_KEY gesetzt",
+      "strategy": "desktop"
+    }
+  },
+  "content": {
+    "concrete_facts": {
+      "count": 4,
+      "samples": [
+        "Seit 1984",
+        "seit 1984",
+        "DIN EN ISO 9001",
+        "nach DIN"
+      ]
+    },
+    "faq": [
+      {
+        "url": "https://www.schreck-kunststofftechnik.de/",
+        "visible_questions": 1,
+        "has_schema": false,
+        "samples": [
+          "Projekt besprechen?"
+        ]
+      }
+    ],
+    "jsonld_types": [
+      "LocalBusiness",
+      "BreadcrumbList"
+    ]
+  },
+  "screenshots": {
+    "desktop_fold": "screenshots/desktop-fold.png",
+    "desktop_full": "screenshots/desktop-full.png",
+    "mobile_fold": "screenshots/mobile-fold.png",
+    "mobile_full": "screenshots/mobile-full.png"
+  }
+}

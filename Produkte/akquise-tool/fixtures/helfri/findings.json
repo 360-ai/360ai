@@ -1,0 +1,1677 @@
+{
+  "meta": {
+    "regelwerk_version": "1.0.0",
+    "collector_version": "1.0.0",
+    "lead_id": "TEST-helfri",
+    "url": "https://helfri-bau.de/",
+    "branche": "bauunternehmen",
+    "ausgewertet_am": "2026-08-14T23:49:47.180Z",
+    "seiten_geprueft": 12
+  },
+  "findings": [
+    {
+      "rule_id": "TEC-01",
+      "name": "HTTPS_ACTIVE",
+      "gruppe": "technik",
+      "achse": "technik",
+      "gewicht": 3,
+      "messung": "HTTPS-Aufruf der Startseite, Mixed-Content im Netzwerkmitschnitt",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "https": true
+      },
+      "belege": [],
+      "befund": "Die Website wird durchgehend verschluesselt ausgeliefert."
+    },
+    {
+      "rule_id": "TEC-02",
+      "name": "HTTP_TO_HTTPS_REDIRECT",
+      "gruppe": "technik",
+      "achse": "technik",
+      "gewicht": 2,
+      "messung": "Aufruf ueber http:// und Auswertung der Statuskette",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "status": 200,
+        "redirect_chain": [
+          {
+            "url": "http://helfri-bau.de/",
+            "status": 301,
+            "location": "https://helfri-bau.de/"
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "status": 200,
+            "location": null
+          }
+        ],
+        "lands_on_https": true
+      },
+      "belege": [],
+      "befund": "Aufrufe ohne Verschluesselung werden dauerhaft auf HTTPS weitergeleitet."
+    },
+    {
+      "rule_id": "TEC-03",
+      "name": "CANONICAL_HOST",
+      "gruppe": "technik",
+      "achse": "technik",
+      "gewicht": 2,
+      "messung": "Vergleich von www-Variante und nackter Domain",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "host": "www.helfri-bau.de",
+        "status": 200,
+        "final_url": "https://helfri-bau.de/",
+        "redirects_to_primary": true
+      },
+      "belege": [],
+      "befund": "Beide Adressvarianten fuehren auf dieselbe Hauptadresse."
+    },
+    {
+      "rule_id": "TEC-04",
+      "name": "HTTP_VERSION",
+      "gruppe": "technik",
+      "achse": "technik",
+      "gewicht": 1,
+      "messung": "Ausgehandeltes Protokoll der Hauptverbindung",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "protokoll": "h2"
+      },
+      "belege": [],
+      "befund": "Die Seite wird ueber h2 ausgeliefert."
+    },
+    {
+      "rule_id": "TEC-05",
+      "name": "TTFB",
+      "gruppe": "technik",
+      "achse": "technik",
+      "gewicht": 2,
+      "messung": "Zeit bis zum ersten Byte, Median aus drei Messungen",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "FAIL",
+      "wert": {
+        "median_ms": 1570,
+        "spanne_ms": [
+          1527,
+          1674
+        ],
+        "messungen": 3
+      },
+      "belege": [],
+      "befund": "Der Server antwortet erst nach 1.57 Sekunden."
+    },
+    {
+      "rule_id": "TEC-06",
+      "name": "BROKEN_INTERNAL_LINKS",
+      "gruppe": "technik",
+      "achse": "technik",
+      "gewicht": 3,
+      "messung": "Alle internen Verweise per HEAD geprueft, bei Status 405 mit GET wiederholt",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "geprueft": 24,
+        "defekt": 0,
+        "ziele": []
+      },
+      "belege": [],
+      "befund": "Alle 24 geprueften internen Verweise funktionieren."
+    },
+    {
+      "rule_id": "TEC-07",
+      "name": "RESOURCE_ERRORS_ON_LOAD",
+      "gruppe": "technik",
+      "achse": "technik",
+      "gewicht": 3,
+      "messung": "Serverfehler auf Unterressourcen waehrend des normalen Seitenaufbaus im Browser",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "anzahl": 0,
+        "beispiele": []
+      },
+      "belege": [],
+      "befund": "Beim Seitenaufbau werden alle Dateien fehlerfrei ausgeliefert."
+    },
+    {
+      "rule_id": "TEC-08",
+      "name": "IMG_MODERN_FORMAT",
+      "gruppe": "technik",
+      "achse": "technik",
+      "gewicht": 2,
+      "messung": "Anteil von WebP oder AVIF an allen Inhaltsbildern",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "FAIL",
+      "wert": {
+        "anteil_prozent": 0,
+        "modern": 0,
+        "gesamt": 34
+      },
+      "belege": [],
+      "befund": "Nur 0 Prozent der Bilder nutzen ein modernes Format; 34 Bilder liegen in aelteren Formaten vor."
+    },
+    {
+      "rule_id": "TEC-09",
+      "name": "IMG_OVERSIZED",
+      "gruppe": "technik",
+      "achse": "technik",
+      "gewicht": 2,
+      "messung": "Inhaltsbilder mit einer Uebertragungsgroesse ueber 300 KB",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "FAIL",
+      "wert": {
+        "anzahl": 4,
+        "geprueft": 15,
+        "groesste": [
+          {
+            "datei": "Helfri_Bau_Autos-scaled-1.jpg",
+            "kb": 870,
+            "format": "jpg"
+          },
+          {
+            "datei": "Bild-9.jpg",
+            "kb": 634,
+            "format": "jpg"
+          },
+          {
+            "datei": "helfri-baugesellschaft-frankenberg-erdarbeiten-1.jpg",
+            "kb": 573,
+            "format": "jpg"
+          },
+          {
+            "datei": "Wir_Bilden_Aus.jpg",
+            "kb": 427,
+            "format": "jpg"
+          }
+        ]
+      },
+      "belege": [
+        "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Bau_Autos-scaled-1.jpg",
+        "https://helfri-bau.de/wp-content/uploads/2020/08/Bild-9.jpg",
+        "https://helfri-bau.de/wp-content/uploads/2020/09/helfri-baugesellschaft-frankenberg-erdarbeiten-1.jpg",
+        "https://helfri-bau.de/wp-content/uploads/2020/09/Wir_Bilden_Aus.jpg"
+      ],
+      "befund": "4 Bilder sind ueberdimensioniert; das groesste ist 870 KB gross."
+    },
+    {
+      "rule_id": "TEC-10",
+      "name": "IMG_PHOTO_AS_PNG",
+      "gruppe": "technik",
+      "achse": "technik",
+      "gewicht": 1,
+      "messung": "Fotos im PNG-Format ueber 200 KB (Logos und Grafiken ausgenommen)",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "anzahl": 0,
+        "dateien": []
+      },
+      "belege": [],
+      "befund": "Es werden keine Fotos im PNG-Format ausgeliefert."
+    },
+    {
+      "rule_id": "TEC-11",
+      "name": "HTML_SIZE",
+      "gruppe": "technik",
+      "achse": "technik",
+      "gewicht": 1,
+      "messung": "Groesse des HTML-Dokuments der Startseite",
+      "kundentext_erlaubt": false,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "WARN",
+      "wert": {
+        "kb": 194
+      },
+      "belege": [],
+      "befund": "Das HTML-Dokument der Startseite ist 194 KB gross."
+    },
+    {
+      "rule_id": "TEC-12",
+      "name": "PSI_PERFORMANCE_MOBILE",
+      "gruppe": "technik",
+      "achse": "technik",
+      "gewicht": 3,
+      "messung": "PageSpeed Insights, Strategie mobil, Kategorie Performance",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "UNKNOWN",
+      "wert": null,
+      "belege": [],
+      "befund": "PageSpeed nicht verfuegbar: kein PSI_API_KEY gesetzt"
+    },
+    {
+      "rule_id": "TEC-13",
+      "name": "LCP_MOBILE",
+      "gruppe": "technik",
+      "achse": "technik",
+      "gewicht": 2,
+      "messung": "Groesstes Inhaltselement bis zur Anzeige, PageSpeed mobil",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "UNKNOWN",
+      "wert": null,
+      "belege": [],
+      "befund": "kein Messwert vorhanden"
+    },
+    {
+      "rule_id": "TEC-14",
+      "name": "CLS",
+      "gruppe": "technik",
+      "achse": "technik",
+      "gewicht": 1,
+      "messung": "Verschiebung des Layouts waehrend des Ladens, PageSpeed mobil",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "UNKNOWN",
+      "wert": null,
+      "belege": [],
+      "befund": "kein Messwert vorhanden"
+    },
+    {
+      "rule_id": "TEC-15",
+      "name": "CMS_VERSION_CURRENT",
+      "gruppe": "technik",
+      "achse": "technik",
+      "gewicht": 1,
+      "messung": "Versionsangabe aus generator-Meta, Theme-Pfaden und Versionsparametern",
+      "kundentext_erlaubt": false,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "FAIL",
+      "wert": {
+        "cms": "WordPress",
+        "theme": "Divi",
+        "version": "4.20.4",
+        "veroeffentlicht": 2023
+      },
+      "belege": [],
+      "befund": "Im Einsatz ist Divi 4.20.4 aus dem Jahr 2023."
+    },
+    {
+      "rule_id": "MOB-01",
+      "name": "VIEWPORT_META",
+      "gruppe": "mobil",
+      "achse": "technik",
+      "gewicht": 3,
+      "messung": "meta[name=viewport] der Startseite",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "viewport": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+      },
+      "belege": [],
+      "befund": "Die Seite ist fuer die Darstellung auf Mobilgeraeten eingerichtet."
+    },
+    {
+      "rule_id": "MOB-02",
+      "name": "ZOOM_NOT_BLOCKED",
+      "gruppe": "mobil",
+      "achse": "technik",
+      "gewicht": 3,
+      "messung": "Attribute user-scalable und maximum-scale im viewport-Meta",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "FAIL",
+      "wert": {
+        "user_scalable": false,
+        "maximum_scale": 1
+      },
+      "belege": [],
+      "befund": "Auf dem Smartphone laesst sich die Schrift nicht vergroessern; das Vergroessern ist gesperrt."
+    },
+    {
+      "rule_id": "MOB-03",
+      "name": "NO_HORIZONTAL_OVERFLOW",
+      "gruppe": "mobil",
+      "achse": "technik",
+      "gewicht": 3,
+      "messung": "Ansicht bei 375 Pixel Breite, scrollWidth gegen clientWidth",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "betroffen": 0,
+        "geprueft": 6,
+        "seiten": []
+      },
+      "belege": [],
+      "befund": "Auf allen 6 geprueften Seiten passt die Mobilansicht in die Bildschirmbreite."
+    },
+    {
+      "rule_id": "MOB-04",
+      "name": "BASE_FONT_SIZE",
+      "gruppe": "mobil",
+      "achse": "technik",
+      "gewicht": 1,
+      "messung": "Berechnete Schriftgroesse des laengsten Textblocks in der Mobilansicht",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "FAIL",
+      "wert": {
+        "pixel": 12
+      },
+      "belege": [],
+      "befund": "Der Fliesstext ist auf dem Handy nur 12 Pixel gross."
+    },
+    {
+      "rule_id": "MOB-05",
+      "name": "TAP_TARGET_SIZE",
+      "gruppe": "mobil",
+      "achse": "technik",
+      "gewicht": 1,
+      "messung": "Anteil bedienbarer Elemente unter 44 mal 44 Pixel in der Mobilansicht",
+      "kundentext_erlaubt": false,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "FAIL",
+      "wert": {
+        "anteil_prozent": 61,
+        "klein": 11,
+        "gesamt": 18
+      },
+      "belege": [],
+      "befund": "61 Prozent der anklickbaren Elemente sind kleiner als die empfohlene Mindestgroesse."
+    },
+    {
+      "rule_id": "MOB-06",
+      "name": "CTA_IN_FIRST_VIEWPORT",
+      "gruppe": "mobil",
+      "achse": "technik",
+      "gewicht": 2,
+      "messung": "Sichtbares Link- oder Schaltflaechenelement mit Bounding Box vollstaendig in den ersten 800 Pixeln, mobil",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "elemente_gesamt": 6,
+        "kontaktwege": 1,
+        "beispiele": [
+          "Cookies akzeptieren",
+          "Ablehnen",
+          "Einstellungen anzeigen",
+          "info@helfri-bau.de",
+          "Unsere Leistungen"
+        ]
+      },
+      "belege": [],
+      "befund": "Im ersten Bildschirm der Mobilansicht wird ein Weg zur Kontaktaufnahme angeboten."
+    },
+    {
+      "rule_id": "MOB-07",
+      "name": "CONTRAST_MAIN_TEXT",
+      "gruppe": "mobil",
+      "achse": "technik",
+      "gewicht": 2,
+      "messung": "Kontrastverhaeltnis des laengsten Textblocks zum dahinterliegenden Hintergrund",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "verhaeltnis": 15.91
+      },
+      "belege": [],
+      "befund": "Der Fliesstext hebt sich mit 15.91 zu 1 deutlich vom Hintergrund ab."
+    },
+    {
+      "rule_id": "SEO-01",
+      "name": "TITLE_PRESENT",
+      "gruppe": "seo",
+      "achse": "seo",
+      "gewicht": 3,
+      "messung": "title-Element je gepruefter Seite, Laenge 30 bis 65 Zeichen",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "ohne_titel": 0,
+        "ausserhalb_laenge": 6,
+        "geprueft": 12
+      },
+      "belege": [],
+      "befund": "Alle geprueften Seiten haben einen Seitentitel in sinnvoller Laenge."
+    },
+    {
+      "rule_id": "SEO-02",
+      "name": "TITLE_UNIQUE",
+      "gruppe": "seo",
+      "achse": "seo",
+      "gewicht": 2,
+      "messung": "Vergleich aller Seitentitel auf Dubletten",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "WARN",
+      "wert": {
+        "dubletten": 2,
+        "geprueft": 12
+      },
+      "belege": [],
+      "befund": "2 Seitentitel kommen mehrfach vor."
+    },
+    {
+      "rule_id": "SEO-03",
+      "name": "META_DESCRIPTION_PRESENT",
+      "gruppe": "seo",
+      "achse": "seo",
+      "gewicht": 3,
+      "messung": "meta[name=description] je Seite, Laenge 70 bis 160 Zeichen",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "FAIL",
+      "wert": {
+        "ohne_beschreibung": 12,
+        "geprueft": 12,
+        "anteil_prozent": 100
+      },
+      "belege": [
+        "/",
+        "/",
+        "/impressum/",
+        "/datenschutzerklaerung/",
+        "/339-2/",
+        "/324-2/"
+      ],
+      "befund": "Auf 12 von 12 Seiten fehlt der Vorschautext fuer Suchergebnisse; Google setzt den Text dann selbst zusammen."
+    },
+    {
+      "rule_id": "SEO-04",
+      "name": "H1_PRESENT",
+      "gruppe": "seo",
+      "achse": "seo",
+      "gewicht": 3,
+      "messung": "Genau eine Hauptueberschrift je Seite",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "WARN",
+      "wert": {
+        "ohne_h1": 0,
+        "mehrere_h1": 2,
+        "geprueft": 12
+      },
+      "belege": [
+        "/941-2/",
+        "/hello-world/"
+      ],
+      "befund": "2 Seiten haben mehr als eine Hauptueberschrift."
+    },
+    {
+      "rule_id": "SEO-05",
+      "name": "HEADING_HIERARCHY",
+      "gruppe": "seo",
+      "achse": "seo",
+      "gewicht": 1,
+      "messung": "Ebenenspruenge in der Ueberschriftenfolge je Seite",
+      "kundentext_erlaubt": false,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "FAIL",
+      "wert": {
+        "spruenge": 18,
+        "geprueft": 12
+      },
+      "belege": [],
+      "befund": "Die Ueberschriftenfolge springt an 18 Stellen ueber eine Ebene."
+    },
+    {
+      "rule_id": "SEO-06",
+      "name": "CANONICAL_PRESENT",
+      "gruppe": "seo",
+      "achse": "seo",
+      "gewicht": 1,
+      "messung": "Selbstreferenzierender Canonical je Seite",
+      "kundentext_erlaubt": false,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "ohne_canonical": 0,
+        "geprueft": 12
+      },
+      "belege": [],
+      "befund": "Alle Seiten benennen ihre bevorzugte Adresse."
+    },
+    {
+      "rule_id": "SEO-07",
+      "name": "INDEXABLE",
+      "gruppe": "seo",
+      "achse": "seo",
+      "gewicht": 3,
+      "messung": "meta robots, X-Robots-Tag und robots.txt der Hauptseiten",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "gesperrte_seiten": 0,
+        "geprueft": 12,
+        "robots_txt_sperrt_alles": false
+      },
+      "belege": [],
+      "befund": "Alle geprueften Seiten sind fuer Suchmaschinen zugaenglich."
+    },
+    {
+      "rule_id": "SEO-08",
+      "name": "SITEMAP_PRESENT",
+      "gruppe": "seo",
+      "achse": "seo",
+      "gewicht": 2,
+      "messung": "sitemap.xml, wp-sitemap.xml oder Verweis in der robots.txt",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "gefunden": true,
+        "quelle": "https://helfri-bau.de/wp-sitemap.xml",
+        "eintraege": 12
+      },
+      "belege": [],
+      "befund": "Eine Sitemap mit 12 Eintraegen ist hinterlegt."
+    },
+    {
+      "rule_id": "SEO-09",
+      "name": "ROBOTS_TXT_PRESENT",
+      "gruppe": "seo",
+      "achse": "seo",
+      "gewicht": 1,
+      "messung": "Abruf von /robots.txt",
+      "kundentext_erlaubt": false,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "WARN",
+      "wert": {
+        "gefunden": true,
+        "leer": true
+      },
+      "belege": [],
+      "befund": "Die robots.txt ist vorhanden, aber leer."
+    },
+    {
+      "rule_id": "SEO-10",
+      "name": "URL_SPEAKING",
+      "gruppe": "seo",
+      "achse": "seo",
+      "gewicht": 2,
+      "messung": "Pfadmuster wie /324-2/, ?p=12 oder /index.php?id=",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "FAIL",
+      "wert": {
+        "generisch": 3,
+        "geprueft": 10,
+        "beispiele": [
+          "/339-2/",
+          "/324-2/",
+          "/941-2/"
+        ]
+      },
+      "belege": [
+        "/339-2/",
+        "/324-2/",
+        "/941-2/"
+      ],
+      "befund": "3 Seiten haben automatisch vergebene Adressen wie /339-2/ statt sprechender Namen."
+    },
+    {
+      "rule_id": "SEO-11",
+      "name": "ALT_TEXT_COVERAGE",
+      "gruppe": "seo",
+      "achse": "seo",
+      "gewicht": 2,
+      "messung": "Anteil der Inhaltsbilder mit aussagekraeftigem Alternativtext (Dateinamen und Platzhalter zaehlen als fehlend)",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "anteil_prozent": 87,
+        "mit_alt": 40,
+        "gesamt": 46
+      },
+      "belege": [],
+      "befund": "87 Prozent der Bilder haben einen aussagekraeftigen Alternativtext."
+    },
+    {
+      "rule_id": "SEO-12",
+      "name": "OG_TAGS",
+      "gruppe": "seo",
+      "achse": "seo",
+      "gewicht": 2,
+      "messung": "og:title, og:description und og:image der Startseite",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "FAIL",
+      "wert": {
+        "fehlend": [
+          "og:title",
+          "og:description",
+          "og:image"
+        ],
+        "vorhanden": []
+      },
+      "belege": [],
+      "befund": "Beim Teilen ueber WhatsApp oder soziale Netzwerke erscheinen weder Vorschaubild noch Titel, weil die entsprechenden Angaben fehlen."
+    },
+    {
+      "rule_id": "SEO-13",
+      "name": "CONTENT_DEPTH",
+      "gruppe": "seo",
+      "achse": "seo",
+      "gewicht": 2,
+      "messung": "Median der Wortzahl auf Leistungsseiten",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "median_woerter": 330,
+        "seiten": 2
+      },
+      "belege": [],
+      "befund": "Die Leistungsseiten enthalten im Mittel 330 Woerter."
+    },
+    {
+      "rule_id": "SEO-14",
+      "name": "SERVICE_PAGES_SPLIT",
+      "gruppe": "seo",
+      "achse": "seo",
+      "gewicht": 2,
+      "messung": "Anzahl eigenstaendiger Leistungsseiten gegenueber einer Sammelseite",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "WARN",
+      "wert": {
+        "leistungsseiten": 2
+      },
+      "belege": [],
+      "befund": "Es gibt erst zwei Leistungsseiten."
+    },
+    {
+      "rule_id": "SEO-15",
+      "name": "INTERNAL_LINKING",
+      "gruppe": "seo",
+      "achse": "seo",
+      "gewicht": 1,
+      "messung": "Verweise von der Startseite auf die erkannten Leistungsseiten",
+      "kundentext_erlaubt": false,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "verlinkt": 2,
+        "gesamt": 2
+      },
+      "belege": [],
+      "befund": "Alle Leistungsseiten sind von der Startseite aus erreichbar."
+    },
+    {
+      "rule_id": "SEO-16",
+      "name": "KEYWORD_IN_TITLE_H1",
+      "gruppe": "seo",
+      "achse": "seo",
+      "gewicht": 2,
+      "messung": "Im Lead hinterlegtes Suchwort in Seitentitel oder Hauptueberschrift der Startseite",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "WARN",
+      "wert": {
+        "keyword": "Bauunternehmen Frankenberg",
+        "woerter": 2,
+        "im_title": 1,
+        "in_h1": 0,
+        "im_text": 2
+      },
+      "belege": [],
+      "befund": "Das Suchwort \"Bauunternehmen Frankenberg\" kommt nur im Fliesstext vor, nicht in Titel oder Ueberschrift."
+    },
+    {
+      "rule_id": "LOC-01",
+      "name": "TEL_LINKS_PRESENT",
+      "gruppe": "local",
+      "achse": "local",
+      "gewicht": 3,
+      "messung": "Alle geprueften Seiten, DOM-Query a[href^=\"tel:\"], gerenderte Sicht",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "FAIL",
+      "wert": {
+        "count": 0,
+        "pages_checked": 12
+      },
+      "belege": [
+        "/",
+        "/",
+        "/impressum/",
+        "/datenschutzerklaerung/",
+        "/339-2/",
+        "/324-2/",
+        "/941-2/",
+        "/referenzen/",
+        "/maschinenpark/",
+        "/339-2/",
+        "/hello-world/",
+        "/cookie-richtlinie-eu/"
+      ],
+      "befund": "Auf keiner der 12 geprueften Seiten laesst sich die Telefonnummer direkt anwaehlen."
+    },
+    {
+      "rule_id": "LOC-02",
+      "name": "TEL_IN_HEADER",
+      "gruppe": "local",
+      "achse": "local",
+      "gewicht": 2,
+      "messung": "Mobilansicht 375 px, anwaehlbares Element in den ersten 800 px",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "WARN",
+      "wert": {
+        "tel_im_ersten_bildschirm": false,
+        "nummer_als_text": true
+      },
+      "belege": [],
+      "befund": "Die Telefonnummer steht im oberen Bereich als Text, ist aber nicht anwaehlbar."
+    },
+    {
+      "rule_id": "LOC-03",
+      "name": "NAP_CONSISTENT",
+      "gruppe": "local",
+      "achse": "local",
+      "gewicht": 3,
+      "messung": "Adresse und Telefon aller Fundstellen inkl. Impressum und strukturierter Daten, normalisiert verglichen",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "adress_varianten": 1,
+        "telefon_varianten": 1,
+        "fundstellen": 12
+      },
+      "belege": [],
+      "befund": "Adresse und Telefonnummer sind ueber alle Fundstellen hinweg identisch."
+    },
+    {
+      "rule_id": "LOC-04",
+      "name": "LOCATION_IN_TITLE_H1",
+      "gruppe": "local",
+      "achse": "local",
+      "gewicht": 3,
+      "messung": "Ortsname aus Lead oder Impressum in Title und H1 der Startseite",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "WARN",
+      "wert": {
+        "ort": "Frankenberg",
+        "im_title": true,
+        "in_h1": false
+      },
+      "belege": [],
+      "befund": "Der Ort \"Frankenberg\" steht nur im Seitentitel, nicht in beidem."
+    },
+    {
+      "rule_id": "LOC-05",
+      "name": "ADDRESS_ON_CONTACT",
+      "gruppe": "local",
+      "achse": "local",
+      "gewicht": 2,
+      "messung": "Vollstaendige Anschrift auf der Kontaktseite, ersatzweise Startseite",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "adresse": "Siegener Str. 53, 35066 Frankenberg (Eder)"
+      },
+      "belege": [
+        "/339-2/"
+      ],
+      "befund": "Die vollstaendige Anschrift steht auf der Kontaktseite."
+    },
+    {
+      "rule_id": "LOC-06",
+      "name": "OPENING_HOURS",
+      "gruppe": "local",
+      "achse": "local",
+      "gewicht": 1,
+      "messung": "Oeffnungszeiten im Text oder als openingHours in strukturierten Daten",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "NA",
+      "wert": null,
+      "belege": [],
+      "befund": "Oeffnungszeiten sind in dieser Branche unueblich"
+    },
+    {
+      "rule_id": "LOC-07",
+      "name": "SERVICE_AREA_NAMED",
+      "gruppe": "local",
+      "achse": "local",
+      "gewicht": 2,
+      "messung": "Nennung von Einzugsgebiet, Umkreis, Landkreis oder mehreren Orten im Text",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "FAIL",
+      "wert": {
+        "muster_treffer": 0,
+        "orte": 1
+      },
+      "belege": [],
+      "befund": "Das Einzugsgebiet ist nirgends ausgeschrieben."
+    },
+    {
+      "rule_id": "LOC-08",
+      "name": "LOCALBUSINESS_SCHEMA",
+      "gruppe": "local",
+      "achse": "local",
+      "gewicht": 3,
+      "messung": "JSON-LD vom Typ LocalBusiness (oder Untertyp) mit address und telephone",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "FAIL",
+      "wert": {
+        "gefunden": 0
+      },
+      "belege": [],
+      "befund": "Es sind keine strukturierten Daten zum Unternehmen als lokalem Betrieb hinterlegt."
+    },
+    {
+      "rule_id": "AIR-01",
+      "name": "ORGANIZATION_SCHEMA",
+      "gruppe": "air",
+      "achse": "air",
+      "gewicht": 3,
+      "messung": "JSON-LD vom Typ Organization oder LocalBusiness mit Name, Anschrift und Kontakt",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "FAIL",
+      "wert": {
+        "gefunden": 0,
+        "typen": []
+      },
+      "belege": [],
+      "befund": "Es sind keine strukturierten Unternehmensdaten hinterlegt; fuer Suchmaschinen und KI-Systeme ist die Seite ein Textblock ohne erkennbare Firmenangaben."
+    },
+    {
+      "rule_id": "AIR-02",
+      "name": "SERVICE_SCHEMA",
+      "gruppe": "air",
+      "achse": "air",
+      "gewicht": 1,
+      "messung": "JSON-LD vom Typ Service oder Offer",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "FAIL",
+      "wert": {
+        "seiten_mit_leistungsdaten": 0
+      },
+      "belege": [],
+      "befund": "Die einzelnen Leistungen sind nicht als strukturierte Daten hinterlegt."
+    },
+    {
+      "rule_id": "AIR-03",
+      "name": "FAQ_SECTION",
+      "gruppe": "air",
+      "achse": "air",
+      "gewicht": 2,
+      "messung": "Frage-Antwort-Abschnitt im sichtbaren Inhalt, ergaenzend FAQPage-Schema",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "FAIL",
+      "wert": {
+        "sichtbare_fragen": 0,
+        "schema": false,
+        "beispiele": []
+      },
+      "belege": [],
+      "befund": "Es gibt keinen Bereich, der typische Kundenfragen beantwortet."
+    },
+    {
+      "rule_id": "AIR-04",
+      "name": "ENTITY_CLARITY",
+      "gruppe": "air",
+      "achse": "air",
+      "gewicht": 3,
+      "messung": "Firmenname, Taetigkeit und Ort in den ersten 200 Woertern der Startseite",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "firma": true,
+        "ort": true,
+        "taetigkeit": true,
+        "erkannt": 3,
+        "geprueft_auf": {
+          "firma": "Helfri Baugesellschaft mbH",
+          "ort": "Frankenberg"
+        }
+      },
+      "belege": [],
+      "befund": "Aus dem Einstieg der Startseite gehen Unternehmen, Taetigkeit und Ort unmittelbar hervor."
+    },
+    {
+      "rule_id": "AIR-05",
+      "name": "CONCRETE_FACTS",
+      "gruppe": "air",
+      "achse": "air",
+      "gewicht": 2,
+      "messung": "Belegbare Zahlenangaben mit Einheit oder Normbezug im Fliesstext",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "anzahl": 14,
+        "beispiele": [
+          "25t",
+          "21 Meter",
+          "21 m",
+          "0,9 to",
+          "2,7 to",
+          "8 to"
+        ]
+      },
+      "belege": [],
+      "befund": "Im Text stehen 14 konkrete, belegbare Angaben."
+    },
+    {
+      "rule_id": "AIR-06",
+      "name": "TEXT_NOT_IN_IMAGES",
+      "gruppe": "air",
+      "achse": "air",
+      "gewicht": 2,
+      "messung": "Verhaeltnis von Textmenge zu Bildflaeche als Hinweis auf Text, der nur als Bild vorliegt",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "verdaechtige_seiten": 0,
+        "geprueft": 10,
+        "anteil_prozent": 0,
+        "seiten": []
+      },
+      "belege": [],
+      "befund": "Die Inhalte liegen als auslesbarer Text vor, nicht als Bild."
+    },
+    {
+      "rule_id": "AIR-07",
+      "name": "CONSISTENT_COMPANY_NAME",
+      "gruppe": "air",
+      "achse": "air",
+      "gewicht": 3,
+      "messung": "Firmierung in Seitentitel, Fusszeile, Impressum, strukturierten Daten und og:site_name",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "FAIL",
+      "wert": {
+        "schreibweisen": 3,
+        "namenskerne": 2,
+        "rechtsform_konflikte": 1,
+        "fundstellen": [
+          {
+            "quelle": "title",
+            "wert": "Helfri Bau GmbH"
+          },
+          {
+            "quelle": "footer",
+            "wert": "Helfri Baugesellschaft GmbH"
+          },
+          {
+            "quelle": "impressum",
+            "wert": "Helfri Baugesellschaft mbH"
+          }
+        ]
+      },
+      "belege": [],
+      "befund": "Das Unternehmen wird auf der eigenen Website in 3 unterschiedlichen Schreibweisen genannt; das erschwert Google und KI-Systemen die eindeutige Zuordnung."
+    },
+    {
+      "rule_id": "AIR-08",
+      "name": "CONTENT_FRESHNESS",
+      "gruppe": "air",
+      "achse": "air",
+      "gewicht": 2,
+      "messung": "Jahresangabe in der Fusszeile und juengstes im Text genanntes Jahr",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "FAIL",
+      "wert": {
+        "juengstes_jahr": 2020,
+        "alter_jahre": 6
+      },
+      "belege": [],
+      "befund": "Die Fusszeile weist das Jahr 2020 aus; der Inhaltsstand ist seit 6 Jahren unveraendert."
+    },
+    {
+      "rule_id": "AIR-09",
+      "name": "CRAWLABLE_WITHOUT_JS",
+      "gruppe": "air",
+      "achse": "air",
+      "gewicht": 3,
+      "messung": "Textmenge im ausgelieferten HTML gegenueber der im Browser gerenderten Sicht",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "roh_woerter": 270,
+        "gerendert_woerter": 276,
+        "anteil_prozent": 98
+      },
+      "belege": [],
+      "befund": "98 Prozent des sichtbaren Textes stehen bereits im ausgelieferten Quelltext."
+    },
+    {
+      "rule_id": "TRU-01",
+      "name": "NAMED_CONTACT_PERSON",
+      "gruppe": "trust",
+      "achse": "vertrauen",
+      "gewicht": 3,
+      "messung": "Personenname mit Funktion auf Kontakt- oder Ueber-uns-Seite; das Impressum allein zaehlt nicht",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "seiten": [
+          "/339-2/"
+        ],
+        "im_impressum": true
+      },
+      "belege": [],
+      "befund": "Auf Kontakt- oder Ueber-uns-Seite werden Ansprechpartner namentlich mit Funktion genannt."
+    },
+    {
+      "rule_id": "TRU-02",
+      "name": "TEAM_PAGE",
+      "gruppe": "trust",
+      "achse": "vertrauen",
+      "gewicht": 2,
+      "messung": "Teamdarstellung mit Namen und Funktionen",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "namen_erkannt": 63,
+        "funktionsangaben": 4,
+        "seite": "/339-2/"
+      },
+      "belege": [],
+      "befund": "Das Team wird mit Namen und Funktionen vorgestellt."
+    },
+    {
+      "rule_id": "TRU-03",
+      "name": "REFERENCES_NAMED",
+      "gruppe": "trust",
+      "achse": "vertrauen",
+      "gewicht": 2,
+      "messung": "Referenzseite mit benannten Auftraggebern oder zugeordneten Logos",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "WARN",
+      "wert": {
+        "referenzseiten": 1,
+        "logos": 10,
+        "logos_beschriftet": 1,
+        "woerter": 95
+      },
+      "belege": [
+        "/referenzen/"
+      ],
+      "befund": "Es werden Referenzlogos gezeigt, aber ohne erkennbare Zuordnung."
+    },
+    {
+      "rule_id": "TRU-04",
+      "name": "TESTIMONIALS",
+      "gruppe": "trust",
+      "achse": "vertrauen",
+      "gewicht": 1,
+      "messung": "Kundenstimmen mit Name oder Ort, ergaenzend Review-Schema",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "FAIL",
+      "wert": {
+        "zitate": 0,
+        "schema": false
+      },
+      "belege": [],
+      "befund": "Es werden keine Kundenstimmen oder Bewertungen gezeigt."
+    },
+    {
+      "rule_id": "TRU-05",
+      "name": "REAL_PHOTOS",
+      "gruppe": "trust",
+      "achse": "vertrauen",
+      "gewicht": 1,
+      "messung": "Dateinamensmuster und Auslieferung von bekannten Bilddiensten",
+      "kundentext_erlaubt": false,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "verdachtsfaelle": 0,
+        "geprueft": 77,
+        "dateien": []
+      },
+      "belege": [],
+      "befund": "Es gibt keine Hinweise auf zugekaufte Bestandsfotos."
+    },
+    {
+      "rule_id": "TRU-06",
+      "name": "ABOUT_PAGE_SUBSTANCE",
+      "gruppe": "trust",
+      "achse": "vertrauen",
+      "gewicht": 2,
+      "messung": "Vorhandensein und Umfang einer Ueber-uns-Seite",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "FAIL",
+      "wert": {
+        "vorhanden": false
+      },
+      "belege": [],
+      "befund": "Es gibt keine Seite, die das Unternehmen selbst vorstellt."
+    },
+    {
+      "rule_id": "CMP-01",
+      "name": "IMPRESSUM_REACHABLE",
+      "gruppe": "compliance",
+      "achse": null,
+      "gewicht": 1,
+      "messung": "Auffindbarkeit einer Impressumsseite ueber die interne Verlinkung",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": true,
+      "ergebnis": "PASS",
+      "wert": {
+        "gefunden": true,
+        "url": "/impressum/"
+      },
+      "belege": [],
+      "befund": "Ein Impressum ist verlinkt und erreichbar."
+    },
+    {
+      "rule_id": "CMP-02",
+      "name": "LEGAL_REFERENCE_CURRENT",
+      "gruppe": "compliance",
+      "achse": null,
+      "gewicht": 1,
+      "messung": "Vorkommen der Zeichenfolge TMG oder Telemediengesetz im Impressumstext, abgeglichen mit DDG",
+      "kundentext_erlaubt": true,
+      "compliance_signal": "outdated_legal_reference",
+      "review_required": true,
+      "ergebnis": "FAIL",
+      "wert": {
+        "nennt_tmg": true,
+        "nennt_ddg": false
+      },
+      "belege": [
+        "/impressum/"
+      ],
+      "befund": "Das Impressum verweist auf das Telemediengesetz. Dieses wurde im Mai 2024 durch das Digitale-Dienste-Gesetz abgeloest."
+    },
+    {
+      "rule_id": "CMP-03",
+      "name": "PROVIDER_INFO_FIELDS",
+      "gruppe": "compliance",
+      "achse": null,
+      "gewicht": 1,
+      "messung": "Vorhandensein der ueblichen Pflichtfelder im Impressum, abhaengig von Rechtsform und Branche",
+      "kundentext_erlaubt": true,
+      "compliance_signal": "provider_information_possible_gap",
+      "review_required": true,
+      "ergebnis": "FAIL",
+      "wert": {
+        "rechtsform": "mbH",
+        "geprueft": [
+          "firmenname",
+          "anschrift",
+          "kontakt",
+          "register",
+          "registergericht",
+          "kammer",
+          "berufsbezeichnung"
+        ],
+        "fehlend": [
+          "kammer",
+          "berufsbezeichnung"
+        ],
+        "handwerk_anlage_a": true
+      },
+      "belege": [
+        "/impressum/"
+      ],
+      "befund": "Im Impressum fehlen mehrere ueblicherweise erwartete Angaben: kammer, berufsbezeichnung."
+    },
+    {
+      "rule_id": "CMP-04",
+      "name": "ODR_LINK_PRESENT",
+      "gruppe": "compliance",
+      "achse": null,
+      "gewicht": 1,
+      "messung": "Verweis auf ec.europa.eu/consumers/odr in den Rechtstexten",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": true,
+      "ergebnis": "PASS",
+      "wert": {
+        "odr_link": false
+      },
+      "belege": [],
+      "befund": "Es wird nicht auf die abgeschaltete Streitbeilegungsplattform verwiesen."
+    },
+    {
+      "rule_id": "CMP-05",
+      "name": "PRIVACY_POLICY_PRESENT",
+      "gruppe": "compliance",
+      "achse": null,
+      "gewicht": 1,
+      "messung": "Auffindbare Datenschutzerklaerung mit mehr als 1500 Zeichen",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": true,
+      "ergebnis": "PASS",
+      "wert": {
+        "gefunden": true,
+        "zeichen": 9660
+      },
+      "belege": [
+        "/datenschutzerklaerung/"
+      ],
+      "befund": "Eine Datenschutzerklaerung mit 9660 Zeichen ist vorhanden."
+    },
+    {
+      "rule_id": "CMP-06",
+      "name": "THIRD_PARTY_PRE_CONSENT",
+      "gruppe": "compliance",
+      "achse": null,
+      "gewicht": 1,
+      "messung": "Aufrufe an fremde Server im Lauf ohne jede Interaktion (clean)",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": true,
+      "ergebnis": "PASS",
+      "wert": {
+        "fremdhosts": [],
+        "anzahl": 0
+      },
+      "belege": [],
+      "befund": "Vor einer Zustimmung werden keine Daten an fremde Server uebertragen."
+    },
+    {
+      "rule_id": "CMP-07",
+      "name": "CONSENT_BANNER_BLOCKS",
+      "gruppe": "compliance",
+      "achse": null,
+      "gewicht": 1,
+      "messung": "Fremdhosts im Ablehnen-Lauf gegenueber dem Lauf ohne Interaktion",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": true,
+      "ergebnis": "PASS",
+      "wert": {
+        "neue_hosts_nach_ablehnung": [],
+        "geklickt": "Ablehnen"
+      },
+      "belege": [],
+      "befund": "Nach dem Ablehnen werden keine zusaetzlichen fremden Server aufgerufen."
+    },
+    {
+      "rule_id": "CMP-08",
+      "name": "PRIVACY_COVERS_SERVICES",
+      "gruppe": "compliance",
+      "achse": null,
+      "gewicht": 1,
+      "messung": "Abgleich der im Accept-Lauf geladenen Fremdhosts mit den in der Datenschutzerklaerung genannten Diensten",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": true,
+      "ergebnis": "PASS",
+      "wert": {
+        "geladene_fremdhosts": [],
+        "nicht_genannt": []
+      },
+      "belege": [],
+      "befund": "Es werden keine fremden Dienste geladen, die in der Erklaerung fehlen koennten."
+    },
+    {
+      "rule_id": "CMP-09",
+      "name": "FONTS_LOCAL",
+      "gruppe": "compliance",
+      "achse": null,
+      "gewicht": 1,
+      "messung": "Aufrufe an fonts.googleapis.com oder fonts.gstatic.com in allen Consent-Laeufen",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": true,
+      "ergebnis": "PASS",
+      "wert": {
+        "hosts": []
+      },
+      "belege": [],
+      "befund": "Die Schriften werden von der eigenen Domain ausgeliefert."
+    },
+    {
+      "rule_id": "CMP-10",
+      "name": "PLACEHOLDER_TEXT",
+      "gruppe": "compliance",
+      "achse": null,
+      "gewicht": 1,
+      "messung": "Unausgefuellte Vorlagen-Platzhalter in Impressum und Datenschutzerklaerung",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": true,
+      "ergebnis": "PASS",
+      "wert": {
+        "anzahl": 0,
+        "fundstellen": []
+      },
+      "belege": [],
+      "befund": "In den Rechtstexten stehen keine unausgefuellten Platzhalter."
+    },
+    {
+      "rule_id": "CMP-11",
+      "name": "STORAGE_PRE_CONSENT",
+      "gruppe": "compliance",
+      "achse": null,
+      "gewicht": 1,
+      "messung": "Cookies und Browserspeicher im Lauf ohne jede Interaktion, ohne die Eintraege des Einwilligungswerkzeugs selbst",
+      "kundentext_erlaubt": true,
+      "compliance_signal": null,
+      "review_required": true,
+      "ergebnis": "PASS",
+      "wert": {
+        "cookies": [],
+        "speicher": [],
+        "anzahl": 0
+      },
+      "belege": [],
+      "befund": "Vor einer Zustimmung werden keine nicht notwendigen Eintraege im Browser gesetzt."
+    },
+    {
+      "rule_id": "EXP-01",
+      "name": "LLMS_TXT",
+      "gruppe": "experimentell",
+      "achse": null,
+      "gewicht": 0,
+      "messung": "Abruf von /llms.txt",
+      "kundentext_erlaubt": false,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "FAIL",
+      "wert": {
+        "gefunden": false,
+        "hinweis": "ohne Score-Wirkung, Nutzen nicht belegt"
+      },
+      "belege": [],
+      "befund": "Es ist keine llms.txt hinterlegt."
+    },
+    {
+      "rule_id": "EXP-02",
+      "name": "AI_CRAWLER_POLICY",
+      "gruppe": "experimentell",
+      "achse": null,
+      "gewicht": 0,
+      "messung": "Eintraege fuer GPTBot, ClaudeBot, PerplexityBot und Google-Extended in der robots.txt",
+      "kundentext_erlaubt": false,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "geregelt": 0,
+        "blockiert": [],
+        "alle": {
+          "gptbot": "not_mentioned",
+          "claudebot": "not_mentioned",
+          "anthropic-ai": "not_mentioned",
+          "perplexitybot": "not_mentioned",
+          "google-extended": "not_mentioned",
+          "ccbot": "not_mentioned",
+          "bytespider": "not_mentioned"
+        }
+      },
+      "belege": [],
+      "befund": "Die robots.txt trifft keine ausdrueckliche Regelung fuer KI-Crawler."
+    },
+    {
+      "rule_id": "EXP-03",
+      "name": "ANSWER_SHAPED_CONTENT",
+      "gruppe": "experimentell",
+      "achse": null,
+      "gewicht": 0,
+      "messung": "Anteil der Ueberschriften, die als Frage formuliert sind",
+      "kundentext_erlaubt": false,
+      "compliance_signal": null,
+      "review_required": false,
+      "ergebnis": "PASS",
+      "wert": {
+        "anteil_prozent": 0,
+        "fragen": 0,
+        "ueberschriften": 79,
+        "beispiele": []
+      },
+      "belege": [],
+      "befund": "0 Prozent der Ueberschriften sind als Frage formuliert."
+    }
+  ],
+  "scores": {
+    "achsen": {
+      "seo": {
+        "label": "SEO",
+        "gewicht": 20,
+        "quelle": "deterministisch",
+        "anteil_deterministisch": 1,
+        "score": 59,
+        "regeln_gesamt": 16,
+        "regeln_gewertet": 16,
+        "unbekannt": 0,
+        "unbekannt_regeln": [],
+        "anteil_unbekannt_gewichtet": 0,
+        "nicht_ausreichend_pruefbar": false,
+        "fails": [
+          "SEO-03",
+          "SEO-05",
+          "SEO-10",
+          "SEO-12"
+        ],
+        "warns": [
+          "SEO-02",
+          "SEO-04",
+          "SEO-09",
+          "SEO-14",
+          "SEO-16"
+        ]
+      },
+      "technik": {
+        "label": "Technik",
+        "gewicht": 15,
+        "quelle": "deterministisch",
+        "anteil_deterministisch": 1,
+        "score": 68,
+        "regeln_gesamt": 22,
+        "regeln_gewertet": 19,
+        "unbekannt": 3,
+        "unbekannt_regeln": [
+          "TEC-12",
+          "TEC-13",
+          "TEC-14"
+        ],
+        "anteil_unbekannt_gewichtet": 14,
+        "nicht_ausreichend_pruefbar": false,
+        "fails": [
+          "TEC-05",
+          "TEC-08",
+          "TEC-09",
+          "TEC-15",
+          "MOB-02",
+          "MOB-04",
+          "MOB-05"
+        ],
+        "warns": [
+          "TEC-11"
+        ]
+      },
+      "air": {
+        "label": "Content / AI-Readiness",
+        "gewicht": 15,
+        "quelle": "deterministisch",
+        "anteil_deterministisch": 1,
+        "score": 48,
+        "regeln_gesamt": 9,
+        "regeln_gewertet": 9,
+        "unbekannt": 0,
+        "unbekannt_regeln": [],
+        "anteil_unbekannt_gewichtet": 0,
+        "nicht_ausreichend_pruefbar": false,
+        "fails": [
+          "AIR-01",
+          "AIR-02",
+          "AIR-03",
+          "AIR-07",
+          "AIR-08"
+        ],
+        "warns": []
+      },
+      "design": {
+        "label": "Design / Modernitaet",
+        "gewicht": 15,
+        "quelle": "vision",
+        "score": null,
+        "hinweis": "wird von der Bewertungsstufe geliefert"
+      },
+      "conversion": {
+        "label": "Conversion / Nutzerfuehrung",
+        "gewicht": 15,
+        "quelle": "vision",
+        "score": null,
+        "hinweis": "wird von der Bewertungsstufe geliefert"
+      },
+      "local": {
+        "label": "Local SEO",
+        "gewicht": 10,
+        "quelle": "deterministisch",
+        "anteil_deterministisch": 1,
+        "score": 39,
+        "regeln_gesamt": 8,
+        "regeln_gewertet": 7,
+        "unbekannt": 0,
+        "unbekannt_regeln": [],
+        "anteil_unbekannt_gewichtet": 0,
+        "nicht_ausreichend_pruefbar": false,
+        "fails": [
+          "LOC-01",
+          "LOC-07",
+          "LOC-08"
+        ],
+        "warns": [
+          "LOC-02",
+          "LOC-04"
+        ]
+      },
+      "vertrauen": {
+        "label": "Vertrauen",
+        "gewicht": 10,
+        "quelle": "gemischt",
+        "anteil_deterministisch": 0.5,
+        "score": 64,
+        "regeln_gesamt": 6,
+        "regeln_gewertet": 6,
+        "unbekannt": 0,
+        "unbekannt_regeln": [],
+        "anteil_unbekannt_gewichtet": 0,
+        "nicht_ausreichend_pruefbar": false,
+        "fails": [
+          "TRU-04",
+          "TRU-06"
+        ],
+        "warns": [
+          "TRU-03"
+        ]
+      }
+    },
+    "deterministischer_teilscore": 55,
+    "abgedecktes_gewicht": 65,
+    "website_score": null,
+    "hinweis": "website_score wird erst nach der Vision-Bewertung gesetzt (siehe finalisiereScore)"
+  },
+  "compliance": {
+    "ampel": "pruefen",
+    "signale": [
+      "outdated_legal_reference",
+      "provider_information_possible_gap"
+    ],
+    "fails": [
+      "CMP-02",
+      "CMP-03"
+    ],
+    "warns": [],
+    "kritisch": [],
+    "review_required": true
+  },
+  "zusammenfassung": {
+    "fails": 24,
+    "warns": 9,
+    "passes": 38,
+    "na": 1,
+    "unknown": 3
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "assessment.json",
+  "description": "Ausgabe der Bewertungsstufe. Das Modell darf ausschliesslich Regelergebnisse gewichten und in Sprache uebersetzen. Neue Tatsachenbehauptungen ueber die Website sind unzulaessig und werden vom Validator verworfen.",
+  "type": "object",
+  "required": ["meta", "vision", "feststellungen", "staerken", "nicht_sagen", "akquise"],
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["lead_id", "url"],
+      "properties": {
+        "lead_id": { "type": ["string", "null"] },
+        "url": { "type": "string" },
+        "bewertet_am": { "type": "string" },
+        "modell": { "type": "string" }
+      }
+    },
+    "vision": {
+      "type": "object",
+      "description": "Die drei Achsen, die nicht messbar sind. Grundlage sind ausschliesslich die vier Screenshots.",
+      "required": ["design", "conversion", "vertrauen", "begruendung"],
+      "additionalProperties": false,
+      "properties": {
+        "design": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "conversion": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "vertrauen": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "sicherheit": { "enum": ["hoch", "mittel", "niedrig"] },
+        "begruendung": { "type": "string", "minLength": 40 },
+        "designstand": {
+          "description": "Grobe zeitliche Einordnung des visuellen Eindrucks. Frei geschaetzt, deshalb nie als Tatsache formulieren.",
+          "enum": ["aktuell", "wenige_jahre", "deutlich_aelter", "unklar"]
+        }
+      }
+    },
+    "feststellungen": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "kategorie", "feststellung", "beleg", "rule_ids", "sicherheit", "aufwand", "wirkung", "mail_tauglich"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^F[0-9]+$" },
+          "kategorie": { "enum": ["technik", "seo", "local", "air", "vertrauen", "compliance", "visuell"] },
+          "feststellung": { "type": "string", "minLength": 15, "maxLength": 400 },
+          "beleg": { "type": "string", "minLength": 15, "maxLength": 600 },
+          "rule_ids": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^(TEC|MOB|SEO|LOC|AIR|TRU|CMP|EXP)-[0-9]{2}$" },
+            "description": "Leer nur bei kategorie 'visuell'. Sonst mindestens eine Regel, die FAIL oder WARN liefert."
+          },
+          "sicherheit": { "enum": ["hoch", "mittel", "niedrig"] },
+          "aufwand": { "enum": ["gering", "mittel", "hoch"] },
+          "wirkung": { "enum": ["hoch", "mittel", "niedrig"] },
+          "mail_tauglich": { "type": "boolean" }
+        }
+      }
+    },
+    "staerken": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Was bereits gut geloest ist. Ordnet die Kritik ein und ist im Telefonat der Einstieg.",
+      "items": {
+        "type": "object",
+        "required": ["text", "rule_ids"],
+        "additionalProperties": false,
+        "properties": {
+          "text": { "type": "string", "minLength": 15 },
+          "rule_ids": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "nicht_sagen": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Pflichtfeld. Was im Gespraech falsch waere - etwa 'veraltet' bei einer Seite mit starkem Inhalt.",
+      "items": { "type": "string", "minLength": 10 }
+    },
+    "akquise": {
+      "type": "object",
+      "required": ["ansatz", "begruendung", "reihenfolge"],
+      "additionalProperties": false,
+      "properties": {
+        "ansatz": { "enum": ["relaunch", "teilsanierung", "sichtbarkeit", "kein_ansatz"] },
+        "begruendung": { "type": "string", "minLength": 40 },
+        "reihenfolge": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 3,
+          "description": "Die zwei bis drei Argumente fuer den Erstkontakt, als Feststellungs-IDs. Reihenfolge: konkretes Kundenproblem, dann Sichtbarkeit, dann Compliance.",
+          "items": { "type": "string", "pattern": "^F[0-9]+$" }
+        },
+        "projektumfang": { "enum": ["klein", "mittel", "gross", "unklar"] }
+      }
+    }
+  }
+}

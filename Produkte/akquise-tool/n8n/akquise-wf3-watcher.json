@@ -1,0 +1,1215 @@
+{
+  "name": "360ai Akquise — WF3 Waechter",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 6,
+              "triggerAtMinute": 50
+            }
+          ]
+        }
+      },
+      "id": "b3000000-0001-4000-8000-000000000001",
+      "name": "Taeglich 06:50",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -600,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "SHEET_ID_HIER",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "id": "b3000000-0002-4000-8000-000000000002",
+      "name": "Leads lesen (Gmail)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -380,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Nur Leads mit einem Gmail-Thread, die noch offen sind.\nconst ABGESCHLOSSEN = ['gewonnen', 'beendet'];\n\nconst kandidaten = $input.all()\n  .map((i) => i.json)\n  .filter((l) => l.gmail_thread_id && !ABGESCHLOSSEN.includes(String(l.status || '')));\n\nif (!kandidaten.length) return [];\nreturn kandidaten.map((l) => ({ json: l }));"
+      },
+      "id": "b3000000-0003-4000-8000-000000000003",
+      "name": "Kandidaten filtern",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -160,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://gmail.googleapis.com/gmail/v1/users/me/threads/{{ $json.gmail_thread_id }}?format=metadata&metadataHeaders=From&metadataHeaders=To&metadataHeaders=Subject&metadataHeaders=Auto-Submitted&metadataHeaders=X-Autoreply&metadataHeaders=Date",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "gmailOAuth2",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "id": "b3000000-0004-4000-8000-000000000004",
+      "name": "Thread lesen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        60,
+        -160
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Versand und Antwort aus EINEM Thread-Abruf ableiten.\n//\n// Bewusst nicht ueber die Message-ID des Entwurfs: Sie aendert sich, sobald\n// der Entwurf in Gmail bearbeitet wird - und genau das passiert vor jedem\n// Versand. Ein Entwurf traegt im Thread das Label DRAFT; eine tatsaechlich\n// gesendete Nachricht traegt SENT ohne DRAFT.\nconst EIGENE_ADRESSE = 'info@360-ai.org';\nconst FOLLOWUP_TAGE = 14;\n\nconst leads = $('Kandidaten filtern').all().map((i) => i.json);\nconst antworten = $input.all().map((i) => i.json);\nconst heute = new Date().toISOString().slice(0, 10);\n\nconst kopf = (m, name) => {\n  const h = (m.payload && m.payload.headers) || [];\n  const t = h.find((x) => String(x.name).toLowerCase() === name.toLowerCase());\n  return t ? String(t.value) : '';\n};\n\nconst ergebnisse = [];\n\nfor (let i = 0; i < leads.length; i++) {\n  const lead = leads[i];\n  const thread = antworten[i] || {};\n\n  if (!thread.messages || !Array.isArray(thread.messages)) {\n    ergebnisse.push({\n      json: { _aenderung: false, _meldung: 'Thread von ' + (lead.firma || lead.lead_id) + ' nicht lesbar - bitte selbst nachsehen.', _melden: true, lead_id: lead.lead_id }\n    });\n    continue;\n  }\n\n  const nachrichten = thread.messages;\n  const gesendet = nachrichten.filter((m) => {\n    const l = m.labelIds || [];\n    return l.includes('SENT') && !l.includes('DRAFT');\n  });\n  const entwuerfeOffen = nachrichten.some((m) => (m.labelIds || []).includes('DRAFT'));\n\n  // Eingehende Nachrichten, ohne eigene und ohne Automatik.\n  const eingehend = nachrichten.filter((m) => {\n    const l = m.labelIds || [];\n    if (l.includes('SENT') || l.includes('DRAFT')) return false;\n    const von = kopf(m, 'From').toLowerCase();\n    return !von.includes(EIGENE_ADRESSE.toLowerCase());\n  });\n\n  const istAutomatik = (m) => {\n    if (kopf(m, 'Auto-Submitted').toLowerCase().includes('auto-')) return true;\n    if (kopf(m, 'X-Autoreply')) return true;\n    return /abwesen|out of office|automatische antwort|autoreply|urlaub/i.test(kopf(m, 'Subject'));\n  };\n  const istUnzustellbar = (m) => {\n    const von = kopf(m, 'From').toLowerCase();\n    if (/mailer-daemon|postmaster/.test(von)) return true;\n    return /unzustellbar|undelivered|delivery status notification|failure notice/i.test(kopf(m, 'Subject'));\n  };\n\n  const bounces = eingehend.filter(istUnzustellbar);\n  const automatik = eingehend.filter((m) => !istUnzustellbar(m) && istAutomatik(m));\n  const echteAntworten = eingehend.filter((m) => !istUnzustellbar(m) && !istAutomatik(m));\n\n  const aktualisierung = { lead_id: lead.lead_id };\n  let meldung = null;\n  let aenderung = false;\n\n  // 1. Unzustellbarkeit hat Vorrang.\n  if (bounces.length) {\n    aktualisierung.status = 'beendet';\n    aktualisierung.ende_grund = 'mail_unzustellbar';\n    aktualisierung.next_action = '';\n    aktualisierung.next_action_at = '';\n    meldung = 'Mail an ' + (lead.firma || lead.lead_id) + ' ist unzustellbar (' + (lead.gmail_empfaenger || '') + '). Lead beendet - Adresse pruefen.';\n    aenderung = true;\n\n  // 2. Echte Antwort.\n  } else if (echteAntworten.length) {\n    aktualisierung.status = 'qualifiziert';\n    aktualisierung.next_action = 'antwort_bearbeiten';\n    aktualisierung.next_action_at = heute;\n    meldung = 'Antwort von ' + (lead.firma || lead.lead_id) + ': ' + kopf(echteAntworten[echteAntworten.length - 1], 'From');\n    aenderung = true;\n\n  // 3. Versand erkannt, aber noch keine Antwort.\n  } else if (gesendet.length && !lead.unterlagen_gesendet_am) {\n    const letzte = gesendet[gesendet.length - 1];\n    const datum = letzte.internalDate\n      ? new Date(Number(letzte.internalDate)).toISOString().slice(0, 10)\n      : heute;\n    const faellig = new Date(datum);\n    faellig.setDate(faellig.getDate() + FOLLOWUP_TAGE);\n\n    aktualisierung.status = 'kontaktiert';\n    aktualisierung.unterlagen_gesendet_am = datum;\n    aktualisierung.next_action = 'followup_call';\n    aktualisierung.next_action_at = faellig.toISOString().slice(0, 10);\n    meldung = 'Versand erkannt: ' + (lead.firma || lead.lead_id) + ' am ' + datum + '. Nachfassen am ' + aktualisierung.next_action_at + '.';\n    aenderung = true;\n\n  // 4. Nichts passiert - Entwurf liegt noch da.\n  } else if (entwuerfeOffen && !gesendet.length) {\n    const alter = lead.email_freigabe_am\n      ? Math.floor((Date.now() - new Date(lead.email_freigabe_am).getTime()) / 86400000)\n      : 0;\n    if (alter >= 5) {\n      meldung = 'Der Entwurf fuer ' + (lead.firma || lead.lead_id) + ' liegt seit ' + alter + ' Tagen unversendet in Gmail.';\n      ergebnisse.push({ json: { _aenderung: false, _melden: true, _meldung: meldung, lead_id: lead.lead_id } });\n      continue;\n    }\n  }\n\n  // Abwesenheitsnotizen werden bewusst nicht als Antwort gewertet.\n  if (automatik.length && !echteAntworten.length && !bounces.length) {\n    meldung = (meldung ? meldung + ' ' : '')\n      + 'Hinweis: Abwesenheitsnotiz von ' + (lead.firma || lead.lead_id) + ' erhalten - zaehlt nicht als Antwort, Nachfassen laeuft weiter.';\n  }\n\n  ergebnisse.push({\n    json: {\n      ...aktualisierung,\n      _aenderung: aenderung,\n      _melden: Boolean(meldung),\n      _meldung: meldung,\n      _firma: lead.firma || lead.lead_id,\n      _argumente: ''\n    }\n  });\n}\n\nreturn ergebnisse;"
+      },
+      "id": "b3000000-0005-4000-8000-000000000005",
+      "name": "Thread auswerten",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        280,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Nur Leads mit tatsaechlicher Zustandsaenderung ins Sheet schreiben.\nreturn $input.all()\n  .filter((i) => i.json._aenderung)\n  .map((i) => {\n    const zeile = {};\n    for (const [k, v] of Object.entries(i.json)) if (!k.startsWith('_')) zeile[k] = v;\n    return { json: zeile };\n  });"
+      },
+      "id": "b3000000-0006-4000-8000-000000000006",
+      "name": "Aenderungen isolieren",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        -260
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "SHEET_ID_HIER",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "matchingColumns": [
+            "lead_id"
+          ],
+          "schema": [
+            {
+              "id": "lead_id",
+              "displayName": "lead_id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "firma",
+              "displayName": "firma",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "website",
+              "displayName": "website",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ort",
+              "displayName": "ort",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "branche",
+              "displayName": "branche",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ansprechpartner",
+              "displayName": "ansprechpartner",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "anrede",
+              "displayName": "anrede",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "mail",
+              "displayName": "mail",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "telefon",
+              "displayName": "telefon",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "kontaktquelle",
+              "displayName": "kontaktquelle",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "website_score",
+              "displayName": "website_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "akquise_score",
+              "displayName": "akquise_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "akquise_ansatz",
+              "displayName": "akquise_ansatz",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "compliance",
+              "displayName": "compliance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "next_action",
+              "displayName": "next_action",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "next_action_at",
+              "displayName": "next_action_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email_freigabe",
+              "displayName": "email_freigabe",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email_freigabe_am",
+              "displayName": "email_freigabe_am",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email_freigabe_notiz",
+              "displayName": "email_freigabe_notiz",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "gmail_draft_id",
+              "displayName": "gmail_draft_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "gmail_thread_id",
+              "displayName": "gmail_thread_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "gmail_empfaenger",
+              "displayName": "gmail_empfaenger",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "gmail_betreff",
+              "displayName": "gmail_betreff",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "unterlagen_gesendet_am",
+              "displayName": "unterlagen_gesendet_am",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ende_grund",
+              "displayName": "ende_grund",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "wiedervorlage_am",
+              "displayName": "wiedervorlage_am",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "notiz",
+              "displayName": "notiz",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "berichte_pfad",
+              "displayName": "berichte_pfad",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "berichte_drive_url",
+              "displayName": "berichte_drive_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "mail_betreff",
+              "displayName": "mail_betreff",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "mail_entwurf",
+              "displayName": "mail_entwurf",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b3000000-0007-4000-8000-000000000007",
+      "name": "Leads fortschreiben",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        720,
+        -260
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Alle Meldungen des Gmail-Laufs zu einer Nachricht buendeln.\nconst zeilen = $input.all().map((i) => i.json).filter((j) => j._melden && j._meldung);\nif (!zeilen.length) return [];\nreturn [{ json: { text: 'Gmail-Pruefung:\\n\\n' + zeilen.map((z) => '· ' + z._meldung).join('\\n') } }];"
+      },
+      "id": "b3000000-0008-4000-8000-000000000008",
+      "name": "Gmail-Meldung bauen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        -60
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "116755995",
+        "text": "={{ $json.text }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "b3000000-0009-4000-8000-000000000009",
+      "name": "Gmail-Meldung senden",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        720,
+        -60
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "dSa2tolJxNbWQbFL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 7,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      },
+      "id": "b3000000-0020-4000-8000-000000000020",
+      "name": "Taeglich 07:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -600,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "SHEET_ID_HIER",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "id": "b3000000-0021-4000-8000-000000000021",
+      "name": "Leads lesen (Morgen)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -380,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Morgenmeldung. Laeuft zehn Minuten nach der Gmail-Pruefung und sieht\n// deren Ergebnisse deshalb bereits.\nconst ABGESCHLOSSEN = ['gewonnen', 'beendet'];\nconst heute = new Date().toISOString().slice(0, 10);\n\nconst leads = $input.all().map((i) => i.json).filter((l) => l.lead_id);\n\nconst faellig = (d) => d && String(d).slice(0, 10) <= heute;\nconst offen = (l) => !ABGESCHLOSSEN.includes(String(l.status || ''));\n\nconst anrufe = leads.filter((l) => offen(l) && l.next_action === 'anruf' && faellig(l.next_action_at));\nconst nachfassen = leads.filter((l) => offen(l) && l.next_action === 'followup_call' && faellig(l.next_action_at));\nconst antworten = leads.filter((l) => offen(l) && l.next_action === 'antwort_bearbeiten');\nconst wiedervorlagen = leads.filter((l) => faellig(l.wiedervorlage_am));\nconst zuAnalysieren = leads.filter((l) => String(l.status) === 'neu');\nconst entwuerfe = leads.filter((l) => offen(l) && l.gmail_draft_id && !l.unterlagen_gesendet_am);\n\n// Loeschfrist: 24 Monate nach Beendigung ohne Geschaeftsbeziehung.\nconst grenze = new Date(); grenze.setMonth(grenze.getMonth() - 24);\nconst zuAnonymisieren = leads.filter((l) =>\n  ['kein_bedarf', 'ungeeignet'].includes(String(l.ende_grund || ''))\n  && l.unterlagen_gesendet_am\n  && new Date(l.unterlagen_gesendet_am) < grenze\n);\n\nconst nachScore = (a, b) => Number(b.akquise_score || 0) - Number(a.akquise_score || 0);\nconst zeile = (l) => '  · ' + (l.firma || l.lead_id) + (l.akquise_score ? ' (' + l.akquise_score + ')' : '') + (l.telefon ? ' — ' + l.telefon : '');\n\nconst teile = [];\nif (antworten.length) teile.push('*Antworten bearbeiten (' + antworten.length + ')*\\n' + antworten.sort(nachScore).map(zeile).join('\\n'));\nif (anrufe.length) teile.push('*Anrufe faellig (' + anrufe.length + ')*\\n' + anrufe.sort(nachScore).map(zeile).join('\\n'));\nif (nachfassen.length) teile.push('*Nachfassen (' + nachfassen.length + ')*\\n' + nachfassen.sort(nachScore).map(zeile).join('\\n'));\nif (wiedervorlagen.length) teile.push('*Wiedervorlage (' + wiedervorlagen.length + ')*\\n' + wiedervorlagen.map(zeile).join('\\n'));\nif (entwuerfe.length) teile.push('*Entwuerfe warten auf Versand (' + entwuerfe.length + ')*\\n' + entwuerfe.map(zeile).join('\\n'));\nif (zuAnalysieren.length) teile.push('*Warten auf Analyse (' + zuAnalysieren.length + ')*\\n' + zuAnalysieren.map(zeile).join('\\n'));\nif (zuAnonymisieren.length) teile.push('*Loeschfrist erreicht (' + zuAnonymisieren.length + ')*\\nPersonendaten entfernen, Firma und Analyse koennen bleiben:\\n' + zuAnonymisieren.map(zeile).join('\\n'));\n\nif (!teile.length) return [];\n\nreturn [{ json: { text: 'Guten Morgen. Heute:\\n\\n' + teile.join('\\n\\n') } }];"
+      },
+      "id": "b3000000-0022-4000-8000-000000000022",
+      "name": "Aufgaben zusammenstellen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -160,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "116755995",
+        "text": "={{ $json.text }}",
+        "additionalFields": {
+          "parse_mode": "Markdown",
+          "appendAttribution": false
+        }
+      },
+      "id": "b3000000-0023-4000-8000-000000000023",
+      "name": "Morgenmeldung senden",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        60,
+        220
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "dSa2tolJxNbWQbFL",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "SHEET_ID_HIER",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads",
+          "mode": "name"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "lead_id",
+              "lookupValue": "={{ $json.lead_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b3000000-0030-4000-8000-000000000030",
+      "name": "Leadstatus erneut lesen",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        500,
+        -260
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const vorschlaege = $('Aenderungen isolieren').all().map((item) => item.json);\n  const aktuelle = $input.all().map((item) => item.json).filter((row) => row && row.lead_id);\n  const reihenfolge = ['neu', 'analysiert', 'kontaktiert', 'qualifiziert', 'angebot', 'gewonnen'];\n  const terminal = ['gewonnen', 'beendet'];\n  const result = [];\n  for (let index = 0; index < vorschlaege.length; index += 1) {\n    const vorschlag = { ...vorschlaege[index] };\n    const treffer = aktuelle.filter((row) => row.lead_id === vorschlag.lead_id);\n    if (treffer.length !== 1) {\n      if (treffer.length > 1) throw new Error('Mehrere Sheet-Zeilen fuer Lead ' + vorschlag.lead_id);\n      continue;\n    }\n    const lead = treffer[0];\n    const alt = String(lead.status || 'neu');\n    const neu = String(vorschlag.status || alt);\n    if (terminal.includes(alt)) {\n      vorschlag.status = alt;\n      vorschlag.next_action = lead.next_action || '';\n      vorschlag.next_action_at = lead.next_action_at || '';\n      vorschlag.ende_grund = lead.ende_grund || '';\n      vorschlag.wiedervorlage_am = lead.wiedervorlage_am || '';\n    } else if (neu !== 'beendet' && reihenfolge.indexOf(alt) > reihenfolge.indexOf(neu)) {\n      vorschlag.status = alt;\n    }\n    result.push({ json: vorschlag, pairedItem: { item: index } });\n  }\n  return result;"
+      },
+      "id": "b3000000-0031-4000-8000-000000000031",
+      "name": "Aenderungen absichern",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        -260
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const grenze = new Date();\n  grenze.setMonth(grenze.getMonth() - 24);\n  const result = [];\n  for (const item of $input.all()) {\n    const lead = item.json;\n    const leadId = String(lead.lead_id || '').trim();\n    if (!/^[A-Za-z0-9][A-Za-z0-9._-]{0,99}$/.test(leadId)) continue;\n    if (String(lead.status || '') !== 'beendet') continue;\n    if (!['kein_bedarf', 'ungeeignet'].includes(String(lead.ende_grund || ''))) continue;\n    const datumText = String(lead.unterlagen_gesendet_am || '').trim();\n    if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(datumText)) continue;\n    const gesendetAm = new Date(datumText + 'T00:00:00Z');\n    if (Number.isNaN(gesendetAm.getTime()) || gesendetAm.toISOString().slice(0, 10) !== datumText) continue;\n    if (gesendetAm >= grenze) continue;\n    const match = /^https:\\/\\/drive\\.google\\.com\\/drive\\/folders\\/([A-Za-z0-9_-]+)(?:[/?#]|$)/.exec(\n      String(lead.berichte_drive_url || ''),\n    );\n    if (!match) continue;\n    result.push({ json: { lead_id: leadId, folder_id: match[1] } });\n  }\n  return result;"
+      },
+      "id": "b3000000-0032-4000-8000-000000000032",
+      "name": "Drive-Loeschfristen filtern",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        60,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "operation": "search",
+        "searchMethod": "name",
+        "queryString": "={{ $json.lead_id }}",
+        "returnAll": false,
+        "limit": 10,
+        "filter": {
+          "folderId": {
+            "__rl": true,
+            "value": "DRIVE_FOLDER_ID_HIER",
+            "mode": "id"
+          },
+          "whatToSearch": "folders",
+          "includeTrashed": false
+        },
+        "options": {
+          "fields": [
+            "id",
+            "name",
+            "parents"
+          ]
+        }
+      },
+      "id": "b3000000-0033-4000-8000-000000000033",
+      "name": "Drive-Ordner im Root suchen",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        280,
+        420
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const kandidaten = $('Drive-Loeschfristen filtern').all().map((item) => item.json);\n  const gefunden = $input.all().map((item) => item.json);\n  const result = [];\n  for (let index = 0; index < kandidaten.length; index += 1) {\n    const kandidat = kandidaten[index];\n    const exakt = gefunden.filter((folder) =>\n      folder.id === kandidat.folder_id && folder.name === kandidat.lead_id);\n    if (exakt.length === 1) {\n      result.push({ json: kandidat, pairedItem: { item: index } });\n    }\n  }\n  return result;"
+      },
+      "id": "b3000000-0034-4000-8000-000000000034",
+      "name": "Drive-Loeschziel pruefen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "folder",
+        "operation": "deleteFolder",
+        "folderNoRootId": {
+          "__rl": true,
+          "value": "={{ $json.folder_id }}",
+          "mode": "id"
+        },
+        "options": {
+          "deletePermanently": true
+        }
+      },
+      "id": "b3000000-0035-4000-8000-000000000035",
+      "name": "Drive-Ordner dauerhaft loeschen",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        720,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const kandidaten = $('Drive-Loeschziel pruefen').all().map((item) => item.json);\n  return $input.all().map((item, index) => ({\n    json: { lead_id: kandidaten[index].lead_id, berichte_drive_url: '' },\n    pairedItem: { item: index },\n  }));"
+      },
+      "id": "b3000000-0036-4000-8000-000000000036",
+      "name": "Drive-Link leeren",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        940,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "SHEET_ID_HIER",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "matchingColumns": [
+            "lead_id"
+          ],
+          "schema": [
+            {
+              "id": "lead_id",
+              "displayName": "lead_id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "firma",
+              "displayName": "firma",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "website",
+              "displayName": "website",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ort",
+              "displayName": "ort",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "branche",
+              "displayName": "branche",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ansprechpartner",
+              "displayName": "ansprechpartner",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "anrede",
+              "displayName": "anrede",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "mail",
+              "displayName": "mail",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "telefon",
+              "displayName": "telefon",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "kontaktquelle",
+              "displayName": "kontaktquelle",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "website_score",
+              "displayName": "website_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "akquise_score",
+              "displayName": "akquise_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "akquise_ansatz",
+              "displayName": "akquise_ansatz",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "compliance",
+              "displayName": "compliance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "next_action",
+              "displayName": "next_action",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "next_action_at",
+              "displayName": "next_action_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email_freigabe",
+              "displayName": "email_freigabe",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email_freigabe_am",
+              "displayName": "email_freigabe_am",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email_freigabe_notiz",
+              "displayName": "email_freigabe_notiz",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "gmail_draft_id",
+              "displayName": "gmail_draft_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "gmail_thread_id",
+              "displayName": "gmail_thread_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "gmail_empfaenger",
+              "displayName": "gmail_empfaenger",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "gmail_betreff",
+              "displayName": "gmail_betreff",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "unterlagen_gesendet_am",
+              "displayName": "unterlagen_gesendet_am",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ende_grund",
+              "displayName": "ende_grund",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "wiedervorlage_am",
+              "displayName": "wiedervorlage_am",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "notiz",
+              "displayName": "notiz",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "berichte_pfad",
+              "displayName": "berichte_pfad",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "berichte_drive_url",
+              "displayName": "berichte_drive_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "mail_betreff",
+              "displayName": "mail_betreff",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "mail_entwurf",
+              "displayName": "mail_entwurf",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b3000000-0037-4000-8000-000000000037",
+      "name": "Drive-Link aus Sheet entfernen",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1160,
+        420
+      ]
+    }
+  ],
+  "connections": {
+    "Taeglich 06:50": {
+      "main": [
+        [
+          {
+            "node": "Leads lesen (Gmail)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leads lesen (Gmail)": {
+      "main": [
+        [
+          {
+            "node": "Kandidaten filtern",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Kandidaten filtern": {
+      "main": [
+        [
+          {
+            "node": "Thread lesen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Thread lesen": {
+      "main": [
+        [
+          {
+            "node": "Thread auswerten",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Thread auswerten": {
+      "main": [
+        [
+          {
+            "node": "Aenderungen isolieren",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Gmail-Meldung bauen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aenderungen isolieren": {
+      "main": [
+        [
+          {
+            "node": "Leadstatus erneut lesen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail-Meldung bauen": {
+      "main": [
+        [
+          {
+            "node": "Gmail-Meldung senden",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Taeglich 07:00": {
+      "main": [
+        [
+          {
+            "node": "Leads lesen (Morgen)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leads lesen (Morgen)": {
+      "main": [
+        [
+          {
+            "node": "Aufgaben zusammenstellen",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Drive-Loeschfristen filtern",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aufgaben zusammenstellen": {
+      "main": [
+        [
+          {
+            "node": "Morgenmeldung senden",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leadstatus erneut lesen": {
+      "main": [
+        [
+          {
+            "node": "Aenderungen absichern",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aenderungen absichern": {
+      "main": [
+        [
+          {
+            "node": "Leads fortschreiben",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Drive-Loeschfristen filtern": {
+      "main": [
+        [
+          {
+            "node": "Drive-Ordner im Root suchen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Drive-Ordner im Root suchen": {
+      "main": [
+        [
+          {
+            "node": "Drive-Loeschziel pruefen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Drive-Loeschziel pruefen": {
+      "main": [
+        [
+          {
+            "node": "Drive-Ordner dauerhaft loeschen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Drive-Ordner dauerhaft loeschen": {
+      "main": [
+        [
+          {
+            "node": "Drive-Link leeren",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Drive-Link leeren": {
+      "main": [
+        [
+          {
+            "node": "Drive-Link aus Sheet entfernen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {
+      "name": "akquise"
+    }
+  ]
+}

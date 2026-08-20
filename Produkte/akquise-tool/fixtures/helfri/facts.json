@@ -1,0 +1,3892 @@
+{
+  "meta": {
+    "collector_version": "1.0.0",
+    "scanned_at": "2026-08-14T23:27:30.699Z",
+    "user_agent": "Mozilla/5.0 (compatible; 360ai-Akquise-Check/1.0; +https://www.360-ai.org/bot)",
+    "lead_id": "TEST-helfri",
+    "branche": "bauunternehmen",
+    "keyword": "Bauunternehmen Frankenberg",
+    "input_url": "https://helfri-bau.de/",
+    "audit_dir": "(fixture)",
+    "pages_checked": [
+      {
+        "url": "https://helfri-bau.de/",
+        "rolle": "startseite",
+        "status": 200
+      },
+      {
+        "url": "https://helfri-bau.de/?page_id=205",
+        "rolle": "startseite",
+        "status": 200
+      },
+      {
+        "url": "https://helfri-bau.de/impressum/",
+        "rolle": "impressum",
+        "status": 200
+      },
+      {
+        "url": "https://helfri-bau.de/datenschutzerklaerung/",
+        "rolle": "datenschutz",
+        "status": 200
+      },
+      {
+        "url": "https://helfri-bau.de/339-2/",
+        "rolle": "kontakt",
+        "status": 200
+      },
+      {
+        "url": "https://helfri-bau.de/324-2/",
+        "rolle": "leistungen",
+        "status": 200
+      },
+      {
+        "url": "https://helfri-bau.de/941-2/",
+        "rolle": "leistungen",
+        "status": 200
+      },
+      {
+        "url": "https://helfri-bau.de/referenzen/",
+        "rolle": "referenzen",
+        "status": 200
+      },
+      {
+        "url": "https://helfri-bau.de/maschinenpark/",
+        "rolle": "sonstige",
+        "status": 200
+      },
+      {
+        "url": "https://helfri-bau.de/339-2/?et_fb=1&PageSpeed=off",
+        "rolle": "sonstige",
+        "status": 200
+      },
+      {
+        "url": "https://helfri-bau.de/hello-world/",
+        "rolle": "sonstige",
+        "status": 200
+      },
+      {
+        "url": "https://helfri-bau.de/cookie-richtlinie-eu/",
+        "rolle": "sonstige",
+        "status": 200
+      }
+    ],
+    "errors": [
+      "PageSpeed mobil nicht verfuegbar: kein PSI_API_KEY gesetzt"
+    ],
+    "candidates_total": 15,
+    "skipped_by_robots": [],
+    "eingefroren_am": "2026-08-15",
+    "fixture_quelle": "helfri-bau.de, Live-Scan 14.08.2026"
+  },
+  "http": {
+    "reachable": true,
+    "requested_url": "https://helfri-bau.de/",
+    "final_url": "https://helfri-bau.de/",
+    "status": 200,
+    "redirect_chain": [
+      {
+        "url": "https://helfri-bau.de/",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "https": true,
+    "hsts": false,
+    "http_protocol": "h2",
+    "ttfb_ms": {
+      "median": 1570,
+      "min": 1527,
+      "max": 1674,
+      "runs": 3
+    },
+    "http_variant": {
+      "status": 200,
+      "redirect_chain": [
+        {
+          "url": "http://helfri-bau.de/",
+          "status": 301,
+          "location": "https://helfri-bau.de/"
+        },
+        {
+          "url": "https://helfri-bau.de/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "lands_on_https": true
+    },
+    "other_host": {
+      "host": "www.helfri-bau.de",
+      "status": 200,
+      "final_url": "https://helfri-bau.de/",
+      "redirects_to_primary": true
+    }
+  },
+  "tech": {
+    "generator": "WordPress 7.0.4",
+    "cms": "WordPress",
+    "cms_version": "7.0.4",
+    "theme": "Divi",
+    "jquery_version": "3.7.1",
+    "server": "Apache/2.4.68 (Unix)",
+    "powered_by": "PHP/8.2.31",
+    "theme_version": "4.20.4"
+  },
+  "pages": [
+    {
+      "url": "https://helfri-bau.de/",
+      "status": 200,
+      "title": "Helfri Bau GmbH | Familiengeführtes Traditionsunternehmen aus Frankenberg",
+      "meta_description": null,
+      "meta_robots": "max-image-preview:large",
+      "x_robots_tag": null,
+      "canonical": "https://helfri-bau.de/",
+      "viewport_meta": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Willkommen bei der Helfri Baugesellschaft"
+        },
+        {
+          "level": 2,
+          "text": "Unsere Leistungen"
+        },
+        {
+          "level": 4,
+          "text": "Erdarbeiten und Tiefbau"
+        },
+        {
+          "level": 4,
+          "text": "Hochbau"
+        },
+        {
+          "level": 4,
+          "text": "Abbruch und Sanierung"
+        },
+        {
+          "level": 4,
+          "text": "Garten- und Landschaftsbau"
+        },
+        {
+          "level": 4,
+          "text": "Kranarbeiten"
+        },
+        {
+          "level": 2,
+          "text": "Bewirb Dich!"
+        },
+        {
+          "level": 2,
+          "text": "Galerie"
+        },
+        {
+          "level": 2,
+          "text": "Über uns"
+        },
+        {
+          "level": 3,
+          "text": "motivierte Mitarbeiter"
+        },
+        {
+          "level": 3,
+          "text": "modernste Maschinen"
+        },
+        {
+          "level": 3,
+          "text": "Einsatz für Sie"
+        },
+        {
+          "level": 2,
+          "text": "Kontaktieren Sie uns!"
+        },
+        {
+          "level": 4,
+          "text": "Siegener Str. 53, 35066 Frankenberg (Eder)"
+        },
+        {
+          "level": 4,
+          "text": "06451 - 69 46"
+        },
+        {
+          "level": 4,
+          "text": "Kontakt"
+        },
+        {
+          "level": 4,
+          "text": "Rechtliches"
+        }
+      ],
+      "h1": [
+        "Willkommen bei der Helfri Baugesellschaft"
+      ],
+      "word_count": 276,
+      "text": "06451 - 69 46 info@helfri-bau.de Facebook Instagram Facebook Instagram Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Seite wählen Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Willkommen bei der Helfri Baugesellschaft Wir arbeiten im Bereich Hoch-, Tief-, Garten- und Landschaftsbau. Unsere Stärken liegen in kompetenter Beratung und termingerechter Ausführung. Unsere Leistungen Unsere Leistungen Erdarbeiten und Tiefbau Hochbau Abbruch und Sanierung Garten- und Landschaftsbau Kranarbeiten Bewirb Dich! Als Ausbildungsbetrieb geben wir jungen Menschen eine Chance. Junge Leute, die Interesse an handwerklichen Tätigkeiten, ein gutes räumliches Vorstellungsvermögen und technisches Verständnis haben und die Wind und Wetter nicht abschreckt, sind die, die wir gerne ausbilden möchten. Wir haben ein tolles Team und unseren Mitarbeitern stehen moderne Maschinen und technische Hilfsmittel, die den Arbeitsalltag erleichtern, zur Verfügung. Wir sind stolz auf unser Handwerk – und vielleicht auch bald auf Dich! Jetzt bewerben! Galerie Über uns Foto: Tom, Helmut, Markus und Thomas motivierte Mitarbeiter modernste Maschinen % Einsatz für Sie Kontaktieren Sie uns! Name E-Mail Ihre Nachricht Datenschutz Datenschutz Ich stimme zu, dass meine Angaben aus dem Kontaktformular zur Beantwortung meiner Anfrage elektronisch erhoben und verarbeitet werden. Detaillierte Informationen zum Umgang mit Nutzerdaten finden Sie in unserer Datenschutzerklärung. Absenden Folgen Folgen  Siegener Str. 53, 35066 Frankenberg (Eder)  06451 - 69 46  info@helfri-bau.de Sie suchen eine Unterkunft, in der Sie auch mal ein bisschen verwöhnt werden? Dann empfehlen wir Ihnen die Pension Ederstrand! ZUR WEBSITE Die Helfri-Bau GmbH ist ein Bauunternehmen aus Frankenberg, was sich auf Hoch-, Tief-, Garten- und Landschaftsbau spezialisiert hat. Kontakt Siegener Str. 53 35066 Frankenberg (Eder) 06451 – 69 46 info@helfri-bau.de Montag – Freitag 7.00 – 16.30 Uhr Rechtliches Datenschutz Impressum Facebook Instagram © 2020 Helfri Baugesellschaft GmbH",
+      "images": [
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo_200x200.jpg",
+          "alt": "Helfri Bau GmbH",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 816,
+          "height_attr": 714,
+          "bytes": 136665,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/worker-of-construction-working-with-a-shovel-beside-material-pile-1.png",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 128,
+          "height_attr": 128,
+          "bytes": 4554,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/construction-icon-1-white.png",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 128,
+          "height_attr": 128,
+          "bytes": 261,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/bricks-wall-and-demolition-ball.png",
+          "alt": "abbruch_sanierung",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 128,
+          "height_attr": 128,
+          "bytes": 3315,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/house.png",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 128,
+          "height_attr": 128,
+          "bytes": 1480,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/construction-crane.png",
+          "alt": "Kran",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 128,
+          "height_attr": 128,
+          "bytes": 3468,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Wir_Bilden_Aus.jpg",
+          "alt": "Wir_Bilden_Aus",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1080,
+          "height_attr": 1080,
+          "bytes": 437152,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/Bild-1.jpg",
+          "alt": "Helfri Baugestellschaft Frankenberg Garten und Landschaftsbau",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 800,
+          "height_attr": 800,
+          "bytes": null,
+          "mime": null,
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/Bild-2.jpg",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 800,
+          "height_attr": 800,
+          "bytes": null,
+          "mime": null,
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/Bild-3.jpg",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 800,
+          "height_attr": 800,
+          "bytes": null,
+          "mime": null,
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/Bild-4.jpg",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 800,
+          "height_attr": 800,
+          "bytes": null,
+          "mime": null,
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Maurerarbeiten-Keller1.jpg",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 1200,
+          "height_attr": 1200,
+          "bytes": null,
+          "mime": null,
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/Bild-5.jpg",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 800,
+          "height_attr": 800,
+          "bytes": null,
+          "mime": null,
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/Helfri_Bau_Team_Helmut_Markus_Thomas_Tom.png",
+          "alt": "Helfri_Bau_Team_Helmut_Markus_Thomas_Tom",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 800,
+          "height_attr": 800,
+          "bytes": null,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/12/Historie-1.png",
+          "alt": "Helfri_Bau_Historie",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1367,
+          "height_attr": 916,
+          "bytes": null,
+          "mime": null,
+          "format": "png"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Bau_Autos-scaled-1.jpg",
+          "alt": "Helfri_Bau_Autos",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 2560,
+          "height_attr": 1094,
+          "bytes": 891023,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/Logo_Pension_Ederstrand.png",
+          "alt": "Logo_Pension_Ederstrand",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 578,
+          "height_attr": 125,
+          "bytes": null,
+          "mime": null,
+          "format": "png"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo-300px-200930.png",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 200,
+          "height_attr": 175,
+          "bytes": 24128,
+          "mime": "image/png",
+          "format": "png"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Unsere Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/?et_fb=1&PageSpeed=off",
+            "text": "Jetzt bewerben!",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=205",
+            "text": "Datenschutz",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=218",
+            "text": "Impressum",
+            "hash_route": false
+          }
+        ],
+        "external": [
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Folgen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Folgen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.pension-ederstrand.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.pension-ederstrand.de/",
+            "text": "ZUR WEBSITE",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          }
+        ]
+      },
+      "tel_links": [],
+      "mailto_links": [
+        "mailto:info@helfri-bau.de"
+      ],
+      "forms": 1,
+      "jsonld_types": [],
+      "jsonld": [],
+      "og": {},
+      "og_site_name": null,
+      "html_bytes": 200669,
+      "rolle": "startseite",
+      "quelle": "startseite",
+      "hash_route": false,
+      "raw_word_count": 270,
+      "rendered_word_count": 276,
+      "raw_html_bytes": 198169,
+      "response_headers": {
+        "server": "Apache/2.4.68 (Unix)",
+        "x-powered-by": "PHP/8.2.31",
+        "content-type": "text/html; charset=UTF-8"
+      }
+    },
+    {
+      "url": "https://helfri-bau.de/?page_id=205",
+      "status": 200,
+      "title": "Datenschutzerklärung | Helfri Bau GmbH",
+      "meta_description": null,
+      "meta_robots": "max-image-preview:large",
+      "x_robots_tag": null,
+      "canonical": "https://helfri-bau.de/datenschutzerklaerung/",
+      "viewport_meta": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Datenschutz"
+        },
+        {
+          "level": 4,
+          "text": "Kontakt"
+        },
+        {
+          "level": 4,
+          "text": "Rechtliches"
+        }
+      ],
+      "h1": [
+        "Datenschutz"
+      ],
+      "word_count": 1239,
+      "text": "06451 - 69 46 info@helfri-bau.de Facebook Instagram Facebook Instagram Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Seite wählen Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Datenschutz 1. Datenschutz auf einen Blick Allgemeine Hinweise Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie unsere Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können. Ausführliche Informationen zum Thema Datenschutz entnehmen Sie unserer unter diesem Text aufgeführten Datenschutzerklärung. Datenerfassung auf unserer Website Wer ist verantwortlich für die Datenerfassung auf dieser Website? Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Impressum dieser Website entnehmen. Wie erfassen wir Ihre Daten? Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z.B. um Daten handeln, die Sie in ein Kontaktformular eingeben. Andere Daten werden automatisch beim Besuch der Website durch unsere IT-Systeme erfasst. Das sind vor allem technische Daten (z.B. Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs). Die Erfassung dieser Daten erfolgt automatisch, sobald Sie unsere Website betreten. Wofür nutzen wir Ihre Daten? Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu gewährleisten. Andere Daten können zur Analyse Ihres Nutzerverhaltens verwendet werden. Welche Rechte haben Sie bezüglich Ihrer Daten? Sie haben jederzeit das Recht unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung, Sperrung oder Löschung dieser Daten zu verlangen. Hierzu sowie zu weiteren Fragen zum Thema Datenschutz können Sie sich jederzeit unter der im Impressum angegebenen Adresse an uns wenden. Des Weiteren steht Ihnen ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu. 2. Allgemeine Hinweise und Pflichtinformationen Datenschutz Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung. Wenn Sie diese Website benutzen, werden verschiedene personenbezogene Daten erhoben. Personenbezogene Daten sind Daten, mit denen Sie persönlich identifiziert werden können. Die vorliegende Datenschutzerklärung erläutert, welche Daten wir erheben und wofür wir sie nutzen. Sie erläutert auch, wie und zu welchem Zweck das geschieht. Wir weisen darauf hin, dass die Datenübertragung im Internet (z.B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich. Hinweis zur verantwortlichen Stelle Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist: Helfri Baugesellschaft mbH Siegener Strasse 53 35066 Frankenberg (Eder) Telefon: +49 (0)6451 – 69 46 E-Mail: info@helfri-bau.de Verantwortliche Stelle ist die natürliche oder juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten (z.B. Namen, E-Mail-Adressen o. Ä.) entscheidet. Widerruf Ihrer Einwilligung zur Datenverarbeitung Viele Datenverarbeitungsvorgänge sind nur mit Ihrer ausdrücklichen Einwilligung möglich. Sie können eine bereits erteilte Einwilligung jederzeit widerrufen. Dazu reicht eine formlose Mitteilung per E-Mail an uns. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Datenverarbeitung bleibt vom Widerruf unberührt. Beschwerderecht bei der zuständigen Aufsichtsbehörde Im Falle datenschutzrechtlicher Verstöße steht dem Betroffenen ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu. Zuständige Aufsichtsbehörde in datenschutzrechtlichen Fragen ist der Landesdatenschutzbeauftragte des Bundeslandes, in dem unser Unternehmen seinen Sitz hat. Eine Liste der Datenschutzbeauftragten sowie deren Kontaktdaten können folgendem Link entnommen werden: https://www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html . Recht auf Datenübertragbarkeit Sie haben das Recht, Daten, die wir auf Grundlage Ihrer Einwilligung oder in Erfüllung eines Vertrags automatisiert verarbeiten, an sich oder an einen Dritten in einem gängigen, maschinenlesbaren Format aushändigen zu lassen. Sofern Sie die direkte Übertragung der Daten an einen anderen Verantwortlichen verlangen, erfolgt dies nur, soweit es technisch machbar ist. SSL- bzw. TLS-Verschlüsselung Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte, wie zum Beispiel Bestellungen oder Anfragen, die Sie an uns als Seitenbetreiber senden, eine SSL-bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers von “http://” auf “https://” wechselt und an dem Schloss-Symbol in Ihrer Browserzeile. Wenn die SSL- bzw. TLS-Verschlüsselung aktiviert ist, können die Daten, die Sie an uns übermitteln, nicht von Dritten mitgelesen werden. Auskunft, Sperrung, Löschung Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung und ggf. ein Recht auf Berichtigung, Sperrung oder Löschung dieser Daten. Hierzu sowie zu weiteren Fragen zum Thema personenbezogene Daten können Sie sich jederzeit unter der im Impressum angegebenen Adresse an uns wenden. Widerspruch gegen Werbe-Mails Der Nutzung von im Rahmen der Impressumspflicht veröffentlichten Kontaktdaten zur Übersendung von nicht ausdrücklich angeforderter Werbung und Informationsmaterialien wird hiermit widersprochen. Die Betreiber der Seiten behalten sich ausdrücklich rechtliche Schritte im Falle der unverlangten Zusendung von Werbeinformationen, etwa durch Spam-E-Mails, vor. 3. Datenerfassung auf unserer Website Cookies Die Internetseiten verwenden teilweise so genannte Cookies. Cookies richten auf Ihrem Rechner keinen Schaden an und enthalten keine Viren. Cookies dienen dazu, unser Angebot nutzerfreundlicher, effektiver und sicherer zu machen. Cookies sind kleine Textdateien, die auf Ihrem Rechner abgelegt werden und die Ihr Browser speichert. Die meisten der von uns verwendeten Cookies sind so genannte “Session-Cookies”. Sie werden nach Ende Ihres Besuchs automatisch gelöscht. Andere Cookies bleiben auf Ihrem Endgerät gespeichert bis Sie diese löschen. Diese Cookies ermöglichen es uns, Ihren Browser beim nächsten Besuch wiederzuerkennen. Sie können Ihren Browser so einstellen, dass Sie über das Setzen von Cookies informiert werden und Cookies nur im Einzelfall erlauben, die Annahme von Cookies für bestimmte Fälle oder generell ausschließen sowie das automatische Löschen der Cookies beim Schließen des Browser aktivieren. Bei der Deaktivierung von Cookies kann die Funktionalität dieser Website eingeschränkt sein. Cookies, die zur Durchführung des elektronischen Kommunikationsvorgangs oder zur Bereitstellung bestimmter, von Ihnen erwünschter Funktionen (z.B. Warenkorbfunktion) erforderlich sind, werden auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO gespeichert. Der Websitebetreiber hat ein berechtigtes Interesse an der Speicherung von Cookies zur technisch fehlerfreien und optimierten Bereitstellung seiner Dienste. Soweit andere Cookies (z.B. Cookies zur Analyse Ihres Surfverhaltens) gespeichert werden, werden diese in dieser Datenschutzerklärung gesondert behandelt. Server-Log-Dateien Der Provider der Seiten erhebt und speichert automatisch Informationen in so genannten Server-Log-Dateien, die Ihr Browser automatisch an uns übermittelt. Dies sind: Browsertyp und Browserversion verwendetes Betriebssystem Referrer URL Hostname des zugreifenden Rechners Uhrzeit der Serveranfrage Eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht vorgenommen. Grundlage für die Datenverarbeitung ist Art. 6 Abs. 1 lit. f DSGVO, der die Verarbeitung von Daten zur Erfüllung eines Vertrags oder vorvertraglicher Maßnahmen gestattet. Kontaktformular Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter. Die Verarbeitung der in das Kontaktformular eingegebenen Daten erfolgt somit ausschließlich auf Grundlage Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Sie können diese Einwilligung jederzeit widerrufen. Dazu reicht eine formlose Mitteilung per E-Mail an uns. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Datenverarbeitungsvorgänge bleibt vom Widerruf unberührt. Die von Ihnen im Kontaktformular eingegebenen Daten verbleiben bei uns, bis Sie uns zur Löschung auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck für die Datenspeicherung entfällt (z.B. nach abgeschlossener Bearbeitung Ihrer Anfrage). Zwingende gesetzliche Bestimmungen – insbesondere Aufbewahrungsfristen – bleiben unberührt. Die Helfri-Bau GmbH ist ein Bauunternehmen aus Frankenberg, was sich auf Hoch-, Tief-, Garten- und Landschaftsbau spezialisiert hat. Kontakt Siegener Str. 53 35066 Frankenberg (Eder) 06451 – 69 46 info@helfri-bau.de Montag – Freitag 7.00 – 16.30 Uhr Rechtliches Datenschutz Impressum Facebook Instagram © 2020 Helfri Baugesellschaft GmbH",
+      "images": [
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo_200x200.jpg",
+          "alt": "Helfri Bau GmbH",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 816,
+          "height_attr": 714,
+          "bytes": 136665,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo-300px-200930.png",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 200,
+          "height_attr": 175,
+          "bytes": 24128,
+          "mime": "image/png",
+          "format": "png"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=205",
+            "text": "Datenschutz",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=218",
+            "text": "Impressum",
+            "hash_route": false
+          }
+        ],
+        "external": [
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html",
+            "text": "https://www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          }
+        ]
+      },
+      "tel_links": [],
+      "mailto_links": [
+        "mailto:info@helfri-bau.de"
+      ],
+      "forms": 0,
+      "jsonld_types": [],
+      "jsonld": [],
+      "og": {},
+      "og_site_name": null,
+      "html_bytes": 156196,
+      "rolle": "startseite",
+      "quelle": "link",
+      "hash_route": false,
+      "raw_word_count": 1233,
+      "rendered_word_count": 1239,
+      "raw_html_bytes": 154793,
+      "response_headers": {
+        "server": "Apache/2.4.68 (Unix)",
+        "x-powered-by": "PHP/8.2.31",
+        "content-type": "text/html; charset=UTF-8"
+      }
+    },
+    {
+      "url": "https://helfri-bau.de/impressum/",
+      "status": 200,
+      "title": "Impressum | Helfri Bau GmbH",
+      "meta_description": null,
+      "meta_robots": "max-image-preview:large",
+      "x_robots_tag": null,
+      "canonical": "https://helfri-bau.de/impressum/",
+      "viewport_meta": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Impressum"
+        },
+        {
+          "level": 4,
+          "text": "Kontakt"
+        },
+        {
+          "level": 4,
+          "text": "Rechtliches"
+        }
+      ],
+      "h1": [
+        "Impressum"
+      ],
+      "word_count": 426,
+      "text": "06451 - 69 46 info@helfri-bau.de Facebook Instagram Facebook Instagram Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Seite wählen Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Impressum Angaben gemäß § 5 TMG: Helfri Baugesellschaft mbH Siegener Strasse 53 35066 Frankenberg (Eder) Vertreten durch: Vertretungsberechtigter Geschäftsführer: Markus Hoffmann Kontakt: Telefon: +49 (0)6451 – 69 46 Telefax: +49 (0)6451 – 69 49 E-Mail: info@helfri-bau.de Registereintrag: Eintragung im Handelsregister. Registergericht: Amtsgericht Marburg (Lahn) Registernummer: HRB 3881 Umsatzsteuer: Umsatzsteuer-Identifikationsnummer gemäß §27 a Umsatzsteuergesetz: DE 113073661 Streitschlichtung Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen. Haftung für Inhalte Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen. Haftung für Links Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen. Urheberrecht Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen. Die Helfri-Bau GmbH ist ein Bauunternehmen aus Frankenberg, was sich auf Hoch-, Tief-, Garten- und Landschaftsbau spezialisiert hat. Kontakt Siegener Str. 53 35066 Frankenberg (Eder) 06451 – 69 46 info@helfri-bau.de Montag – Freitag 7.00 – 16.30 Uhr Rechtliches Datenschutz Impressum Facebook Instagram © 2020 Helfri Baugesellschaft GmbH",
+      "images": [
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo_200x200.jpg",
+          "alt": "Helfri Bau GmbH",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 816,
+          "height_attr": 714,
+          "bytes": 136665,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo-300px-200930.png",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 200,
+          "height_attr": 175,
+          "bytes": 24128,
+          "mime": "image/png",
+          "format": "png"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=205",
+            "text": "Datenschutz",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=218",
+            "text": "Impressum",
+            "hash_route": false
+          }
+        ],
+        "external": [
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          }
+        ]
+      },
+      "tel_links": [],
+      "mailto_links": [
+        "mailto:info@helfri-bau.de"
+      ],
+      "forms": 0,
+      "jsonld_types": [],
+      "jsonld": [],
+      "og": {},
+      "og_site_name": null,
+      "html_bytes": 148747,
+      "rolle": "impressum",
+      "quelle": "sitemap",
+      "hash_route": false,
+      "raw_word_count": 420,
+      "rendered_word_count": 426,
+      "raw_html_bytes": 147362,
+      "response_headers": {
+        "server": "Apache/2.4.68 (Unix)",
+        "x-powered-by": "PHP/8.2.31",
+        "content-type": "text/html; charset=UTF-8"
+      }
+    },
+    {
+      "url": "https://helfri-bau.de/datenschutzerklaerung/",
+      "status": 200,
+      "title": "Datenschutzerklärung | Helfri Bau GmbH",
+      "meta_description": null,
+      "meta_robots": "max-image-preview:large",
+      "x_robots_tag": null,
+      "canonical": "https://helfri-bau.de/datenschutzerklaerung/",
+      "viewport_meta": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Datenschutz"
+        },
+        {
+          "level": 4,
+          "text": "Kontakt"
+        },
+        {
+          "level": 4,
+          "text": "Rechtliches"
+        }
+      ],
+      "h1": [
+        "Datenschutz"
+      ],
+      "word_count": 1239,
+      "text": "06451 - 69 46 info@helfri-bau.de Facebook Instagram Facebook Instagram Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Seite wählen Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Datenschutz 1. Datenschutz auf einen Blick Allgemeine Hinweise Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie unsere Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können. Ausführliche Informationen zum Thema Datenschutz entnehmen Sie unserer unter diesem Text aufgeführten Datenschutzerklärung. Datenerfassung auf unserer Website Wer ist verantwortlich für die Datenerfassung auf dieser Website? Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Impressum dieser Website entnehmen. Wie erfassen wir Ihre Daten? Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z.B. um Daten handeln, die Sie in ein Kontaktformular eingeben. Andere Daten werden automatisch beim Besuch der Website durch unsere IT-Systeme erfasst. Das sind vor allem technische Daten (z.B. Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs). Die Erfassung dieser Daten erfolgt automatisch, sobald Sie unsere Website betreten. Wofür nutzen wir Ihre Daten? Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu gewährleisten. Andere Daten können zur Analyse Ihres Nutzerverhaltens verwendet werden. Welche Rechte haben Sie bezüglich Ihrer Daten? Sie haben jederzeit das Recht unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung, Sperrung oder Löschung dieser Daten zu verlangen. Hierzu sowie zu weiteren Fragen zum Thema Datenschutz können Sie sich jederzeit unter der im Impressum angegebenen Adresse an uns wenden. Des Weiteren steht Ihnen ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu. 2. Allgemeine Hinweise und Pflichtinformationen Datenschutz Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung. Wenn Sie diese Website benutzen, werden verschiedene personenbezogene Daten erhoben. Personenbezogene Daten sind Daten, mit denen Sie persönlich identifiziert werden können. Die vorliegende Datenschutzerklärung erläutert, welche Daten wir erheben und wofür wir sie nutzen. Sie erläutert auch, wie und zu welchem Zweck das geschieht. Wir weisen darauf hin, dass die Datenübertragung im Internet (z.B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich. Hinweis zur verantwortlichen Stelle Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist: Helfri Baugesellschaft mbH Siegener Strasse 53 35066 Frankenberg (Eder) Telefon: +49 (0)6451 – 69 46 E-Mail: info@helfri-bau.de Verantwortliche Stelle ist die natürliche oder juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten (z.B. Namen, E-Mail-Adressen o. Ä.) entscheidet. Widerruf Ihrer Einwilligung zur Datenverarbeitung Viele Datenverarbeitungsvorgänge sind nur mit Ihrer ausdrücklichen Einwilligung möglich. Sie können eine bereits erteilte Einwilligung jederzeit widerrufen. Dazu reicht eine formlose Mitteilung per E-Mail an uns. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Datenverarbeitung bleibt vom Widerruf unberührt. Beschwerderecht bei der zuständigen Aufsichtsbehörde Im Falle datenschutzrechtlicher Verstöße steht dem Betroffenen ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu. Zuständige Aufsichtsbehörde in datenschutzrechtlichen Fragen ist der Landesdatenschutzbeauftragte des Bundeslandes, in dem unser Unternehmen seinen Sitz hat. Eine Liste der Datenschutzbeauftragten sowie deren Kontaktdaten können folgendem Link entnommen werden: https://www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html . Recht auf Datenübertragbarkeit Sie haben das Recht, Daten, die wir auf Grundlage Ihrer Einwilligung oder in Erfüllung eines Vertrags automatisiert verarbeiten, an sich oder an einen Dritten in einem gängigen, maschinenlesbaren Format aushändigen zu lassen. Sofern Sie die direkte Übertragung der Daten an einen anderen Verantwortlichen verlangen, erfolgt dies nur, soweit es technisch machbar ist. SSL- bzw. TLS-Verschlüsselung Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte, wie zum Beispiel Bestellungen oder Anfragen, die Sie an uns als Seitenbetreiber senden, eine SSL-bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers von “http://” auf “https://” wechselt und an dem Schloss-Symbol in Ihrer Browserzeile. Wenn die SSL- bzw. TLS-Verschlüsselung aktiviert ist, können die Daten, die Sie an uns übermitteln, nicht von Dritten mitgelesen werden. Auskunft, Sperrung, Löschung Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung und ggf. ein Recht auf Berichtigung, Sperrung oder Löschung dieser Daten. Hierzu sowie zu weiteren Fragen zum Thema personenbezogene Daten können Sie sich jederzeit unter der im Impressum angegebenen Adresse an uns wenden. Widerspruch gegen Werbe-Mails Der Nutzung von im Rahmen der Impressumspflicht veröffentlichten Kontaktdaten zur Übersendung von nicht ausdrücklich angeforderter Werbung und Informationsmaterialien wird hiermit widersprochen. Die Betreiber der Seiten behalten sich ausdrücklich rechtliche Schritte im Falle der unverlangten Zusendung von Werbeinformationen, etwa durch Spam-E-Mails, vor. 3. Datenerfassung auf unserer Website Cookies Die Internetseiten verwenden teilweise so genannte Cookies. Cookies richten auf Ihrem Rechner keinen Schaden an und enthalten keine Viren. Cookies dienen dazu, unser Angebot nutzerfreundlicher, effektiver und sicherer zu machen. Cookies sind kleine Textdateien, die auf Ihrem Rechner abgelegt werden und die Ihr Browser speichert. Die meisten der von uns verwendeten Cookies sind so genannte “Session-Cookies”. Sie werden nach Ende Ihres Besuchs automatisch gelöscht. Andere Cookies bleiben auf Ihrem Endgerät gespeichert bis Sie diese löschen. Diese Cookies ermöglichen es uns, Ihren Browser beim nächsten Besuch wiederzuerkennen. Sie können Ihren Browser so einstellen, dass Sie über das Setzen von Cookies informiert werden und Cookies nur im Einzelfall erlauben, die Annahme von Cookies für bestimmte Fälle oder generell ausschließen sowie das automatische Löschen der Cookies beim Schließen des Browser aktivieren. Bei der Deaktivierung von Cookies kann die Funktionalität dieser Website eingeschränkt sein. Cookies, die zur Durchführung des elektronischen Kommunikationsvorgangs oder zur Bereitstellung bestimmter, von Ihnen erwünschter Funktionen (z.B. Warenkorbfunktion) erforderlich sind, werden auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO gespeichert. Der Websitebetreiber hat ein berechtigtes Interesse an der Speicherung von Cookies zur technisch fehlerfreien und optimierten Bereitstellung seiner Dienste. Soweit andere Cookies (z.B. Cookies zur Analyse Ihres Surfverhaltens) gespeichert werden, werden diese in dieser Datenschutzerklärung gesondert behandelt. Server-Log-Dateien Der Provider der Seiten erhebt und speichert automatisch Informationen in so genannten Server-Log-Dateien, die Ihr Browser automatisch an uns übermittelt. Dies sind: Browsertyp und Browserversion verwendetes Betriebssystem Referrer URL Hostname des zugreifenden Rechners Uhrzeit der Serveranfrage Eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht vorgenommen. Grundlage für die Datenverarbeitung ist Art. 6 Abs. 1 lit. f DSGVO, der die Verarbeitung von Daten zur Erfüllung eines Vertrags oder vorvertraglicher Maßnahmen gestattet. Kontaktformular Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter. Die Verarbeitung der in das Kontaktformular eingegebenen Daten erfolgt somit ausschließlich auf Grundlage Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Sie können diese Einwilligung jederzeit widerrufen. Dazu reicht eine formlose Mitteilung per E-Mail an uns. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Datenverarbeitungsvorgänge bleibt vom Widerruf unberührt. Die von Ihnen im Kontaktformular eingegebenen Daten verbleiben bei uns, bis Sie uns zur Löschung auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck für die Datenspeicherung entfällt (z.B. nach abgeschlossener Bearbeitung Ihrer Anfrage). Zwingende gesetzliche Bestimmungen – insbesondere Aufbewahrungsfristen – bleiben unberührt. Die Helfri-Bau GmbH ist ein Bauunternehmen aus Frankenberg, was sich auf Hoch-, Tief-, Garten- und Landschaftsbau spezialisiert hat. Kontakt Siegener Str. 53 35066 Frankenberg (Eder) 06451 – 69 46 info@helfri-bau.de Montag – Freitag 7.00 – 16.30 Uhr Rechtliches Datenschutz Impressum Facebook Instagram © 2020 Helfri Baugesellschaft GmbH",
+      "images": [
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo_200x200.jpg",
+          "alt": "Helfri Bau GmbH",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 816,
+          "height_attr": 714,
+          "bytes": 136665,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo-300px-200930.png",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 200,
+          "height_attr": 175,
+          "bytes": 24128,
+          "mime": "image/png",
+          "format": "png"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=205",
+            "text": "Datenschutz",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=218",
+            "text": "Impressum",
+            "hash_route": false
+          }
+        ],
+        "external": [
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html",
+            "text": "https://www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          }
+        ]
+      },
+      "tel_links": [],
+      "mailto_links": [
+        "mailto:info@helfri-bau.de"
+      ],
+      "forms": 0,
+      "jsonld_types": [],
+      "jsonld": [],
+      "og": {},
+      "og_site_name": null,
+      "html_bytes": 156196,
+      "rolle": "datenschutz",
+      "quelle": "sitemap",
+      "hash_route": false,
+      "raw_word_count": 1233,
+      "rendered_word_count": 1239,
+      "raw_html_bytes": 154793,
+      "response_headers": {
+        "server": "Apache/2.4.68 (Unix)",
+        "x-powered-by": "PHP/8.2.31",
+        "content-type": "text/html; charset=UTF-8"
+      }
+    },
+    {
+      "url": "https://helfri-bau.de/339-2/",
+      "status": 200,
+      "title": "Kontakt | Helfri Bau GmbH",
+      "meta_description": null,
+      "meta_robots": "max-image-preview:large",
+      "x_robots_tag": null,
+      "canonical": "https://helfri-bau.de/339-2/",
+      "viewport_meta": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Kontakt"
+        },
+        {
+          "level": 2,
+          "text": "Kontaktinfo"
+        },
+        {
+          "level": 4,
+          "text": "Adresse"
+        },
+        {
+          "level": 4,
+          "text": "Öffnungszeiten"
+        },
+        {
+          "level": 4,
+          "text": "E-Mail und Telefon"
+        },
+        {
+          "level": 2,
+          "text": ""
+        },
+        {
+          "level": 4,
+          "text": "Wir können es kaum erwarten, Ihre Ideen Wirklichkeit werden zu lassen."
+        },
+        {
+          "level": 2,
+          "text": "Get in touch: Den ersten Kontakt vergisst man nie!"
+        },
+        {
+          "level": 4,
+          "text": "Kontakt"
+        },
+        {
+          "level": 4,
+          "text": "Rechtliches"
+        }
+      ],
+      "h1": [
+        "Kontakt"
+      ],
+      "word_count": 216,
+      "text": "06451 - 69 46 info@helfri-bau.de Facebook Instagram Facebook Instagram Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Seite wählen Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Kontakt Schreiben oder rufen Sie uns an – wir beraten gerne! E-Mail senden Kontaktinfo  Adresse Siegener Strasse 53, 35066 Frankenberg (Eder) } Öffnungszeiten Montag – Freitag 7.00 – 16.30 Uhr v E-Mail und Telefon info@helfri-bau.de 06451 – 69 46 Folgen Folgen MARKUS HOFFMANN Maurermeister Geschäftsführer ALEXANDRA HOFFMANN Kauffrau Verwaltung, Personalwesen, Rechnungswesen SEBASTIAN BACKHAUS Technischer Angestellter Kalkulation, Arbeitsvorbereitung THOMAS FALLENBÜCHEL Maurer- u. Betonbauermeister Bauleitung KERSTIN RISSE Kfm. Angestellte Verwaltung, Personalwesen, Rechnungswesen Wir können es kaum erwarten, Ihre Ideen Wirklichkeit werden zu lassen. Get in touch: Den ersten Kontakt vergisst man nie! Interesse an einer Zusammenarbeit oder doch einfach nur eine Frage? Ganz egal – wir freuen uns auf Ihre Nachricht. Name E-Mail Ihre Nachricht Datzenschutz Datzenschutz Ich stimme zu, dass meine Angaben aus dem Kontaktformular zur Beantwortung meiner Anfrage elektronisch erhoben und verarbeitet werden. Detaillierte Informationen zum Umgang mit Nutzerdaten finden Sie in unserer Datenschutzerklärung. Absenden Die Helfri-Bau GmbH ist ein Bauunternehmen aus Frankenberg, was sich auf Hoch-, Tief-, Garten- und Landschaftsbau spezialisiert hat. Kontakt Siegener Str. 53 35066 Frankenberg (Eder) 06451 – 69 46 info@helfri-bau.de Montag – Freitag 7.00 – 16.30 Uhr Rechtliches Datenschutz Impressum Facebook Instagram © 2020 Helfri Baugesellschaft GmbH",
+      "images": [
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo_200x200.jpg",
+          "alt": "Helfri Bau GmbH",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 816,
+          "height_attr": 714,
+          "bytes": 136665,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/Markus_Hoffmann_Geschaeftsfuehrer_Maurermeister.jpg",
+          "alt": "Markus_Hoffmann_Geschäftsführer_Maurermeister",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1024,
+          "height_attr": 682,
+          "bytes": 44298,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/Alexandra_Hoffmann_Assistentin_der_Geschaeftsleitung_Personalwesen_Rechnungswesen.jpg",
+          "alt": "Alexandra_Hoffmann_Assistentin_der_Geschäftsleitung_Personalwesen_Rechnungswesen",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1024,
+          "height_attr": 682,
+          "bytes": 49855,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2024/12/Helfri_SW-Sebastian.jpg",
+          "alt": "Volker_Stange_Technischer_Angestellter_Kalkulation_Arbeitsvorbereitung",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1000,
+          "height_attr": 667,
+          "bytes": 163897,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/Thomas_Fallenbuechel_Maurermeister_Betonmeister_Bauleitung.jpg",
+          "alt": "Thomas_Fallenbüchel_Maurermeister_Betonmeister_Bauleitung",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1024,
+          "height_attr": 682,
+          "bytes": null,
+          "mime": null,
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2024/12/Kerstin-Risse-Helfri-Bau-1.jpg",
+          "alt": "Volker_Stange_Technischer_Angestellter_Kalkulation_Arbeitsvorbereitung",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 872,
+          "height_attr": 585,
+          "bytes": 80315,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo-300px-200930.png",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 200,
+          "height_attr": 175,
+          "bytes": 24128,
+          "mime": "image/png",
+          "format": "png"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/datenschutzerklaerung/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=205",
+            "text": "Datenschutz",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=218",
+            "text": "Impressum",
+            "hash_route": false
+          }
+        ],
+        "external": [
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Folgen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Folgen",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          }
+        ]
+      },
+      "tel_links": [],
+      "mailto_links": [
+        "mailto:info@helfri-bau.de"
+      ],
+      "forms": 1,
+      "jsonld_types": [],
+      "jsonld": [],
+      "og": {},
+      "og_site_name": null,
+      "html_bytes": 179381,
+      "rolle": "kontakt",
+      "quelle": "link",
+      "hash_route": false,
+      "raw_word_count": 210,
+      "rendered_word_count": 216,
+      "raw_html_bytes": 177884,
+      "response_headers": {
+        "server": "Apache/2.4.68 (Unix)",
+        "x-powered-by": "PHP/8.2.31",
+        "content-type": "text/html; charset=UTF-8"
+      }
+    },
+    {
+      "url": "https://helfri-bau.de/324-2/",
+      "status": 200,
+      "title": "Leistungen | Helfri Bau GmbH",
+      "meta_description": null,
+      "meta_robots": "max-image-preview:large",
+      "x_robots_tag": null,
+      "canonical": "https://helfri-bau.de/324-2/",
+      "viewport_meta": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Unsere Leistungen"
+        },
+        {
+          "level": 2,
+          "text": "Was wir machen"
+        },
+        {
+          "level": 4,
+          "text": "Erdarbeiten und Tiefbau"
+        },
+        {
+          "level": 4,
+          "text": "Hochbau"
+        },
+        {
+          "level": 4,
+          "text": "Abbruch und Sanierung"
+        },
+        {
+          "level": 4,
+          "text": "Garten- und Landschaftsbau"
+        },
+        {
+          "level": 4,
+          "text": "Kranarbeiten"
+        },
+        {
+          "level": 2,
+          "text": "Erdarbeiten und Tiefbau"
+        },
+        {
+          "level": 2,
+          "text": "Hochbau"
+        },
+        {
+          "level": 2,
+          "text": "Abbruch und Sanierung"
+        },
+        {
+          "level": 2,
+          "text": "Garten- und Landschaftsbau"
+        },
+        {
+          "level": 2,
+          "text": "Kranarbeiten"
+        },
+        {
+          "level": 4,
+          "text": "Kontakt"
+        },
+        {
+          "level": 4,
+          "text": "Rechtliches"
+        }
+      ],
+      "h1": [
+        "Unsere Leistungen"
+      ],
+      "word_count": 230,
+      "text": "06451 - 69 46 info@helfri-bau.de Facebook Instagram Facebook Instagram Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Seite wählen Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Video-Player 00:03 00:00 00:09 Pfeiltasten Hoch/Runter benutzen, um die Lautstärke zu regeln. Unsere Leistungen Wir arbeiten im Bereich Hoch-, Tief-, Garten- und Landschaftsbau. Unsere Stärken liegen in kompetenter Beratung und termingerechter Ausführung. Alle unsere Arbeiten werden nach DIN ausgeführt. Holen Sie sich ein kostenloses angebot Was wir machen Erdarbeiten und Tiefbau Hochbau Abbruch und Sanierung Garten- und Landschaftsbau Kranarbeiten Erdarbeiten und Tiefbau Baugruben Gründungspolster Erschließungen Auffüllungen Kanalanschlüsse Dichtheitsprüfungen nach DIN 1610 Hausanschlüsse Rohrleitungsbau Zisternen Baggerarbeiten 0,9bis 25t Transport von Schüttgütern Angebot einholen Hochbau Privat: Maurerabeiten Beton- und Schalarbeiten Stahlbetonarbeiten Herstellen von nachträglichen Bewehrungsanschlüssen mit Verbundmörtel Beton- und Mauerwerkskeller Fundamente Bodenplatten Garagen 1-6 Familienhäuser Gewerblich: Industriebauten Parkplätze Angebot einholen Abbruch und Sanierung Bauwerksabdichtung Kellersanierung Abbruch von Wohn- und Geschäftsgebäuden sowie Garagen und Pflasterflächen Stemmarbeiten in Gebäuden Umweltgerechte Entsorgung Recycling von Bauschutt angebot einholen Garten- und Landschaftsbau Terrassen Hofeinfahrten Wege Parkplätze Carport Fundamente Pools und Teiche Auffüllungen Lieferung von Mutterboden angebot einholen Kranarbeiten Kranarbeiten bis 21 Meter Arbeiten mit Arbeitsbühne angebot einholen Die Helfri-Bau GmbH ist ein Bauunternehmen aus Frankenberg, was sich auf Hoch-, Tief-, Garten- und Landschaftsbau spezialisiert hat. Kontakt Siegener Str. 53 35066 Frankenberg (Eder) 06451 – 69 46 info@helfri-bau.de Montag – Freitag 7.00 – 16.30 Uhr Rechtliches Datenschutz Impressum Facebook Instagram © 2020 Helfri Baugesellschaft GmbH",
+      "images": [
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo_200x200.jpg",
+          "alt": "Helfri Bau GmbH",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 816,
+          "height_attr": 714,
+          "bytes": 136665,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/worker-of-construction-working-with-a-shovel-beside-material-pile-1.png",
+          "alt": "Erdarbeiten_und_Tiefbau",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 128,
+          "height_attr": 128,
+          "bytes": 4554,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/construction-icon-1-white.png",
+          "alt": "Hochbau",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 128,
+          "height_attr": 128,
+          "bytes": 261,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/bricks-wall-and-demolition-ball.png",
+          "alt": "abbruch_sanierung",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 128,
+          "height_attr": 128,
+          "bytes": 3315,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/house.png",
+          "alt": "Garten_und_Landschaftsbau",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 128,
+          "height_attr": 128,
+          "bytes": 1480,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/construction-crane.png",
+          "alt": "Kran",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 128,
+          "height_attr": 128,
+          "bytes": 3468,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/helfri-baugesellschaft-frankenberg-erdarbeiten-1.jpg",
+          "alt": "Helfri Baugestellschaft Frankenberg Erdarbeiten",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1200,
+          "height_attr": 1200,
+          "bytes": 586844,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/helfri-baugesellschaft-frankenberg-hochbau-maurerarbeiten-1.jpg",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 1200,
+          "height_attr": 1200,
+          "bytes": null,
+          "mime": null,
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/helfri-umbau-abbruch-1.jpg",
+          "alt": "Helfri Baugestellschaft Frankenberg Abbruch Sanierung",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1200,
+          "height_attr": 1200,
+          "bytes": null,
+          "mime": null,
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/Bild-1.jpg",
+          "alt": "Helfri Baugestellschaft Frankenberg Garten und Landschaftsbau",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 800,
+          "height_attr": 800,
+          "bytes": null,
+          "mime": null,
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/helfri-baugestellschaft-frankenberg-kranarbeiten-1.jpg",
+          "alt": "Helfri Baugestellschaft Frankenberg Kranarbeiten",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 899,
+          "height_attr": 899,
+          "bytes": null,
+          "mime": null,
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo-300px-200930.png",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 200,
+          "height_attr": 175,
+          "bytes": 24128,
+          "mime": "image/png",
+          "format": "png"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Holen Sie sich ein kostenloses angebot",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebot einholen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebot einholen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "angebot einholen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "angebot einholen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "angebot einholen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=205",
+            "text": "Datenschutz",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=218",
+            "text": "Impressum",
+            "hash_route": false
+          }
+        ],
+        "external": [
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          }
+        ]
+      },
+      "tel_links": [],
+      "mailto_links": [
+        "mailto:info@helfri-bau.de"
+      ],
+      "forms": 0,
+      "jsonld_types": [],
+      "jsonld": [],
+      "og": {},
+      "og_site_name": null,
+      "html_bytes": 197262,
+      "rolle": "leistungen",
+      "quelle": "link",
+      "hash_route": false,
+      "raw_word_count": 212,
+      "rendered_word_count": 230,
+      "raw_html_bytes": 191102,
+      "response_headers": {
+        "server": "Apache/2.4.68 (Unix)",
+        "x-powered-by": "PHP/8.2.31",
+        "content-type": "text/html; charset=UTF-8"
+      }
+    },
+    {
+      "url": "https://helfri-bau.de/941-2/",
+      "status": 200,
+      "title": "Angebotskalkulator | Helfri Bau GmbH",
+      "meta_description": null,
+      "meta_robots": "max-image-preview:large",
+      "x_robots_tag": null,
+      "canonical": "https://helfri-bau.de/941-2/",
+      "viewport_meta": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Angebotskalkulator"
+        },
+        {
+          "level": 2,
+          "text": "Telefon: 06451 6946"
+        },
+        {
+          "level": 4,
+          "text": "Wir können es kaum erwarten, Ihre Ideen Wirklichkeit werden zu lassen."
+        },
+        {
+          "level": 1,
+          "text": "Angebotskalkulator"
+        },
+        {
+          "level": 4,
+          "text": "Kontakt"
+        },
+        {
+          "level": 4,
+          "text": "Rechtliches"
+        }
+      ],
+      "h1": [
+        "Angebotskalkulator",
+        "Angebotskalkulator"
+      ],
+      "word_count": 330,
+      "text": "06451 - 69 46 info@helfri-bau.de Facebook Instagram Facebook Instagram Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Seite wählen Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Angebotskalkulator Wir machen es Ihnen einfach – rufen Sie uns an, oder füllen Sie bequem und direkt online unseren Angebotskalkulator aus und Sie erhalten von uns ihr individuelles Angebot. Wir freuen uns auf Ihre Nachricht. Telefon: 06451 6946 Wir können es kaum erwarten, Ihre Ideen Wirklichkeit werden zu lassen. Angebotskalkulator Für was interessieren Sie sich? Für was interessieren Sie sich? Keller Wohnhaus Garagen Pflaster Gartengestaltung Umbau und Abbruch Kanalarbeiten Kranarbeiten Schotter, Splitt, Erde Sonstiges Keller Keller Neubau Sanierung Abdichtung Neubau Neubau Beton Mauerwerk Sanierung Sanierung Freilegen des feuchten Kellers Abdichtung Abdichtung Keller nach DIN abdichten Wohnhaus Wohnhaus Neubau | Massivhäuser Garagen Garagen Neubau Abriss Neubau Neubau Fundamente Bodenplatte Mauerwerk Abriss Abriss Entsorgung Recycling Pflaster Pflaster Hofeinfahrt Terrasse Wege Parkplätze Eingangsbereiche Hofeinfahrt Hofeinfahrt Pflaster Randsteine Plattenbeläge Terrasse Terrasse Pflaster Randsteine Plattenbeläge Wege Wege Pflaster Randsteine Plattenbeläge Parkplätze Parkplätze Pflaster Randsteine Plattenbeläge Eingangsbereiche Eingangsbereiche Podeste Palisaden Pflaster Plattenbeläge Gartengestaltung Gartengestaltung Teiche Pools Auffüllungen Baumfällarbeiten Teiche Teiche Baugruben Pools Pools Baugruben Bodenplatten Außenwände Auffüllungen Auffüllungen Mutterboden Baumfällarbeiten Baumfällarbeiten Wurzel entsorgen Umbau und Abbruch Umbau und Abbruch Wohngebäude Garagen Rückbau von Pflasterflächen Bauschuttanlieferung Wohngebäude Wohngebäude Umbau Abbriss Garagen Garagen Umbau Abbriss Rückbau von Pflasterflächen Rückbau von Pflasterflächen Recycling Bauschuttanlieferung Bauschuttanlieferung Recycling Kanalarbeiten Kanalarbeiten Anschlüsse Sanierung Kranarbeiten Kranarbeiten Kran bis 21 Meter Hubarbeitsbühne bis 21 m Schott, Splitter, Erde Schott, Splitter, Erde Wir liefern frei Baustelle! Vorname Name E-Mail Adresse Telefon Nachricht Datenschutz Datenschutz Ich stimme zu, dass meine Angaben aus dem Kontaktformular zur Beantwortung meiner Anfrage elektronisch erhoben und verarbeitet werden. Detaillierte Informationen zum Umgang mit Nutzerdaten finden Sie in unserer Datenschutzerklärung. Angebot anfordern Die Helfri-Bau GmbH ist ein Bauunternehmen aus Frankenberg, was sich auf Hoch-, Tief-, Garten- und Landschaftsbau spezialisiert hat. Kontakt Siegener Str. 53 35066 Frankenberg (Eder) 06451 – 69 46 info@helfri-bau.de Montag – Freitag 7.00 – 16.30 Uhr Rechtliches Datenschutz Impressum Facebook Instagram © 2020 Helfri Baugesellschaft GmbH",
+      "images": [
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo_200x200.jpg",
+          "alt": "Helfri Bau GmbH",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 816,
+          "height_attr": 714,
+          "bytes": 136665,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo-300px-200930.png",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 200,
+          "height_attr": 175,
+          "bytes": 24128,
+          "mime": "image/png",
+          "format": "png"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=205",
+            "text": "Datenschutz",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=218",
+            "text": "Impressum",
+            "hash_route": false
+          }
+        ],
+        "external": [
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          }
+        ]
+      },
+      "tel_links": [],
+      "mailto_links": [
+        "mailto:info@helfri-bau.de"
+      ],
+      "forms": 1,
+      "jsonld_types": [],
+      "jsonld": [],
+      "og": {},
+      "og_site_name": null,
+      "html_bytes": 280748,
+      "rolle": "leistungen",
+      "quelle": "link",
+      "hash_route": false,
+      "raw_word_count": 324,
+      "rendered_word_count": 330,
+      "raw_html_bytes": 278436,
+      "response_headers": {
+        "server": "Apache/2.4.68 (Unix)",
+        "x-powered-by": "PHP/8.2.31",
+        "content-type": "text/html; charset=UTF-8"
+      }
+    },
+    {
+      "url": "https://helfri-bau.de/referenzen/",
+      "status": 200,
+      "title": "Referenzen | Helfri Bau GmbH",
+      "meta_description": null,
+      "meta_robots": "max-image-preview:large",
+      "x_robots_tag": null,
+      "canonical": "https://helfri-bau.de/referenzen/",
+      "viewport_meta": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Referenzen"
+        },
+        {
+          "level": 4,
+          "text": "Kontakt"
+        },
+        {
+          "level": 4,
+          "text": "Rechtliches"
+        }
+      ],
+      "h1": [
+        "Referenzen"
+      ],
+      "word_count": 95,
+      "text": "06451 - 69 46 info@helfri-bau.de Facebook Instagram Facebook Instagram Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Seite wählen Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Referenzen Bodenplatten, Keller, Bürogebäude FH Maurer-, Beton- und Stahlbetonarbeiten, Pflasterarbeiten Gründungspolster, Entwässerungsarbeiten, Bodenplatten Glockenturm, Dörnholzhausen; DGH, Geismar Umbau- und Sanierungsarbeiten Pflasterarbeiten, Betonarbeiten, Entwässerungsarbeiten Maurerarbeiten, Betonarbeiten Die Helfri-Bau GmbH ist ein Bauunternehmen aus Frankenberg, was sich auf Hoch-, Tief-, Garten- und Landschaftsbau spezialisiert hat. Kontakt Siegener Str. 53 35066 Frankenberg (Eder) 06451 – 69 46 info@helfri-bau.de Montag – Freitag 7.00 – 16.30 Uhr Rechtliches Datenschutz Impressum Facebook Instagram © 2020 Helfri Baugesellschaft GmbH",
+      "images": [
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo_200x200.jpg",
+          "alt": "Helfri Bau GmbH",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 816,
+          "height_attr": 714,
+          "bytes": 136665,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/12/Logo-1-300x92.png",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 300,
+          "height_attr": 92,
+          "bytes": 6956,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/12/schwebel.png",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 859,
+          "height_attr": 198,
+          "bytes": 13523,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/12/Logo-5.jpg",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 2414,
+          "height_attr": 391,
+          "bytes": 95070,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/12/Logo-1.jpg",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 690,
+          "height_attr": 607,
+          "bytes": null,
+          "mime": null,
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/12/Logo-3.jpg",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 1970,
+          "height_attr": 656,
+          "bytes": null,
+          "mime": null,
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/12/Logo-4-scaled.jpg",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 2560,
+          "height_attr": 989,
+          "bytes": null,
+          "mime": null,
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/12/Logo-6.jpg",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 2095,
+          "height_attr": 731,
+          "bytes": null,
+          "mime": null,
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/12/freitag.jpg",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 930,
+          "height_attr": 301,
+          "bytes": null,
+          "mime": null,
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo-300px-200930.png",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 200,
+          "height_attr": 175,
+          "bytes": 24128,
+          "mime": "image/png",
+          "format": "png"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=205",
+            "text": "Datenschutz",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=218",
+            "text": "Impressum",
+            "hash_route": false
+          }
+        ],
+        "external": [
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          }
+        ]
+      },
+      "tel_links": [],
+      "mailto_links": [
+        "mailto:info@helfri-bau.de"
+      ],
+      "forms": 0,
+      "jsonld_types": [],
+      "jsonld": [],
+      "og": {},
+      "og_site_name": null,
+      "html_bytes": 160049,
+      "rolle": "referenzen",
+      "quelle": "link",
+      "hash_route": false,
+      "raw_word_count": 89,
+      "rendered_word_count": 95,
+      "raw_html_bytes": 158559,
+      "response_headers": {
+        "server": "Apache/2.4.68 (Unix)",
+        "x-powered-by": "PHP/8.2.31",
+        "content-type": "text/html; charset=UTF-8"
+      }
+    },
+    {
+      "url": "https://helfri-bau.de/maschinenpark/",
+      "status": 200,
+      "title": "Maschinenpark | Helfri Bau GmbH",
+      "meta_description": null,
+      "meta_robots": "max-image-preview:large",
+      "x_robots_tag": null,
+      "canonical": "https://helfri-bau.de/maschinenpark/",
+      "viewport_meta": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Maschinenpark"
+        },
+        {
+          "level": 2,
+          "text": "Auf dem neusten Stand der Technik – unsere Maschinen"
+        },
+        {
+          "level": 3,
+          "text": "Bild 1"
+        },
+        {
+          "level": 3,
+          "text": "Bild 2"
+        },
+        {
+          "level": 3,
+          "text": "Bild 3"
+        },
+        {
+          "level": 3,
+          "text": "Bild 4"
+        },
+        {
+          "level": 3,
+          "text": "Bild 5"
+        },
+        {
+          "level": 3,
+          "text": "Bild 6"
+        },
+        {
+          "level": 4,
+          "text": "Kontakt"
+        },
+        {
+          "level": 4,
+          "text": "Rechtliches"
+        }
+      ],
+      "h1": [
+        "Maschinenpark"
+      ],
+      "word_count": 208,
+      "text": "06451 - 69 46 info@helfri-bau.de Facebook Instagram Facebook Instagram Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Seite wählen Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Maschinenpark Unser Maschinenpark umfasst derzeit ca. 20 kleinere und größere Maschinen. Auf dem neusten Stand der Technik – unsere Maschinen 3 Minibagger 0,9 to. – 2,7 to. 3 Bagger 8 to. bis 15 to. 1 Raupenbagger 25 to. Alle Bagger verfügen über modernste Anbaugeräte wie z. B. Tilt-Rotatoren, Abbruchhammer, Greifer, Verdichterplatten und Brecherlöffel. Bild 1 Bild 2 Bild 3 Bild 4 Bild 5 Bild 6 Vorherige 1 2 Weiter 2 Radlader mit einem Schaufelvolumen von 1 m³ und 2,5 m³ 1 Lkw 7,5 to. Mit Kranaufbau 2 3-Achser Lkw, beide mit Anhänger, 1 Tieflader für Transporte bis 58 to. 1 mobiler Baukran 5 Transporter mit Ladefläche Außerdem verfügen wir über ein umfangreiches Sortiment an Kleingeräten für verschiedenste Einsätze wie z. B. Kernbohrgeräte, Betonsägen, Rüttelplatten und Kettendumper. Derzeit stellen wir unsere Vermessung und Massenermittlung auf ein digitales System um. Die Helfri-Bau GmbH ist ein Bauunternehmen aus Frankenberg, was sich auf Hoch-, Tief-, Garten- und Landschaftsbau spezialisiert hat. Kontakt Siegener Str. 53 35066 Frankenberg (Eder) 06451 – 69 46 info@helfri-bau.de Montag – Freitag 7.00 – 16.30 Uhr Rechtliches Datenschutz Impressum Facebook Instagram © 2020 Helfri Baugesellschaft GmbH",
+      "images": [
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo_200x200.jpg",
+          "alt": "Helfri Bau GmbH",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 816,
+          "height_attr": 714,
+          "bytes": 136665,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/Bild-1-1-400x284.jpg",
+          "alt": null,
+          "alt_meaningful": false,
+          "decorative": false,
+          "width_attr": 400,
+          "height_attr": 284,
+          "bytes": 39715,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/Bild-2-1-400x284.jpg",
+          "alt": null,
+          "alt_meaningful": false,
+          "decorative": false,
+          "width_attr": 400,
+          "height_attr": 284,
+          "bytes": null,
+          "mime": null,
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/Bild-3-1-400x284.jpg",
+          "alt": null,
+          "alt_meaningful": false,
+          "decorative": false,
+          "width_attr": 400,
+          "height_attr": 284,
+          "bytes": null,
+          "mime": null,
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/Bild-4-1-400x284.jpg",
+          "alt": null,
+          "alt_meaningful": false,
+          "decorative": false,
+          "width_attr": 400,
+          "height_attr": 284,
+          "bytes": null,
+          "mime": null,
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/Bild-5-1-400x284.jpg",
+          "alt": null,
+          "alt_meaningful": false,
+          "decorative": false,
+          "width_attr": 400,
+          "height_attr": 284,
+          "bytes": null,
+          "mime": null,
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/Bild-6-1-400x284.jpg",
+          "alt": null,
+          "alt_meaningful": false,
+          "decorative": false,
+          "width_attr": 400,
+          "height_attr": 284,
+          "bytes": null,
+          "mime": null,
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/Bild-9.jpg",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 1200,
+          "height_attr": 1782,
+          "bytes": 648902,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/Bild-10.jpg",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 2560,
+          "height_attr": 1814,
+          "bytes": null,
+          "mime": null,
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo-300px-200930.png",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 200,
+          "height_attr": 175,
+          "bytes": 24128,
+          "mime": "image/png",
+          "format": "png"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/wp-content/uploads/2020/08/Bild-1-1.jpg",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/wp-content/uploads/2020/08/Bild-2-1.jpg",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/wp-content/uploads/2020/08/Bild-3-1-scaled.jpg",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/wp-content/uploads/2020/08/Bild-4-1-scaled.jpg",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/wp-content/uploads/2020/08/Bild-5-1-scaled.jpg",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/wp-content/uploads/2020/08/Bild-6-1-scaled.jpg",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=205",
+            "text": "Datenschutz",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=218",
+            "text": "Impressum",
+            "hash_route": false
+          }
+        ],
+        "external": [
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          }
+        ]
+      },
+      "tel_links": [],
+      "mailto_links": [
+        "mailto:info@helfri-bau.de"
+      ],
+      "forms": 0,
+      "jsonld_types": [],
+      "jsonld": [],
+      "og": {},
+      "og_site_name": null,
+      "html_bytes": 196819,
+      "rolle": "sonstige",
+      "quelle": "link",
+      "hash_route": false,
+      "raw_word_count": 198,
+      "rendered_word_count": 208,
+      "raw_html_bytes": 194693,
+      "response_headers": {
+        "server": "Apache/2.4.68 (Unix)",
+        "x-powered-by": "PHP/8.2.31",
+        "content-type": "text/html; charset=UTF-8"
+      }
+    },
+    {
+      "url": "https://helfri-bau.de/339-2/?et_fb=1&PageSpeed=off",
+      "status": 200,
+      "title": "Kontakt | Helfri Bau GmbH",
+      "meta_description": null,
+      "meta_robots": "max-image-preview:large",
+      "x_robots_tag": null,
+      "canonical": "https://helfri-bau.de/339-2/",
+      "viewport_meta": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Kontakt"
+        },
+        {
+          "level": 2,
+          "text": "Kontaktinfo"
+        },
+        {
+          "level": 4,
+          "text": "Adresse"
+        },
+        {
+          "level": 4,
+          "text": "Öffnungszeiten"
+        },
+        {
+          "level": 4,
+          "text": "E-Mail und Telefon"
+        },
+        {
+          "level": 2,
+          "text": ""
+        },
+        {
+          "level": 4,
+          "text": "Wir können es kaum erwarten, Ihre Ideen Wirklichkeit werden zu lassen."
+        },
+        {
+          "level": 2,
+          "text": "Get in touch: Den ersten Kontakt vergisst man nie!"
+        },
+        {
+          "level": 4,
+          "text": "Kontakt"
+        },
+        {
+          "level": 4,
+          "text": "Rechtliches"
+        }
+      ],
+      "h1": [
+        "Kontakt"
+      ],
+      "word_count": 216,
+      "text": "06451 - 69 46 info@helfri-bau.de Facebook Instagram Facebook Instagram Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Seite wählen Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Kontakt Schreiben oder rufen Sie uns an – wir beraten gerne! E-Mail senden Kontaktinfo  Adresse Siegener Strasse 53, 35066 Frankenberg (Eder) } Öffnungszeiten Montag – Freitag 7.00 – 16.30 Uhr v E-Mail und Telefon info@helfri-bau.de 06451 – 69 46 Folgen Folgen MARKUS HOFFMANN Maurermeister Geschäftsführer ALEXANDRA HOFFMANN Kauffrau Verwaltung, Personalwesen, Rechnungswesen SEBASTIAN BACKHAUS Technischer Angestellter Kalkulation, Arbeitsvorbereitung THOMAS FALLENBÜCHEL Maurer- u. Betonbauermeister Bauleitung KERSTIN RISSE Kfm. Angestellte Verwaltung, Personalwesen, Rechnungswesen Wir können es kaum erwarten, Ihre Ideen Wirklichkeit werden zu lassen. Get in touch: Den ersten Kontakt vergisst man nie! Interesse an einer Zusammenarbeit oder doch einfach nur eine Frage? Ganz egal – wir freuen uns auf Ihre Nachricht. Name E-Mail Ihre Nachricht Datzenschutz Datzenschutz Ich stimme zu, dass meine Angaben aus dem Kontaktformular zur Beantwortung meiner Anfrage elektronisch erhoben und verarbeitet werden. Detaillierte Informationen zum Umgang mit Nutzerdaten finden Sie in unserer Datenschutzerklärung. Absenden Die Helfri-Bau GmbH ist ein Bauunternehmen aus Frankenberg, was sich auf Hoch-, Tief-, Garten- und Landschaftsbau spezialisiert hat. Kontakt Siegener Str. 53 35066 Frankenberg (Eder) 06451 – 69 46 info@helfri-bau.de Montag – Freitag 7.00 – 16.30 Uhr Rechtliches Datenschutz Impressum Facebook Instagram © 2020 Helfri Baugesellschaft GmbH",
+      "images": [
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo_200x200.jpg",
+          "alt": "Helfri Bau GmbH",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 816,
+          "height_attr": 714,
+          "bytes": 136665,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/Markus_Hoffmann_Geschaeftsfuehrer_Maurermeister.jpg",
+          "alt": "Markus_Hoffmann_Geschäftsführer_Maurermeister",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1024,
+          "height_attr": 682,
+          "bytes": 44298,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/Alexandra_Hoffmann_Assistentin_der_Geschaeftsleitung_Personalwesen_Rechnungswesen.jpg",
+          "alt": "Alexandra_Hoffmann_Assistentin_der_Geschäftsleitung_Personalwesen_Rechnungswesen",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1024,
+          "height_attr": 682,
+          "bytes": 49855,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2024/12/Helfri_SW-Sebastian.jpg",
+          "alt": "Volker_Stange_Technischer_Angestellter_Kalkulation_Arbeitsvorbereitung",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1000,
+          "height_attr": 667,
+          "bytes": 163897,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/08/Thomas_Fallenbuechel_Maurermeister_Betonmeister_Bauleitung.jpg",
+          "alt": "Thomas_Fallenbüchel_Maurermeister_Betonmeister_Bauleitung",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 1024,
+          "height_attr": 682,
+          "bytes": null,
+          "mime": null,
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2024/12/Kerstin-Risse-Helfri-Bau-1.jpg",
+          "alt": "Volker_Stange_Technischer_Angestellter_Kalkulation_Arbeitsvorbereitung",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 872,
+          "height_attr": 585,
+          "bytes": 80315,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo-300px-200930.png",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 200,
+          "height_attr": 175,
+          "bytes": 24128,
+          "mime": "image/png",
+          "format": "png"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/datenschutzerklaerung/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=205",
+            "text": "Datenschutz",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=218",
+            "text": "Impressum",
+            "hash_route": false
+          }
+        ],
+        "external": [
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Folgen",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Folgen",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          }
+        ]
+      },
+      "tel_links": [],
+      "mailto_links": [
+        "mailto:info@helfri-bau.de"
+      ],
+      "forms": 1,
+      "jsonld_types": [],
+      "jsonld": [],
+      "og": {},
+      "og_site_name": null,
+      "html_bytes": 165717,
+      "rolle": "sonstige",
+      "quelle": "link",
+      "hash_route": false,
+      "raw_word_count": 210,
+      "rendered_word_count": 216,
+      "raw_html_bytes": 164461,
+      "response_headers": {
+        "server": "Apache/2.4.68 (Unix)",
+        "x-powered-by": "PHP/8.2.31",
+        "content-type": "text/html; charset=UTF-8"
+      }
+    },
+    {
+      "url": "https://helfri-bau.de/hello-world/",
+      "status": 200,
+      "title": "Hello world! | Helfri Bau GmbH",
+      "meta_description": null,
+      "meta_robots": "max-image-preview:large",
+      "x_robots_tag": null,
+      "canonical": "https://helfri-bau.de/hello-world/",
+      "viewport_meta": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Hello world!"
+        },
+        {
+          "level": 1,
+          "text": "1 Kommentar"
+        },
+        {
+          "level": 3,
+          "text": "Kommentar absenden Antwort abbrechen"
+        },
+        {
+          "level": 4,
+          "text": "Neueste Beiträge"
+        },
+        {
+          "level": 4,
+          "text": "Neueste Kommentare"
+        },
+        {
+          "level": 4,
+          "text": "Archiv"
+        },
+        {
+          "level": 4,
+          "text": "Kategorien"
+        },
+        {
+          "level": 4,
+          "text": "Meta"
+        },
+        {
+          "level": 4,
+          "text": "Kontakt"
+        },
+        {
+          "level": 4,
+          "text": "Rechtliches"
+        }
+      ],
+      "h1": [
+        "Hello world!",
+        "1 Kommentar"
+      ],
+      "word_count": 185,
+      "text": "06451 - 69 46 info@helfri-bau.de Facebook Instagram Facebook Instagram Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Seite wählen Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Hello world! von admin | Aug. 11, 2020 | Uncategorized | 1 Kommentar Welcome to WordPress. This is your first post. Edit or delete it, then start writing! 1 Kommentar A WordPress Commenter am Juni 15, 2019 um 3:59 a.m. Hi, this is a comment. To get started with moderating, editing, and deleting comments, please visit the Comments screen in the dashboard. Commenter avatars come from Gravatar . Antworten Kommentar absenden Antwort abbrechen Deine E-Mail-Adresse wird nicht veröffentlicht. Erforderliche Felder sind mit * markiert Kommentar * Name * E-Mail-Adresse * Website Suchen nach: Neueste Beiträge Hello world! Neueste Kommentare A WordPress Commenter zu Hello world! Archiv August 2020 Kategorien Uncategorized Meta Anmelden Eintrags-Feed Kommentar-Feed WordPress.org Die Helfri-Bau GmbH ist ein Bauunternehmen aus Frankenberg, was sich auf Hoch-, Tief-, Garten- und Landschaftsbau spezialisiert hat. Kontakt Siegener Str. 53 35066 Frankenberg (Eder) 06451 – 69 46 info@helfri-bau.de Montag – Freitag 7.00 – 16.30 Uhr Rechtliches Datenschutz Impressum Facebook Instagram © 2020 Helfri Baugesellschaft GmbH",
+      "images": [
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo_200x200.jpg",
+          "alt": "Helfri Bau GmbH",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 816,
+          "height_attr": 714,
+          "bytes": 136665,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://secure.gravatar.com/avatar/8e1606e6fba450a9362af43874c1b2dfad34c782e33d0a51e1b46c18a2a567dd?s=80&d=mm&r=g",
+          "alt": "A WordPress Commenter",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 80,
+          "height_attr": 80,
+          "bytes": 5860,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo-300px-200930.png",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 200,
+          "height_attr": 175,
+          "bytes": 24128,
+          "mime": "image/png",
+          "format": "png"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/author/admin/",
+            "text": "admin",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/category/uncategorized/",
+            "text": "Uncategorized",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/hello-world/",
+            "text": "1 Kommentar",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/hello-world/?replytocom=1",
+            "text": "Antworten",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/hello-world/",
+            "text": "Antwort abbrechen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/hello-world/",
+            "text": "Hello world!",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/hello-world/",
+            "text": "Hello world!",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/2020/08/",
+            "text": "August 2020",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/category/uncategorized/",
+            "text": "Uncategorized",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/wp-login.php",
+            "text": "Anmelden",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/feed/",
+            "text": "Eintrags-Feed",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/comments/feed/",
+            "text": "Kommentar-Feed",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=205",
+            "text": "Datenschutz",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=218",
+            "text": "Impressum",
+            "hash_route": false
+          }
+        ],
+        "external": [
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://wordpress.org/",
+            "text": "A WordPress Commenter",
+            "hash_route": false
+          },
+          {
+            "url": "https://gravatar.com/",
+            "text": "Gravatar",
+            "hash_route": false
+          },
+          {
+            "url": "https://wordpress.org/",
+            "text": "A WordPress Commenter",
+            "hash_route": false
+          },
+          {
+            "url": "https://de.wordpress.org/",
+            "text": "WordPress.org",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          }
+        ]
+      },
+      "tel_links": [],
+      "mailto_links": [
+        "mailto:info@helfri-bau.de"
+      ],
+      "forms": 2,
+      "jsonld_types": [],
+      "jsonld": [],
+      "og": {},
+      "og_site_name": null,
+      "html_bytes": 166999,
+      "rolle": "sonstige",
+      "quelle": "sitemap",
+      "hash_route": false,
+      "raw_word_count": 179,
+      "rendered_word_count": 185,
+      "raw_html_bytes": 165244,
+      "response_headers": {
+        "server": "Apache/2.4.68 (Unix)",
+        "x-powered-by": "PHP/8.2.31",
+        "content-type": "text/html; charset=UTF-8"
+      }
+    },
+    {
+      "url": "https://helfri-bau.de/cookie-richtlinie-eu/",
+      "status": 200,
+      "title": "Cookie-Richtlinie (EU) | Helfri Bau GmbH",
+      "meta_description": null,
+      "meta_robots": "max-image-preview:large",
+      "x_robots_tag": null,
+      "canonical": "https://helfri-bau.de/cookie-richtlinie-eu/",
+      "viewport_meta": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Cookie-Richtlinie (EU)"
+        },
+        {
+          "level": 4,
+          "text": "Kontakt"
+        },
+        {
+          "level": 4,
+          "text": "Rechtliches"
+        }
+      ],
+      "h1": [
+        "Cookie-Richtlinie (EU)"
+      ],
+      "word_count": 72,
+      "text": "06451 - 69 46 info@helfri-bau.de Facebook Instagram Facebook Instagram Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Seite wählen Start Leistungen Maschinenpark Referenzen Angebotskalkulator Kontakt Cookie-Richtlinie (EU) Die Helfri-Bau GmbH ist ein Bauunternehmen aus Frankenberg, was sich auf Hoch-, Tief-, Garten- und Landschaftsbau spezialisiert hat. Kontakt Siegener Str. 53 35066 Frankenberg (Eder) 06451 – 69 46 info@helfri-bau.de Montag – Freitag 7.00 – 16.30 Uhr Rechtliches Datenschutz Impressum Facebook Instagram © 2020 Helfri Baugesellschaft GmbH",
+      "images": [
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo_200x200.jpg",
+          "alt": "Helfri Bau GmbH",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": 816,
+          "height_attr": 714,
+          "bytes": 136665,
+          "mime": "image/jpeg",
+          "format": "jpg"
+        },
+        {
+          "src": "https://helfri-bau.de/wp-content/uploads/2020/09/Helfri_Logo-300px-200930.png",
+          "alt": "",
+          "alt_meaningful": false,
+          "decorative": true,
+          "width_attr": 200,
+          "height_attr": 175,
+          "bytes": 24128,
+          "mime": "image/png",
+          "format": "png"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/",
+            "text": "Start",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/324-2/",
+            "text": "Leistungen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/maschinenpark/",
+            "text": "Maschinenpark",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/referenzen/",
+            "text": "Referenzen",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/941-2/",
+            "text": "Angebotskalkulator",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/339-2/",
+            "text": "Kontakt",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=205",
+            "text": "Datenschutz",
+            "hash_route": false
+          },
+          {
+            "url": "https://helfri-bau.de/?page_id=218",
+            "text": "Impressum",
+            "hash_route": false
+          }
+        ],
+        "external": [
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          },
+          {
+            "url": "https://de-de.facebook.com/HelfriBaugesellschaftMbh/",
+            "text": "Facebook",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.instagram.com/helfri_baugesellschaft/",
+            "text": "Instagram",
+            "hash_route": false
+          }
+        ]
+      },
+      "tel_links": [],
+      "mailto_links": [
+        "mailto:info@helfri-bau.de"
+      ],
+      "forms": 0,
+      "jsonld_types": [],
+      "jsonld": [],
+      "og": {},
+      "og_site_name": null,
+      "html_bytes": 151158,
+      "rolle": "sonstige",
+      "quelle": "sitemap",
+      "hash_route": false,
+      "raw_word_count": 66,
+      "rendered_word_count": 72,
+      "raw_html_bytes": 143447,
+      "response_headers": {
+        "server": "Apache/2.4.68 (Unix)",
+        "x-powered-by": "PHP/8.2.31",
+        "content-type": "text/html; charset=UTF-8"
+      }
+    }
+  ],
+  "resources": {
+    "total": 289,
+    "errors": [],
+    "hosts": [
+      "helfri-bau.de",
+      "secure.gravatar.com"
+    ]
+  },
+  "links": {
+    "checked": 24,
+    "broken": []
+  },
+  "mobile": {
+    "viewport_meta": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
+    "user_scalable": false,
+    "maximum_scale": "1.0",
+    "has_width_device_width": true,
+    "horizontal_overflow_px": 0,
+    "base_font_px": 12,
+    "contrast_ratio": 15.91,
+    "interactive_total": 18,
+    "interactive_small": 11,
+    "first_screen_elements": [
+      {
+        "tag": "button",
+        "text": "Cookies akzeptieren",
+        "href": null,
+        "is_tel": false,
+        "is_mail": false
+      },
+      {
+        "tag": "button",
+        "text": "Ablehnen",
+        "href": null,
+        "is_tel": false,
+        "is_mail": false
+      },
+      {
+        "tag": "button",
+        "text": "Einstellungen anzeigen",
+        "href": null,
+        "is_tel": false,
+        "is_mail": false
+      },
+      {
+        "tag": "a",
+        "text": "info@helfri-bau.de",
+        "href": "mailto:info@helfri-bau.de",
+        "is_tel": false,
+        "is_mail": true
+      },
+      {
+        "tag": "a",
+        "text": "",
+        "href": "https://helfri-bau.de/",
+        "is_tel": false,
+        "is_mail": false
+      },
+      {
+        "tag": "a",
+        "text": "Unsere Leistungen",
+        "href": "https://helfri-bau.de/324-2/",
+        "is_tel": false,
+        "is_mail": false
+      }
+    ],
+    "overflow_pages": [],
+    "overflow_checked": 6
+  },
+  "consent": {
+    "clean": {
+      "mode": "clean",
+      "reachable": true,
+      "hosts": [
+        "helfri-bau.de",
+        ""
+      ],
+      "cookies": [],
+      "storage": {
+        "local": [],
+        "session": []
+      },
+      "consent_click": {
+        "clicked": false,
+        "label": null
+      },
+      "banner_detected": true,
+      "error": null
+    },
+    "reject": {
+      "mode": "reject",
+      "reachable": true,
+      "hosts": [
+        "helfri-bau.de",
+        ""
+      ],
+      "cookies": [
+        {
+          "name": "cmplz_banner-status",
+          "domain": "helfri-bau.de"
+        },
+        {
+          "name": "cmplz_policy_id",
+          "domain": "helfri-bau.de"
+        },
+        {
+          "name": "cmplz_marketing",
+          "domain": "helfri-bau.de"
+        },
+        {
+          "name": "cmplz_statistics",
+          "domain": "helfri-bau.de"
+        },
+        {
+          "name": "cmplz_preferences",
+          "domain": "helfri-bau.de"
+        },
+        {
+          "name": "cmplz_functional",
+          "domain": "helfri-bau.de"
+        },
+        {
+          "name": "cmplz_consented_services",
+          "domain": "helfri-bau.de"
+        }
+      ],
+      "storage": {
+        "local": [],
+        "session": []
+      },
+      "consent_click": {
+        "clicked": true,
+        "label": "Ablehnen",
+        "pattern": "/ablehnen/i"
+      },
+      "banner_detected": false,
+      "error": null
+    },
+    "accept": {
+      "mode": "accept",
+      "reachable": true,
+      "hosts": [
+        "helfri-bau.de",
+        ""
+      ],
+      "cookies": [
+        {
+          "name": "cmplz_consented_services",
+          "domain": "helfri-bau.de"
+        },
+        {
+          "name": "cmplz_policy_id",
+          "domain": "helfri-bau.de"
+        },
+        {
+          "name": "cmplz_marketing",
+          "domain": "helfri-bau.de"
+        },
+        {
+          "name": "cmplz_statistics",
+          "domain": "helfri-bau.de"
+        },
+        {
+          "name": "cmplz_preferences",
+          "domain": "helfri-bau.de"
+        },
+        {
+          "name": "cmplz_functional",
+          "domain": "helfri-bau.de"
+        },
+        {
+          "name": "cmplz_banner-status",
+          "domain": "helfri-bau.de"
+        }
+      ],
+      "storage": {
+        "local": [],
+        "session": []
+      },
+      "consent_click": {
+        "clicked": true,
+        "label": "Cookies akzeptieren",
+        "pattern": "/akzeptieren/i"
+      },
+      "banner_detected": false,
+      "error": null
+    },
+    "own_host": "helfri-bau.de"
+  },
+  "impressum": {
+    "found": true,
+    "url": "https://helfri-bau.de/impressum/",
+    "chars": 3426,
+    "rechtsform": "mbH",
+    "firmenname": "Helfri Baugesellschaft mbH",
+    "vertretung": "Markus Hoffmann",
+    "register": "HRB 3881",
+    "registergericht": "Amtsgericht Marburg (Lahn) Registernummer",
+    "ustid": "DE113073661",
+    "telefon": "06451 - 69 46",
+    "email": "info@helfri-bau.de",
+    "adresse": {
+      "strasse": "Siegener Strasse 53",
+      "plz": "35066",
+      "ort": "Frankenberg (Eder)",
+      "raw": "Siegener Strasse 53, 35066 Frankenberg (Eder)"
+    },
+    "mentions_tmg": true,
+    "mentions_ddg": false,
+    "mentions_kammer": false,
+    "mentions_berufsbezeichnung": false,
+    "odr_link": false,
+    "vsbg_hinweis": true,
+    "placeholders": []
+  },
+  "datenschutz": {
+    "found": true,
+    "url": "https://helfri-bau.de/datenschutzerklaerung/",
+    "chars": 9660,
+    "services": {
+      "google_maps": false,
+      "google_fonts": false,
+      "google_analytics": false,
+      "google_tag_manager": false,
+      "youtube": false,
+      "vimeo": false,
+      "facebook": true,
+      "instagram": true,
+      "recaptcha": false,
+      "hotjar": false,
+      "matomo": false,
+      "cloudflare": false
+    },
+    "mentions_hosting": false,
+    "mentions_tdddg": false,
+    "mentions_auftragsverarbeitung": false,
+    "mentions_speicherdauer": false,
+    "placeholders": []
+  },
+  "company_names": {
+    "raw": [
+      {
+        "source": "title",
+        "value": "Helfri Bau GmbH"
+      },
+      {
+        "source": "footer",
+        "value": "Helfri Baugesellschaft GmbH",
+        "page": "https://helfri-bau.de/"
+      },
+      {
+        "source": "impressum",
+        "value": "Helfri Baugesellschaft mbH"
+      }
+    ],
+    "schreibweisen": [
+      "Helfri Bau GmbH",
+      "Helfri Baugesellschaft GmbH",
+      "Helfri Baugesellschaft mbH"
+    ],
+    "variants": [
+      {
+        "key": "helfribau",
+        "sources": [
+          {
+            "source": "title",
+            "value": "Helfri Bau GmbH"
+          }
+        ]
+      },
+      {
+        "key": "helfribaugesellschaft",
+        "sources": [
+          {
+            "source": "footer",
+            "value": "Helfri Baugesellschaft GmbH",
+            "page": "https://helfri-bau.de/"
+          },
+          {
+            "source": "impressum",
+            "value": "Helfri Baugesellschaft mbH"
+          }
+        ]
+      }
+    ],
+    "rechtsform_konflikte": [
+      {
+        "key": "helfribaugesellschaft",
+        "formen": [
+          "GmbH",
+          "mbH"
+        ],
+        "sources": [
+          "footer",
+          "impressum"
+        ]
+      }
+    ]
+  },
+  "nap": [
+    {
+      "source": "startseite",
+      "adresse": {
+        "strasse": "Siegener Str. 53",
+        "plz": "35066",
+        "ort": "Frankenberg (Eder)",
+        "raw": "Siegener Str. 53, 35066 Frankenberg (Eder)"
+      },
+      "adresse_norm": "siegenerstr5335066frankenbergeder",
+      "telefon": "06451 - 69 46",
+      "telefon_norm": "064516946"
+    },
+    {
+      "source": "startseite",
+      "adresse": {
+        "strasse": "Siegener Strasse 53",
+        "plz": "35066",
+        "ort": "Frankenberg (Eder)",
+        "raw": "Siegener Strasse 53, 35066 Frankenberg (Eder)"
+      },
+      "adresse_norm": "siegenerstr5335066frankenbergeder",
+      "telefon": "06451 - 69 46",
+      "telefon_norm": "064516946"
+    },
+    {
+      "source": "https://helfri-bau.de/impressum/",
+      "adresse": {
+        "strasse": "Siegener Strasse 53",
+        "plz": "35066",
+        "ort": "Frankenberg (Eder)",
+        "raw": "Siegener Strasse 53, 35066 Frankenberg (Eder)"
+      },
+      "adresse_norm": "siegenerstr5335066frankenbergeder",
+      "telefon": "06451 - 69 46",
+      "telefon_norm": "064516946"
+    },
+    {
+      "source": "https://helfri-bau.de/datenschutzerklaerung/",
+      "adresse": {
+        "strasse": "Siegener Strasse 53",
+        "plz": "35066",
+        "ort": "Frankenberg (Eder)",
+        "raw": "Siegener Strasse 53, 35066 Frankenberg (Eder)"
+      },
+      "adresse_norm": "siegenerstr5335066frankenbergeder",
+      "telefon": "06451 - 69 46",
+      "telefon_norm": "064516946"
+    },
+    {
+      "source": "https://helfri-bau.de/339-2/",
+      "adresse": {
+        "strasse": "Siegener Strasse 53",
+        "plz": "35066",
+        "ort": "Frankenberg (Eder)",
+        "raw": "Siegener Strasse 53, 35066 Frankenberg (Eder)"
+      },
+      "adresse_norm": "siegenerstr5335066frankenbergeder",
+      "telefon": "06451 - 69 46",
+      "telefon_norm": "064516946"
+    },
+    {
+      "source": "https://helfri-bau.de/324-2/",
+      "adresse": {
+        "strasse": "Siegener Str. 53",
+        "plz": "35066",
+        "ort": "Frankenberg (Eder)",
+        "raw": "Siegener Str. 53, 35066 Frankenberg (Eder)"
+      },
+      "adresse_norm": "siegenerstr5335066frankenbergeder",
+      "telefon": "06451 - 69 46",
+      "telefon_norm": "064516946"
+    },
+    {
+      "source": "https://helfri-bau.de/941-2/",
+      "adresse": {
+        "strasse": "Siegener Str. 53",
+        "plz": "35066",
+        "ort": "Frankenberg (Eder)",
+        "raw": "Siegener Str. 53, 35066 Frankenberg (Eder)"
+      },
+      "adresse_norm": "siegenerstr5335066frankenbergeder",
+      "telefon": "06451 - 69 46",
+      "telefon_norm": "064516946"
+    },
+    {
+      "source": "https://helfri-bau.de/referenzen/",
+      "adresse": {
+        "strasse": "Siegener Str. 53",
+        "plz": "35066",
+        "ort": "Frankenberg (Eder)",
+        "raw": "Siegener Str. 53, 35066 Frankenberg (Eder)"
+      },
+      "adresse_norm": "siegenerstr5335066frankenbergeder",
+      "telefon": "06451 - 69 46",
+      "telefon_norm": "064516946"
+    },
+    {
+      "source": "https://helfri-bau.de/maschinenpark/",
+      "adresse": {
+        "strasse": "Siegener Str. 53",
+        "plz": "35066",
+        "ort": "Frankenberg (Eder)",
+        "raw": "Siegener Str. 53, 35066 Frankenberg (Eder)"
+      },
+      "adresse_norm": "siegenerstr5335066frankenbergeder",
+      "telefon": "06451 - 69 46",
+      "telefon_norm": "064516946"
+    },
+    {
+      "source": "https://helfri-bau.de/339-2/?et_fb=1&PageSpeed=off",
+      "adresse": {
+        "strasse": "Siegener Strasse 53",
+        "plz": "35066",
+        "ort": "Frankenberg (Eder)",
+        "raw": "Siegener Strasse 53, 35066 Frankenberg (Eder)"
+      },
+      "adresse_norm": "siegenerstr5335066frankenbergeder",
+      "telefon": "06451 - 69 46",
+      "telefon_norm": "064516946"
+    },
+    {
+      "source": "https://helfri-bau.de/hello-world/",
+      "adresse": {
+        "strasse": "Siegener Str. 53",
+        "plz": "35066",
+        "ort": "Frankenberg (Eder)",
+        "raw": "Siegener Str. 53, 35066 Frankenberg (Eder)"
+      },
+      "adresse_norm": "siegenerstr5335066frankenbergeder",
+      "telefon": "06451 - 69 46",
+      "telefon_norm": "064516946"
+    },
+    {
+      "source": "https://helfri-bau.de/cookie-richtlinie-eu/",
+      "adresse": {
+        "strasse": "Siegener Str. 53",
+        "plz": "35066",
+        "ort": "Frankenberg (Eder)",
+        "raw": "Siegener Str. 53, 35066 Frankenberg (Eder)"
+      },
+      "adresse_norm": "siegenerstr5335066frankenbergeder",
+      "telefon": "06451 - 69 46",
+      "telefon_norm": "064516946"
+    }
+  ],
+  "robots_txt": {
+    "found": true,
+    "sitemaps": [
+      "https://helfri-bau.de/wp-sitemap.xml"
+    ],
+    "disallow": [
+      "/wp-admin/"
+    ],
+    "ai_crawlers": {
+      "gptbot": "not_mentioned",
+      "claudebot": "not_mentioned",
+      "anthropic-ai": "not_mentioned",
+      "perplexitybot": "not_mentioned",
+      "google-extended": "not_mentioned",
+      "ccbot": "not_mentioned",
+      "bytespider": "not_mentioned"
+    }
+  },
+  "sitemap": {
+    "found": true,
+    "source": "https://helfri-bau.de/wp-sitemap.xml",
+    "entries": 12
+  },
+  "llms_txt": {
+    "found": false
+  },
+  "psi": {
+    "mobile": {
+      "available": false,
+      "reason": "kein PSI_API_KEY gesetzt",
+      "strategy": "mobile"
+    },
+    "desktop": {
+      "available": false,
+      "reason": "kein PSI_API_KEY gesetzt",
+      "strategy": "desktop"
+    }
+  },
+  "content": {
+    "concrete_facts": {
+      "count": 14,
+      "samples": [
+        "25t",
+        "21 Meter",
+        "21 m",
+        "0,9 to",
+        "2,7 to",
+        "8 to",
+        "15 to",
+        "25 to",
+        "1 m",
+        "2,5 m",
+        "7,5 to",
+        "58 to",
+        "DIN 1610",
+        "nach DIN"
+      ]
+    },
+    "faq": [],
+    "jsonld_types": []
+  },
+  "screenshots": {
+    "desktop_fold": "screenshots/desktop-fold.png",
+    "desktop_full": "screenshots/desktop-full.png",
+    "mobile_fold": "screenshots/mobile-fold.png",
+    "mobile_full": "screenshots/mobile-full.png"
+  }
+}

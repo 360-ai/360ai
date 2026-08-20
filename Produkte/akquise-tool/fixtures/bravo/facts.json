@@ -1,0 +1,1036 @@
+{
+  "meta": {
+    "collector_version": "1.0.0",
+    "scanned_at": "2026-08-14T23:13:11.107Z",
+    "user_agent": "Mozilla/5.0 (compatible; 360ai-Akquise-Check/1.0; +https://www.360-ai.org/bot)",
+    "lead_id": "TEST-bravo",
+    "branche": "gastronomie",
+    "keyword": null,
+    "input_url": "https://bravo-fkb.de/",
+    "audit_dir": "(fixture)",
+    "pages_checked": [
+      {
+        "url": "https://www.bravo-fkb.de/",
+        "rolle": "startseite",
+        "status": 200
+      },
+      {
+        "url": "https://www.bravo-fkb.de/#/impressum",
+        "rolle": "impressum",
+        "status": 200
+      },
+      {
+        "url": "https://www.bravo-fkb.de/#/speisekarte",
+        "rolle": "leistungen",
+        "status": 200
+      },
+      {
+        "url": "https://www.bravo-fkb.de/#/standort",
+        "rolle": "standort",
+        "status": 200
+      }
+    ],
+    "errors": [
+      "PageSpeed mobil nicht verfuegbar: kein PSI_API_KEY gesetzt"
+    ],
+    "candidates_total": 4,
+    "skipped_by_robots": [],
+    "eingefroren_am": "2026-08-15",
+    "fixture_quelle": "bravo-fkb.de, Live-Scan 14.08.2026"
+  },
+  "http": {
+    "reachable": true,
+    "requested_url": "https://bravo-fkb.de/",
+    "final_url": "https://www.bravo-fkb.de/",
+    "status": 200,
+    "redirect_chain": [
+      {
+        "url": "https://bravo-fkb.de/",
+        "status": 301,
+        "location": "https://www.bravo-fkb.de/"
+      },
+      {
+        "url": "https://www.bravo-fkb.de/",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "https": true,
+    "hsts": false,
+    "http_protocol": "h2",
+    "ttfb_ms": {
+      "median": 34,
+      "min": 24,
+      "max": 64,
+      "runs": 3
+    },
+    "http_variant": {
+      "status": 200,
+      "redirect_chain": [
+        {
+          "url": "http://bravo-fkb.de/",
+          "status": 301,
+          "location": "https://www.bravo-fkb.de/"
+        },
+        {
+          "url": "https://www.bravo-fkb.de/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "lands_on_https": true
+    },
+    "other_host": {
+      "host": "www.bravo-fkb.de",
+      "status": 200,
+      "final_url": "https://www.bravo-fkb.de/",
+      "redirects_to_primary": true
+    }
+  },
+  "tech": {
+    "generator": null,
+    "cms": null,
+    "cms_version": null,
+    "theme": null,
+    "jquery_version": null,
+    "server": "nginx",
+    "powered_by": "PleskLin",
+    "theme_version": null
+  },
+  "pages": [
+    {
+      "url": "https://www.bravo-fkb.de/",
+      "status": 200,
+      "title": "Bravo",
+      "meta_description": "Bravo Restaurant",
+      "meta_robots": null,
+      "x_robots_tag": null,
+      "canonical": null,
+      "viewport_meta": "user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width",
+      "headings": [
+        {
+          "level": 2,
+          "text": "Öffnungszeiten"
+        },
+        {
+          "level": 2,
+          "text": "Kontakt"
+        }
+      ],
+      "h1": [],
+      "word_count": 32,
+      "text": "Wir haben leider geschlossen Home Speisekarte Standort Impressum Wir haben leider geschlossen Speisekarte Standort Impressum Speisekarte 06451-2305066 Öffnungszeiten Montag11:00-22:00 Dienstag11:00-22:00 Mittwoch11:00-22:00 Donnerstag11:00-22:00 Freitag11:00-22:00 Samstag11:00-22:00 Sonntag11:00-22:00 Kontakt 0174-1914747 (WhatsApp) 06451-2305066 info@bravo-fkb.de Speisekarte Anfahrt",
+      "images": [
+        {
+          "src": "https://www.bravo-fkb.de/logo.png",
+          "alt": "Logo",
+          "alt_meaningful": false,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 623870,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://www.bravo-fkb.de/social-media-logos/lieferando-logo.png",
+          "alt": "Lieferando Icon",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 5286,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://www.bravo-fkb.de/social-media-logos/whatsapp-logo.png",
+          "alt": "Facebook Icon",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 60451,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://www.bravo-fkb.de/social-media-logos/instagram-logo.png",
+          "alt": "Instagram Icon",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 522640,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://www.bravo-fkb.de/logo.png",
+          "alt": "Logo",
+          "alt_meaningful": false,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 623870,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://www.bravo-fkb.de/media/icons/forkknife.svg",
+          "alt": "fork-knife icon",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 888,
+          "mime": "image/svg+xml",
+          "format": "svg+xml"
+        },
+        {
+          "src": "https://www.bravo-fkb.de/media/icons/telephone.svg",
+          "alt": "telephone icon",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 570,
+          "mime": "image/svg+xml",
+          "format": "svg+xml"
+        },
+        {
+          "src": "https://www.bravo-fkb.de/media/icons/telephone.svg",
+          "alt": "telephone icon",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 570,
+          "mime": "image/svg+xml",
+          "format": "svg+xml"
+        },
+        {
+          "src": "https://www.bravo-fkb.de/media/icons/telephone.svg",
+          "alt": "telephone icon",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 570,
+          "mime": "image/svg+xml",
+          "format": "svg+xml"
+        },
+        {
+          "src": "https://www.bravo-fkb.de/media/icons/mail.svg",
+          "alt": "mail icon",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 562,
+          "mime": "image/svg+xml",
+          "format": "svg+xml"
+        },
+        {
+          "src": "https://www.bravo-fkb.de/media/icons/forkknife.svg",
+          "alt": "fork-knife icon",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 888,
+          "mime": "image/svg+xml",
+          "format": "svg+xml"
+        },
+        {
+          "src": "https://www.bravo-fkb.de/media/icons/map.svg",
+          "alt": "map icon",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 532,
+          "mime": "image/svg+xml",
+          "format": "svg+xml"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://www.bravo-fkb.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/",
+            "text": "Home",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/speisekarte",
+            "text": "Speisekarte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/standort",
+            "text": "Standort",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/impressum",
+            "text": "Impressum",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/speisekarte",
+            "text": "Speisekarte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/standort",
+            "text": "Standort",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/impressum",
+            "text": "Impressum",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/speisekarte",
+            "text": "Speisekarte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/speisekarte",
+            "text": "Speisekarte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/standort",
+            "text": "Anfahrt",
+            "hash_route": false
+          }
+        ],
+        "external": [
+          {
+            "url": "https://wa.me/+491741914747",
+            "text": "0174-1914747 (WhatsApp)",
+            "hash_route": false
+          }
+        ]
+      },
+      "tel_links": [
+        "tel:06451-2305066"
+      ],
+      "mailto_links": [
+        "mailto:info@bravo-fkb.de"
+      ],
+      "forms": 0,
+      "jsonld_types": [],
+      "jsonld": [],
+      "og": {},
+      "og_site_name": null,
+      "html_bytes": 7358,
+      "rolle": "startseite",
+      "quelle": "startseite",
+      "hash_route": false,
+      "raw_word_count": 0,
+      "rendered_word_count": 32,
+      "raw_html_bytes": 915,
+      "response_headers": {
+        "server": "nginx",
+        "x-powered-by": "PleskLin",
+        "content-type": "text/html",
+        "last-modified": "Wed, 10 Dec 2025 08:56:25 GMT"
+      }
+    },
+    {
+      "url": "https://www.bravo-fkb.de/#/impressum",
+      "status": 200,
+      "title": "Bravo",
+      "meta_description": "Bravo Restaurant",
+      "meta_robots": null,
+      "x_robots_tag": null,
+      "canonical": null,
+      "viewport_meta": "user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Impressum"
+        }
+      ],
+      "h1": [
+        "Impressum"
+      ],
+      "word_count": 72,
+      "text": "Wir haben leider geschlossen Home Speisekarte Standort Impressum Wir haben leider geschlossen Speisekarte Standort Impressum Impressum BRA-VO Bahnhofstraße 4 35066 Frankenberg (Eder) Deutschland Tel.: 06451-2305066 E-Mail: info@bravo-fkb.de Registergericht: Amtsgericht {Stadt} Registernummer: Geschäftsführer: Civan Redar Bayar Umsatzsteuer-Identifikationsnummer: DE369492920 Plattform der EU-Kommission zur Online-Streitbeilegung: https://ec.europa.eu/odr Wir sind zur Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle weder verpflichtet noch bereit. Verantwortliche/r i.S.d. § 18 Abs. 2 MStV: Civan Redar Bayar, Bahnhofstraße 4, 35066 Frankenberg (Eder)",
+      "images": [
+        {
+          "src": "https://www.bravo-fkb.de/logo.png",
+          "alt": "Logo",
+          "alt_meaningful": false,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 623870,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://www.bravo-fkb.de/social-media-logos/lieferando-logo.png",
+          "alt": "Lieferando Icon",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 5286,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://www.bravo-fkb.de/social-media-logos/whatsapp-logo.png",
+          "alt": "Facebook Icon",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 60451,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://www.bravo-fkb.de/social-media-logos/instagram-logo.png",
+          "alt": "Instagram Icon",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 522640,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://www.bravo-fkb.de/logo.png",
+          "alt": "Logo",
+          "alt_meaningful": false,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 623870,
+          "mime": "image/png",
+          "format": "png"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://www.bravo-fkb.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/",
+            "text": "Home",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/speisekarte",
+            "text": "Speisekarte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/standort",
+            "text": "Standort",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/impressum",
+            "text": "Impressum",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/speisekarte",
+            "text": "Speisekarte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/standort",
+            "text": "Standort",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/impressum",
+            "text": "Impressum",
+            "hash_route": false
+          }
+        ],
+        "external": [
+          {
+            "url": "https://ec.europa.eu/odr",
+            "text": "https://ec.europa.eu/odr",
+            "hash_route": false
+          }
+        ]
+      },
+      "tel_links": [],
+      "mailto_links": [
+        "mailto:info@bravo-fkb.de"
+      ],
+      "forms": 0,
+      "jsonld_types": [],
+      "jsonld": [],
+      "og": {},
+      "og_site_name": null,
+      "html_bytes": 4479,
+      "rolle": "impressum",
+      "quelle": "link",
+      "hash_route": true,
+      "raw_word_count": null,
+      "rendered_word_count": 72,
+      "raw_html_bytes": 915,
+      "response_headers": {
+        "server": "nginx",
+        "x-powered-by": "PleskLin",
+        "content-type": "text/html",
+        "last-modified": "Wed, 10 Dec 2025 08:56:25 GMT"
+      }
+    },
+    {
+      "url": "https://www.bravo-fkb.de/#/speisekarte",
+      "status": 200,
+      "title": "Bravo",
+      "meta_description": "Bravo Restaurant",
+      "meta_robots": null,
+      "x_robots_tag": null,
+      "canonical": null,
+      "viewport_meta": "user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width",
+      "headings": [],
+      "h1": [],
+      "word_count": 443,
+      "text": "Wir haben leider geschlossen Home Speisekarte Standort Impressum Wir haben leider geschlossen Speisekarte Standort Impressum Hinweise zur Speisekarte circlePizza circleSpezialpizzen circlePizza mal anders circlePide circleBaguettes circleDrehspieß circleLahmacun circleSalate circlePasta circleÜberbackene Pasta circleBurger circleChicken Nuggets & Toast circleGefüllte Pizzabrötchen circleBeilagen circleKindermenüs circleGetränke chevron_leftchevron_right Alle Pizzen mit Tomatensoße und Käse Familienpizza: 50x50cm, mit Käse und Tomatensoße Weitere Beläge: jeder weitere Belag Spezial-Zutaten: Thunfisch, Drehspießfleisch, Shrimps, Meeresfrüchte, Gorgonzola, Mozzarella 1 Margherita A, G (klein/groß) 6.5€/8€ 2 Salami A, G, 1, 3 (klein/groß) 7.5€/9€ mit Salami 3 Prosciutto A, G, 1, 3, 5 (klein/groß) 7.5€/9€ mit Schinken 4 Funghi A, G (klein/groß) 7.5€/9€ mit Champignons 5 Paprika A, G (klein/groß) 7.5€/9€ mit Paprika 6 Rustika A, G, 1, 3 (klein/groß) 8€/10€ mit Salami und Champignons 7 Romana A, G, 1, 3, 5 (klein/groß) 8€/10€ mit Schinken und Champignons 8 Tonno A, D, G (klein/groß) 8.5€/10€ mit Thunfisch und Zwiebeln 9 Hawaii A, G, 1, 3, 5 (klein/groß) 8€/10€ mit Schinken und Ananas 10 Popeye A, G (klein/groß) 8€/10€ mit Spinat und Weichkäse 11 Primivera A, G, 1, 3, 5 (klein/groß) 8€/10€ mit Salami und Schinken 12 Chicken A, C, G (klein/groß) 9.5€/12€ mit Brokkoli und Sauce Hollandaise 13 Drehspieß A, C, G (klein/groß) 9€/12€ mit Zwiebeln und Sauce Hollandaise 14 Bolognese A, G (klein/groß) 8€/9.5€ mit Hackfleischsoße 15 Spaghetti A, C, G (klein/groß) 8.5€/10€ mit Hackfleischsoße und Spaghetti 16 Bravo A, D, G, 1, 3, 5 (klein/groß) 10€/12€ mit Salami, Schinken, Thunfisch, Champignons, Peperoni und Knoblauch 17 Peperoni A, G, 1, 3 (klein/groß) 8€/10€ mit Peperoniwurst (scharf) 18 Chef A, D, G, 1, 3, 5 (klein/groß) 9€/11€ mit Salami, Schinken, Thunfisch, Paprika und Knoblauch 19 Quattro Formaggi A, G (klein/groß) 8.5€/11€ mit Goudakäse, Weichkäse, Mozzarella und Gorgonzola 20 Frutti di Mare A, B, D, G, N (klein/groß) 9€/12€ mit Meeresfrüchten und Knoblauch 21 Shrimps A1, B, G (klein/groß) 9€/12€ mit Shrimps und Knoblauch 22 Drehspieß A, F, G, I, J, 2, 5 (klein/groß) 9€/11€ mit Drehspießfleisch und Zwiebeln 23 Sucuk A1, G, 1, 3 (klein/groß) 9€/11€ mit türkischer Knoblauchwurst 24 Hot Chicken A, G (klein/groß) 9€/11€ mit Hähnchenbruststreifen und Jalapenos 25 Chicken A1, G (klein/groß) 9€/11€ mit Hähnchenbruststreifen und Mais 26 Diavolo A, G, 1, 3 (klein/groß) 9€/11€ mit Salami, Peperoni, Zwiebeln und Paprika 27 Mozzarella A, G (klein/groß) 8.5€/10€ mit Mozzarella und Tomaten 28 Vegetaria A, G (klein/groß) 8.5€/10.5€ mit Brokkoli, Paprika, Champignons und Zwiebeln 29 Wollmar Margherita A, F, G, I, J, 2, 5 (klein/groß) 9€/11€ gebacken, mit Drehspießfleisch, Pommes und Soße 30 Tonno Picante A, D, G (klein/groß) 9€/12€ mit Thunfisch, Zwiebeln, Peperoni und Weichkäse 31 Drehspieß Picante A, F, G, I, J, 2, 5 (klein/groß) 9.5€/12€ mit Drehspießfleisch, Sucuk, Zwiebeln, Peperoni und Weichkäse",
+      "images": [
+        {
+          "src": "https://www.bravo-fkb.de/logo.png",
+          "alt": "Logo",
+          "alt_meaningful": false,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 623870,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://www.bravo-fkb.de/social-media-logos/lieferando-logo.png",
+          "alt": "Lieferando Icon",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 5286,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://www.bravo-fkb.de/social-media-logos/whatsapp-logo.png",
+          "alt": "Facebook Icon",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 60451,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://www.bravo-fkb.de/social-media-logos/instagram-logo.png",
+          "alt": "Instagram Icon",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 522640,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://www.bravo-fkb.de/logo.png",
+          "alt": "Logo",
+          "alt_meaningful": false,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 623870,
+          "mime": "image/png",
+          "format": "png"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://www.bravo-fkb.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/",
+            "text": "Home",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/speisekarte",
+            "text": "Speisekarte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/standort",
+            "text": "Standort",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/impressum",
+            "text": "Impressum",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/speisekarte",
+            "text": "Speisekarte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/standort",
+            "text": "Standort",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/impressum",
+            "text": "Impressum",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/speisekarte_hinweise",
+            "text": "Hinweise zur Speisekarte",
+            "hash_route": false
+          }
+        ],
+        "external": []
+      },
+      "tel_links": [],
+      "mailto_links": [],
+      "forms": 0,
+      "jsonld_types": [],
+      "jsonld": [],
+      "og": {},
+      "og_site_name": null,
+      "html_bytes": 26591,
+      "rolle": "leistungen",
+      "quelle": "link",
+      "hash_route": true,
+      "raw_word_count": null,
+      "rendered_word_count": 443,
+      "raw_html_bytes": 915,
+      "response_headers": {
+        "server": "nginx",
+        "x-powered-by": "PleskLin",
+        "content-type": "text/html",
+        "last-modified": "Wed, 10 Dec 2025 08:56:25 GMT"
+      }
+    },
+    {
+      "url": "https://www.bravo-fkb.de/#/standort",
+      "status": 200,
+      "title": "Bravo",
+      "meta_description": "Bravo Restaurant",
+      "meta_robots": null,
+      "x_robots_tag": null,
+      "canonical": null,
+      "viewport_meta": "user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width",
+      "headings": [],
+      "h1": [],
+      "word_count": 22,
+      "text": "Wir haben leider geschlossen Home Speisekarte Standort Impressum Wir haben leider geschlossen Speisekarte Standort Impressum BRA-VO Bahnhofstraße 4 35066 Frankenberg (Eder) Deutschland",
+      "images": [
+        {
+          "src": "https://www.bravo-fkb.de/logo.png",
+          "alt": "Logo",
+          "alt_meaningful": false,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 623870,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://www.bravo-fkb.de/social-media-logos/lieferando-logo.png",
+          "alt": "Lieferando Icon",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 5286,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://www.bravo-fkb.de/social-media-logos/whatsapp-logo.png",
+          "alt": "Facebook Icon",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 60451,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://www.bravo-fkb.de/social-media-logos/instagram-logo.png",
+          "alt": "Instagram Icon",
+          "alt_meaningful": true,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 522640,
+          "mime": "image/png",
+          "format": "png"
+        },
+        {
+          "src": "https://www.bravo-fkb.de/logo.png",
+          "alt": "Logo",
+          "alt_meaningful": false,
+          "decorative": false,
+          "width_attr": null,
+          "height_attr": null,
+          "bytes": 623870,
+          "mime": "image/png",
+          "format": "png"
+        }
+      ],
+      "links": {
+        "internal": [
+          {
+            "url": "https://www.bravo-fkb.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/",
+            "text": "Home",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/speisekarte",
+            "text": "Speisekarte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/standort",
+            "text": "Standort",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/impressum",
+            "text": "Impressum",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/",
+            "text": "",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/speisekarte",
+            "text": "Speisekarte",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/standort",
+            "text": "Standort",
+            "hash_route": false
+          },
+          {
+            "url": "https://www.bravo-fkb.de/#/impressum",
+            "text": "Impressum",
+            "hash_route": false
+          }
+        ],
+        "external": []
+      },
+      "tel_links": [],
+      "mailto_links": [],
+      "forms": 0,
+      "jsonld_types": [],
+      "jsonld": [],
+      "og": {},
+      "og_site_name": null,
+      "html_bytes": 4472,
+      "rolle": "standort",
+      "quelle": "link",
+      "hash_route": true,
+      "raw_word_count": null,
+      "rendered_word_count": 22,
+      "raw_html_bytes": 915,
+      "response_headers": {
+        "server": "nginx",
+        "x-powered-by": "PleskLin",
+        "content-type": "text/html",
+        "last-modified": "Wed, 10 Dec 2025 08:56:25 GMT"
+      }
+    }
+  ],
+  "resources": {
+    "total": 154,
+    "errors": [],
+    "hosts": [
+      "www.bravo-fkb.de",
+      "www.google.com",
+      "maps.googleapis.com",
+      "maps.gstatic.com",
+      "fonts.googleapis.com",
+      "fonts.gstatic.com",
+      "places.googleapis.com"
+    ]
+  },
+  "links": {
+    "checked": 5,
+    "broken": []
+  },
+  "mobile": {
+    "viewport_meta": "user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width",
+    "user_scalable": false,
+    "maximum_scale": "1",
+    "has_width_device_width": true,
+    "horizontal_overflow_px": 0,
+    "base_font_px": 14,
+    "contrast_ratio": 14.43,
+    "interactive_total": 8,
+    "interactive_small": 7,
+    "first_screen_elements": [
+      {
+        "tag": "a",
+        "text": "",
+        "href": "/",
+        "is_tel": false,
+        "is_mail": false
+      },
+      {
+        "tag": "a",
+        "text": "Speisekarte",
+        "href": "/#/speisekarte",
+        "is_tel": false,
+        "is_mail": false
+      },
+      {
+        "tag": "a",
+        "text": "06451-2305066",
+        "href": "tel:06451-2305066",
+        "is_tel": true,
+        "is_mail": false
+      }
+    ],
+    "overflow_pages": [],
+    "overflow_checked": 4
+  },
+  "consent": {
+    "clean": {
+      "mode": "clean",
+      "reachable": true,
+      "hosts": [
+        "www.bravo-fkb.de"
+      ],
+      "cookies": [],
+      "storage": {
+        "local": [],
+        "session": []
+      },
+      "consent_click": {
+        "clicked": false,
+        "label": null
+      },
+      "banner_detected": false,
+      "error": null
+    },
+    "reject": {
+      "mode": "reject",
+      "reachable": true,
+      "hosts": [
+        "www.bravo-fkb.de"
+      ],
+      "cookies": [],
+      "storage": {
+        "local": [],
+        "session": []
+      },
+      "consent_click": {
+        "clicked": false,
+        "label": null,
+        "pattern": null
+      },
+      "banner_detected": false,
+      "error": null
+    },
+    "accept": {
+      "mode": "accept",
+      "reachable": true,
+      "hosts": [
+        "www.bravo-fkb.de"
+      ],
+      "cookies": [],
+      "storage": {
+        "local": [],
+        "session": []
+      },
+      "consent_click": {
+        "clicked": false,
+        "label": null,
+        "pattern": null
+      },
+      "banner_detected": false,
+      "error": null
+    },
+    "own_host": "www.bravo-fkb.de"
+  },
+  "impressum": {
+    "found": true,
+    "url": "https://www.bravo-fkb.de/#/impressum",
+    "chars": 691,
+    "rechtsform": null,
+    "firmenname": null,
+    "vertretung": "Civan Redar Bayar",
+    "register": null,
+    "registergericht": "Amtsgericht {Stadt} Registernummer: Gesch",
+    "ustid": "DE369492920",
+    "telefon": "06451-2305066",
+    "email": "info@bravo-fkb.de",
+    "adresse": {
+      "strasse": "Impressum BRA-VO Bahnhofstraße 4",
+      "plz": "35066",
+      "ort": "Frankenberg (Eder)",
+      "raw": "Impressum BRA-VO Bahnhofstraße 4, 35066 Frankenberg (Eder)"
+    },
+    "mentions_tmg": false,
+    "mentions_ddg": false,
+    "mentions_kammer": false,
+    "mentions_berufsbezeichnung": false,
+    "odr_link": false,
+    "vsbg_hinweis": true,
+    "placeholders": [
+      "{Stadt}"
+    ]
+  },
+  "datenschutz": {
+    "found": false
+  },
+  "company_names": {
+    "raw": [
+      {
+        "source": "title",
+        "value": "Bravo"
+      }
+    ],
+    "schreibweisen": [
+      "Bravo"
+    ],
+    "variants": [
+      {
+        "key": "bravo",
+        "sources": [
+          {
+            "source": "title",
+            "value": "Bravo"
+          }
+        ]
+      }
+    ],
+    "rechtsform_konflikte": []
+  },
+  "nap": [
+    {
+      "source": "startseite",
+      "adresse": null,
+      "adresse_norm": null,
+      "telefon": "06451-2305066",
+      "telefon_norm": "064512305066"
+    },
+    {
+      "source": "https://www.bravo-fkb.de/#/impressum",
+      "adresse": {
+        "strasse": "Impressum BRA-VO Bahnhofstraße 4",
+        "plz": "35066",
+        "ort": "Frankenberg (Eder)",
+        "raw": "Impressum BRA-VO Bahnhofstraße 4, 35066 Frankenberg (Eder)"
+      },
+      "adresse_norm": "impressumbravobahnhofstr435066frankenbergeder",
+      "telefon": "06451-2305066",
+      "telefon_norm": "064512305066"
+    },
+    {
+      "source": "https://www.bravo-fkb.de/#/standort",
+      "adresse": {
+        "strasse": "Impressum BRA-VO Bahnhofstraße 4",
+        "plz": "35066",
+        "ort": "Frankenberg (Eder)",
+        "raw": "Impressum BRA-VO Bahnhofstraße 4, 35066 Frankenberg (Eder)"
+      },
+      "adresse_norm": "impressumbravobahnhofstr435066frankenbergeder",
+      "telefon": null,
+      "telefon_norm": null
+    }
+  ],
+  "robots_txt": {
+    "found": false,
+    "sitemaps": [],
+    "disallow": [],
+    "ai_crawlers": {}
+  },
+  "sitemap": {
+    "found": false,
+    "source": null,
+    "entries": 0
+  },
+  "llms_txt": {
+    "found": false
+  },
+  "psi": {
+    "mobile": {
+      "available": false,
+      "reason": "kein PSI_API_KEY gesetzt",
+      "strategy": "mobile"
+    },
+    "desktop": {
+      "available": false,
+      "reason": "kein PSI_API_KEY gesetzt",
+      "strategy": "desktop"
+    }
+  },
+  "content": {
+    "concrete_facts": {
+      "count": 0,
+      "samples": []
+    },
+    "faq": [],
+    "jsonld_types": []
+  },
+  "screenshots": {
+    "desktop_fold": "screenshots/desktop-fold.png",
+    "desktop_full": "screenshots/desktop-full.png",
+    "mobile_fold": "screenshots/mobile-fold.png",
+    "mobile_full": "screenshots/mobile-full.png"
+  }
+}

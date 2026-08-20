@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "360ai-akquise-crm",
+  "pages_build_output_dir": "./public",
+  "compatibility_date": "2026-08-16",
+  "vars": {
+    "TEAM_DOMAIN": "https://360ai-akquise-crm-pages.cloudflareaccess.com",
+    "POLICY_AUD": "24307c6b52dbf8e5e8228a57dccbbee219fe1d3c692e3e45bc5f0da114322c4b",
+    "ALLOWED_EMAIL": "info@360-ai.org"
+  }
+  // Diese nicht geheimen Werte werden reproduzierbar aus dieser Datei deployt.
+  // CRM_READ_WEBHOOK_URL/-TOKEN und CRM_WEBHOOK_URL/-TOKEN sind Pages-Secrets
+  // und werden bewusst nicht in dieser Datei gespeichert.
+}
