@@ -329,6 +329,37 @@ body.is-pointer-dragging { user-select: none; cursor: grabbing; }
 .dialog-actions { display: flex; flex-direction: row-reverse; justify-content: flex-start;
   gap: 9px; margin-top: 22px; }
 
+/* --- Telefonleitfaden-Wizard --- */
+.leitfaden-dialog { width: min(560px,calc(100vw - 32px)); max-height: min(88vh,720px); padding: 25px;
+  border: 1px solid var(--line-strong); border-radius: 19px; color: var(--ink); background: var(--card);
+  box-shadow: 0 28px 80px rgba(2,6,15,.62); overflow: auto; }
+.leitfaden-dialog::backdrop { background: rgba(2,6,15,.7); backdrop-filter: blur(4px); }
+.leitfaden-dialog h2 { margin: 4px 0 14px; font-size: 21px; }
+.leitfaden-progress { margin: 0; color: var(--mint-dark); font-size: 12px; font-weight: 750;
+  letter-spacing: .1em; text-transform: uppercase; }
+.leitfaden-skript { margin: 0 0 16px; padding: 14px 16px; border-radius: var(--radius-small);
+  background: var(--control); color: var(--ink-soft); line-height: 1.55; }
+.leitfaden-skript-gross { font-size: 17px; color: var(--ink); }
+.leitfaden-skript-mini { margin: 10px 0 6px; color: var(--muted); font-size: 13px; font-style: italic; }
+.leitfaden-frage { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+.leitfaden-frage:last-of-type { border-bottom: 0; }
+.chip-group { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 4px; }
+.chip-button { min-height: 38px; padding: 0 14px; border: 1px solid var(--control-border);
+  border-radius: 999px; color: var(--ink-soft); background: var(--control); font-size: 13px;
+  font-weight: 650; cursor: pointer; transition: color .15s, background-color .15s, border-color .15s; }
+.chip-button:hover { border-color: var(--lavender); color: var(--ink); }
+.chip-button.is-selected { color: var(--on-accent); background: var(--lavender); border-color: var(--lavender); }
+.leitfaden-akkordeon { margin: 6px 0 18px; padding: 12px 14px; border: 1px solid var(--line);
+  border-radius: var(--radius-small); background: var(--paper-strong); }
+.leitfaden-akkordeon summary { min-height: 30px; display: inline-flex; align-items: center;
+  color: var(--lavender-dark); font-size: 13px; font-weight: 650; cursor: pointer; }
+.leitfaden-einwand { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); }
+.leitfaden-einwand-frage { margin: 0 0 4px; font-weight: 650; }
+.leitfaden-einwand-antwort { margin: 0 0 8px; color: var(--ink-soft); font-size: 14px; line-height: 1.5; }
+.leitfaden-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  margin-top: 22px; }
+.leitfaden-actions-inline { display: flex; flex-wrap: wrap; gap: 10px; margin: 4px 0 20px; }
+
 /* --- Ergaenzungen: Archiv, Stammdaten, KI-Assistent, Verlauf --- */
 
 /* Status aus dem Sheet, den das CRM nicht kennt. Neutral, aber sichtbar abweichend. */

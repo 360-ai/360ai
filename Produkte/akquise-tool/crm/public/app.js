@@ -6,11 +6,17 @@ import {
   isOverdue, kanbanColumns, leadDisplayName, mailHref, parseRouteHash,
   safeDriveUrl, safeHttpUrl, telHref, todayIso,
 } from './domain.js';
+import {
+  ABSCHLUSS_ERGEBNISSE, ANLASS_CHIPS, EINWAENDE, GATEKEEPER_SCHRITT,
+  LEITFADEN_PRODUKTE, LEITFADEN_SCHRITTE, baueNotizAusAntworten,
+} from './leitfaden.js';
 
 const main = document.querySelector('#main-content');
 const syncState = document.querySelector('#sync-state');
 const refreshButton = document.querySelector('#refresh-button');
 const dialog = document.querySelector('#confirm-dialog');
+const leitfadenDialog = document.querySelector('#leitfaden-dialog');
+const leitfadenBody = document.querySelector('#leitfaden-body');
 const state = {
   leads: [], activities: [], audits: [], meta: {}, loading: true, error: null,
   filters: { search: '', status: '', minScore: '', due: '', archiv: '' },
@@ -19,6 +25,10 @@ const state = {
   stammdatenOffen: false,
   kiText: '',
   kiLaeuft: false,
+  // Laufender Telefonleitfaden-Wizard (null = nicht aktiv) und dessen Ergebnis,
+  // das createView() genau einmal als Prefill konsumiert.
+  leitfaden: null,
+  leitfadenErgebnis: null,
 };
 
 const KI_PROMPT_KEY = 'akquise-crm-ki-prompt-v1';
@@ -196,7 +206,12 @@ function render() {
   if (current.view === 'leads') main.innerHTML = leadsView();
   if (current.view === 'kanban') main.innerHTML = kanbanView();
   if (current.view === 'archiv') main.innerHTML = archivView();
-  if (current.view === 'neu') main.innerHTML = createView();
+  if (current.view === 'neu') {
+    main.innerHTML = createView(state.leitfadenErgebnis);
+    // Der Prefill gilt nur fuer diesen einen Aufbau der Seite, sonst geistert er
+    // bei jedem weiteren Besuch von #neu unveraendert weiter.
+    state.leitfadenErgebnis = null;
+  }
   if (current.view === 'detail') main.innerHTML = detailView(current.leadId);
 }
 
@@ -512,11 +527,355 @@ function neueLeadId(firma, ansprechpartner, mail) {
   return 'L-' + todayIso().replaceAll('-', '') + '-' + slug + '-' + zufall;
 }
 
-function createView() {
+// --- Telefonleitfaden-Wizard ---
+// Reine Notizhilfe: der einzige dauerhafte Effekt ist ein vorformulierter Notiztext
+// (state.leitfadenErgebnis), den createView() genau einmal uebernimmt. Keine eigenen
+// Sheet-Spalten, kein zusaetzlicher Server-Zustand.
+
+function leitfadenSchritte(produkt) {
+  return [GATEKEEPER_SCHRITT, ...(LEITFADEN_SCHRITTE[produkt] || [])];
+}
+function leitfadenGesamtschritte(produkt) {
+  const arr = LEITFADEN_SCHRITTE[produkt] || LEITFADEN_SCHRITTE.webdesign;
+  return 2 + arr.length;
+}
+
+function starteLeitfaden() {
+  state.leitfaden = { produkt: null, produktWahl: '', schrittIndex: 0, antworten: {} };
+  renderLeitfadenSchritt();
+  leitfadenDialog.showModal();
+}
+
+// Einziger Ausgang aus dem Wizard, egal ob per Button oder Escape-Taste (siehe
+// leitfadenDialog "close"-Listener unten). uebernehmen=false verwirft absichtlich
+// (nur beim expliziten "Ueberspringen" auf der Produktauswahl).
+function beendeLeitfaden({ uebernehmen }) {
+  const wiz = state.leitfaden;
+  if (!wiz) return;
+  if (uebernehmen && wiz.produkt) {
+    state.leitfadenErgebnis = {
+      notiz: baueNotizAusAntworten(wiz.produkt, wiz.antworten),
+      kontaktquelle: 'telefonat',
+    };
+  }
+  state.leitfaden = null;
+  if (leitfadenDialog.open) leitfadenDialog.close();
+  geheZuNeu();
+}
+
+// Ein Klick auf "+ Neuer Lead" waehrend der Hash schon #neu ist (z. B. nach
+// "Ueberspringen" oder einem zweiten Wizard-Durchlauf) aendert den Hash nicht, daher
+// feuert kein hashchange und render() liefe sonst nie erneut. render() ist idempotent,
+// ein zusaetzlicher Aufruf hier ist also unproblematisch.
+function geheZuNeu() {
+  if (location.hash === '#neu') render();
+  else location.hash = 'neu';
+}
+
+function leitfadenChip(gruppe, wert, text, ausgewaehlt) {
+  return '<button type="button" class="chip-button' + (ausgewaehlt ? ' is-selected' : '') + '" '
+    + 'data-chip-gruppe="' + attr(gruppe) + '" data-chip-wert="' + attr(wert) + '">'
+    + escapeHtml(text) + '</button>';
+}
+
+// Kein eigener Wizard-Schritt mehr, sondern in jedem Gespraechsschritt erreichbar,
+// damit ein Einwand nicht bis zu einem festen Zeitpunkt warten muss.
+function leitfadenEinwandPanel(produkt) {
+  const erfasst = state.leitfaden.antworten.einwaende || [];
+  const eintraege = (EINWAENDE[produkt] || []).map((eintrag) => {
+    const istErfasst = erfasst.includes(eintrag.einwand);
+    return '<div class="leitfaden-einwand">'
+      + '<p class="leitfaden-einwand-frage">' + escapeHtml(eintrag.einwand) + '</p>'
+      + '<p class="leitfaden-einwand-antwort">' + escapeHtml(eintrag.antwort) + '</p>'
+      + '<button type="button" class="button button-quiet" data-action="einwand-erfasst" '
+      + 'data-einwand="' + attr(eintrag.einwand) + '"' + (istErfasst ? ' disabled' : '') + '>'
+      + (istErfasst ? '✓ Erfasst' : 'Kam im Gespräch vor') + '</button></div>';
+  }).join('');
+  return '<details class="leitfaden-akkordeon"><summary>Einwand gerade gekommen?</summary>'
+    + eintraege + '</details>';
+}
+
+function leitfadenNav({
+  zurueck = true, weiterLabel = 'Weiter', weiterAktion = 'weiter', weiterDeaktiviert = false,
+} = {}) {
+  return '<div class="leitfaden-actions">'
+    + (zurueck ? '<button type="button" class="button button-secondary" data-action="zurueck">Zurück</button>' : '<span></span>')
+    + '<button type="button" class="button button-primary" data-action="' + attr(weiterAktion) + '"'
+    + (weiterDeaktiviert ? ' disabled' : '') + '>' + escapeHtml(weiterLabel) + '</button></div>';
+}
+
+function renderProduktauswahl() {
+  const wiz = state.leitfaden;
+  const anlass = wiz.antworten.sachlicherAnlass || '';
+  return '<p class="leitfaden-progress">Schritt 1 von ' + leitfadenGesamtschritte(wiz.produktWahl) + '</p>'
+    + '<h2 id="leitfaden-title">Welches Produkt?</h2>'
+    + '<div class="chip-group">' + LEITFADEN_PRODUKTE.map((p) =>
+      leitfadenChip('produkt', p.id, p.label, wiz.produktWahl === p.id)).join('') + '</div>'
+    + '<label class="field"><span>Sachlicher Anlass des Anrufs</span>'
+    + '<div class="chip-group">' + ANLASS_CHIPS.map((text) =>
+      leitfadenChip('anlass', text, text, anlass === text)).join('') + '</div>'
+    + '<input type="text" data-feld="anlass-freitext" placeholder="oder eigener Anlass" '
+    + 'value="' + attr(ANLASS_CHIPS.includes(anlass) ? '' : anlass) + '"></label>'
+    + '<p class="result-count">Dient als Nachweis des sachlichen Bezugs bei B2B-Kaltakquise (§ 7 UWG).</p>'
+    + '<div class="leitfaden-actions">'
+    + '<button type="button" class="button button-secondary" data-action="ueberspringen">'
+    + 'Ohne Leitfaden – direkt zum Formular</button>'
+    + '<button type="button" class="button button-primary" data-action="produkt-weiter"'
+    + (wiz.produktWahl && anlass ? '' : ' disabled') + '>Weiter</button></div>';
+}
+
+function renderLeitfadenGatekeeper(schritt) {
+  return '<p class="leitfaden-skript">' + escapeHtml(schritt.skript) + '</p>'
+    + '<div class="leitfaden-actions-inline">'
+    + '<button type="button" class="button button-primary" data-action="gatekeeper-entscheider">'
+    + 'Entscheider direkt erreicht</button>'
+    + '<button type="button" class="button button-secondary" data-action="gatekeeper-weiterleitung">'
+    + 'Weiterleitung/Rückruf nötig</button></div>'
+    + '<div class="leitfaden-actions"><button type="button" class="button button-secondary" '
+    + 'data-action="zurueck">Zurück</button><span></span></div>';
+}
+
+function renderLeitfadenOpener(schritt, produkt) {
+  const antwort = state.leitfaden.antworten.opener || {};
+  const ausgewaehlt = antwort.aufhaenger || [];
+  return '<p class="leitfaden-skript">' + escapeHtml(schritt.skript) + '</p>'
+    + '<div class="field"><span>Aufhänger</span><div class="chip-group">'
+    + schritt.aufhaengerChips.map((c) => leitfadenChip('aufhaenger', c, c, ausgewaehlt.includes(c))).join('')
+    + '</div></div>'
+    + '<label class="field"><span>Individuelle Notiz</span>'
+    + '<textarea data-feld="opener-freitext" rows="2">' + escapeHtml(antwort.freitext || '') + '</textarea></label>'
+    + leitfadenEinwandPanel(produkt) + leitfadenNav();
+}
+
+function renderLeitfadenBedarf(schritt, produkt) {
+  const bedarfAntworten = state.leitfaden.antworten.bedarf || {};
+  const fragen = schritt.fragen.map((frage) => {
+    const eintrag = bedarfAntworten[frage.id] || {};
+    const zustimmungBlock = frage.zustimmung
+      ? '<p class="leitfaden-skript-mini">' + escapeHtml(frage.zustimmung) + '</p><div class="chip-group">'
+        + leitfadenChip('zustimmung-' + frage.id, 'ja', 'Zugestimmt', eintrag.zustimmung === 'ja')
+        + leitfadenChip('zustimmung-' + frage.id, 'nein', 'Widerspruch', eintrag.zustimmung === 'nein')
+        + '</div>'
+      : '';
+    return '<div class="leitfaden-frage"><p class="leitfaden-skript">' + escapeHtml(frage.frage) + '</p>'
+      + '<textarea data-feld="bedarf-antwort" data-frage-id="' + attr(frage.id) + '" rows="2">'
+      + escapeHtml(eintrag.antwort || '') + '</textarea>' + zustimmungBlock + '</div>';
+  }).join('');
+  return fragen + leitfadenEinwandPanel(produkt) + leitfadenNav();
+}
+
+function renderLeitfadenPitch(schritt, produkt) {
+  return '<p class="leitfaden-skript leitfaden-skript-gross">' + escapeHtml(schritt.skript) + '</p>'
+    + leitfadenEinwandPanel(produkt) + leitfadenNav();
+}
+
+function renderLeitfadenAbschluss(schritt, produkt) {
+  const abschluss = state.leitfaden.antworten.abschluss || {};
+  return '<p class="leitfaden-skript">' + escapeHtml(schritt.skript) + '</p>'
+    + '<div class="field"><span>Ergebnis</span><div class="chip-group">'
+    + ABSCHLUSS_ERGEBNISSE.map((e) => leitfadenChip('ergebnis', e.value, e.label, abschluss.ergebnis === e.value)).join('')
+    + '</div></div>'
+    + '<label class="field"><span>Notiz</span><textarea data-feld="abschluss-freitext" rows="3">'
+    + escapeHtml(abschluss.freitext || '') + '</textarea></label>'
+    + leitfadenEinwandPanel(produkt) + leitfadenNav({ weiterLabel: 'Übernehmen', weiterAktion: 'uebernehmen' });
+}
+
+function renderLeitfadenSchritt() {
+  const wiz = state.leitfaden;
+  if (!wiz) return;
+  if (!wiz.produkt) {
+    leitfadenBody.innerHTML = renderProduktauswahl();
+    return;
+  }
+  const schritte = leitfadenSchritte(wiz.produkt);
+  const schritt = schritte[wiz.schrittIndex];
+  const kopf = '<p class="leitfaden-progress">Schritt ' + (wiz.schrittIndex + 2) + ' von '
+    + leitfadenGesamtschritte(wiz.produkt) + '</p>'
+    + '<h2 id="leitfaden-title">' + escapeHtml(schritt.titel) + '</h2>';
+  let inhalt = '';
+  if (schritt.type === 'gatekeeper') inhalt = renderLeitfadenGatekeeper(schritt);
+  else if (schritt.type === 'opener') inhalt = renderLeitfadenOpener(schritt, wiz.produkt);
+  else if (schritt.type === 'bedarf') inhalt = renderLeitfadenBedarf(schritt, wiz.produkt);
+  else if (schritt.type === 'pitch') inhalt = renderLeitfadenPitch(schritt, wiz.produkt);
+  else if (schritt.type === 'abschluss') inhalt = renderLeitfadenAbschluss(schritt, wiz.produkt);
+  leitfadenBody.innerHTML = kopf + inhalt;
+}
+
+// Nur bei echtem Schrittwechsel den Fokus auf die neue Ueberschrift setzen, sonst
+// wuerde jeder Chip-Klick den Fokus vom gerade geklickten Button wegreissen.
+function leitfadenSchrittWechsel() {
+  renderLeitfadenSchritt();
+  const heading = leitfadenBody.querySelector('h2');
+  heading?.setAttribute('tabindex', '-1');
+  heading?.focus({ preventScroll: true });
+}
+
+function leitfadenChipKlick(gruppe, wert) {
+  const wiz = state.leitfaden;
+  if (gruppe === 'produkt') {
+    wiz.produktWahl = wert;
+    renderLeitfadenSchritt();
+    return;
+  }
+  if (gruppe === 'anlass') {
+    wiz.antworten.sachlicherAnlass = wert === wiz.antworten.sachlicherAnlass ? '' : wert;
+    renderLeitfadenSchritt();
+    return;
+  }
+  if (gruppe === 'aufhaenger') {
+    const opener = wiz.antworten.opener || (wiz.antworten.opener = {});
+    const liste = opener.aufhaenger || (opener.aufhaenger = []);
+    const index = liste.indexOf(wert);
+    if (index === -1) liste.push(wert); else liste.splice(index, 1);
+    renderLeitfadenSchritt();
+    return;
+  }
+  if (gruppe.startsWith('zustimmung-')) {
+    const frageId = gruppe.slice('zustimmung-'.length);
+    const bedarf = wiz.antworten.bedarf || (wiz.antworten.bedarf = {});
+    const eintrag = bedarf[frageId] || (bedarf[frageId] = {});
+    eintrag.zustimmung = eintrag.zustimmung === wert ? null : wert;
+    renderLeitfadenSchritt();
+    return;
+  }
+  if (gruppe === 'ergebnis') {
+    const abschluss = wiz.antworten.abschluss || (wiz.antworten.abschluss = {});
+    abschluss.ergebnis = abschluss.ergebnis === wert ? '' : wert;
+    renderLeitfadenSchritt();
+  }
+}
+
+leitfadenBody.addEventListener('click', (event) => {
+  const wiz = state.leitfaden;
+  if (!wiz) return;
+  const chip = event.target.closest('[data-chip-gruppe]');
+  if (chip) {
+    leitfadenChipKlick(chip.dataset.chipGruppe, chip.dataset.chipWert);
+    return;
+  }
+  const aktion = event.target.closest('[data-action]')?.dataset.action;
+  if (!aktion) return;
+  if (aktion === 'ueberspringen') {
+    beendeLeitfaden({ uebernehmen: false });
+    return;
+  }
+  if (aktion === 'produkt-weiter') {
+    if (!wiz.produktWahl || !wiz.antworten.sachlicherAnlass) return;
+    wiz.produkt = wiz.produktWahl;
+    wiz.schrittIndex = 0;
+    leitfadenSchrittWechsel();
+    return;
+  }
+  if (aktion === 'gatekeeper-entscheider') {
+    wiz.antworten.gatekeeper = { ergebnis: 'entscheider' };
+    wiz.schrittIndex += 1;
+    leitfadenSchrittWechsel();
+    return;
+  }
+  if (aktion === 'gatekeeper-weiterleitung') {
+    wiz.antworten.gatekeeper = { ergebnis: 'weiterleitung' };
+    wiz.antworten.abschluss = { ...wiz.antworten.abschluss, ergebnis: 'wiedervorlage' };
+    wiz.schrittIndex = leitfadenSchritte(wiz.produkt).findIndex((s) => s.type === 'abschluss');
+    leitfadenSchrittWechsel();
+    return;
+  }
+  if (aktion === 'einwand-erfasst') {
+    const einwand = event.target.closest('[data-einwand]')?.dataset.einwand;
+    if (!einwand) return;
+    const liste = wiz.antworten.einwaende || (wiz.antworten.einwaende = []);
+    if (!liste.includes(einwand)) liste.push(einwand);
+    renderLeitfadenSchritt();
+    return;
+  }
+  if (aktion === 'weiter') {
+    wiz.schrittIndex += 1;
+    leitfadenSchrittWechsel();
+    return;
+  }
+  if (aktion === 'zurueck') {
+    if (wiz.schrittIndex === 0) {
+      wiz.produkt = null;
+      leitfadenSchrittWechsel();
+      return;
+    }
+    wiz.schrittIndex -= 1;
+    leitfadenSchrittWechsel();
+    return;
+  }
+  if (aktion === 'uebernehmen') {
+    beendeLeitfaden({ uebernehmen: true });
+  }
+});
+
+leitfadenBody.addEventListener('input', (event) => {
+  const wiz = state.leitfaden;
+  if (!wiz) return;
+  const feld = event.target.dataset.feld;
+  if (!feld) return;
+  if (feld === 'anlass-freitext') {
+    wiz.antworten.sachlicherAnlass = event.target.value;
+    const position = event.target.selectionStart;
+    renderLeitfadenSchritt();
+    const next = leitfadenBody.querySelector('[data-feld="anlass-freitext"]');
+    next?.focus();
+    next?.setSelectionRange(position, position);
+    return;
+  }
+  if (feld === 'opener-freitext') {
+    (wiz.antworten.opener || (wiz.antworten.opener = {})).freitext = event.target.value;
+    return;
+  }
+  if (feld === 'bedarf-antwort') {
+    const frageId = event.target.dataset.frageId;
+    const bedarf = wiz.antworten.bedarf || (wiz.antworten.bedarf = {});
+    (bedarf[frageId] || (bedarf[frageId] = {})).antwort = event.target.value;
+    return;
+  }
+  if (feld === 'abschluss-freitext') {
+    (wiz.antworten.abschluss || (wiz.antworten.abschluss = {})).freitext = event.target.value;
+  }
+});
+
+// Escape-Taste oder anderes natives Schliessen des <dialog> darf bereits eingetragene
+// Notizen nicht kommentarlos verwerfen — nur das explizite "Ueberspringen" verwirft.
+leitfadenDialog.addEventListener('close', () => {
+  const wiz = state.leitfaden;
+  if (!wiz) return;
+  if (wiz.produkt) {
+    state.leitfadenErgebnis = {
+      notiz: baueNotizAusAntworten(wiz.produkt, wiz.antworten),
+      kontaktquelle: 'telefonat',
+    };
+  }
+  state.leitfaden = null;
+  geheZuNeu();
+});
+
+// "+ Neuer Lead" gibt es an mehreren Stellen (Desktop-Header innerhalb von #main-content
+// und die Mobile-Nav ausserhalb davon) - ein document-weiter Listener deckt beide ab,
+// ohne die bestehende main-Klick-Delegation anzufassen.
+document.addEventListener('click', (event) => {
+  const link = event.target.closest('a[href="#neu"]');
+  if (!link) return;
+  event.preventDefault();
+  try {
+    starteLeitfaden();
+  } catch {
+    // Kaputte Leitfaden-Daten duerfen den Zugang zum leeren Formular nicht blockieren.
+    state.leitfaden = null;
+    geheZuNeu();
+  }
+});
+
+// prefill kommt aus einem durchlaufenen Telefonleitfaden (state.leitfadenErgebnis) und
+// befuellt ausschliesslich bestehende Felder, keine neuen Formularfelder.
+function createView(prefill = null) {
   const felder = STAMMDATEN_FELDER.map((feld) => {
     if (feld.type === 'select') {
+      const vorgabe = feld.name === 'kontaktquelle' ? prefill?.kontaktquelle : '';
       const optionen = feld.options.map(([value, text]) =>
-        '<option value="' + attr(value) + '">' + escapeHtml(text) + '</option>').join('');
+        '<option value="' + attr(value) + '"' + (value === vorgabe ? ' selected' : '') + '>'
+        + escapeHtml(text) + '</option>').join('');
       return '<label class="field"><span>' + escapeHtml(feld.label) + '</span>'
         + '<select name="' + attr(feld.name) + '">' + optionen + '</select></label>';
     }
@@ -534,7 +893,8 @@ function createView() {
     + '<form class="edit-form" id="create-form"><div class="form-grid">' + felder
     + '<label class="field form-full"><span>Notiz</span>'
     + '<textarea name="notiz" maxlength="5000" rows="4" '
-    + 'placeholder="Woher kommt der Kontakt, was ist bekannt?"></textarea></label>'
+    + 'placeholder="Woher kommt der Kontakt, was ist bekannt?">' + escapeHtml(prefill?.notiz || '')
+    + '</textarea></label>'
     + '</div><p class="result-count">Mindestens Firma, Ansprechpartner oder E-Mail wird benötigt.</p>'
     + '<div class="form-actions"><a class="button button-secondary" href="#leads">Abbrechen</a>'
     + '<button class="button button-primary" type="submit">Lead anlegen</button></div></form>'
