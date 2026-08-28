@@ -1,10 +1,7 @@
 /* --- polish.css: SEO/GEO/Recht-Nachzug 2026-08-27 (immer als letzte Datei bundlen) --- */
 
-/* Kein horizontales Scrollen: die seitlich herausragenden Vorschau-Karten des
-   Angebots-Karussells (translate 55%/115%) und der Hero-Signalkreis sprengten auf
-   Mobil den Viewport. `body{overflow-x:hidden}` aus styles.css greift dafür nicht,
-   `overflow-x:clip` schon — und anders als `clip` auf <html> bleibt position:sticky
-   (Unterseiten-Header) dabei funktionsfähig. */
+/* Zusätzliche Absicherung gegen horizontales Scrollen (die eigentliche Ursache war ein
+   CSS-Bug im Angebots-Karussell, siehe offer-carousel.css). */
 body{overflow-x:clip}
 
 /* Footer-Spaltentitel: semantisch <p> statt <h2>, Optik unverändert */
