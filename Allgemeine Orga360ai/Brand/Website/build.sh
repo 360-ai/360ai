@@ -12,11 +12,11 @@ OUT="$SRC/../../../Produkte/360ai-website"
 mkdir -p "$OUT"
 OUT="$(cd "$OUT" && pwd)"
 
-# 1. CSS buendeln (Reihenfolge fix, siehe BUILD-CSS.md)
-cat styles.css overrides.css refinements.css offer-carousel.css contact-conversion.css \
+# 1. CSS buendeln (Reihenfolge fix, siehe BUILD-CSS.md) — fonts.css zuerst
+cat fonts.css styles.css overrides.css refinements.css offer-carousel.css contact-conversion.css \
     statement-fan.css about-craft.css hero-planet.css hero-earth.css legal.css seo-local.css polish.css \
   > app.css
-printf '\n/* build: 12 Quelldateien, siehe BUILD-CSS.md */\n' >> app.css
+printf '\n/* build: 13 Quelldateien, siehe BUILD-CSS.md */\n' >> app.css
 
 # 2. Ziel leeren (ausser .git-Metadaten gibt es dort keine)
 rm -rf "$OUT"/*
@@ -29,7 +29,7 @@ cp index.html impressum.html datenschutz.html 404.html app.css script.js \
    "$OUT/"
 
 # 4. Assets: nur ausgelieferte Formate
-cp -r assets/brand assets/og "$OUT/assets/"
+cp -r assets/brand assets/og assets/fonts "$OUT/assets/"
 for sub in offers hero region certificates references; do
   mkdir -p "$OUT/assets/$sub"
   find "assets/$sub" -type f \( -name '*.webp' -o -name '*.svg' -o -name '*.pdf' \) \

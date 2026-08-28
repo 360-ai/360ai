@@ -1,3 +1,7 @@
+# Font-Build-Zwischendateien (nur _mkfonts.mjs + fonts.css sind Quelle)
+gf.css
+_dl.txt
+
 # Tool-/Editor-Reste
 .wrangler/
 .impeccable/
