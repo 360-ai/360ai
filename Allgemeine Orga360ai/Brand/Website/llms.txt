@@ -26,10 +26,10 @@
 
 ## Ratgeber
 
-- [KI-Potenzialanalyse oder direkt umsetzen: was lohnt wann?](https://360-ai.org/ratgeber/potenzialanalyse-oder-umsetzen)
-- [Welche Prozesse eignen sich für KI und Automatisierung?](https://360-ai.org/ratgeber/prozesse-fuer-ki)
-- [ChatGPT im Unternehmen: kostenlos, Team oder Enterprise und die rechtlichen Fallen](https://360-ai.org/ratgeber/chatgpt-im-unternehmen)
-- [KI-Workshop: was bringt er und für wen lohnt er sich?](https://360-ai.org/ratgeber/ki-workshop-nutzen)
+- [KI-Potenzialanalyse oder direkt umsetzen: was lohnt wann?](https://360-ai.org/ratgeber/potenzialanalyse-oder-umsetzen/)
+- [Welche Prozesse eignen sich für KI und Automatisierung?](https://360-ai.org/ratgeber/prozesse-fuer-ki/)
+- [ChatGPT im Unternehmen: kostenlos, Team oder Enterprise und die rechtlichen Fallen](https://360-ai.org/ratgeber/chatgpt-im-unternehmen/)
+- [KI-Workshop: was bringt er und für wen lohnt er sich?](https://360-ai.org/ratgeber/ki-workshop-nutzen/)
 
 ## Ablauf
 
@@ -40,6 +40,6 @@ Vorarbeiten oder ein bewusstes Nein zu KI.
 
 ## Weitere Seiten
 
-- [Ratgeber-Übersicht](https://360-ai.org/ratgeber)
+- [Ratgeber-Übersicht](https://360-ai.org/ratgeber/)
 - [Impressum](https://360-ai.org/impressum)
 - [Datenschutzerklärung](https://360-ai.org/datenschutz)
