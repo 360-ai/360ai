@@ -17,12 +17,19 @@
 
 ## Leistungen
 
-- [KI-Readiness & Potenzialanalyse](https://360-ai.org/#leistungen): strukturierte
+- [KI-Readiness & Potenzialanalyse](https://360-ai.org/ki-readiness-analyse): strukturierte
   Entscheidungsgrundlage vor einer KI-Investition (Startpunkt, Erstgespräch kostenfrei)
-- [KI-Workshops](https://360-ai.org/#leistungen): gemeinsamer Einstieg für Führungskräfte und Teams
-- [KI & Automation umsetzen](https://360-ai.org/#leistungen): priorisierte Use Cases bis in den Betrieb
-- [Webdesign](https://360-ai.org/#leistungen): Websites, die zur Anfrage führen
-- [KI-Strategie & Roadmap](https://360-ai.org/#leistungen): realistischer Plan mit Verantwortlichkeiten
+- [KI-Workshops](https://360-ai.org/ki-workshops): gemeinsamer Einstieg für Führungskräfte und Teams
+- [KI & Automation umsetzen](https://360-ai.org/ki-automation-umsetzen): priorisierte Use Cases bis in den Betrieb
+- [Webdesign](https://360-ai.org/webdesign): Websites, die zur Anfrage führen
+- [KI-Strategie & Roadmap](https://360-ai.org/ki-strategie-roadmap): realistischer Plan mit Verantwortlichkeiten
+
+## Ratgeber
+
+- [KI-Potenzialanalyse oder direkt umsetzen: was lohnt wann?](https://360-ai.org/ratgeber/potenzialanalyse-oder-umsetzen)
+- [Welche Prozesse eignen sich für KI und Automatisierung?](https://360-ai.org/ratgeber/prozesse-fuer-ki)
+- [ChatGPT im Unternehmen: kostenlos, Team oder Enterprise und die rechtlichen Fallen](https://360-ai.org/ratgeber/chatgpt-im-unternehmen)
+- [KI-Workshop: was bringt er und für wen lohnt er sich?](https://360-ai.org/ratgeber/ki-workshop-nutzen)
 
 ## Ablauf
 
@@ -33,5 +40,6 @@ Vorarbeiten oder ein bewusstes Nein zu KI.
 
 ## Weitere Seiten
 
-- [Impressum](https://360-ai.org/impressum.html)
-- [Datenschutzerklärung](https://360-ai.org/datenschutz.html)
+- [Ratgeber-Übersicht](https://360-ai.org/ratgeber)
+- [Impressum](https://360-ai.org/impressum)
+- [Datenschutzerklärung](https://360-ai.org/datenschutz)
