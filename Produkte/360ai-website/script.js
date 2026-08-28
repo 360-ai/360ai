@@ -387,6 +387,15 @@ if (!reduceMotion) {
       }
     };
     applyHeroWord();
+    const advanceHeroWord = (dir) => {
+      i = (i + dir + words.length) % words.length;
+      applyHeroWord();
+    };
+    let autoTimer = setInterval(() => advanceHeroWord(1), 3000);
+    const restartAuto = () => {
+      clearInterval(autoTimer);
+      autoTimer = setInterval(() => advanceHeroWord(1), 3000);
+    };
     window.addEventListener('wheel', (event) => {
       if (!hero || !event.deltaY) return;
       const rect = hero.getBoundingClientRect();
@@ -399,8 +408,8 @@ if (!reduceMotion) {
       event.preventDefault();
       if (now - lastHeroWordChange < 700) return;
       lastHeroWordChange = now;
-      i = (i + direction + words.length) % words.length;
-      applyHeroWord();
+      advanceHeroWord(direction);
+      restartAuto();
     }, { passive: false });
   });
 }
@@ -430,6 +439,21 @@ if (sphereTilt && !reduceMotion && window.matchMedia('(pointer: fine)').matches)
     requestAnimationFrame(tick);
   };
   requestAnimationFrame(tick);
+}
+
+// --- Mobile-Navigation: Hamburger-Menü ---
+const navToggle = document.querySelector('.nav-toggle');
+const mobileNav = document.getElementById('mobile-nav');
+if (navToggle && mobileNav) {
+  const setNav = (open) => {
+    document.body.classList.toggle('nav-open', open);
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+  };
+  navToggle.addEventListener('click', () => setNav(!document.body.classList.contains('nav-open')));
+  mobileNav.querySelectorAll('a, button').forEach((el) => el.addEventListener('click', () => setNav(false)));
+  document.addEventListener('keydown', (event) => { if (event.key === 'Escape') setNav(false); });
+  window.matchMedia('(min-width: 761px)').addEventListener('change', (event) => { if (event.matches) setNav(false); });
 }
 
 // --- Anfrage-Fenster ---
