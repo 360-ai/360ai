@@ -17,3 +17,7 @@ Doppel-Regeln in `styles.css`).
 
 Quelldateien bleiben im Repo, werden aber nicht mehr direkt eingebunden. Änderungen immer in der
 passenden Quelldatei machen, dann `app.css` neu bauen.
+
+`build.sh` hängt beim Deploy automatisch `?v=<cksum>` an jeden `app.css`-Link in den
+ausgelieferten HTML-Dateien (Cache-Bust, da Cloudflare `/app.css` 24 h cacht). In den
+Quell-HTML bleibt der Link `/app.css` bzw. `app.css` ohne Versionsstring.

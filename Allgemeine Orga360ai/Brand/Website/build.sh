@@ -35,6 +35,15 @@ find ratgeber -type f -name '*.html' | while read -r f; do
   cp "$f" "$OUT/$f"
 done
 
+# 3c. app.css versionieren (Cache-Bust): ?v=<hash> an jeden CSS-Link haengen.
+#     Cloudflare cacht /app.css 24h; ohne Versionsstring wuerde nach einem CSS-Update
+#     die alte Datei weiter ausgeliefert. Quelle bleibt sauber ("/app.css").
+CSSV="$(cksum "$OUT/app.css" | cut -d' ' -f1)"
+find "$OUT" -name '*.html' -exec sed -i \
+  -e "s#href=\"/app.css\"#href=\"/app.css?v=$CSSV\"#g" \
+  -e "s#href=\"app.css\"#href=\"/app.css?v=$CSSV\"#g" {} +
+echo "app.css version: $CSSV"
+
 # 4. Assets: nur ausgelieferte Formate
 cp -r assets/brand assets/og assets/fonts "$OUT/assets/"
 for sub in offers hero region certificates references; do
