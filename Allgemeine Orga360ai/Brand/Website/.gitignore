@@ -1,0 +1,8 @@
+# Tool-/Editor-Reste
+.wrangler/
+.impeccable/
+.playwright-cli/
+output/
+dist/
+*.bak
+og_sub.txt

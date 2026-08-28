@@ -1,0 +1,10 @@
+/* --- polish.css: SEO/GEO/Recht-Nachzug 2026-08-27 (immer als letzte Datei bundlen) --- */
+
+/* Footer-Spaltentitel: semantisch <p> statt <h2>, Optik unverändert */
+.site-footer__col-title{margin:0 0 18px;color:var(--mint);font:10px 'DM Mono',monospace;letter-spacing:.11em;text-transform:uppercase}
+
+/* KI-Kennzeichnung nach Art. 50 KI-VO: sichtbares Badge auf fotorealen KI-Bildmotiven */
+.ki-badge{position:absolute;right:clamp(12px,3vw,26px);bottom:clamp(12px,3vw,20px);z-index:4;display:inline-flex;align-items:center;gap:7px;padding:5px 10px;border:1px solid rgba(243,240,233,.3);border-radius:999px;background:rgba(13,14,13,.58);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);color:#ebe9e1;font:10px/1 'DM Mono',monospace;letter-spacing:.09em;text-transform:uppercase}
+.ki-badge::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--mint);flex:0 0 auto}
+.contact .ki-badge{position:absolute!important;z-index:4;border-color:rgba(13,14,13,.45);background:rgba(13,14,13,.66);color:#f3f0e9}
+@media(max-width:760px){.ki-badge{font-size:9px;padding:4px 8px}}

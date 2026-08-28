@@ -1,0 +1,43 @@
+/* An atmospheric Earth limb replaces the former wireframe orb. */
+.hero-earth{
+  --earth-tint:rgba(130,151,225,.5);
+  position:absolute;
+  z-index:0;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  background-image:linear-gradient(90deg,#0d0e0d 0%,rgba(13,14,13,.97) 31%,rgba(13,14,13,.55) 58%,rgba(13,14,13,.08) 100%),url("assets/hero/hero-earth.webp");
+  background-position:center,center;
+  background-size:cover;
+  background-repeat:no-repeat;
+  transition:filter .7s ease,opacity .7s ease;
+}
+.hero-earth::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse 62% 78% at 82% 49%,var(--earth-tint) 0%,transparent 68%);
+  mix-blend-mode:screen;
+  opacity:.62;
+  transition:background .7s ease;
+}
+.hero-earth::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,rgba(13,14,13,.45),transparent 50%);
+}
+.hero[data-hero-tone="fokus"] .hero-earth{--earth-tint:rgba(82,230,196,.54)}
+.hero[data-hero-tone="richtung"] .hero-earth{--earth-tint:rgba(231,128,178,.43)}
+.hero[data-hero-tone="klarheit"] .hero-earth{--earth-tint:rgba(130,151,225,.5)}
+.hero .word-rotator em{color:#adbcf5;text-shadow:0 0 24px rgba(130,151,225,.3);transition:color .5s ease,text-shadow .5s ease}
+.hero[data-hero-tone="fokus"] .word-rotator em{color:#94ead8;text-shadow:0 0 26px rgba(82,230,196,.34)}
+.hero[data-hero-tone="richtung"] .word-rotator em{color:#f0b2d2;text-shadow:0 0 26px rgba(231,128,178,.3)}
+.hero[data-hero-tone="klarheit"] .word-rotator em{color:#adbcf5;text-shadow:0 0 24px rgba(130,151,225,.3)}
+.hero .hero-copy{position:relative;z-index:1}
+.hero .scroll-note{position:relative;z-index:1}
+@media(max-width:760px){
+  .hero-earth{opacity:.72;background-position:center,64% center}
+  .hero-earth::after{background:linear-gradient(90deg,rgba(13,14,13,.64),rgba(13,14,13,.2))}
+}
+@media(prefers-reduced-motion:reduce){.hero-earth,.hero-earth::before{transition:none}}

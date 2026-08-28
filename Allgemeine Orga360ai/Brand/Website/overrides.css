@@ -1,0 +1,7 @@
+/* Content stays readable before and during script execution. */
+.reveal { opacity: 1; transform: none; }
+.reveal.visible { transform: translateY(-4px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal.visible { transform: none; }
+}

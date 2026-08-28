@@ -1,0 +1,14 @@
+{
+  "name": "360ai — KI-Beratung & Automatisierung",
+  "short_name": "360ai",
+  "description": "KI-Beratung, KI-Readiness und Automatisierung für Unternehmen in Frankenberg (Eder) und der Region.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d0e0d",
+  "theme_color": "#0d0e0d",
+  "icons": [
+    { "src": "/favicon-64.png", "sizes": "64x64", "type": "image/png" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
