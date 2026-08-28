@@ -634,6 +634,16 @@ a.offer-more{text-decoration:none}
 .contact .ki-badge{position:absolute!important;z-index:4;border-color:rgba(13,14,13,.45);background:rgba(13,14,13,.66);color:#f3f0e9}
 @media(max-width:760px){.ki-badge{font-size:9px;padding:4px 8px}}
 
+/* --- Header: Leistungen-Dropdown (Desktop) --- */
+.site-header .header-menu{position:relative;display:flex}
+.site-header .header-menu>summary{list-style:none;cursor:pointer;color:inherit;font-size:.8rem;font-weight:600}
+.site-header .header-menu>summary::-webkit-details-marker{display:none}
+.site-header .header-menu>summary::after{content:" ▾";color:var(--acid)}
+.site-header .header-menu__panel{position:absolute;top:calc(100% + 16px);left:50%;transform:translateX(-50%);z-index:6;display:flex;flex-direction:column;gap:1px;min-width:292px;padding:10px;background:var(--ink);border:1px solid rgba(243,240,233,.16);box-shadow:0 26px 46px rgba(0,0,0,.42)}
+.site-header .header-menu__panel a{padding:10px 11px;color:var(--paper);font-size:.82rem;font-weight:600;text-decoration:none;white-space:nowrap}
+.site-header .header-menu__panel a:hover{background:rgba(243,240,233,.08);color:var(--mint)}
+.site-header .header-menu__panel a:last-child{margin-top:5px;padding-top:12px;border-top:1px solid rgba(243,240,233,.14);font-size:.74rem;color:#b9bbb3}
+
 /* --- Mobile-Navigation: Hamburger + Slide-Down-Panel (Desktop unverändert) --- */
 .nav-toggle{display:none}
 .mobile-nav{display:none}
@@ -653,6 +663,12 @@ a.offer-more{text-decoration:none}
 
   .mobile-nav nav{display:flex;flex-direction:column;gap:2px}
   .mobile-nav nav a{padding:13px 0;border-bottom:1px solid rgba(243,240,233,.12);color:var(--paper);text-decoration:none;font:700 1.35rem Manrope,Arial,sans-serif;letter-spacing:-.03em}
+  .mobile-nav nav .mobile-nav__group{border-bottom:1px solid rgba(243,240,233,.12)}
+  .mobile-nav nav .mobile-nav__group>summary{list-style:none;cursor:pointer;padding:13px 0;color:var(--paper);font:700 1.35rem Manrope,Arial,sans-serif;letter-spacing:-.03em;display:flex;justify-content:space-between;align-items:center}
+  .mobile-nav nav .mobile-nav__group>summary::-webkit-details-marker{display:none}
+  .mobile-nav nav .mobile-nav__group>summary::after{content:"+";color:var(--mint)}
+  .mobile-nav nav .mobile-nav__group[open]>summary::after{content:"–"}
+  .mobile-nav nav .mobile-nav__group a{display:block;padding:11px 0 11px 16px;border-bottom:0;border-top:1px solid rgba(243,240,233,.1);color:#cfd1ca;font:600 1rem Manrope,Arial,sans-serif;letter-spacing:-.01em}
   .mobile-nav__contact{display:flex;flex-direction:column;gap:2px}
   .mobile-nav__contact a{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(243,240,233,.12);color:var(--paper);text-decoration:none;font:600 .95rem Manrope,Arial,sans-serif}
   .mobile-nav__contact a span{color:var(--mint)}
