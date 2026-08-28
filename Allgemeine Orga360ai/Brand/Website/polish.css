@@ -29,7 +29,13 @@ body{overflow-x:clip}
 
 @media(max-width:760px){
   .site-header{padding:0 18px}
-  .site-header .header-actions{display:none}
+  /* Der Erstgespräch-Button steckt schon im Hamburger-Menü, aber die Kontakt-Icons
+     (Mail/Telefon/WhatsApp/Instagram/LinkedIn) sollen auf Mobil sichtbar bleiben. */
+  .site-header .header-actions{gap:0}
+  .site-header .header-cta{display:none}
+  .site-header .header-socials{gap:2px}
+  .site-header .header-socials a{width:31px;height:34px}
+  .site-header .header-socials svg{width:17px;height:17px}
   .nav-toggle{display:inline-flex;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;margin-right:-10px;padding:11px 9px;border:0;background:transparent;cursor:pointer}
   .nav-toggle span{display:block;height:2px;width:100%;background:var(--paper);transition:transform .25s ease,opacity .2s ease}
   body.nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
