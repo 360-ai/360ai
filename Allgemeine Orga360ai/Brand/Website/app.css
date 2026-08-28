@@ -625,6 +625,13 @@ a.offer-more{text-decoration:none}
 @media(prefers-reduced-motion:reduce){.subpage *{scroll-behavior:auto}}
 /* --- polish.css: SEO/GEO/Recht-Nachzug 2026-08-27 (immer als letzte Datei bundlen) --- */
 
+/* Kein horizontales Scrollen: die seitlich herausragenden Vorschau-Karten des
+   Angebots-Karussells (translate 55%/115%) und der Hero-Signalkreis sprengten auf
+   Mobil den Viewport. `body{overflow-x:hidden}` aus styles.css greift dafür nicht,
+   `overflow-x:clip` schon — und anders als `clip` auf <html> bleibt position:sticky
+   (Unterseiten-Header) dabei funktionsfähig. */
+body{overflow-x:clip}
+
 /* Footer-Spaltentitel: semantisch <p> statt <h2>, Optik unverändert */
 .site-footer__col-title{margin:0 0 18px;color:var(--mint);font:10px 'DM Mono',monospace;letter-spacing:.11em;text-transform:uppercase}
 
