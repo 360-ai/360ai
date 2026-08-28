@@ -3,6 +3,12 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=()
 
+# Standard: immer beim Server rückfragen (304, wenn unverändert). Verhindert,
+# dass Besucher nach einem Deploy die alte HTML samt altem app.css?v= sehen.
+# Die spezifischeren Regeln unten (assets, app.css, favicon) haben Vorrang.
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
