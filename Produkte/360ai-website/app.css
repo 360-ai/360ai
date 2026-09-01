@@ -612,8 +612,8 @@ footer{grid-template-columns:1fr 1.5fr auto auto auto}.footer-socials{gap:7px}.f
 .subpage .article-cta .button-main{background:var(--mint);color:var(--ink)!important}
 .article-cta .button-main span{color:var(--ink)}
 
-/* ---- Footer: 4 Spalten ---- */
-.site-footer__links{grid-template-columns:repeat(4,minmax(0,1fr))}
+/* ---- Footer: 5 Spalten ---- */
+.site-footer__links{grid-template-columns:repeat(5,minmax(0,1fr))}
 a.offer-more{text-decoration:none}
 
 @media(max-width:860px){
