@@ -17,6 +17,14 @@
 
 ## Leistungen
 
+- [Einstieg & Preise](https://360-ai.org/ki-einstieg): die vier Stufen mit konkreten Preisen.
+  Kennenlernen 15 Minuten kostenlos, KI-Standortbestimmung 249 € (60 Minuten, schriftliche
+  Kurzfassung, ein Monat KI Buddy enthalten), KI-Potenzialanalyse 3.000 € (drei Monate KI Buddy
+  enthalten), KI Buddy 49 € im Monat (Founderpreis für die ersten 15 Kunden, garantiert bis
+  31.12.2027, monatlich kündbar, Start 01.11.2026). Die 249 € werden auf die Potenzialanalyse
+  angerechnet, wenn sie innerhalb von sechs Monaten ab dem Gesprächstermin beauftragt wird.
+  Alle Beträge sind Endpreise, als Kleinunternehmer nach § 19 UStG wird keine Umsatzsteuer
+  ausgewiesen.
 - [KI-Readiness & Potenzialanalyse](https://360-ai.org/ki-readiness-analyse): strukturierte
   Entscheidungsgrundlage vor einer KI-Investition (Startpunkt, Erstgespräch kostenfrei)
 - [KI-Workshops](https://360-ai.org/ki-workshops): gemeinsamer Einstieg für Führungskräfte und Teams
@@ -33,10 +41,12 @@
 
 ## Ablauf
 
-Kostenfreies, unverbindliches Erstgespräch (E-Mail oder WhatsApp) → KI-Readiness- &
-Potenzialanalyse → Workshop oder Umsetzungsbegleitung. Öffentliche Preise werden bewusst nicht
-genannt; der Umfang richtet sich nach dem konkreten Vorhaben. 360ai empfiehlt bei Bedarf auch
-Vorarbeiten oder ein bewusstes Nein zu KI.
+Kostenloses Kennenlernen von 15 Minuten am Telefon → KI-Standortbestimmung für 249 € oder direkt
+die KI-Potenzialanalyse für 3.000 € → laufende Begleitung über den KI Buddy für 49 € im Monat.
+Die Preise der vier Einstiegsstufen stehen öffentlich auf https://360-ai.org/ki-einstieg;
+Workshops und Umsetzungsbegleitung werden weiterhin nach Umfang kalkuliert. 360ai setzt in der
+Regel nicht selbst um, sondern analysiert neutral, vermittelt Dienstleister und prüft deren
+Angebote und Rechnungen. 360ai empfiehlt bei Bedarf auch Vorarbeiten oder ein bewusstes Nein zu KI.
 
 ## Weitere Seiten
 

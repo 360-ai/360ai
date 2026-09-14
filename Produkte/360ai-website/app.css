@@ -632,6 +632,60 @@ a.offer-more{text-decoration:none}
   .subpage-hero__art{display:none}
 }
 @media(prefers-reduced-motion:reduce){.subpage *{scroll-behavior:auto}}
+
+/* ---- /ki-einstieg: Stufen, Risiko, KI Buddy ---- */
+.stufen{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:26px 0 0}
+.stufe{display:flex;flex-direction:column;gap:14px;padding:24px;background:#fff;border:1px solid var(--line)}
+.stufe__kopf{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:baseline;gap:12px}
+.stufe__nr{font:700 .82rem 'DM Mono',monospace;color:var(--acid)}
+.stufe__titel h3{margin:0;font-size:1.24rem;font-weight:800;letter-spacing:-.035em;line-height:1.1}
+.stufe__meta{margin:5px 0 0;color:#6c6e68;font-size:.84rem;line-height:1.4}
+.stufe__preis{margin:0;justify-self:end;white-space:nowrap;font-size:1.22rem;font-weight:800;letter-spacing:-.04em}
+.stufe>p{margin:0;color:#4e504b;font-size:.97rem;line-height:1.68}
+.stufe .subpage-list{margin-top:-2px}
+.stufe .subpage-list li{font-size:.93rem}
+.stufe__cta{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:9px;padding:12px 18px;background:var(--ink);color:var(--paper)!important;font-size:.83rem;font-weight:800;text-decoration:none}
+.stufe__cta span{color:var(--mint);font-size:1.05rem}
+.stufe__fuss{margin:0;color:#6c6e68;font-size:.83rem;line-height:1.5}
+.stufe--akzent{background:#dcebe9;border-color:rgba(13,14,13,.24)}
+.stufe--dunkel{background:var(--ink);border-color:var(--ink)}
+.stufe--dunkel .stufe__titel h3,.stufe--dunkel .stufe__preis{color:var(--paper)}
+.stufe--dunkel .stufe__nr{color:var(--mint)}
+.stufe--dunkel .stufe__meta,.stufe--dunkel>p{color:#c9cbc3}
+.stufe--dunkel .stufe__cta{background:var(--mint);color:var(--ink)!important}
+.stufe--dunkel .stufe__cta span{color:var(--ink)}
+.preis-hinweis{margin:18px 0 0!important;color:#6c6e68;font-size:.84rem!important;line-height:1.5}
+
+.risiko{padding:28px;background:var(--ink);color:var(--paper)}
+.risiko__satz{margin:0 0 20px;font-size:clamp(1.2rem,2.3vw,1.6rem);font-weight:800;letter-spacing:-.035em;line-height:1.22;color:#fff}
+.risiko ul{margin:0;padding:0;list-style:none;display:grid;gap:14px}
+.risiko li{padding-top:14px;border-top:1px solid rgba(243,240,233,.18);color:#c9cbc3;font-size:.95rem;line-height:1.65}
+.risiko strong{color:var(--mint)}
+
+.buddy-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:24px 0 0}
+.buddy-col{padding:24px;background:#fff;border:1px solid var(--line)}
+.buddy-col h3{margin:0 0 16px;font-size:1.05rem;font-weight:800;letter-spacing:-.03em}
+.buddy-col ul{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+.buddy-col li{padding-left:24px;position:relative;color:#4e504b;font-size:.94rem;line-height:1.62}
+.buddy-col li::before{position:absolute;left:0;font-weight:800}
+.buddy-col--ja li::before{content:"+";color:var(--mint)}
+.buddy-col--nein{background:#eceae3}
+.buddy-col--nein li::before{content:"–";color:#8d8f88}
+.buddy-col strong{color:var(--ink)}
+
+.founder{margin:22px 0 0;padding:28px;background:#dcebe9;border:1px solid rgba(13,14,13,.24)}
+.founder__label{margin:0!important;color:#3c5750;font:700 11px 'DM Mono',monospace;letter-spacing:.09em;text-transform:uppercase}
+.founder__preis{margin:8px 0 18px!important;font-size:clamp(1.8rem,3.6vw,2.6rem);font-weight:800;letter-spacing:-.05em;color:var(--ink)}
+.founder ul{margin:0 0 22px;padding:0;list-style:none;display:grid;gap:11px}
+.founder li{padding-left:24px;position:relative;color:#2f3a39;font-size:.95rem;line-height:1.62}
+.founder li::before{content:"→";position:absolute;left:0;color:#3c5750;font-weight:800}
+
+@media(max-width:720px){
+  .stufen,.buddy-cols{grid-template-columns:1fr}
+  .stufe__kopf{grid-template-columns:auto minmax(0,1fr)}
+  .stufe__preis{grid-column:2;justify-self:start;margin-top:8px}
+  .risiko,.founder,.buddy-col,.stufe{padding:20px}
+}
 /* --- polish.css: SEO/GEO/Recht-Nachzug 2026-08-27 (immer als letzte Datei bundlen) --- */
 
 /* Zusätzliche Absicherung gegen horizontales Scrollen (die eigentliche Ursache war ein
@@ -700,5 +754,15 @@ body{overflow-x:clip}
   .hero-text{margin:22px 0 20px}
   .hero-actions{gap:14px}
 }
+
+
+/* --- Einstieg-Banner unter den Angeboten (verlinkt /ki-einstieg) --- */
+.einstieg-banner{display:flex;align-items:center;justify-content:space-between;gap:28px;margin-top:26px;padding:26px 30px;background:var(--ink);color:var(--paper);text-decoration:none;transition:background .2s ease}
+.einstieg-banner:hover{background:#171a17}
+.einstieg-banner__label{margin:0 0 7px;color:var(--mint);font:700 11px 'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
+.einstieg-banner__text{margin:0;max-width:62ch;color:#c9cbc3;font-size:.95rem;line-height:1.6}
+.einstieg-banner>span{display:inline-flex;align-items:center;gap:9px;white-space:nowrap;padding:12px 18px;background:var(--mint);color:var(--ink);font-size:.83rem;font-weight:800}
+.einstieg-banner>span em{font-style:normal;font-size:1rem}
+@media(max-width:760px){.einstieg-banner{flex-direction:column;align-items:flex-start;gap:18px;padding:22px}}
 
 /* build: 14 Quelldateien, siehe BUILD-CSS.md */

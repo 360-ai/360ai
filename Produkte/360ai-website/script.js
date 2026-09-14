@@ -535,6 +535,10 @@ if (anfrageDialog) {
   document.querySelectorAll('[data-open-anfrage]').forEach((btn) => {
     btn.addEventListener('click', () => openDialog(btn.dataset.anliegen));
   });
+
+  // Von /ki-einstieg kommend: ?anliegen=... oeffnet das Anfrage-Fenster vorausgewaehlt.
+  const presetFromUrl = new URLSearchParams(window.location.search).get('anliegen');
+  if (presetFromUrl) openDialog(presetFromUrl);
   anfrageDialog.querySelector('[data-close-anfrage]').addEventListener('click', closeDialog);
   anfrageDialog.addEventListener('click', (event) => {
     if (event.target === anfrageDialog) closeDialog();

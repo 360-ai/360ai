@@ -24,7 +24,7 @@ mkdir -p "$OUT/assets"
 
 # 3. Seiten + Root-Dateien
 cp index.html impressum.html datenschutz.html 404.html app.css script.js \
-   ki-readiness-analyse.html ki-workshops.html ki-automation-umsetzen.html webdesign.html ki-strategie-roadmap.html \
+   ki-einstieg.html ki-readiness-analyse.html ki-workshops.html ki-automation-umsetzen.html webdesign.html ki-strategie-roadmap.html \
    robots.txt sitemap.xml llms.txt _headers _redirects site.webmanifest \
    favicon.ico favicon.svg favicon-16.png favicon-32.png favicon-48.png favicon-64.png favicon-192.png favicon-512.png apple-touch-icon.png \
    "$OUT/"
