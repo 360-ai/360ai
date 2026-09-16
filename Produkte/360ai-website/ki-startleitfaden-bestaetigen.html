@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anmeldung bestätigen | 360ai</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="theme-color" content="#0d0e0d" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/app.css?v=3741615939" />
+</head>
+<body class="subpage">
+  <header class="subpage-nav">
+    <a class="subpage-nav__logo" href="/"><img src="/assets/brand/360ai-logo.png" alt="360ai" width="800" height="268" decoding="async" /></a>
+    <a class="subpage-nav__cta" href="/">Zur Startseite <span>↗</span></a>
+  </header>
+
+  <main>
+    <div class="subpage-main">
+      <section class="subpage-section lm-bestaetigen">
+
+        <div id="schritt-frage">
+          <h1>Nur noch ein Klick</h1>
+          <p>Bitte bestätigen Sie, dass Sie den KI-Startleitfaden angefordert haben. Danach steht der Download sofort hier, und wir schicken den Link zusätzlich per Mail.</p>
+          <button class="button-main" id="btn-bestaetigen" type="button">Jetzt bestätigen <span>→</span></button>
+          <p class="lm-form__status" id="status" role="status"></p>
+        </div>
+
+        <div id="schritt-fertig" hidden>
+          <h1>Fertig. Viel Erfolg damit.</h1>
+          <p>Ihre Anmeldung ist bestätigt. Der Leitfaden ist außerdem unterwegs in Ihr Postfach.</p>
+          <p><a class="button-main" id="download-link" href="#">Leitfaden herunterladen <span>↓</span></a></p>
+          <p>Wenn beim Lesen Fragen auftauchen: Ein Kennenlernen am Telefon dauert 15 Minuten und kostet nichts. <a href="/?anliegen=Kennenlernen%2C%2015%20Minuten%20kostenlos#kontakt">Termin anfragen</a>.</p>
+        </div>
+
+        <div id="schritt-fehler" hidden>
+          <h1>Das hat nicht geklappt</h1>
+          <p id="fehler-text"></p>
+          <p><a class="button-main" href="/ki-startleitfaden">Noch einmal anfordern <span>→</span></a></p>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__bottom"><small>© 2026 360ai. Alle Rechte vorbehalten.</small><div class="footer-socials"><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a></div></div>
+  </footer>
+
+  <script>
+  (function () {
+    var token = new URLSearchParams(location.search).get('t') || '';
+    var frage = document.getElementById('schritt-frage');
+    var fertig = document.getElementById('schritt-fertig');
+    var fehler = document.getElementById('schritt-fehler');
+    var status = document.getElementById('status');
+    var btn = document.getElementById('btn-bestaetigen');
+
+    function zeigeFehler(text) {
+      frage.hidden = true;
+      fertig.hidden = true;
+      fehler.hidden = false;
+      document.getElementById('fehler-text').textContent = text;
+    }
+
+    if (!token) {
+      zeigeFehler('In der Adresse fehlt der Bestätigungsschlüssel. Bitte klicken Sie den Knopf in der Mail an, oder kopieren Sie die komplette Adresse aus der Mail in Ihren Browser.');
+      return;
+    }
+
+    btn.addEventListener('click', function () {
+      btn.disabled = true;
+      status.textContent = 'Wird bestätigt …';
+
+      fetch('/api/confirm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ t: token })
+      })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+        .then(function (res) {
+          if (res.ok && res.j.ok) {
+            frage.hidden = true;
+            fertig.hidden = false;
+            document.getElementById('download-link').setAttribute('href', res.j.download);
+          } else {
+            zeigeFehler(res.j.fehler || 'Unbekannter Fehler. Bitte fordern Sie das Dokument erneut an.');
+          }
+        })
+        .catch(function () {
+          status.textContent = 'Keine Verbindung. Bitte später erneut versuchen.';
+          btn.disabled = false;
+        });
+    });
+  })();
+  </script>
+</body>
+</html>
