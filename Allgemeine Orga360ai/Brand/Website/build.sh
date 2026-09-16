@@ -44,6 +44,12 @@ find "$OUT" -name '*.html' -exec sed -i \
   -e "s#href=\"app.css\"#href=\"/app.css?v=$CSSV\"#g" {} +
 echo "app.css version: $CSSV"
 
+# 3d. Pages Functions (Formular-Backend). Muessen im Deploy-Ordner liegen, sonst
+#     liefert Cloudflare sie nicht aus.
+if [ -d functions ]; then
+  cp -r functions "$OUT/"
+fi
+
 # 4. Assets: nur ausgelieferte Formate
 cp -r assets/brand assets/og assets/fonts "$OUT/assets/"
 for sub in offers hero region certificates references; do
