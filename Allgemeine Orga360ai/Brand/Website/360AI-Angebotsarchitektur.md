@@ -51,7 +51,7 @@ Offen vor einer Veröffentlichung: Bestätigung der Partnerschaft, Preis der Stu
 Gelten für Fahrplan, Website und Gespräch gleichermaßen. Diese Zählung ist die verbindliche; `strategiepapier.md` Abschnitt 4 und `homepage-texte.md` Abschnitt E/F verwenden dieselbe.
 
 1. **Der Fahrplan ist portabel** und an keinen Anbieter und nicht an 360 AI gebunden.
-2. **Zu jedem Vorschlag steht dabei, wer ihn umsetzen sollte.** Mindestens ein Weg pro Analyse kommt ohne 360 AI aus.
+2. **Zu jedem Vorschlag steht dabei, wie er umgesetzt werden kann.** Manches kann der Betrieb selbst, manches der bestehende Software-Anbieter, das meiste baut 360 AI, bei aufwendigen Vorhaben kommen Spezialisten aus dem Netzwerk dazu. **Keine Pflicht, einen Weg ohne 360 AI auszuweisen** (geändert am 17.09.2026). Die Entscheidung bleibt beim Kunden, die Neutralität trägt Regel 1.
 3. **Die Prüf-Funktion des KI Buddy gilt nur für Fremdangebote.** Eigene Angebote sind ausdrücklich ausgenommen.
 4. **„Lassen Sie das vorerst" bleibt ein erlaubtes Ergebnis.**
 5. **Provisionen werden benannt, nicht erwähnt.** Wo 360 AI an einer Empfehlung mitverdient, steht das an der Stelle im Fahrplan, an der die Empfehlung steht, nicht im Kleingedruckten. § 5a UWG verlangt, dass die kommerzielle Absicht kenntlich ist.
