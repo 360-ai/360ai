@@ -686,6 +686,14 @@ a.offer-more{text-decoration:none}
   .stufe__preis{grid-column:2;justify-self:start;margin-top:8px}
   .risiko,.founder,.buddy-col,.stufe{padding:20px}
 }
+
+/* Value Ladder 16.09.2026: fuenfte Stufe + Pilotphase */
+.stufe--breit{grid-column:1/-1}
+.pilot{margin:18px 0 0;padding:22px 24px;background:#fff;border:1px solid var(--line);border-left:3px solid var(--acid)}
+.pilot__label{margin:0!important;color:#6c6e68;font:700 11px 'DM Mono',monospace;letter-spacing:.09em;text-transform:uppercase}
+.pilot__satz{margin:8px 0 10px!important;font-size:1.06rem;font-weight:800;letter-spacing:-.03em;line-height:1.35;color:var(--ink)}
+.pilot p:last-child{margin:0!important;color:#4e504b;font-size:.92rem;line-height:1.62}
+@media(max-width:720px){.pilot{padding:20px}}
 /* --- polish.css: SEO/GEO/Recht-Nachzug 2026-08-27 (immer als letzte Datei bundlen) --- */
 
 /* Zusätzliche Absicherung gegen horizontales Scrollen (die eigentliche Ursache war ein
