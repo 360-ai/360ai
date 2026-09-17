@@ -1,63 +1,60 @@
 # 360 AI – Angebotsarchitektur (Arbeitsstand)
 
-Stand: 26. August 2026
+Stand: 17. September 2026 (ersetzt den Stand vom 26. August 2026 vollständig)
+
+Verbindliche Detailbegründung: `Documents/360ai/Strategie/Value-Ladder/strategiepapier.md`.
+Fertige Textbausteine für die Seite: `homepage-texte.md` im selben Ordner.
 
 ## Positionierung
 
-360 AI begleitet mittelständische Unternehmen vom ersten KI-Orientierungsgespräch über eine belastbare KI-Readiness- und Potenzialanalyse bis zur individuellen Umsetzung.
+360 AI begleitet mittelständische Unternehmen vom ersten KI-Orientierungsgespräch über eine belastbare KI-Potenzialanalyse bis zur Umsetzung. **Seit dem 16. September 2026 ist die Umsetzung eigene Leistung, nicht mehr nur Vermittlung.**
 
 **Leitidee:** Erst Klarheit schaffen, dann fundiert entscheiden, anschließend wirksam umsetzen.
 
-Intern darf das Produkt als Beratungstool bezeichnet werden. Gegenüber Kunden sprechen wir von Analyse, Workshop und Umsetzungsbegleitung.
+Intern darf das Produkt als Beratungstool bezeichnet werden. Gegenüber Kunden sprechen wir von Analyse, Workshop und Umsetzung.
 
-## Phase 1 – Kostenfreies KI-Erstgespräch
+## Die Leiter, sechs öffentliche Stufen
 
-**30 Minuten · kostenfrei · unverbindlich und vertraulich**
+| Stufe | Leistung | Preis |
+|---|---|---|
+| 00 | Handouts und Checklisten | kostenlos gegen E-Mail (noch zu schreiben) |
+| 01 | Kennenlernen, 10 bis 15 Minuten Telefon | kostenlos |
+| 02 | KI-Standortbestimmung, ca. 60 Minuten plus schriftliche Kurzfassung | 249 €, öffentlich |
+| 03 | KI-Potenzialanalyse, ganzer Betrieb | auf Anfrage (intern 3.000 €, Pilotpreis 1.000 € für die ersten drei Betriebe bis 31.03.2027) |
+| 04 | Umsetzung von Automatisierung | auf Anfrage, Festpreis je Anwendungsfall vor Start |
+| 05 | KI Buddy, laufende Begleitung | 49 €/Monat Founderpreis, öffentlich, erste 15 Kunden bis 31.12.2027 |
 
-Ziel ist ausschließlich die Eignungsprüfung und Bedarfsklärung – keine kostenlose Ausarbeitung.
+Betrieb und Überwachung laufen getrennt davon, auf Wunsch. Interner Rahmen 150 bis 250 € im Monat, ohne Zahl auf der Seite.
 
-Ergebnis:
+**Anrechnung Analyse auf Umsetzung:** 30 Prozent des Analysepreises, höchstens 900 €, nur wenn der Umsetzungsauftrag mindestens den Analysepreis erreicht, Frist sechs Monate ab Ergebnisgespräch. Im Pilotpreis nicht enthalten, keine Stapelung. Nie „Verzicht" nennen, immer „Anrechnung" oder „abgezogen". Kaufmännisch eine Nachlasszeile auf der Umsetzungsrechnung, kein Storno der Analyse-Rechnung.
 
-- erster gemeinsamer Blick auf Ausgangslage und zentralen Engpass
-- Einschätzung, ob und wo ein sinnvoller KI-/Digitalisierungshebel bestehen könnte
-- Empfehlung des passenden nächsten Schritts
+## Preisbildung Stufe 04 (Umsetzung)
 
-## Phase 2 – KI-Readiness- & Potenzialanalyse
+**Entschieden am 17. September 2026: keine öffentliche Zahl.** Weder Startpreis noch Bandbreite. Der Preis wird je Anwendungsfall ermittelt und als Festpreis vor Projektbeginn schriftlich vereinbart. Abrechnung nach Aufwand gibt es nicht.
 
-**Orientierungspreis: ab 3.900 € netto**
+Intern gilt weiterhin eine Kalkulationsleitplanke von rund 2.500 € für die erste Automatisierung, begründet in `strategiepapier.md` Abschnitt 2. Sie ist Kalkulationshilfe, keine Preisaussage nach außen. Der Pilotpreis von 1.000 bis 1.500 € für die ersten drei Projekte wird im Gespräch genannt, nicht auf der Seite.
 
-Ziel: Eine nachvollziehbare Entscheidungsgrundlage schaffen, bevor ein konkretes Umsetzungsprojekt beauftragt wird.
+## Langdock – vorbereitet, nicht öffentlich
 
-Enthaltene Arbeit:
+**Entschieden am 17. September 2026: Langdock wird nicht angeboten, solange die Partnerschaft nicht bestätigt ist.** Keine Karte auf der Website, keine Stufe in der Leiter, keine Zahl, keine Erwähnung als buchbare Leistung in Angeboten oder Akquisetexten.
 
-- Kunden- und Ausgangslagenprofil
-- Betrachtung ausgewählter Prozesse und Engpässe
-- organisatorische, prozessuale, datenbezogene und technische KI-Readiness-Einschätzung
-- Identifikation und Priorisierung konkreter KI-/Digitalisierungsmaßnahmen
-- Nutzen- und Aufwandsschätzung mit transparenten Annahmen; bei ausreichender Datenlage ROI-Szenarien
-- Management-Report mit 360-AI-Einschätzung, Risiken, Annahmen und empfohlenem nächsten Schritt
+Geplantes Modell, sobald die Partnerschaft steht: **Vermittlung mit Provision, kein Wiederverkauf.** Der Kunde schließt Abo und AVV direkt mit Langdock ab, 360 AI erhält eine Provision beziehungsweise Partnerkondition und baut die Anwendungsfälle. 360 AI wird dadurch nicht Vertragspartner und nicht Teil der AVV-Kette. Ein echter Reseller-Vertrag wäre eine andere Entscheidung und müsste gesondert getroffen werden.
 
-**Nicht enthalten:** detaillierte 90-Tage-Umsetzungsplanung, Lastenheft, Anbieter-/Angebotsvergleich, technische Realisierung oder Projektsteuerung. Diese Leistungen gehören in Phase 3 oder werden separat angeboten.
+Geplante Leistung: Einrichtung des Arbeitsbereichs, Aufbau der Anwendungsfälle (Chat, Dokumentenzugriff, Vorlagen), Schulung der Mitarbeiter. Die Lizenz zahlt der Kunde direkt, ab rund 20 € je Nutzer und Monat.
 
-Kundensatz:
+**Langdock und die Umsetzung bleiben zwei Produkte, nie ein Paket.** Langdock ist der Assistent am Arbeitsplatz, n8n auf eigener Instanz ist die Automatisierung. Das Workflows-Add-on von Langdock ab rund 539 € im Monat ist für die Zielgruppe unerreichbar und wird nicht angeboten.
 
-> Sie erhalten eine priorisierte Entscheidungsgrundlage mit Reifegrad-Einschätzung, konkreten Maßnahmen sowie transparenten Nutzen-, Aufwand- und Risikoannahmen.
+Offen vor einer Veröffentlichung: Bestätigung der Partnerschaft, Preis der Stufe, Höhe der Provision und ob sie einmalig oder laufend fließt.
 
-## Phase 3 – KI-Umsetzungsbegleitung
+## Neutralität: fünf öffentliche Regeln
 
-**Individuell kalkuliert**
+Gelten für Fahrplan, Website und Gespräch gleichermaßen. Diese Zählung ist die verbindliche; `strategiepapier.md` Abschnitt 4 und `homepage-texte.md` Abschnitt E/F verwenden dieselbe.
 
-Ziel: Einen ausgewählten Use Case sauber entscheiden, realisieren und in den Betrieb überführen.
-
-Mögliche Leistungen:
-
-- detaillierter Umsetzungsfahrplan bzw. 90-Tage-Plan
-- Lastenheft und Anforderungsklärung
-- Anbieterrecherche, Angebotsvergleich und Entscheidungsvorlage
-- Projektsteuerung, Qualitätssicherung und Abnahme
-- Change-/Adoptionsbegleitung und Erfolgsmessung
-
-Der Umfang richtet sich nach Use Case, Systemlandschaft, Datenschutz-/Sicherheitsanforderungen, beteiligten Parteien und der Rolle von 360 AI (Beratung, Steuerung oder technische Umsetzung).
+1. **Der Fahrplan ist portabel** und an keinen Anbieter und nicht an 360 AI gebunden.
+2. **Zu jedem Vorschlag steht dabei, wer ihn umsetzen sollte.** Mindestens ein Weg pro Analyse kommt ohne 360 AI aus.
+3. **Die Prüf-Funktion des KI Buddy gilt nur für Fremdangebote.** Eigene Angebote sind ausdrücklich ausgenommen.
+4. **„Lassen Sie das vorerst" bleibt ein erlaubtes Ergebnis.**
+5. **Provisionen werden benannt, nicht erwähnt.** Wo 360 AI an einer Empfehlung mitverdient, steht das an der Stelle im Fahrplan, an der die Empfehlung steht, nicht im Kleingedruckten. § 5a UWG verlangt, dass die kommerzielle Absicht kenntlich ist.
 
 ## Ergänzende Angebote
 
@@ -73,19 +70,22 @@ Für einen fokussierten Einstieg, beispielsweise Führungskräfte-Orientierung, 
 
 Für Teams bzw. mehrere Perspektiven auf konkrete Arbeitsbereiche. Ergebnis und Umfang werden vorab je Workshop definiert.
 
-### KI-Projekt-Umsetzung
+### Neue Anwendungsfälle nach der Umsetzung
 
-**Individuell kalkuliert**
+Fragen laufen über den KI Buddy. Jeder neue Fall ist ein eigener Werkauftrag zum Baustein-Festpreis, für Abo-Kunden 10 Prozent günstiger.
 
-Umsetzung eines priorisierten Use Cases in wenigen Wochen inklusive Übergabe in den Betrieb. Einmalige Projektkosten und laufende Kosten (z. B. Lizenzen, Modell-/API-Nutzung, Hosting, Wartung) werden getrennt und transparent ausgewiesen.
+### Webdesign
+
+Ergänzende Leistung, nicht Schwerpunkt der KI-Positionierung.
 
 ## Preis- und Website-Prinzip
 
-- **Keine öffentlichen Preise zum Start.** Die Homepage führt auf „Kostenfreies Erstgespräch vereinbaren“ und „Projekt anfragen“; ein konkretes Angebot folgt nach kurzem Scoping.
-- Die oben genannten Preise sind ausschließlich interne, vorläufige Preisleitplanken. Sie helfen bei der Angebotskalkulation, sind aber nicht bindend.
-- Vor jedem Angebot Umfang, Fachbereiche, Kundeneinsatz, Datenlage, Reiseaufwand, gewünschte Ergebnisse, Ausschlüsse und Zeitrahmen prüfen und als Festpreisangebot dokumentieren.
-- Phase 3 und KI-Projekt-Umsetzung immer individuell kalkulieren; einmalige Projektkosten und laufende Kosten separat ausweisen.
+- **Öffentlich stehen nur zwei Zahlen: 249 € für die Standortbestimmung und 49 € im Monat für den KI Buddy** (entschieden am 17.09.2026). Alles andere ist auf Anfrage: Potenzialanalyse, Umsetzung, Workshops, Betrieb und Überwachung, Pilotkonditionen. Die internen Zahlen bleiben als Kalkulationsgrundlage gültig, sie gehen nur nicht nach außen. Ausgenommen ist die Anrechnungs-Obergrenze von 900 €, weil sie keine Preisangabe ist, sondern ein Deckel zugunsten des Kunden.
+- Jedes konkrete Projektangebot bleibt ein Festpreisangebot nach kurzem Scoping. Vor jedem Angebot Umfang, Fachbereiche, Kundeneinsatz, Datenlage, Reiseaufwand, gewünschte Ergebnisse, Ausschlüsse und Zeitrahmen prüfen und schriftlich dokumentieren.
+- Einmalige Projektkosten und laufende Kosten (Lizenzen, Modell-/API-Nutzung, Hosting, Wartung) immer getrennt und transparent ausweisen.
+- **Fremdkostengrenze beim Kunden:** rund 50 € im Monat für laufende Infrastruktur der Automation. Arbeitsplatzlizenzen wie Langdock zählen nicht dagegen, sondern getrennt als Kopfpreis je Nutzer.
 - Solange die Kleinunternehmerregelung nach § 19 UStG genutzt wird, Preise und Angebote als **Endpreis** ohne Umsatzsteuer ausweisen. Auf Rechnungen gehört ein Hinweis auf die Steuerbefreiung nach § 19 UStG. Steuerliche Behandlung vor Angebotsversand bei Unklarheit mit Steuerberatung prüfen.
+- **Keine Förderaussage auf der Homepage**, solange RKW Hessen (DIGI-Beratung, Beraterpool) nicht geklärt ist. BAFA scheidet praktisch aus, DIGI-Zuschuss Hessen ist im Juni 2026 ausgelaufen.
 
 ## Homepage-Zweck und Leistungsarchitektur
 
@@ -93,16 +93,27 @@ Die Homepage verkauft keine anonyme Standardleistung. Sie soll qualifizierte Ers
 
 ### Priorität der Leistungen auf der Homepage
 
-1. **KI-Readiness- & Potenzialanalyse** – Hauptangebot und wichtigste Conversion.
-2. **Kostenfreies KI-Erstgespräch** – niedrigschwelliger Einstieg und Qualifizierung.
-3. **KI-Workshops** – Einstiegs- bzw. Befähigungsangebot.
-4. **KI- & Automationsumsetzung** – kleine, klar abgegrenzte Vorhaben direkt umsetzen; komplexe Vorhaben mit geeignetem Partnernetzwerk begleiten.
-5. **Webdesign** – als ergänzende Leistung; nicht als Schwerpunkt der KI-Positionierung.
+1. **KI-Potenzialanalyse** – Hauptangebot und wichtigste Conversion.
+2. **Kostenfreies Kennenlerngespräch** – niedrigschwelliger Einstieg und Qualifizierung.
+3. **Umsetzung von Automatisierung** – eigene Leistung, steht vor den Workshops, ohne Preisangabe.
+4. **KI-Workshops** – Einstiegs- bzw. Befähigungsangebot.
+5. **KI Buddy** – läuft quer, nicht obendrauf.
+6. **Webdesign** – ergänzende Leistung.
+
+Langdock erscheint hier erst, wenn die Partnerschaft bestätigt ist.
 
 ### Partnernetzwerk
 
-Kein eigener Hauptbutton erforderlich. Die Umsetzung-Seite bzw. ein Vertrauensabschnitt kann klar sagen:
+Partner sind nur noch für das zuständig, was 360 AI nicht selbst macht. Formulierung, wenn gebraucht:
 
 > Für komplexe Spezialanforderungen koordinieren wir bei Bedarf passende Umsetzungspartner aus unserem Netzwerk. 360 AI bleibt Ihr klarer Ansprechpartner für Analyse, Auswahl und Projektsteuerung.
 
-Nur dann verwenden, wenn Rolle, Verantwortung und mögliche Vermittlungsvergütungen im Angebot transparent gemacht werden.
+Nur dann verwenden, wenn Rolle, Verantwortung und mögliche Vermittlungsvergütungen im Angebot transparent gemacht werden (siehe Neutralitätsregel 5).
+
+## Offen
+
+- Langdock-Partnerschaft bestätigen. Erst danach Preis, Platz in der Leiter und Höhe der Provision festlegen.
+- Werkvertrag für Automations-Umsetzung fehlt; `Vertragsvorlagen/` deckt nur Website-Werkvertrag und Beratungsvertrag ab.
+- Zeiterfassung vor dem ersten Pilotprojekt aufsetzen.
+- Servicevertrag für Betrieb und Überwachung schreiben.
+- Website zeigt weiterhin den alten Stand. `/ki-einstieg` und `/ki-automation-umsetzen` sind in den Quelldateien umgebaut, aber nicht deployed. **Achtung: In diesen Quelldateien steht seit dem 16.09. „ab 2.500 €" für die Umsetzung, inklusive JSON-LD. Das widerspricht der Entscheidung vom 17.09. und muss vor dem Deploy raus.**
