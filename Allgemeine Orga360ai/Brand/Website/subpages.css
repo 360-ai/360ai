@@ -50,6 +50,7 @@
 .subpage-price{padding:24px;background:var(--ink);color:var(--paper)}
 .subpage-price p{color:#c9cbc3;margin:0}
 .subpage-price strong{color:#fff}
+.subpage-price .subpage-list li{color:#c9cbc3}
 
 .subpage-faq details{border-top:1px solid var(--line);padding:16px 0}
 .subpage-faq details:first-of-type{border-top:0}
