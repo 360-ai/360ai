@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>360ai — Gesprächsvorbereitung</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap');
 
     @font-face {
         font-family: 'Coolvetica Rg';
@@ -15,12 +15,13 @@
       }
 
     :root {
-      --teal:      #00BFA6;
-      --teal-dark: #33D9C7;
-      --charcoal:  #2d2d2d;
+      --teal:      #6577A8;
+      --teal-dark: #4E5F96;
+      --charcoal:  #1a1d35;
       --white:     #ffffff;
-      --bg:        #f5f5f5;
-      --border:    #e0e0e0;
+      --bg:        #F9F9F9;
+      --teal-light:#EEF0F8;
+      --border:    #E4E8F0;
       --error:     #e53935;
       --text-light: #666;
     }
@@ -58,7 +59,7 @@
     .logo span { color: var(--teal); }
 
     .intro-title {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Outfit', sans-serif; font-weight: 700;
       font-size: 24px;
       margin-bottom: 8px;
     }
@@ -137,7 +138,7 @@
 
     /* Form fields */
     .step-title {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Outfit', sans-serif; font-weight: 700;
       font-size: 20px;
       margin-bottom: 24px;
       color: var(--charcoal);
@@ -198,7 +199,7 @@
       border: 1px solid var(--border);
       transition: border-color 0.15s, background 0.15s;
     }
-    .checkbox-item:hover { border-color: var(--teal); background: #f0fffe; }
+    .checkbox-item:hover { border-color: var(--teal); background: var(--teal-light); }
     .checkbox-item input[type="checkbox"] {
       width: 16px; height: 16px;
       accent-color: var(--teal);
@@ -274,6 +275,19 @@
         <input type="text" id="kontakt" placeholder="z.B. Maria Muster, Geschäftsführerin">
         <p class="error-msg">Bitte füllen Sie dieses Feld aus.</p>
       </div>
+      <div class="field">
+        <label for="email">Ihre E-Mail-Adresse <span class="required">*</span></label>
+        <input type="email" id="email" placeholder="z.B. maria@muster.de">
+        <p class="error-msg">Bitte geben Sie eine gültige E-Mail-Adresse an.</p>
+      </div>
+      <div class="field">
+        <label for="telefon">Telefon (optional)</label>
+        <input type="tel" id="telefon" placeholder="z.B. 0151 23456789">
+      </div>
+      <div class="field">
+        <label for="adresse">Adresse / Ort (optional)</label>
+        <input type="text" id="adresse" placeholder="z.B. Musterstraße 1, 35066 Frankenberg">
+      </div>
     </div>
     <div id="step-2" class="step-content" style="display:none">
       <h2 class="step-title">Ihre Systemlandschaft</h2>
@@ -331,6 +345,13 @@
         </select>
         <p class="error-msg">Bitte füllen Sie dieses Feld aus.</p>
       </div>
+      <div class="field">
+        <label class="checkbox-item" style="align-items:flex-start; cursor:pointer;">
+          <input type="checkbox" id="einwilligung" style="margin-top:3px;">
+          <span style="font-size:13px; line-height:1.5; color:var(--text-light);">Ich bin einverstanden, dass meine Angaben zur Vorbereitung und Kontaktaufnahme gespeichert und verarbeitet werden. Es gilt die <a href="https://www.360-ai.org/datenschutz" target="_blank" rel="noopener" style="color:var(--teal);">Datenschutzerklärung</a>. <span class="required">*</span></span>
+        </label>
+        <p class="error-msg">Bitte stimmen Sie der Datenschutzerklärung zu.</p>
+      </div>
     </div>
 
     <!-- Navigation -->
@@ -383,10 +404,10 @@ const wizard = {
 
 const validation = {
   rules: {
-    1: ['firmenname', 'branche', 'mitarbeiterzahl', 'kontakt'],
+    1: ['firmenname', 'branche', 'mitarbeiterzahl', 'kontakt', 'email'],
     2: [],
     3: [],
-    4: ['erwartung', 'dringlichkeit']
+    4: ['erwartung', 'dringlichkeit', 'einwilligung']
   },
 
   check(step) {
@@ -398,13 +419,18 @@ const validation = {
     (this.rules[step] || []).forEach(id => {
       const el = document.getElementById(id);
       if (!el) return;
-      const val = el.value.trim();
-      if (!val) {
+      let ok;
+      if (el.type === 'checkbox') ok = el.checked;
+      else if (el.type === 'email') ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
+      else ok = !!el.value.trim();
+      if (!ok) {
         el.classList.add('error');
-        const msg = el.nextElementSibling;
-        if (msg && msg.classList.contains('error-msg')) {
-          msg.classList.add('visible');
+        let msg = el.nextElementSibling;
+        if (!(msg && msg.classList.contains('error-msg'))) {
+          const field = el.closest('.field');
+          msg = field ? field.querySelector('.error-msg') : null;
         }
+        if (msg && msg.classList.contains('error-msg')) msg.classList.add('visible');
         valid = false;
       }
     });
@@ -423,13 +449,17 @@ const submission = {
       branche: document.getElementById('branche').value.trim(),
       mitarbeiterzahl: document.getElementById('mitarbeiterzahl').value,
       kontakt_name_rolle: document.getElementById('kontakt').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      telefon: document.getElementById('telefon').value.trim(),
+      adresse: document.getElementById('adresse').value.trim(),
       tools: tools,
       tools_sonstiges: document.getElementById('tools-sonstiges').value.trim(),
       kommunikation: kommunikation,
       prozesse_ohne_personenbezug: document.getElementById('prozesse-allgemein').value.trim(),
       prozesse_mit_personenbezug: document.getElementById('prozesse-dsgvo').value.trim(),
       erwartung: document.getElementById('erwartung').value.trim(),
-      dringlichkeit: document.getElementById('dringlichkeit').value
+      dringlichkeit: document.getElementById('dringlichkeit').value,
+      einwilligung: document.getElementById('einwilligung').checked
     };
   },
 
@@ -481,7 +511,7 @@ Dringlichkeit: ${data.dringlichkeit}`
     danke.innerHTML = `
       <div style="text-align:center; padding: 24px 0;">
         <div style="width:56px; height:56px; background:var(--teal); border-radius:50%; display:flex; align-items:center; justify-content:center; margin: 0 auto 20px; color:white; font-size:24px; font-weight:700;">✓</div>
-        <h2 style="font-family:'Playfair Display',serif; font-size:24px; margin-bottom:12px; color:var(--charcoal);">Fragebogen abgegeben!</h2>
+        <h2 style="font-family:'Outfit',sans-serif; font-weight:700; font-size:24px; margin-bottom:12px; color:var(--charcoal);">Fragebogen abgegeben!</h2>
         <p style="color:var(--text-light); font-size:15px; line-height:1.6;">
           Vielen Dank — Ihre Angaben sind bei uns eingegangen.<br>Denis meldet sich in Kürze mit einer Terminbestätigung.
         </p>
@@ -495,7 +525,7 @@ Dringlichkeit: ${data.dringlichkeit}`
     danke.innerHTML = `
       <div style="text-align:center; padding: 24px 0;">
         <div style="width:56px; height:56px; background:#e67e22; border-radius:50%; display:flex; align-items:center; justify-content:center; margin: 0 auto 20px; color:white; font-size:24px; font-weight:700;">!</div>
-        <h2 style="font-family:'Playfair Display',serif; font-size:22px; margin-bottom:12px; color:var(--charcoal);">Übermittlung nicht möglich</h2>
+        <h2 style="font-family:'Outfit',sans-serif; font-weight:700; font-size:22px; margin-bottom:12px; color:var(--charcoal);">Übermittlung nicht möglich</h2>
         <p style="color:var(--text-light); font-size:14px; line-height:1.6; margin-bottom:24px;">
           Die automatische Übermittlung hat nicht geklappt (z. B. keine Internetverbindung).<br>
           Bitte speichern Sie Ihre Angaben und senden Sie die Datei an <strong>${EMAIL_EMPFAENGER}</strong>.

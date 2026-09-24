@@ -17,7 +17,7 @@ Audience, Token-Typ und die exakt erlaubte Google-Adresse. Ein eigenes Passworts
 Voraussetzung ist Node.js 20 oder neuer.
 
 ```powershell
-cd "$HOME\Documents\360ai\Produkte\akquise-tool\crm"
+cd "$HOME\Documents\360ai\Tools\Akquise-Tool\crm"
 Copy-Item .dev.vars.example .dev.vars
 npm install
 npm run check
@@ -112,7 +112,7 @@ Ein Pages-Projekt mit diesen Build-Einstellungen anlegen:
 | Einstellung | Wert |
 |---|---|
 | Projektname | `360ai-akquise-crm` |
-| Root-Verzeichnis | `Produkte/akquise-tool/crm` (bei Repository-Root `360ai`) bzw. `crm` (wenn `akquise-tool` selbst das Repository ist) |
+| Root-Verzeichnis | `Tools/Akquise-Tool/crm` (bei Repository-Root `360ai`) bzw. `crm` (wenn `akquise-tool` selbst das Repository ist) |
 | Build-Befehl | `npm run build` |
 | Ausgabeordner | `public` |
 | Node.js | 20 oder neuer |
@@ -171,7 +171,7 @@ CRM-Read-Webhook-Token gelangen nie in den Browser.
 Vor jedem Deploy:
 
 ```powershell
-cd "$HOME\Documents\360ai\Produkte\akquise-tool\crm"
+cd "$HOME\Documents\360ai\Tools\Akquise-Tool\crm"
 npm install
 npm run check
 npm test

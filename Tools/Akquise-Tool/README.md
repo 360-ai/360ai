@@ -34,7 +34,7 @@ Google Sheet; er liefert eine Nutzlast an einen Webhook, n8n prüft und schreibt
 ### 1. Abhängigkeiten
 
 ```bash
-cd ~/Documents/360ai/Produkte/akquise-tool
+cd ~/Documents/360ai/Tools/Akquise-Tool
 npm install
 npx playwright install chromium   # nur nötig, wenn kein Chromium im Cache liegt
 npm test                          # muss grün sein
