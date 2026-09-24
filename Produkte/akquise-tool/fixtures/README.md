@@ -37,7 +37,7 @@ wären die Felder `impressum.vertretung`, `impressum.email`, `impressum.telefon`
 angepasst werden, weil sie auf namentlich genannte Ansprechpartner prüfen.
 
 Screenshots und gespeichertes HTML liegen **nicht** hier, sondern unter
-`~/Documents/360ai/akquise-daten/` und sind von der Versionierung ausgeschlossen.
+`~/Documents/360ai/Kunden/Akquise/` und sind von der Versionierung ausgeschlossen.
 
 ## Warum die Fixtures eine ältere Collector-Version tragen
 
@@ -54,7 +54,7 @@ handgeschriebenen HTML-Schnipseln arbeiten.
 ```bash
 node collector/scan.mjs https://helfri-bau.de --lead-id TEST-helfri --branche bauunternehmen \
   --keyword "Bauunternehmen Frankenberg" --limit 12
-cp ~/Documents/360ai/akquise-daten/TEST-helfri/<datum>/facts.json fixtures/helfri/facts.json
+cp ~/Documents/360ai/Kunden/Akquise/TEST-helfri/<datum>/facts.json fixtures/helfri/facts.json
 npm test
 ```
 

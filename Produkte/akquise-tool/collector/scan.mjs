@@ -27,7 +27,7 @@ import { selectPages } from './lib/pages.mjs';
 export const COLLECTOR_VERSION = '1.1.0';
 
 const DATA_ROOT = process.env.AKQUISE_DATA_ROOT
-  ?? path.join(os.homedir(), 'Documents', '360ai', 'akquise-daten');
+  ?? path.join(os.homedir(), 'Documents', '360ai', 'Kunden', 'Akquise');
 
 // ---------------------------------------------------------------- CLI
 

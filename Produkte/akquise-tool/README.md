@@ -207,7 +207,7 @@ und Schreiben bleibt. Details und Betriebshinweise stehen in `crm/README.md`.
 | `tests/` | automatisierte Regressionstests |
 | `blacklist.json` | Firmen und Domains, die nie kontaktiert werden |
 
-**Leaddaten liegen außerhalb dieses Verzeichnisses** unter `~/Documents/360ai/akquise-daten/`
+**Leaddaten liegen außerhalb dieses Verzeichnisses** unter `~/Documents/360ai/Kunden/Akquise/`
 und sind per `.gitignore` von der Versionierung ausgeschlossen. Screenshots, gespeichertes HTML
 und Ansprechpartner gehören nicht in eine Historie, aus der sich Löschen nicht zurücknehmen lässt.
 

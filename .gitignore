@@ -1,1 +1,14 @@
 .worktrees/
+
+# Akquise-Tool: Lead- und Auditdaten enthalten personenbezogene Daten und
+# Screenshots. Sie gehoeren nicht in die Versionshistorie, weil Loeschen dort
+# nicht wirkt. Nur Code, Regeln, Prompts und Fixtures sind versioniert.
+Produkte/akquise-tool/node_modules/
+Vertrieb/akquise-daten/
+# Umgezogen seit 2026-08-24: automatisch erzeugte Lead-Auditordner leben jetzt
+# unter Kunden/Akquise/, erkennbar an ihrer Namenskonvention (L-YYYYMMDD-*,
+# TEST-*, REF-*). Andere, von Hand gepflegte Ordner unter Kunden/Akquise/
+# (z.B. Firmennamen) sind davon NICHT betroffen.
+Kunden/Akquise/L-*/
+Kunden/Akquise/TEST-*/
+Kunden/Akquise/REF-*/
