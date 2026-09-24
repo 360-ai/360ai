@@ -1,6 +1,6 @@
 /**
  * Nimmt bestaetigte Leads der Seite /ki-startleitfaden entgegen und schreibt sie
- * in die erste Tabelle dieser Datei.
+ * in die Lasche BLATT_NAME dieser Datei (wird angelegt, falls sie fehlt).
  *
  * Einrichtung siehe LEAD-FUNNEL-SETUP.md im Ordner Brand/Website.
  * Wichtig: SECRET muss exakt dem Wert entsprechen, der in Cloudflare unter
@@ -9,6 +9,9 @@
  */
 
 var SECRET = 'HIER_DAS_SHEET_SECRET_EINSETZEN';
+
+// Name der Lasche, in die geschrieben wird. Wird angelegt, falls sie fehlt.
+var BLATT_NAME = 'leadmagnet';
 
 var KOPF = [
   'Zeitstempel Anfrage',
@@ -37,7 +40,7 @@ function doPost(e) {
       return ContentService.createTextOutput('fehler: falsches secret');
     }
 
-    var blatt = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+    var blatt = blattHolen();
 
     if (blatt.getLastRow() === 0) {
       blatt.appendRow(KOPF);
@@ -78,6 +81,22 @@ function doPost(e) {
   } finally {
     lock.releaseLock();
   }
+}
+
+/**
+ * Liefert die Lasche BLATT_NAME. Gibt es sie nicht, wird sie angelegt.
+ * Wichtig: niemals in die erste Lasche schreiben. In derselben Datei liegen
+ * CRM- und Kundendaten, dort wuerden Leadzeilen unten drangehaengt.
+ */
+function blattHolen() {
+  var datei = SpreadsheetApp.getActiveSpreadsheet();
+  var blaetter = datei.getSheets();
+  for (var i = 0; i < blaetter.length; i++) {
+    if (blaetter[i].getName().toLowerCase() === BLATT_NAME.toLowerCase()) {
+      return blaetter[i];
+    }
+  }
+  return datei.insertSheet(BLATT_NAME);
 }
 
 function datum(iso) {
