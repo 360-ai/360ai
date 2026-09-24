@@ -40,9 +40,9 @@ Intern gilt weiterhin eine Kalkulationsleitplanke von rund 2.500 € für die er
 
 Geplantes Modell, sobald die Partnerschaft steht: **Vermittlung mit Provision, kein Wiederverkauf.** Der Kunde schließt Abo und AVV direkt mit Langdock ab, 360 AI erhält eine Provision beziehungsweise Partnerkondition und baut die Anwendungsfälle. 360 AI wird dadurch nicht Vertragspartner und nicht Teil der AVV-Kette. Ein echter Reseller-Vertrag wäre eine andere Entscheidung und müsste gesondert getroffen werden.
 
-Geplante Leistung: Einrichtung des Arbeitsbereichs, Aufbau der Anwendungsfälle (Chat, Dokumentenzugriff, Vorlagen), Schulung der Mitarbeiter. Die Lizenz zahlt der Kunde direkt, ab rund 20 € je Nutzer und Monat.
+Geplante Leistung: Einrichtung des Arbeitsbereichs, Aufbau der Anwendungsfälle (Chat, Dokumentenzugriff, Vorlagen), Schulung der Mitarbeiter. Die Lizenz zahlt der Kunde direkt: Business 25 € netto je Nutzer und Monat (29,75 € brutto), Business Max 99 € netto. Stand 18.09.2026, geprüft in der offiziellen Preisdokumentation, siehe Wiki `langdock-abrechnung`.
 
-**Langdock und die Umsetzung bleiben zwei Produkte, nie ein Paket.** Langdock ist der Assistent am Arbeitsplatz, n8n auf eigener Instanz ist die Automatisierung. Das Workflows-Add-on von Langdock ab rund 539 € im Monat ist für die Zielgruppe unerreichbar und wird nicht angeboten.
+**Langdock und die Umsetzung bleiben zwei Produkte, nie ein Paket.** Langdock ist der Assistent am Arbeitsplatz, n8n auf eigener Instanz ist die Automatisierung. Workflow-Automatisierung in Langdock ist bis 2.500 Läufe im Monat im Lizenzpreis enthalten; erst darüber kostet das nächste Paket 539 € netto je Workspace und Monat. Die 539 € sind also die Schwelle, nicht der Einstieg. Für getaktetes Abfragen (Polling) ist sie schnell erreicht, deshalb bleibt n8n die Automatisierungsschiene. Entscheidungslinien im Wiki: `langdock-workflow-vs-n8n`.
 
 Offen vor einer Veröffentlichung: Bestätigung der Partnerschaft, Preis der Stufe, Höhe der Provision und ob sie einmalig oder laufend fließt.
 
