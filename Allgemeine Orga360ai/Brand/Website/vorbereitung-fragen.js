@@ -18,7 +18,7 @@ var TEXTE = {
   betrieb_wer:   t("Wie viele Personen arbeiten bei Ihnen?", "Wie viele Leute arbeiten bei euch?"),
   prog_titel:    t("Ihre Programme", "Eure Programme"),
   prog_frage:    t("Welche Programme und Hilfsmittel nutzen Sie im Alltag? Tippen Sie alles an, was vorkommt.", "Welche Programme und Hilfsmittel nutzt ihr im Alltag? Tipp alles an, was vorkommt."),
-  prog_frei:     t("Weiteres Programm hinzufügen, z. B. Ihre Branchensoftware", "Weiteres Programm hinzufügen, z. B. eure Branchensoftware"),
+  prog_frei:     t("eigenes", "eigenes"),
   prog_wofuer:   t("wofür? (optional)", "wofür? (optional)"),
   prog_inuse:    t("Wird in einem Ablauf verwendet. Dort bleibt der Name als Text stehen.", "Wird in einem Ablauf verwendet. Dort bleibt der Name als Text stehen."),
   ziel_titel:    t("Ihr Ziel", "Euer Ziel"),
@@ -52,14 +52,15 @@ var TEXTE = {
 };
 var PERSONEN = ["1 bis 5","6 bis 20","21 bis 50","mehr als 50"];
 var PROGRAMM_BEREICHE = [
-  {id:"mail",   titel:"Mail und Kalender",           kacheln:["Outlook","Gmail","Apple Mail"]},
-  {id:"buero",  titel:"Büro",                        kacheln:["Word","Excel","Google Docs und Tabellen"]},
-  {id:"buch",   titel:"Buchhaltung",                 kacheln:["DATEV","lexoffice","sevDesk"]},
-  {id:"kunden", titel:"Kunden und Aufträge",         kacheln:["HubSpot","Pipedrive","Branchensoftware"]},
-  {id:"komm",   titel:"Kommunikation",               kacheln:["WhatsApp","Microsoft Teams","Slack"]},
-  {id:"ablage", titel:"Ablage und Cloud",            kacheln:["OneDrive oder SharePoint","Google Drive","Dropbox","Server im Büro"]},
-  {id:"auto",   titel:"Automatisierung",             kacheln:["Zapier","Make","Power Automate","n8n"]},
-  {id:"papier", titel:"Papier und Listen",           kacheln:["Papier und Ordner","Excel-Listen"]}
+  {id:"mail",   titel:"Mail und Kalender",                 kacheln:["Outlook","Gmail","Apple Mail"],                beispiel:"z. B. GMX, iCloud"},
+  {id:"buero",  titel:"Büro",                              kacheln:["Word","Excel","Google Docs und Tabellen"],     beispiel:"z. B. Pages"},
+  {id:"buch",   titel:"Buchhaltung",                       kacheln:["DATEV","lexoffice","sevDesk"],                 beispiel:"z. B. Lexware"},
+  {id:"kunden", titel:"Kunden, Aufträge und Projekte",     kacheln:["HubSpot","Pipedrive"],                         beispiel:"z. B. Hero, CATS"},
+  {id:"komm",   titel:"Kommunikation",                     kacheln:["WhatsApp","Microsoft Teams","Slack"],          beispiel:"z. B. Telegram"},
+  {id:"ablage", titel:"Ablage und Cloud",                  kacheln:["OneDrive oder SharePoint","Google Drive","Dropbox","Server im Büro"], beispiel:"z. B. NAS"},
+  {id:"auto",   titel:"Automatisierung",                   kacheln:["Zapier","Make","Power Automate","n8n"],        beispiel:"z. B. IFTTT"},
+  {id:"papier", titel:"Papier und Listen",                 kacheln:["Papier und Ordner","Excel-Listen"],            beispiel:"z. B. Whiteboard"},
+  {id:"sonst",  titel:"Sonstiges",                         kacheln:[],                                              beispiel:"z. B. Canva"}
 ];
 var WOMIT_EXTRA = [ {id:"telefon",titel:"Telefon"}, {id:"papier",titel:"Papier"},
                     {id:"kopf",titel:"im Kopf"}, {id:"persoenlich",titel:"persönlich"} ];

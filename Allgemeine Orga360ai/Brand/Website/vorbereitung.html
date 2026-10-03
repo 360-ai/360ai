@@ -76,6 +76,9 @@ button:focus-visible,summary:focus-visible{outline:3px solid var(--lavender);out
 .frei{margin-top:4px}
 .zeile{display:flex;gap:8px;align-items:center}
 .zeile input{flex:1}
+.zeile.eigen{margin:0 0 6px}
+.zeile.eigen input{padding:8px 12px;font-size:16px;background:#fff;border-style:dashed}
+.btn.klein{min-height:40px;padding:6px 14px;font-size:18px;line-height:1}
 
 /* Liste der gewaehlten Programme */
 .prgliste{list-style:none;margin:8px 0 0;padding:0}
@@ -368,31 +371,36 @@ function baueProgramme(box){
   kopf(box, "2 · " + T("prog_titel"), T("prog_titel"), T("prog_frage"));
   K.PROGRAMM_BEREICHE.forEach(function(b){
     box.appendChild(el("p", {"class":"bereich", text:b.titel}));
+    /* Kacheln der Zeile plus eigene Eintraege, die in dieser Zeile gemacht wurden. */
+    var namen = b.kacheln.slice();
+    stand.programme.forEach(function(p){
+      var zeile = p.quelle === "frei" ? (p.bereich || "sonst") : null;
+      if(zeile === b.id && namen.indexOf(p.name) < 0) namen.push(p.name);
+    });
     var w = el("div", {"class":"chips"});
-    b.kacheln.forEach(function(k){
+    namen.forEach(function(k){
       var p = programmMitName(k);
       var c = el("button", {"class":"chip" + (p && armiert === p.id ? " warnen" : ""), type:"button", "data-prg":k, "aria-pressed": p ? "true" : "false", text:k});
       c.addEventListener("click", function(){ programmUmschalten(k); neu(); });
       w.appendChild(c);
     });
-    box.appendChild(w);
+    if(namen.length) box.appendChild(w);
+    var inp = el("input", {type:"text", id:"f-frei-" + b.id, placeholder:"+ " + T("prog_frei") + ", " + b.beispiel, "aria-label":b.titel + ": " + T("prog_frei")});
+    function hinzu(){
+      var v = inp.value.trim(); if(!v) return;
+      if(!programmMitName(v)){ stand.programme.push(C.neuesProgramm(v, "", "kunde", b.id)); wnAus("programme"); geaendert(); }
+      neu("f-frei-" + b.id);
+    }
+    inp.addEventListener("keydown", function(e){ if(e.key === "Enter"){ e.preventDefault(); hinzu(); } });
+    box.appendChild(el("div", {"class":"zeile eigen"}, [inp, el("button", {"class":"btn ghost klein", type:"button", id:"btn-frei-" + b.id, "aria-label":b.titel + " hinzufügen", text:"+", on:{click:hinzu}})]));
   });
   if(armiert){
     var ap = stand.programme.filter(function(x){ return x.id === armiert; })[0];
     if(ap) box.appendChild(el("div", {"class":"msg info", id:"inuse"}, [ap.name + ": " + T("prog_inuse") + " " + (ANREDE === "du" ? "Tipp noch einmal, um es zu entfernen." : "Tippen Sie noch einmal, um es zu entfernen.")]));
   }
-  box.appendChild(el("p", {"class":"frage", text:T("prog_frei")}));
-  var inp = el("input", {type:"text", id:"f-prog-frei", placeholder:"z. B. Hero, ClickUp, CATS"});
-  function hinzu(){
-    var v = inp.value.trim(); if(!v) return;
-    if(!programmMitName(v)){ stand.programme.push(C.neuesProgramm(v)); wnAus("programme"); geaendert(); }
-    neu("f-prog-frei");
-  }
-  inp.addEventListener("keydown", function(e){ if(e.key === "Enter"){ e.preventDefault(); hinzu(); } });
-  box.appendChild(el("div", {"class":"zeile"}, [inp, el("button", {"class":"btn ghost", type:"button", id:"btnProgHinzu", text:"hinzufügen", on:{click:hinzu}})]));
 
   if(stand.programme.length){
-    box.appendChild(el("p", {"class":"frage", text:(ANREDE === "du" ? "Deine Auswahl" : "Ihre Auswahl") + " (" + stand.programme.length + ")"}));
+    box.appendChild(el("p", {"class":"frage", text:(ANREDE === "du" ? "Deine Auswahl" : "Ihre Auswahl") + " (" + stand.programme.length + "), " + T("prog_wofuer")}));
     var ul = el("ul", {"class":"prgliste", id:"prgliste"});
     stand.programme.forEach(function(p){
       var w = textfeld("wofuer-" + p.id, p.wofuer, function(v){ p.wofuer = v; }, {zeile:true, platz:T("prog_wofuer"), label:p.name + " " + T("prog_wofuer")});

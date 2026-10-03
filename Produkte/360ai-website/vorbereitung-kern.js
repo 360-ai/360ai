@@ -32,10 +32,11 @@ function leererStand(){
   return { betrieb:{taetigkeit:"", personen:{auswahl:"", frei:""}, herkunft:"kunde"},
            programme:[], ziel:{text:"", kacheln:[]}, ablaeufe:[], nochEtwas:"", weissNicht:[] };
 }
-function neuesProgramm(name, wofuer, herkunft){
+/* bereich: Zeile, in der ein eigenes Programm eingetragen wurde. Kacheln behalten ihren Bereich. */
+function neuesProgramm(name, wofuer, herkunft, bereich){
   var k = kachelZu(name);
   return {id:id("prg"), name:k ? k.name : String(name || "").trim(), quelle:k ? "kachel" : "frei",
-          bereich:k ? k.bereich : "", wofuer:wofuer || "", herkunft:herkunft || "kunde"};
+          bereich:k ? k.bereich : (bereich || ""), wofuer:wofuer || "", herkunft:herkunft || "kunde"};
 }
 function neuerSchritt(){
   return {id:id("stp"), was:"", womit:{programmId:"", art:"", frei:""}, weiter:{art:"", womit:""}};

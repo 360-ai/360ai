@@ -129,3 +129,13 @@ test("Pruefung: falsche Kennung, zu viele Ablaeufe, zu langer Text", () => {
   const f = C.pruefen(d, "ANDERS");
   assert.ok(f.some(x => /Kennung/.test(x))); assert.ok(f.some(x => /Abläufe/.test(x))); assert.ok(f.some(x => /Zeichen/.test(x)));
 });
+
+test("Eigenes Programm merkt sich seinen Bereich", () => {
+  const p = C.neuesProgramm("Hero", "", "kunde", "kunden");
+  assert.equal(p.quelle, "frei"); assert.equal(p.bereich, "kunden");
+  assert.equal(C.neuesProgramm("Outlook", "", "kunde", "kunden").bereich, "mail"); // Kachel behaelt ihren Bereich
+});
+test("Katalog: jede Zeile hat ein Beispiel fuer eigene Eintraege, keine Kachel Branchensoftware", () => {
+  for (const b of K.PROGRAMM_BEREICHE) assert.ok(b.beispiel, "fehlt bei " + b.id);
+  assert.ok(!K.PROGRAMM_BEREICHE.some(b => b.kacheln.includes("Branchensoftware")));
+});
