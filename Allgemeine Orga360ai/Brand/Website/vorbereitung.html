@@ -220,7 +220,7 @@ function folge(){
   ablaeufeMitName().forEach(function(a){
     ["ausl","kette","menge","aerger"].forEach(function(t){ f.push("a:" + a.id + ":" + t); });
   });
-  f.push("noch","pruefen");
+  f.push("extra-start","extra-prog","extra-team","extra-rahmen","noch","pruefen");
   return f;
 }
 function ablaufVon(sc){
@@ -289,10 +289,14 @@ function zeichne(fokusId){
   else if(/:kette$/.test(sc)) baueKette(box, ablaufVon(sc));
   else if(/:menge$/.test(sc)) baueMenge(box, ablaufVon(sc));
   else if(/:aerger$/.test(sc)) baueAerger(box, ablaufVon(sc));
+  else if(sc === "extra-start") baueExtraStart(box);
+  else if(sc === "extra-prog") baueExtraProg(box);
+  else if(sc === "extra-team") baueExtraTeam(box);
+  else if(sc === "extra-rahmen") baueExtraRahmen(box);
   else if(sc === "noch") baueNoch(box);
   else if(sc === "pruefen") bauePruefen(box);
 
-  if(sc !== "start" && sc !== "pruefen") box.appendChild(navLeiste(pflicht(sc).length > 0));
+  if(sc !== "start" && sc !== "pruefen" && sc !== "extra-start") box.appendChild(navLeiste(pflicht(sc).length > 0));
   if(fokusId){ var n = document.getElementById(fokusId); if(n){ try{ n.focus({preventScroll:true}); }catch(e){ n.focus(); } } }
 }
 
@@ -564,6 +568,64 @@ function baueNoch(box){
   box.appendChild(textfeld("f-noch", stand.nochEtwas, function(v){ stand.nochEtwas = v; }));
 }
 
+/* ---------------------------------------------------------------- Extra-Runde (freiwillig) */
+function einzelwahl(liste, wahl, idPrefix){
+  return kacheln(liste, function(v){ return wahl.auswahl === v; },
+    function(v){ wahl.auswahl = wahl.auswahl === v ? "" : v; geaendert(); }, idPrefix);
+}
+function mehrfachwahl(liste, ziel, idPrefix){
+  return kacheln(liste, function(v){ return ziel.kacheln.indexOf(v) >= 0; },
+    function(v){ var i = ziel.kacheln.indexOf(v); if(i >= 0) ziel.kacheln.splice(i, 1); else ziel.kacheln.push(v); geaendert(); }, idPrefix);
+}
+function frage(box, key){ box.appendChild(el("p", {"class":"frage", text:T(key)})); }
+function zeilenfeld(id, obj, feld, platz){
+  return textfeld(id, obj[feld], function(v){ obj[feld] = v; }, {zeile:true, platz:platz || T("frei")});
+}
+
+function baueExtraStart(box){
+  kopf(box, T("extra_eyebrow"), T("extra_titel"), null);
+  box.appendChild(el("p", {text:T("extra_text")}));
+  box.appendChild(el("ol", {"class":"klein"}, [el("li", {text:T("extra_prog_titel")}), el("li", {text:T("extra_team_titel")}), el("li", {text:T("extra_rahmen_titel")})]));
+  box.appendChild(el("div", {"class":"nav"}, [
+    el("button", {"class":"btn leise", type:"button", id:"btnBack", text:"← " + T("zurueck"), on:{click:zurueck}}),
+    el("div", {"class":"rechts"}, [
+      el("button", {"class":"btn ghost", type:"button", id:"btnExtraNein", text:T("extra_nein"), on:{click:function(){ gehe("noch"); }}}),
+      el("button", {"class":"btn", type:"button", id:"btnNext", text:T("extra_ja") + " →", on:{click:weiter}})
+    ])
+  ]));
+}
+function baueExtraProg(box){
+  var e = stand.extra;
+  kopf(box, T("extra_eyebrow"), T("extra_prog_titel"), null);
+  frage(box, "x_betreut"); box.appendChild(zeilenfeld("x-betreut", e, "betreut", "z. B. IT-Dienstleister, Kollegin im Büro"));
+  frage(box, "x_wechsel"); box.appendChild(einzelwahl(K.EXTRA.WECHSEL, e.wechsel, "c-wechsel"));
+  box.appendChild(zeilenfeld("x-wechsel-frei", e.wechsel, "frei", "welches, wann"));
+  frage(box, "x_vorlagen"); box.appendChild(zeilenfeld("x-vorlagen", e, "vorlagen", "z. B. OneDrive Ordner Vorlagen, im Kopf"));
+  frage(box, "x_daten"); box.appendChild(mehrfachwahl(K.EXTRA.DATEN, e.daten, "c-daten"));
+  box.appendChild(zeilenfeld("x-daten-frei", e.daten, "frei"));
+}
+function baueExtraTeam(box){
+  var e = stand.extra;
+  kopf(box, T("extra_eyebrow"), T("extra_team_titel"), null);
+  frage(box, "x_imablauf"); box.appendChild(zeilenfeld("x-imablauf", e, "imAblauf", "Rollen genügen, z. B. Büro, Meister"));
+  frage(box, "x_testet"); box.appendChild(zeilenfeld("x-testet", e, "testet"));
+  frage(box, "x_nutzer"); box.appendChild(einzelwahl(K.EXTRA.NUTZER, e.nutzer, "c-nutzer"));
+  box.appendChild(zeilenfeld("x-nutzer-frei", e.nutzer, "frei", "genauer"));
+  frage(box, "x_entscheider"); box.appendChild(zeilenfeld("x-entscheider", e, "entscheider"));
+  frage(box, "x_probiert"); box.appendChild(textfeld("x-probiert", e.probiert, function(v){ e.probiert = v; }, {platz:ANREDE === "du" ? "auch „noch nichts“ hilft uns" : "auch „noch nichts“ hilft uns"}));
+}
+function baueExtraRahmen(box){
+  var e = stand.extra;
+  kopf(box, T("extra_eyebrow"), T("extra_rahmen_titel"), null);
+  frage(box, "x_zieltermin"); box.appendChild(einzelwahl(K.EXTRA.ZIELTERMIN, e.zieltermin, "c-zieltermin"));
+  box.appendChild(zeilenfeld("x-zieltermin-frei", e.zieltermin, "frei", "z. B. bis Jahresende, Saisonstart im März"));
+  frage(box, "x_einmal"); box.appendChild(el("p", {"class":"klein", text:T("x_budget_hinweis")}));
+  box.appendChild(einzelwahl(K.EXTRA.EINMAL, e.budgetEinmal, "c-einmal"));
+  frage(box, "x_laufend"); box.appendChild(einzelwahl(K.EXTRA.LAUFEND, e.budgetLaufend, "c-laufend"));
+  frage(box, "x_grenzen"); box.appendChild(mehrfachwahl(K.EXTRA.GRENZEN, e.grenzen, "c-grenzen"));
+  box.appendChild(zeilenfeld("x-grenzen-frei", e.grenzen, "frei"));
+}
+
 /* ---------------------------------------------------------------- Pruefen und senden */
 function kettenAnsicht(a){
   var w = el("div", {"class":"kette"});
@@ -593,6 +655,10 @@ function bauePruefen(box){
     box.appendChild(el("div", {"class":"pruefabl"}, [el("h3", {text:a.name}), leer ? el("p", {"class":"klein", text:"noch keine Schritte"}) : kettenAnsicht(a),
       el("button", {"class":"btn leise", type:"button", text:"bearbeiten", on:{click:function(){ gehe("a:" + a.id + ":kette"); }}})]));
   });
+  var xb = C.extraBeantwortet(stand).length;
+  box.appendChild(el("div", {"class":"pruefabl"}, [el("h3", {text:T("extra_titel").replace("Fast geschafft. ", "Extra-Runde: ")}),
+    el("p", {"class":"klein", text: xb + " von " + C.EXTRA_FELDER.length + " freiwilligen Fragen beantwortet" + (xb ? "." : (ANREDE === "du" ? ". Jede Antwort spart uns Zeit im Termin." : ". Jede Antwort spart uns Zeit im Termin."))}),
+    el("button", {"class":"btn leise", type:"button", id:"btnExtraOeffnen", text: xb ? "bearbeiten" : "jetzt ausfüllen", on:{click:function(){ gehe("extra-prog"); }}})]));
   box.appendChild(el("p", {"class":"klein", style:"margin-top:14px", text:(ANREDE === "du"
     ? "Beim Senden gehen deine Angaben per E-Mail an 360ai, eine Kopie bekommst du an " + CFG.kopieAn + ". Auf unserem Webserver wird nichts gespeichert, der Versand läuft über Resend in der EU (Irland)."
     : "Beim Senden gehen Ihre Angaben per E-Mail an 360ai, eine Kopie erhalten Sie an " + CFG.kopieAn + ". Auf unserem Webserver wird nichts gespeichert, der Versand läuft über Resend in der EU (Irland).")}));

@@ -47,6 +47,29 @@ var TEXTE = {
   weiter:        t("Weiter", "Weiter"),
   zurueck:       t("Zurück", "Zurück"),
   frei:          t("Anderes, bitte eintragen", "Anderes, bitte eintragen"),
+  extra_titel:   t("Fast geschafft. Noch 10 Minuten?", "Fast geschafft. Noch 10 Minuten?"),
+  extra_text:    t("Die folgenden Fragen sind freiwillig. Jede Antwort, die Sie hier schon geben, müssen wir im Termin nicht mehr klären. So bleibt im Gespräch mehr Zeit für Lösungen, und wir können uns gezielter auf Ihren Betrieb vorbereiten. Jede Frage dürfen Sie leer lassen.",
+                   "Die folgenden Fragen sind freiwillig. Jede Antwort, die du hier schon gibst, müssen wir im Termin nicht mehr klären. So bleibt im Gespräch mehr Zeit für Lösungen, und wir können uns gezielter auf euren Betrieb vorbereiten. Jede Frage darfst du leer lassen."),
+  extra_ja:      t("Ja, weiter", "Ja, weiter"),
+  extra_nein:    t("Überspringen", "Überspringen"),
+  extra_eyebrow: t("Extra · spart Zeit im Termin", "Extra · spart Zeit im Termin"),
+  extra_prog_titel:   t("Programme und Daten", "Programme und Daten"),
+  extra_team_titel:   t("Team und Entscheidung", "Team und Entscheidung"),
+  extra_rahmen_titel: t("Zeit und Budget", "Zeit und Budget"),
+  x_betreut:     t("Wer betreut Ihre Programme und könnte Zugänge oder Exporte ermöglichen?", "Wer betreut eure Programme und könnte Zugänge oder Exporte ermöglichen?"),
+  x_wechsel:     t("Steht bei Ihren Programmen ein Wechsel oder eine größere Änderung an?", "Steht bei euren Programmen ein Wechsel oder eine größere Änderung an?"),
+  x_vorlagen:    t("Wo liegen Vorlagen und Arbeitsanweisungen?", "Wo liegen Vorlagen und Arbeitsanweisungen?"),
+  x_daten:       t("Welche Daten kommen in den beschriebenen Abläufen vor?", "Welche Daten kommen in den beschriebenen Abläufen vor?"),
+  x_imablauf:    t("Wer arbeitet täglich in den beschriebenen Abläufen?", "Wer arbeitet täglich in den beschriebenen Abläufen?"),
+  x_testet:      t("Wer würde eine neue Lösung testen und später betreuen?", "Wer würde eine neue Lösung testen und später betreuen?"),
+  x_nutzer:      t("Wie viele Personen würden eine Lösung nutzen?", "Wie viele Leute würden eine Lösung nutzen?"),
+  x_entscheider: t("Wer entscheidet über eine Umsetzung?", "Wer entscheidet über eine Umsetzung?"),
+  x_probiert:    t("Was haben Sie schon ausprobiert, und was ist daraus geworden?", "Was habt ihr schon ausprobiert, und was ist daraus geworden?"),
+  x_zieltermin:  t("Gibt es einen Zieltermin oder einen konkreten Anlass?", "Gibt es einen Zieltermin oder einen konkreten Anlass?"),
+  x_einmal:      t("Welcher einmalige Rahmen wäre bei nachgewiesenem Nutzen denkbar?", "Welcher einmalige Rahmen wäre bei nachgewiesenem Nutzen denkbar?"),
+  x_laufend:     t("Und laufend pro Monat für Software und Betreuung?", "Und laufend pro Monat für Software und Betreuung?"),
+  x_budget_hinweis: t("Nur eine grobe Orientierung, keine Zusage.", "Nur eine grobe Orientierung, keine Zusage."),
+  x_grenzen:     t("Was darf eine Lösung auf keinen Fall selbst tun?", "Was darf eine Lösung auf keinen Fall selbst tun?"),
   danke_titel:   t("Vielen Dank, Ihre Vorbereitung ist bei 360ai angekommen.", "Danke, deine Vorbereitung ist bei 360ai angekommen."),
   danke_text:    t("Wenn Ihnen noch etwas einfällt, öffnen Sie denselben Link wieder und senden Sie erneut. Die neue Fassung ersetzt die vorige.", "Wenn dir noch etwas einfällt, öffne denselben Link wieder und sende erneut. Die neue Fassung ersetzt die vorige.")
 };
@@ -76,6 +99,16 @@ var HAEUFIGKEIT = ["mehrmals täglich","täglich","mehrmals pro Woche","wöchent
 var DAUER = ["unter 5 Min","5 bis 15 Min","15 bis 30 Min","30 bis 60 Min","1 bis 2 Std","länger"];
 var ZIEL = ["Zeit sparen","weniger Fehler","schneller antworten","mehr Kapazität","weniger abhängig von einzelnen Personen"];
 var AERGER = ["doppelt tippen","suchen","warten","Rückfragen","Fehler","hängt an einer Person"];
+/* Freiwillige Extra-Runde (Denis 04.10.): Fragen, die sonst im Termin Zeit kosten. */
+var EXTRA = {
+  WECHSEL:    ["nein", "ja, geplant", "unklar"],
+  DATEN:      ["Kunden- oder Kontaktdaten", "vertrauliche Geschäftsunterlagen", "Personalinformationen", "Gesundheitsdaten", "weiß nicht"],
+  NUTZER:     ["1 bis 2", "3 bis 5", "6 bis 15", "mehr als 15"],
+  ZIELTERMIN: ["feste Frist", "Wunschtermin", "flexibel"],
+  EINMAL:     ["bis 1.000 €", "1.000 bis 2.500 €", "2.500 bis 5.000 €", "5.000 bis 10.000 €", "über 10.000 €", "noch offen"],
+  LAUFEND:    ["bis 50 €", "50 bis 150 €", "150 bis 300 €", "über 300 €", "noch offen"],
+  GRENZEN:    ["nichts ohne Freigabe an Kunden senden", "keine Beträge oder Preise freigeben", "nichts im Hauptsystem ändern", "sensible Daten nicht nach außen geben"]
+};
 var BEISPIEL_KETTE = [
   "Kunde ruft an · Telefon · wird abgetippt",
   "Anfrage eintragen · Branchensoftware · jemand sagt Bescheid",
@@ -88,6 +121,6 @@ globalThis.VB2 = {
   FOTOS_AKTIV:false, MAX_ABLAEUFE:3, MAX_SCHRITTE:12, MAX_PROGRAMME:40, MAX_TEXT:5000,
   TEXTE:TEXTE, PERSONEN:PERSONEN, PROGRAMM_BEREICHE:PROGRAMM_BEREICHE, WOMIT_EXTRA:WOMIT_EXTRA,
   WEITER:WEITER, AUSLOESER:AUSLOESER, HAEUFIGKEIT:HAEUFIGKEIT, DAUER:DAUER, ZIEL:ZIEL, AERGER:AERGER,
-  BEISPIEL_KETTE:BEISPIEL_KETTE, BEISPIEL_ABLAEUFE:BEISPIEL_ABLAEUFE
+  EXTRA:EXTRA, BEISPIEL_KETTE:BEISPIEL_KETTE, BEISPIEL_ABLAEUFE:BEISPIEL_ABLAEUFE
 };
 })();

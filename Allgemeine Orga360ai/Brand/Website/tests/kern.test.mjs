@@ -31,7 +31,7 @@ const C = globalThis.VB2_KERN;
 
 test("leerer Stand hat alle Felder", () => {
   const s = C.leererStand();
-  assert.deepEqual(Object.keys(s).sort(), ["ablaeufe","betrieb","nochEtwas","programme","weissNicht","ziel"]);
+  assert.deepEqual(Object.keys(s).sort(), ["ablaeufe","betrieb","extra","nochEtwas","programme","weissNicht","ziel"]);
   assert.equal(s.ablaeufe.length, 0);
 });
 test("Vorbelegung markiert Herkunft", () => {
@@ -138,4 +138,20 @@ test("Eigenes Programm merkt sich seinen Bereich", () => {
 test("Katalog: jede Zeile hat ein Beispiel fuer eigene Eintraege, keine Kachel Branchensoftware", () => {
   for (const b of K.PROGRAMM_BEREICHE) assert.ok(b.beispiel, "fehlt bei " + b.id);
   assert.ok(!K.PROGRAMM_BEREICHE.some(b => b.kacheln.includes("Branchensoftware")));
+});
+
+test("Extra-Runde: beantwortete Felder mit Gespraechsbogen-Kennung", () => {
+  const s = C.leererStand();
+  assert.deepEqual(C.extraBeantwortet(s), []);
+  s.extra.betreut = "IT-Dienstleister Meier"; s.extra.budgetEinmal.auswahl = "noch offen"; s.extra.daten.kacheln.push("Gesundheitsdaten");
+  assert.deepEqual(C.extraBeantwortet(s).map(x => x.code).sort(), ["B04","D01","E01"]);
+});
+test("Extra-Runde: normalisieren ergaenzt fehlendes extra", () => {
+  const d = { betrieb:{}, programme:[], ablaeufe:[] };
+  C.normalisieren(d);
+  assert.equal(d.extra.nutzer.auswahl, ""); assert.deepEqual(d.extra.grenzen.kacheln, []);
+});
+test("Katalog: Extra-Runde mit Texten und Kacheln", () => {
+  for (const k of ["extra_titel","extra_text","extra_ja","extra_nein","x_betreut","x_einmal","x_grenzen"]) assert.ok(K.TEXTE[k], k);
+  assert.ok(K.EXTRA.EINMAL.includes("noch offen")); assert.ok(K.EXTRA.DATEN.includes("Gesundheitsdaten"));
 });

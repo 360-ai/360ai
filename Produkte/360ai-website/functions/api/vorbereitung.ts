@@ -268,6 +268,23 @@ ${sch.length > 1 ? `<div ${KLEIN}>Kurz: ${esc(C.ketteText(a, doc.programme || []
 ${zeile("Wie oft", esc(wahl(a.haeufigkeit)))}${zeile("Dauer je Vorgang", esc(wahl(a.dauer)))}${zeile("Was nervt", aerger)}</div>`;
 }
 
+// Gespraechsbogen-Punkte: was die Extra-Runde schon beantwortet hat, was im Termin offen bleibt.
+const GESPRAECH: [string, string][] = [["B04", "Programmbetreuung"], ["B05", "Wechsel"], ["D01", "Datenarten"], ["E03", "Zieltermin"],
+  ["D02", "Grenzen"], ["D03", "Vorgaben und Beteiligte"], ["D04", "Test und Verantwortung"], ["D05", "Akzeptanz"], ["D06", "Nutzerzahl"],
+  ["E01", "Budget einmalig"], ["E02", "Budget laufend"], ["E04", "Entscheider"], ["P07", "Prüfung und Fehlerfolge"]];
+function terminZeile(doc: Any): string {
+  const da = new Set(C.extraBeantwortet(doc).map((x: Any) => x.code));
+  const vorab = GESPRAECH.filter(([c]) => da.has(c)).map(([c, t]) => `${t} (${c})`);
+  const offen = GESPRAECH.filter(([c]) => !da.has(c)).map(([c, t]) => `${t} (${c})`);
+  return `<p style="font-size:13px;color:#3d4b70;margin:10px 0 0">${vorab.length ? `<b>Schon vorab beantwortet:</b> ${vorab.join(", ")}.<br>` : ""}<b>Im Termin noch klären:</b> ${offen.join(", ")}. Steht im Gesprächsbogen.</p>`;
+}
+function extraHtml(doc: Any): string {
+  const l = C.extraBeantwortet(doc);
+  if (!l.length) return "";
+  return `<h2 ${H2}>Extra-Runde</h2><ul style="margin:0;padding-left:18px;font-size:14px">${l.map((x: Any) =>
+    `<li style="margin:3px 0"><span style="color:#6b7080">${esc(x.titel)}:</span> ${esc(x.wert)}</li>`).join("")}</ul>`;
+}
+
 function zusammenfassung(doc: Any, intern: boolean): string {
   let h = "";
   if (intern) h += `<h2 ${H2}>Programmkarte</h2>` + programmkarteHtml(doc);
@@ -281,6 +298,7 @@ function zusammenfassung(doc: Any, intern: boolean): string {
   h += `<h2 ${H2}>Programme</h2>${pr ? `<ul style="margin:0;padding-left:18px;font-size:14px">${pr}</ul>` : "<i>keine Angabe</i>"}`;
   const ziel = [nl(doc.ziel?.text), (doc.ziel?.kacheln || []).length ? `<span style="color:#6b7080">Richtung:</span> ${esc(doc.ziel.kacheln.join(", "))}` : ""].filter(Boolean).join("<br>");
   h += `<h2 ${H2}>Ziel</h2><div style="font-size:14px">${ziel || "<i>keine Angabe</i>"}</div>`;
+  h += extraHtml(doc);
   if (voll(doc.nochEtwas)) h += `<h2 ${H2}>Noch etwas</h2><div style="font-size:14px">${nl(doc.nochEtwas)}</div>`;
   return h;
 }
@@ -295,6 +313,8 @@ function textFassung(doc: Any): string {
   z.push(`\n== Betrieb ==`, String(doc.betrieb?.taetigkeit || ""), `Personen: ${wahl(doc.betrieb?.personen)}`);
   z.push(`\n== Programme ==`, (doc.programme || []).map((x: Any) => x.name + (voll(x.wofuer) ? ` (${x.wofuer})` : "")).join(", "));
   if (voll(doc.ziel?.text)) z.push(`\n== Ziel ==`, String(doc.ziel.text));
+  const ex = C.extraBeantwortet(doc);
+  if (ex.length) z.push(`\n== Extra-Runde ==`, ...ex.map((x: Any) => `${x.titel}: ${x.wert}`));
   if (voll(doc.nochEtwas)) z.push(`\n== Noch etwas ==`, String(doc.nochEtwas));
   return z.join("\n");
 }
@@ -426,7 +446,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 <div style="font-weight:700;margin-bottom:6px">Zu klären</div>
 ${punkte.length ? `<ul style="margin:0;padding-left:18px">${punkte.map((x) => `<li style="margin:3px 0">${x}</li>`).join("")}</ul>` : "Nichts Auffälliges."}
 </div>
-<p style="font-size:13px;color:#3d4b70;margin:10px 0 0"><b>Im Termin klären:</b> Grenzen, Vorgaben und Beteiligte, Verantwortung, Nutzerzahl, Budget, Entscheider, Prüfung und Fehlerfolge. Steht im Gesprächsbogen.</p>
+${terminZeile(doc)}
 <p style="font-size:12px;color:#6b7080;margin:6px 0 0">Rohdaten im Anhang ${esc(dateiname)}.</p>`;
   const htmlIntern = rahmen(kopf + zusammenfassung(doc, true));
   const betreffIntern = einzeilig(`Vorbereitung eingegangen: ${kunde} (${p.k}${fassung})`, 180);

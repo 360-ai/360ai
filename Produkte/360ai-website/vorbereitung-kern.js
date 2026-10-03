@@ -28,9 +28,38 @@ function kachelZu(name){
   for(var i=0;i<l.length;i++) if(l[i].name.toLowerCase() === n) return l[i];
   return null;
 }
+function wahlLeer(){ return {auswahl:"", frei:""}; }
+function leeresExtra(){
+  return { betreut:"", wechsel:wahlLeer(), vorlagen:"", daten:{kacheln:[], frei:""},
+           imAblauf:"", testet:"", nutzer:wahlLeer(), entscheider:"", probiert:"",
+           zieltermin:wahlLeer(), budgetEinmal:wahlLeer(), budgetLaufend:wahlLeer(), grenzen:{kacheln:[], frei:""} };
+}
+/* Feld der Extra-Runde, Kennung im Gespraechsbogen, Kurzname fuer die Mail. */
+var EXTRA_FELDER = [
+  ["betreut","B04","Wer betreut die Programme"], ["wechsel","B05","Wechsel geplant"], ["vorlagen","B03","Wo liegen Vorlagen"],
+  ["daten","D01","Datenarten"], ["imAblauf","A03","Wer arbeitet täglich im Ablauf"], ["testet","D04","Wer testet und betreut"],
+  ["nutzer","D06","Anzahl Nutzer"], ["entscheider","E04","Wer entscheidet"], ["probiert","A06","Schon ausprobiert"],
+  ["zieltermin","E03","Zieltermin"], ["budgetEinmal","E01","Rahmen einmalig"], ["budgetLaufend","E02","Rahmen laufend"],
+  ["grenzen","D02","Was eine Lösung nie tun darf"]
+];
+function extraWert(v){
+  if(v === null || v === undefined) return "";
+  if(typeof v === "string") return v.trim();
+  var teile = [];
+  if(Array.isArray(v.kacheln)) teile = teile.concat(v.kacheln);
+  if(voll(v.auswahl)) teile.push(v.auswahl);
+  if(voll(v.frei)) teile.push(String(v.frei).trim());
+  return teile.join(", ");
+}
+function extraBeantwortet(s){
+  var e = s.extra || {};
+  return EXTRA_FELDER.map(function(f){ return {feld:f[0], code:f[1], titel:f[2], wert:extraWert(e[f[0]])}; })
+                     .filter(function(x){ return voll(x.wert); });
+}
 function leererStand(){
   return { betrieb:{taetigkeit:"", personen:{auswahl:"", frei:""}, herkunft:"kunde"},
-           programme:[], ziel:{text:"", kacheln:[]}, ablaeufe:[], nochEtwas:"", weissNicht:[] };
+           programme:[], ziel:{text:"", kacheln:[]}, ablaeufe:[], nochEtwas:"", weissNicht:[],
+           extra:leeresExtra() };
 }
 /* bereich: Zeile, in der ein eigenes Programm eingetragen wurde. Kacheln behalten ihren Bereich. */
 function neuesProgramm(name, wofuer, herkunft, bereich){
@@ -167,7 +196,7 @@ function dokument(s, m){
     createdAt:m.createdAt, exportedAt:new Date().toISOString(), customerReference:m.kunde || "",
     anrede:m.anrede === "du" ? "du" : "sie",
     betrieb:k.betrieb, programme:k.programme, ziel:k.ziel, ablaeufe:k.ablaeufe,
-    nochEtwas:k.nochEtwas, weissNicht:k.weissNicht
+    extra:k.extra, nochEtwas:k.nochEtwas, weissNicht:k.weissNicht
   };
 }
 function zeichen(v){ return Array.from(String(v || "")).length; }
@@ -193,6 +222,6 @@ globalThis.VB2_KERN = {
   prefillAnwenden:prefillAnwenden, kachelZu:kachelZu, voll:voll, normalisieren:normalisieren,
   luecken:luecken, womitName:womitName, weiterKurz:weiterKurz, ketteText:ketteText, programmkarte:programmkarte,
   programmInVerwendung:programmInVerwendung, programmEntfernen:programmEntfernen,
-  dokument:dokument, pruefen:pruefen
+  dokument:dokument, pruefen:pruefen, extraBeantwortet:extraBeantwortet, EXTRA_FELDER:EXTRA_FELDER
 };
 })();
