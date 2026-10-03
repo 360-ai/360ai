@@ -65,10 +65,10 @@ var WOMIT_EXTRA = [ {id:"telefon",titel:"Telefon"}, {id:"papier",titel:"Papier"}
                     {id:"kopf",titel:"im Kopf"}, {id:"persoenlich",titel:"persönlich"} ];
 var WEITER = [
   {id:"automatisch",    titel:"läuft automatisch"},
-  {id:"abgetippt",      titel:"wird abgetippt oder kopiert"},
-  {id:"weitergeleitet", titel:"per Mail oder Messenger weitergeleitet"},
+  {id:"abgetippt",      titel:"abgetippt/kopiert"},
+  {id:"weitergeleitet", titel:"per Mail/Messenger"},
   {id:"bescheid",       titel:"jemand sagt Bescheid"},
-  {id:"weissnicht",     titel:"weiß ich nicht"}
+  {id:"weissnicht",     titel:"weiß nicht"}
 ];
 var AUSLOESER = ["Anruf","E-Mail","WhatsApp oder Messenger","Formular oder Website","feste Zeit","Papier","persönlich"];
 var HAEUFIGKEIT = ["mehrmals täglich","täglich","mehrmals pro Woche","wöchentlich","monatlich","seltener"];

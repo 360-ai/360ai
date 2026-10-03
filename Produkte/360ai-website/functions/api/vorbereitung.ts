@@ -5,6 +5,7 @@
 //                     zurueckgeben (Kennung, Kunde, Vorbelegung, Fristen).
 //   aktion "senden":  Antworten entgegennehmen, lesbare Zusammenfassung plus
 //                     JSON-Anhang an 360ai, Kopie an den Kunden.
+//                     Schema 2.0.0: Ablaeufe als Kette, Programmkarte.
 //
 // Es wird NICHTS gespeichert. Alles, was die Seite braucht, steckt signiert im
 // Link (#t=...). Den Link erzeugt _vorbereitung-link.mjs mit demselben
@@ -13,6 +14,7 @@
 // als Mailschleuder an Dritte benutzen.
 
 import "../../vorbereitung-fragen.js";
+import "../../vorbereitung-kern.js";
 
 interface Env {
   VORBEREITUNG_SECRET: string;
@@ -31,7 +33,8 @@ interface Payload {
   k: string; // Kennung, z. B. REITTER-2026-10-09
   r: string; // Kundenreferenz
   e: string; // Mailadresse fuer die Kopie
-  g?: string; // Begruessungszeile auf der Seite, optional
+  v?: number; // Linkversion, 2 fuer den gefuehrten Assistenten
+  du?: boolean; // Anrede: true = Du, sonst Sie
   a?: string; // Anrede in der Kopie-Mail, z. B. "Hallo Steffen,"
   f?: string; // Rueckgabefrist ISO-Datum
   d?: string; // Termin ISO-Datum
@@ -41,7 +44,11 @@ interface Payload {
 }
 
 // deno-lint-ignore no-explicit-any
-const FR: any = (globalThis as any).VB_FRAGEN;
+const K: any = (globalThis as any).VB2;
+// deno-lint-ignore no-explicit-any
+const C: any = (globalThis as any).VB2_KERN;
+// deno-lint-ignore no-explicit-any
+type Any = any;
 
 const enc = new TextEncoder();
 const MAX_BODY = 2_400_000; // 2 MB Antwortdokument plus Huelle
@@ -136,7 +143,7 @@ async function mengeOk(schluessel: string, max: number, sekunden: number): Promi
 }
 
 // ---------------------------------------------------------------------------
-// Lesbare Zusammenfassung
+// Lesbare Zusammenfassung (Schema 2.0.0)
 // ---------------------------------------------------------------------------
 
 function esc(v: unknown): string {
@@ -160,210 +167,128 @@ function datum(iso?: string): string {
   const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || "");
   return m ? `${m[3]}.${m[2]}.${m[1]}` : "";
 }
-
-const STATUS_TEXT: Record<string, string> = {
-  unbekannt: "weiß ich nicht",
-  "nicht zutreffend": "trifft bei uns nicht zu",
-  "Gespräch gewünscht": "möchte ich im Gespräch klären",
-};
-
-// deno-lint-ignore no-explicit-any
-type Any = any;
-
-function hatInhalt(a: Any): boolean {
-  if (!a) return false;
-  if (a.status && a.status !== "nicht beantwortet") return true;
-  return (
-    voll(a.value) || (a.selected && a.selected.length > 0) || voll(a.count) || voll(a.period) ||
-    voll(a.active) || voll(a.total) || voll(a.regular) || voll(a.occasional)
-  );
+// Auswahl plus freies Feld zu einem Text
+function wahl(x: Any): string {
+  return [x?.auswahl, x?.frei].filter(voll).map((s: string) => String(s).trim()).join(", ");
 }
 
-// Text, der so kurz ist, dass er vermutlich ein Tippfehler oder Testeintrag ist.
-function verdaechtig(v: unknown): boolean {
-  const s = String(v ?? "").trim();
-  return s !== "" && s.length < 5 && !/\s/.test(s);
-}
+const H2 = `style="font-size:16px;margin:26px 0 6px;color:#1a1a2e"`;
+const KLEIN = `style="font-size:12px;color:#6b7080"`;
+const MARK_VB = ` <span style="font-size:11px;color:#8a4b12;background:#FBF3E8;padding:1px 5px;border-radius:4px">vorbelegt, nicht bestätigt</span>`;
 
-function antwortZeilen(q: Any, a: Any, doc: Any): string[] {
-  const z: string[] = [];
-  if (!a) return z;
-  const t = q.type;
-  if (t === "textarea" || t === "radio") {
-    if (voll(a.value)) z.push(nl(a.value));
-    if (a.extra && a.extra.length) z.push(`<i>Richtung:</i> ${esc(a.extra.join(", "))}`);
-  } else if (t === "checkboxes") {
-    if (a.selected && a.selected.length) z.push(esc(a.selected.join(", ")));
-    if (voll(a.value)) z.push(`<i>Ergänzung:</i> ${nl(a.value)}`);
-  } else if (t === "frequency") {
-    if (voll(a.count) || voll(a.period)) z.push(`${esc(a.count)} ${esc(a.period)}`.trim());
-    if (voll(a.basis)) z.push(`<i>Grundlage:</i> ${esc(a.basis)}`);
-    if (voll(a.value)) z.push(`<i>Ergänzung:</i> ${nl(a.value)}`);
-  } else if (t === "duration") {
-    if (voll(a.active)) z.push(`Aktive Minuten je Vorgang: ${esc(a.active)}`);
-    if (voll(a.wait)) z.push(`Warte- oder Liegezeit: ${esc(a.wait)}`);
-    if (voll(a.basis)) z.push(`<i>Grundlage:</i> ${esc(a.basis)}`);
-    if (voll(a.value)) z.push(`<i>Ergänzung:</i> ${nl(a.value)}`);
-  } else if (t === "users") {
-    const teile = [];
-    if (voll(a.total)) teile.push(`insgesamt ${esc(a.total)}`);
-    if (voll(a.regular)) teile.push(`regelmäßig ${esc(a.regular)}`);
-    if (voll(a.occasional)) teile.push(`gelegentlich ${esc(a.occasional)}`);
-    if (teile.length) z.push(teile.join(", "));
-    if (voll(a.value)) z.push(`<i>Ergänzung:</i> ${nl(a.value)}`);
-  } else if (t === "processpick") {
-    const pc = (doc.processCandidates || []) as Any[];
-    const name = (id: string) => {
-      const p = pc.find((x) => x.id === id);
-      return p ? (voll(p.bezeichnung) ? esc(p.bezeichnung) : "(ohne Bezeichnung)") : "";
-    };
-    if (doc.primaryProcessId) z.push(`Zuerst: <b>${name(doc.primaryProcessId)}</b>`);
-    else z.push(`<span style="color:#8c2020">Keine Aufgabe ausgewählt</span>`);
-    if (doc.comparisonProcessId) z.push(`Zum Vergleich: ${name(doc.comparisonProcessId)}`);
-    if (voll(a.value)) z.push(`<i>Begründung:</i> ${nl(a.value)}`);
-  }
-  return z;
-}
-
-function tabelle(kopf: string[], zeilen: string[][]): string {
-  if (!zeilen.length) return `<p style="margin:4px 0;color:#8c2020">keine Einträge</p>`;
-  const th = kopf.map((k) => `<th style="text-align:left;font-size:11px;color:#7B8CB6;padding:4px 8px 4px 0">${esc(k)}</th>`).join("");
-  const tr = zeilen
-    .map((r) => `<tr>${r.map((c) => `<td style="padding:4px 8px 4px 0;vertical-align:top;border-top:1px solid #E4E8F0">${c}</td>`).join("")}</tr>`)
-    .join("");
-  return `<table style="border-collapse:collapse;font-size:13px;width:100%"><thead><tr>${th}</tr></thead><tbody>${tr}</tbody></table>`;
-}
-
-const MARK_VORBELEGT = ` <span style="font-size:11px;color:#8a4b12;background:#FBF3E8;padding:1px 5px;border-radius:4px">vorbelegt, nicht bestätigt</span>`;
-const MARK_PRUEFEN = ` <span style="font-size:11px;color:#8c2020;background:#FBECEC;padding:1px 5px;border-radius:4px">sehr kurz, prüfen</span>`;
-
-function zelle(v: unknown, intern: boolean, kurzPruefen = false): string {
-  return esc(v) + (intern && kurzPruefen && verdaechtig(v) ? MARK_PRUEFEN : "");
-}
-
-function frageBlock(q: Any, a: Any, doc: Any, intern: boolean): string {
-  let inhalt = "";
-  if (q.type === "respondents") {
-    inhalt = tabelle(
-      ["Name oder Rolle", "Aufgabe im Betrieb", "Erreichbar über"],
-      (doc.respondents || []).map((r: Any) => [zelle(r.name, intern) + (intern && r.herkunft === "vorbelegt" ? MARK_VORBELEGT : ""), esc(r.funktion), esc(r.erreichbarkeit)]),
-    );
-  } else if (q.type === "systems") {
-    inhalt = tabelle(
-      ["System", "Wofür", "Nutzer", "Betreut von", "Version / Tarif"],
-      (doc.systems || []).map((s: Any) => [esc(s.name) + (intern && s.herkunft === "vorbelegt" ? MARK_VORBELEGT : ""), esc(s.aufgabe), esc(s.nutzer), esc(s.betreuung), esc(s.version)]),
-    );
-  } else if (q.type === "processes") {
-    inhalt = tabelle(
-      ["Aufgabe", "Rolle", "Häufigkeit", "Was stört"],
-      (doc.processCandidates || []).map((p: Any) => [
-        (voll(p.bezeichnung) ? zelle(p.bezeichnung, intern, true) : "<i>(ohne Bezeichnung)</i>") +
-          (intern && p.herkunft === "vorbelegt" ? MARK_VORBELEGT : "") +
-          (p.vertiefung === "primaer" ? " <b>(zuerst)</b>" : p.vertiefung === "vergleich" ? " (Vergleich)" : ""),
-        esc(p.zustaendigeRolle), esc(p.haeufigkeit), zelle(p.problem, intern, true),
-      ]),
-    );
-  } else {
-    const z = antwortZeilen(q, a, doc);
-    inhalt = z.length ? z.map((x) => `<div style="margin:2px 0">${x}</div>`).join("") : "";
-  }
-  const st = a && STATUS_TEXT[a.status] ? `<div style="margin:2px 0;color:#7B8CB6"><i>Status: ${esc(STATUS_TEXT[a.status])}</i></div>` : "";
-  const vb = intern && a && a.herkunft === "vorbelegt" ? MARK_VORBELEGT : "";
-  const kurz = intern && a && (q.type === "textarea") && verdaechtig(a.value) ? MARK_PRUEFEN : "";
-  const leer = !inhalt && !st ? `<div style="color:#9a9aa6">keine Angabe</div>` : "";
-  return `<div style="padding:10px 0;border-top:1px solid #E4E8F0">
-<div style="font-weight:600;font-size:14px"><span style="color:#7B8CB6;font-size:11px;letter-spacing:1px;margin-right:6px">${esc(q.id)}</span>${esc(q.label)}${vb}${kurz}</div>
-<div style="font-size:14px;margin-top:4px">${inhalt}${st}${leer}</div></div>`;
-}
-
-function offenePunkte(doc: Any): string[] {
-  const punkte: string[] = [];
-  const alle: Any[] = [];
-  for (const s of FR.SECTIONS) for (const q of s.questions) alle.push(q);
-  const label = (id: string) => (alle.find((q) => q.id === id) || FR.P_FULL.find((q: Any) => q.id === id) || {}).label || "";
-  const ans = doc.answers || {};
-
-  const fehlt = FR.REQUIRED_TOP.filter((id: string) => {
-    if (id === "A03") return !(doc.respondents || []).length && !hatInhalt(ans[id]);
-    if (id === "B01") return !(doc.systems || []).length && !hatInhalt(ans[id]);
-    if (id === "C01") return !(doc.processCandidates || []).length && !hatInhalt(ans[id]);
-    return !hatInhalt(ans[id]);
-  });
-  const prim = (doc.processCandidates || []).find((p: Any) => p.id === doc.primaryProcessId);
-  if (!prim) punkte.push("<b>Keine Aufgabe zum Vertiefen gewählt:</b> P01 bis P04 fehlen komplett.");
-  else {
-    for (const id of FR.REQUIRED_PRIMARY_PROCESS) if (!hatInhalt((prim.answers || {})[id])) fehlt.push(id);
-  }
-  if (fehlt.length) punkte.push(`<b>Pflichtfragen ohne Antwort:</b> ${fehlt.map((id: string) => `${esc(id)} (${esc(label(id))})`).join("; ")}`);
-
-  const nachStatus = (status: string) => {
-    const ids: string[] = [];
-    for (const [id, a] of Object.entries(ans)) if ((a as Any)?.status === status) ids.push(id);
-    if (prim) for (const [id, a] of Object.entries(prim.answers || {})) if ((a as Any)?.status === status) ids.push(id);
-    return ids;
+// Lesbarer Name zu einem weissNicht- oder Luecken-Schluessel
+function schluesselText(doc: Any, k: string): string {
+  const fest: Record<string, string> = {
+    "betrieb.taetigkeit": "Was der Betrieb macht", "betrieb.personen": "Wie viele Personen",
+    programme: "Programme", ablaeufe: "Abläufe", ziel: "Ziel",
   };
-  const gespraech = nachStatus("Gespräch gewünscht");
-  if (gespraech.length) punkte.push(`<b>Im Gespräch klären:</b> ${gespraech.map(esc).join(", ")}`);
-  const unbekannt = nachStatus("unbekannt");
-  if (unbekannt.length) punkte.push(`<b>Weiß ich nicht:</b> ${unbekannt.map(esc).join(", ")}`);
-
-  const vorbelegt: string[] = [];
-  for (const [id, a] of Object.entries(ans)) if ((a as Any)?.herkunft === "vorbelegt") vorbelegt.push(id);
-  const zeilenVb =
-    (doc.respondents || []).filter((r: Any) => r.herkunft === "vorbelegt").length +
-    (doc.systems || []).filter((r: Any) => r.herkunft === "vorbelegt").length +
-    (doc.processCandidates || []).filter((r: Any) => r.herkunft === "vorbelegt").length;
-  if (vorbelegt.length || zeilenVb) {
-    punkte.push(`<b>Vorbelegt und nie angefasst:</b> ${[...vorbelegt.map(esc), zeilenVb ? `${zeilenVb} Listenzeile(n)` : ""].filter(Boolean).join(", ")}`);
+  if (fest[k]) return fest[k];
+  const m = /^ablauf:([^:]+):(.+)$/.exec(k);
+  if (m) {
+    const a = (doc.ablaeufe || []).find((x: Any) => x.id === m[1]);
+    const teil: Record<string, string> = { ausloeser: "Auslöser", schritte: "Schritte", haeufigkeit: "wie oft", dauer: "wie lange", aerger: "was nervt" };
+    return `${a ? a.name : "Ablauf"}: ${teil[m[2]] || m[2]}`;
   }
-  if (prim && prim.herkunft === "vorbelegt") {
-    punkte.push("<b>Achtung Anker:</b> die vertiefte Aufgabe ist eine von uns vorbelegte, die der Kunde nicht verändert hat.");
-  }
-
-  const kurz = (doc.processCandidates || []).filter((p: Any) => verdaechtig(p.bezeichnung)).map((p: Any) => esc(p.bezeichnung));
-  if (kurz.length) punkte.push(`<b>Sehr kurze Aufgabennamen, prüfen:</b> ${kurz.join(", ")}`);
-  return punkte;
+  return k;
 }
 
-// Reihenfolge wie auf der Seite (FR.LAYOUT). Teil 1 immer vollstaendig, Teil 2
-// (freiwillig) nur mit Fragen, die eine Antwort oder einen Status haben.
-function gruppen(doc: Any): { titel: string; bloecke: [Any, Any][] }[] {
-  const out: { titel: string; bloecke: [Any, Any][] }[] = [];
-  const ans = doc.answers || {};
-  const pc = (doc.processCandidates || []) as Any[];
-  for (const g of FR.LAYOUT) {
-    let titel = g.titel;
-    let paare: [Any, Any][] = [];
-    if (g.prozess) {
-      const p = pc.find((x: Any) => x.vertiefung === (g.prozess === "primary" ? "primaer" : "vergleich"));
-      if (!p) {
-        if (g.teil === 1) out.push({ titel, bloecke: [] });
-        continue;
-      }
-      titel += ": " + (voll(p.bezeichnung) ? p.bezeichnung : "(ohne Bezeichnung)");
-      const map = g.prozess === "primary" ? FR.P_BY_ID : FR.PS_BY_ID;
-      paare = g.ids.map((id: string) => [map[id], (p.answers || {})[id]]);
-    } else {
-      paare = g.ids.map((id: string) => [FR.BY_ID[id], ans[id]]);
+function zuKlaeren(doc: Any): string[] {
+  const p: string[] = [];
+  const l = C.luecken(doc);
+  if (l.length) p.push(`<b>Fehlt:</b> ${l.map((x: Any) => esc(x.text)).join("; ")}`);
+  const wn = (doc.weissNicht || []) as string[];
+  if (wn.length) p.push(`<b>Weiß ich nicht:</b> ${wn.map((k) => esc(schluesselText(doc, k))).join("; ")}`);
+  const vb: string[] = [];
+  if (doc.betrieb?.herkunft === "vorbelegt") vb.push("Betrieb");
+  (doc.programme || []).filter((x: Any) => x.herkunft === "vorbelegt").forEach((x: Any) => vb.push(esc(x.name)));
+  (doc.ablaeufe || []).filter((x: Any) => x.herkunft === "vorbelegt").forEach((x: Any) => vb.push("Ablauf " + esc(x.name)));
+  if (vb.length) p.push(`<b>Vorbelegt und nie bestätigt:</b> ${vb.join(", ")}`);
+  const offen: string[] = [];
+  (doc.ablaeufe || []).forEach((a: Any) => {
+    const sch = (a.schritte || []).filter((x: Any) => voll(x.was));
+    // Der letzte Schritt hat keinen Uebergang
+    for (let i = 0; i < sch.length - 1; i++) {
+      const art = sch[i].weiter?.art || "";
+      if (!art || art === "weissnicht") offen.push(`${esc(a.name)}: nach „${esc(einzeilig(sch[i].was, 60))}“`);
     }
-    if (g.teil === 2) {
-      paare = paare.filter(([q, a]) =>
-        q.type === "respondents" ? (doc.respondents || []).length > 0 : hatInhalt(a));
-      if (!paare.length) continue;
-    }
-    out.push({ titel: (g.teil === 2 ? "Teil 2 · " : "") + titel, bloecke: paare });
-  }
-  return out;
+  });
+  if (offen.length) p.push(`<b>Übergang unklar:</b> ${offen.join("; ")}`);
+  return p;
+}
+
+const ART_FARBE: Record<string, [string, string]> = {
+  automatisch: ["#EAF5F3", "#2f6b66"],
+  abgetippt: ["#FBF3E8", "#8a4b12"],
+  weitergeleitet: ["#FBF3E8", "#8a4b12"],
+};
+function artText(art: string): string {
+  const w = K.WEITER.find((x: Any) => x.id === art);
+  return w ? w.titel : "unbekannt";
+}
+
+function programmkarteHtml(doc: Any): string {
+  const paare = C.programmkarte(doc);
+  if (!paare.length) return `<p ${KLEIN}>Keine Übergänge zwischen verschiedenen Programmen beschrieben.</p>`;
+  const td = `style="padding:5px 8px 5px 0;border-top:1px solid #E4E8F0;vertical-align:top"`;
+  const zeilen = paare.map((x: Any) => {
+    const [bg, fg] = ART_FARBE[x.art] || ["#F0F3FA", "#3d4b70"];
+    const hinweis = x.art === "abgetippt" || x.art === "weitergeleitet" ? " · <b>Ansatzpunkt</b>" : "";
+    return `<tr><td ${td}>${esc(x.von)}</td>
+<td ${td}><span style="background:${bg};color:${fg};padding:2px 6px;border-radius:4px;font-size:12px">${esc(artText(x.art))}${x.womit ? " (" + esc(x.womit) + ")" : ""}</span>${hinweis}</td>
+<td ${td}>${esc(x.nach)}</td>
+<td ${td}><span style="color:#6b7080;font-size:12px">${esc(x.ablauf)}</span></td></tr>`;
+  }).join("");
+  const th = (t: string) => `<th style="text-align:left;font-size:11px;color:#7B8CB6;padding:0 8px 4px 0">${t}</th>`;
+  return `<table style="border-collapse:collapse;font-size:13px;width:100%"><thead><tr>${th("Von")}${th("Übergang")}${th("Nach")}${th("Ablauf")}</tr></thead><tbody>${zeilen}</tbody></table>`;
+}
+
+function ablaufHtml(a: Any, doc: Any, intern: boolean): string {
+  const sch = (a.schritte || []).filter((x: Any) => voll(x.was));
+  const liste = sch.map((x: Any, i: number) => {
+    const w = C.womitName(x.womit, doc.programme || []);
+    const weiter = i < sch.length - 1
+      ? `<div style="color:#7B8CB6;font-size:12px;margin:2px 0 0 2px">↓ ${esc(artText(x.weiter?.art || ""))}${x.weiter?.art === "automatisch" && voll(x.weiter?.womit) ? " (" + esc(x.weiter.womit) + ")" : ""}</div>`
+      : "";
+    return `<li style="margin:6px 0">${nl(x.was)}${w ? ` <span style="color:#6b7080">· ${esc(w)}</span>` : ""}${weiter}</li>`;
+  }).join("");
+  const zeile = (k: string, v: string) => v ? `<div style="margin:2px 0"><span style="color:#6b7080">${k}:</span> ${v}</div>` : "";
+  const aerger = [...(a.aerger?.kacheln || []), a.aerger?.frei].filter(voll).map((s: string) => esc(s)).join(", ");
+  return `<h3 style="font-size:15px;margin:20px 0 4px">${esc(a.name || "(ohne Namen)")}${intern && a.herkunft === "vorbelegt" ? MARK_VB : ""}</h3>
+<div style="font-size:14px">${zeile("Los geht es mit", esc(wahl(a.ausloeser)))}
+${sch.length ? `<ol style="margin:6px 0 6px;padding-left:22px">${liste}</ol>` : `<div style="color:#8c2020">Keine Schritte beschrieben.</div>`}
+${sch.length > 1 ? `<div ${KLEIN}>Kurz: ${esc(C.ketteText(a, doc.programme || []))}</div>` : ""}
+${zeile("Wie oft", esc(wahl(a.haeufigkeit)))}${zeile("Dauer je Vorgang", esc(wahl(a.dauer)))}${zeile("Was nervt", aerger)}</div>`;
 }
 
 function zusammenfassung(doc: Any, intern: boolean): string {
-  let html = "";
-  for (const g of gruppen(doc)) {
-    html += `<h2 style="font-size:16px;margin:26px 0 4px;color:#1a1a2e">${esc(g.titel)}</h2>`;
-    if (!g.bloecke.length) html += `<p style="color:#8c2020">Keine Aufgabe ausgewählt.</p>`;
-    for (const [q, a] of g.bloecke) html += frageBlock(q, a, doc, intern);
+  let h = "";
+  if (intern) h += `<h2 ${H2}>Programmkarte</h2>` + programmkarteHtml(doc);
+  h += `<h2 ${H2}>Abläufe</h2>`;
+  h += (doc.ablaeufe || []).length
+    ? doc.ablaeufe.map((a: Any) => ablaufHtml(a, doc, intern)).join("")
+    : `<p style="color:#8c2020">Kein Ablauf beschrieben.</p>`;
+  h += `<h2 ${H2}>Betrieb</h2><div style="font-size:14px">${nl(doc.betrieb?.taetigkeit) || "<i>keine Angabe</i>"}${intern && doc.betrieb?.herkunft === "vorbelegt" ? MARK_VB : ""}<br><span style="color:#6b7080">Personen:</span> ${esc(wahl(doc.betrieb?.personen)) || "<i>keine Angabe</i>"}</div>`;
+  const pr = (doc.programme || []).map((x: Any) =>
+    `<li>${esc(x.name)}${voll(x.wofuer) ? ` <span style="color:#6b7080">· ${esc(x.wofuer)}</span>` : ""}${intern && x.herkunft === "vorbelegt" ? MARK_VB : ""}</li>`).join("");
+  h += `<h2 ${H2}>Programme</h2>${pr ? `<ul style="margin:0;padding-left:18px;font-size:14px">${pr}</ul>` : "<i>keine Angabe</i>"}`;
+  const ziel = [nl(doc.ziel?.text), (doc.ziel?.kacheln || []).length ? `<span style="color:#6b7080">Richtung:</span> ${esc(doc.ziel.kacheln.join(", "))}` : ""].filter(Boolean).join("<br>");
+  h += `<h2 ${H2}>Ziel</h2><div style="font-size:14px">${ziel || "<i>keine Angabe</i>"}</div>`;
+  if (voll(doc.nochEtwas)) h += `<h2 ${H2}>Noch etwas</h2><div style="font-size:14px">${nl(doc.nochEtwas)}</div>`;
+  return h;
+}
+
+// Fuer Mailprogramme ohne HTML
+function textFassung(doc: Any): string {
+  const z: string[] = [];
+  for (const a of doc.ablaeufe || []) {
+    z.push(`\n== ${a.name} ==`, `Los geht es mit: ${wahl(a.ausloeser)}`, C.ketteText(a, doc.programme || []),
+      `Wie oft: ${wahl(a.haeufigkeit)} | Dauer: ${wahl(a.dauer)}`);
   }
-  return html;
+  z.push(`\n== Betrieb ==`, String(doc.betrieb?.taetigkeit || ""), `Personen: ${wahl(doc.betrieb?.personen)}`);
+  z.push(`\n== Programme ==`, (doc.programme || []).map((x: Any) => x.name + (voll(x.wofuer) ? ` (${x.wofuer})` : "")).join(", "));
+  if (voll(doc.ziel?.text)) z.push(`\n== Ziel ==`, String(doc.ziel.text));
+  if (voll(doc.nochEtwas)) z.push(`\n== Noch etwas ==`, String(doc.nochEtwas));
+  return z.join("\n");
 }
 
 function rahmen(inhalt: string): string {
@@ -375,22 +300,6 @@ ${inhalt}
 </div></body></html>`;
 }
 
-// Fuer Mailprogramme ohne HTML: kurze Textfassung, der Inhalt steckt im Anhang.
-function textFassung(doc: Any, intern: boolean): string {
-  const z: string[] = [];
-  const ent = (t: string) =>
-    t.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'");
-  for (const g of gruppen(doc)) {
-    z.push(`\n== ${g.titel} ==`);
-    for (const [q, a] of g.bloecke) {
-      if (["respondents", "systems", "processes"].includes(q.type)) continue;
-      const roh = antwortZeilen(q, a, doc).map((x) => x.replace(/<br>/g, "\n").replace(/<[^>]+>/g, ""));
-      const st = a && STATUS_TEXT[a.status] ? ` [${STATUS_TEXT[a.status]}]` : "";
-      z.push(`${q.id} ${q.label}${st}\n${ent(roh.join("\n")) || "(keine Angabe)"}`);
-    }
-  }
-  return (intern ? "Vollständige Angaben im JSON-Anhang und in der HTML-Fassung dieser Mail.\n" : "") + z.join("\n");
-}
 
 async function resend(env: Env, mail: Record<string, unknown>): Promise<{ ok: boolean; detail?: string }> {
   if (env.MAIL_DRY_RUN === "1") {
@@ -437,12 +346,19 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       return json({ ok: false });
     }
     const p = pr.p;
+    if (p.v !== 2) {
+      return json({
+        ok: false,
+        titel: "Dieser Link ist veraltet",
+        fehler: "Die Vorbereitung wurde inzwischen überarbeitet. Bitte melden Sie sich kurz bei uns unter info@360-ai.org, wir schicken Ihnen einen neuen Link.",
+      });
+    }
     return json({
       ok: true,
       config: {
         kennung: p.k,
         kunde: p.r || "",
-        gruss: p.g || "",
+        anrede: p.du ? "du" : "sie",
         frist: p.f || "",
         termin: p.d || "",
         prefill: p.p || null,
@@ -461,30 +377,31 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return json({
       ok: false,
       fehler: pr.grund === "abgelaufen"
-        ? "Ihr Link ist inzwischen abgelaufen. Bitte sichern Sie Ihre Angaben als Datei und schicken Sie sie an info@360-ai.org."
-        : "Der Link ist ungültig. Bitte öffnen Sie ihn direkt aus unserer E-Mail.",
+        ? "Der Link ist inzwischen abgelaufen. Bitte die Angaben als Datei sichern und an info@360-ai.org schicken."
+        : "Der Link ist ungültig. Bitte direkt aus unserer E-Mail öffnen.",
     }, 403);
   }
   const p = pr.p;
+  const du = p.du === true;
   const ip = request.headers.get("CF-Connecting-IP") || "";
 
   if (!(await turnstileOk(env, typeof body.turnstile === "string" ? body.turnstile.slice(0, 3000) : "", ip))) {
     return json({ ok: false, fehler: "Die Sicherheitsprüfung ist fehlgeschlagen. Bitte noch einmal senden." }, 400);
   }
   if (!(await mengeOk(`k:${p.k}`, 8, 3600)) || (ip && !(await mengeOk(`ip:${ip}`, 20, 3600)))) {
-    return json({ ok: false, fehler: "Sie haben in kurzer Zeit sehr oft gesendet. Bitte versuchen Sie es in einer Stunde noch einmal." }, 429);
+    return json({ ok: false, fehler: "In kurzer Zeit wurde sehr oft gesendet. Bitte in einer Stunde noch einmal versuchen." }, 429);
   }
 
   const doc = body.doc;
-  if (
-    !doc || typeof doc !== "object" || doc.type !== FR.DOC_TYPE || doc.schemaVersion !== FR.SCHEMA_VERSION ||
-    doc.questionnaireId !== p.k || typeof doc.answers !== "object" ||
-    !Array.isArray(doc.respondents) || !Array.isArray(doc.systems) || !Array.isArray(doc.processCandidates)
-  ) {
-    return json({ ok: false, fehler: "Die Angaben passen nicht zu dieser Vorbereitung. Bitte laden Sie die Seite neu." }, 400);
+  if (!doc || typeof doc !== "object" || Array.isArray(doc)) {
+    return json({ ok: false, fehler: "Die Angaben passen nicht zu dieser Vorbereitung. Bitte die Seite neu laden." }, 400);
   }
-  if (doc.processCandidates.length > 8 || doc.systems.length > 40 || doc.respondents.length > 10) {
-    return json({ ok: false, fehler: "Es sind mehr Einträge vorhanden als erlaubt." }, 400);
+  // Fehlende Teilobjekte auffuellen, bevor irgendeine Kernlogik liest.
+  C.normalisieren(doc);
+  const fehler = C.pruefen(doc, p.k);
+  if (fehler.length) {
+    console.log("Vorbereitung abgewiesen:", fehler.slice(0, 3).join(" | "));
+    return json({ ok: false, fehler: "Die Angaben passen nicht zu dieser Vorbereitung: " + fehler[0] }, 400);
   }
 
   const jsonText = JSON.stringify(doc, null, 2);
@@ -494,15 +411,15 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const dateiname = `${p.k.replace(/[^A-Za-z0-9._-]/g, "_")}_r${rev}.json`;
 
   // ---- Mail an 360ai --------------------------------------------------------
-  const punkte = offenePunkte(doc);
+  const punkte = zuKlaeren(doc);
   const kopf = `<h1 style="margin:0 0 6px;font-size:21px">Vorbereitung eingegangen: ${esc(kunde)}</h1>
-<p style="margin:0;color:#6b7080;font-size:13px">Kennung ${esc(p.k)} · Fassung ${rev + 1}${doc.supersedesSubmissionId ? " (ersetzt die vorige)" : ""} · Termin ${esc(datum(p.d)) || "nicht gesetzt"} · Kopie an ${esc(p.e)}</p>
+<p style="margin:0;color:#6b7080;font-size:13px">Kennung ${esc(p.k)} · Fassung ${rev + 1}${doc.supersedesSubmissionId ? " (ersetzt die vorige)" : ""} · Termin ${esc(datum(p.d)) || "nicht gesetzt"} · ${du ? "Du" : "Sie"} · Kopie an ${esc(p.e)}</p>
 <div style="margin:18px 0 6px;padding:14px 16px;background:#FBF3E8;border:1px solid #e8d5ba;border-radius:8px;font-size:14px;color:#5a3a12">
 <div style="font-weight:700;margin-bottom:6px">Zu klären</div>
-${punkte.length ? `<ul style="margin:0;padding-left:18px">${punkte.map((x) => `<li style="margin:3px 0">${x}</li>`).join("")}</ul>` : "Nichts Auffälliges. Alle Pflichtfragen haben eine Antwort."}
+${punkte.length ? `<ul style="margin:0;padding-left:18px">${punkte.map((x) => `<li style="margin:3px 0">${x}</li>`).join("")}</ul>` : "Nichts Auffälliges."}
 </div>
-<p style="font-size:13px;color:#3d4b70;margin:10px 0 0"><b>Im Termin klären (nicht im Bogen):</b> Grenzen (D02), Vorgaben und Beteiligte (D03), Test und Verantwortung (D04), Akzeptanz (D05), Nutzerzahl (D06), Budget einmalig und laufend (E01, E02), Entscheider und Prozessperson (E04), Prüfung und Fehlerfolge (P07). Steht im Gesprächsbogen.</p>
-<p style="font-size:12px;color:#6b7080;margin:6px 0 0">Vollständige Rohdaten im Anhang ${esc(dateiname)}.</p>`;
+<p style="font-size:13px;color:#3d4b70;margin:10px 0 0"><b>Im Termin klären:</b> Grenzen, Vorgaben und Beteiligte, Verantwortung, Nutzerzahl, Budget, Entscheider, Prüfung und Fehlerfolge. Steht im Gesprächsbogen.</p>
+<p style="font-size:12px;color:#6b7080;margin:6px 0 0">Rohdaten im Anhang ${esc(dateiname)}.</p>`;
   const htmlIntern = rahmen(kopf + zusammenfassung(doc, true));
   const betreffIntern = einzeilig(`Vorbereitung eingegangen: ${kunde} (${p.k}${fassung})`, 180);
 
@@ -512,7 +429,7 @@ ${punkte.length ? `<ul style="margin:0;padding-left:18px">${punkte.map((x) => `<
     reply_to: p.e,
     subject: betreffIntern,
     html: htmlIntern,
-    text: textFassung(doc, true),
+    text: "Vollständige Angaben im JSON-Anhang und in der HTML-Fassung dieser Mail.\n" + textFassung(doc),
     attachments: [{ filename: dateiname, content: b64(jsonText) }],
   });
   if (!intern.ok) {
@@ -521,19 +438,24 @@ ${punkte.length ? `<ul style="margin:0;padding-left:18px">${punkte.map((x) => `<
   }
 
   // ---- Kopie an den Kunden ---------------------------------------------------
-  const anrede = einzeilig(p.a || "Guten Tag,", 80);
-  const kopfKunde = `<p style="font-size:15px;line-height:1.6;margin:0 0 12px">${esc(anrede)}</p>
-<p style="font-size:15px;line-height:1.6;margin:0 0 12px">vielen Dank, Ihre Vorbereitung ist bei uns angekommen${rev > 0 ? ` (Fassung ${rev + 1}, sie ersetzt die vorige)` : ""}. Unten finden Sie eine Kopie Ihrer Angaben.</p>
-<p style="font-size:15px;line-height:1.6;margin:0 0 12px">Wenn Ihnen noch etwas einfällt, öffnen Sie einfach wieder den Link aus unserer ersten E-Mail, ergänzen Sie und senden Sie erneut. Sie können auch direkt auf diese Mail antworten.</p>
-${p.d ? `<p style="font-size:15px;line-height:1.6;margin:0 0 12px">Wir sehen uns am ${esc(datum(p.d))}.</p>` : ""}`;
+  const anrede = einzeilig(p.a || (du ? "Hallo," : "Guten Tag,"), 80);
+  const absatz = (t: string) => `<p style="font-size:15px;line-height:1.6;margin:0 0 12px">${t}</p>`;
+  const kopfKunde = absatz(esc(anrede)) +
+    absatz(du
+      ? `danke, deine Vorbereitung ist bei uns angekommen${rev > 0 ? ` (Fassung ${rev + 1}, sie ersetzt die vorige)` : ""}. Unten findest du eine Kopie deiner Angaben.`
+      : `vielen Dank, Ihre Vorbereitung ist bei uns angekommen${rev > 0 ? ` (Fassung ${rev + 1}, sie ersetzt die vorige)` : ""}. Unten finden Sie eine Kopie Ihrer Angaben.`) +
+    absatz(du
+      ? "Wenn dir noch etwas einfällt, öffne einfach wieder den Link aus unserer ersten E-Mail, ergänze und sende erneut. Du kannst auch direkt auf diese Mail antworten."
+      : "Wenn Ihnen noch etwas einfällt, öffnen Sie einfach wieder den Link aus unserer ersten E-Mail, ergänzen Sie und senden Sie erneut. Sie können auch direkt auf diese Mail antworten.") +
+    (p.d ? absatz(`Wir sehen uns am ${esc(datum(p.d))}.`) : "");
   let kopie: string | null = p.e;
   const kunden = await resend(env, {
     from: env.VB_MAIL_FROM || env.MAIL_FROM,
     to: [p.e],
     reply_to: env.VB_MAIL_TO || env.MAIL_TO || "info@360-ai.org",
-    subject: "Ihre Vorbereitung ist bei 360ai angekommen",
+    subject: du ? "Deine Vorbereitung ist bei 360ai angekommen" : "Ihre Vorbereitung ist bei 360ai angekommen",
     html: rahmen(kopfKunde + zusammenfassung(doc, false)),
-    text: `${anrede}\n\nvielen Dank, Ihre Vorbereitung ist bei uns angekommen. Hier eine Kopie Ihrer Angaben.\n` + textFassung(doc, false),
+    text: `${anrede}\n\n${du ? "danke, deine Vorbereitung ist bei uns angekommen. Hier eine Kopie deiner Angaben." : "vielen Dank, Ihre Vorbereitung ist bei uns angekommen. Hier eine Kopie Ihrer Angaben."}\n` + textFassung(doc),
   });
   if (!kunden.ok) {
     // Nicht fatal: 360ai hat die Angaben. Der Kunde sieht dann keinen Kopie-Hinweis.
