@@ -151,6 +151,10 @@ details.mehr > summary{cursor:pointer;color:var(--lavender);font-weight:600}
 .panel.ok h2{font-size:22px;color:var(--ok)}
 .panel.ok p{margin:10px 0 0}
 .panel.stop h2{color:var(--err)}
+.teilkopf{margin:34px 0 14px;padding:0 4px}
+.teilkopf h2{margin:0;font-size:20px;font-weight:700;color:var(--ink)}
+.teilkopf p{margin:4px 0 0;font-size:14px;color:var(--muted)}
+.teilkopf::after{content:"";display:block;height:3px;width:56px;margin-top:10px;border-radius:2px;background:var(--gradient)}
 #done:focus{outline:none}
 
 .meta{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -225,7 +229,8 @@ a{color:var(--lavender)}
     <div class="intro">
       <p id="introGruss" hidden></p>
       <p>Wir möchten den Termin nutzen, um Ihre wichtigsten Abläufe zu verstehen und gemeinsam einen sinnvollen ersten Schritt auszuwählen. Dafür bereiten wir uns anhand Ihrer Antworten vor.</p>
-      <p>Reservieren Sie sich möglichst etwa eine Stunde. Sie können jederzeit unterbrechen: Ihr Stand wird in diesem Browser automatisch gesichert. Öffnen Sie später einfach wieder denselben Link auf demselben Gerät. Antworten Sie nach bestem Wissen; grobe Schätzungen sind hilfreich, wenn Sie diese als Schätzung kennzeichnen. Wenn Ihnen etwas nicht bekannt ist, wählen Sie bitte „Weiß ich nicht“.</p>
+      <p>Der Bogen hat zwei Teile. Teil 1 dauert etwa 15 bis 20 Minuten und genügt uns für einen guten Termin. Teil 2 ist freiwillig. Fragen zu Budget, Grenzen und Zuständigkeiten klären wir im Termin gemeinsam, die stehen hier bewusst nicht.</p>
+      <p>Sie können jederzeit unterbrechen: Ihr Stand wird in diesem Browser automatisch gesichert. Öffnen Sie später einfach wieder denselben Link auf demselben Gerät. Am Handy können Sie längere Antworten auch diktieren, über das Mikrofon auf der Tastatur. Antworten Sie nach bestem Wissen; grobe Schätzungen sind hilfreich, wenn Sie diese als Schätzung kennzeichnen. Wenn Ihnen etwas nicht bekannt ist, wählen Sie bitte „Weiß ich nicht“.</p>
       <p>Beschreiben Sie zuerst Ihre Arbeit und Ihre Schwierigkeiten. Sie müssen noch keine KI-Lösung kennen. Beziehen Sie bei Bedarf jemanden ein, der die Abläufe täglich ausführt oder die Programme betreut.</p>
       <p>Bitte senden Sie keine Passwörter, Zugangsschlüssel oder unbearbeiteten personenbezogenen Unterlagen. Für erste Beispiele reichen bereinigte Beschreibungen ohne Namen und vertrauliche Einzelheiten.</p>
       <p>Aus Ihren Angaben bereiten wir passende Rückfragen und mögliche Ansatzpunkte vor. Im Termin prüfen wir, welche Verbesserung sich lohnt und was vor einer Umsetzung noch geklärt werden muss. Es kann auch sinnvoll sein, vorhandene Software besser zu nutzen oder einen Ablauf ohne KI zu ändern.</p>
@@ -424,20 +429,28 @@ function processLabel(p, i){
 ------------------------------------------------------------------ */
 var formRoot = document.getElementById("form");
 
+/* Aufbau nach F.LAYOUT: Teil 1 Pflichtkern, Teil 2 freiwillig. */
+var TEIL_KOPF = {
+  1: {titel:"Teil 1 · Das Wichtigste", text:"Etwa 15 bis 20 Minuten. Damit können wir den Termin gut vorbereiten."},
+  2: {titel:"Teil 2 · Wenn Sie noch etwas Zeit haben", text:"Freiwillig. Jede Antwort hier spart uns im Termin Zeit, aber Sie können auch direkt nach Teil 1 senden."}
+};
+
 function render(){
   formRoot.textContent = "";
-  SECTIONS.forEach(function(sec){
-    var block = el("section", {"class":"block", id:"sec-"+sec.id}, [
-      el("h2", {text: sec.id + " · " + sec.title}),
-      el("p", {"class":"sub", text: sec.sub})
-    ]);
-    sec.questions.forEach(function(q){ block.appendChild(renderQuestion(q, null)); });
-    formRoot.appendChild(block);
-
-    if(sec.id === "C"){
-      formRoot.appendChild(renderProcessDetail("primary"));
-      formRoot.appendChild(renderProcessDetail("comparison"));
+  var teil = 0;
+  F.LAYOUT.forEach(function(g, gi){
+    if(g.teil !== teil){
+      teil = g.teil;
+      formRoot.appendChild(el("div", {"class":"teilkopf", id:"teil-" + teil}, [
+        el("h2", {text: TEIL_KOPF[teil].titel}),
+        el("p", {text: TEIL_KOPF[teil].text})
+      ]));
     }
+    if(g.prozess){ formRoot.appendChild(renderProcessDetail(g)); return; }
+    var block = el("section", {"class":"block", id:"grp-" + gi}, [el("h2", {text: g.titel})]);
+    if(g.sub) block.appendChild(el("p", {"class":"sub", text: g.sub}));
+    g.ids.forEach(function(id){ block.appendChild(renderQuestion(F.BY_ID[id], null)); });
+    formRoot.appendChild(block);
   });
   document.getElementById("qidField").value = QUESTIONNAIRE_ID;
   document.getElementById("customerReference").value = state.customerReference || "";
@@ -858,21 +871,22 @@ function rowEditor(cfg){
   return wrap;
 }
 
-function renderProcessDetail(kind){
+function renderProcessDetail(g){
+  var kind = g.prozess;
   var pid  = kind === "primary" ? state.primaryProcessId : state.comparisonProcessId;
-  var defs = kind === "primary" ? P_FULL : P_SHORT;
-  var title= kind === "primary" ? "Erste Aufgabe, ausführlicher" : "Zweite Aufgabe, optionaler Kurzvergleich";
-  var sub  = kind === "primary"
-    ? "Diese Fragen beziehen sich auf die unter C02 zuerst gewählte Aufgabe."
-    : "Nur ausfüllen, wenn Sie unter C02 eine zweite Aufgabe zum Vergleich benannt haben. Dieser Block ist freiwillig.";
+  var map  = kind === "primary" ? F.P_BY_ID : F.PS_BY_ID;
+  var defs = g.ids.map(function(id){ return map[id]; });
+  var kern = g.teil === 1;
 
-  var block = el("section", {"class":"block", id:"sec-" + kind}, [
-    el("h2", {text: title}),
-    el("p", {"class":"sub", text: sub})
+  var block = el("section", {"class":"block", id: kern ? "sec-" + kind : "sec-" + kind + "-2"}, [
+    el("h2", {text: g.titel})
   ]);
+  if(g.sub) block.appendChild(el("p", {"class":"sub", text: g.sub}));
 
   if(!pid){
-    if(kind === "primary" && state.processCandidates.length){
+    if(kind === "primary" && !kern){
+      block.appendChild(el("p", {"class":"hint", text:"Erscheint, sobald Sie unter C02 eine Aufgabe ausgewählt haben."}));
+    } else if(kind === "primary" && state.processCandidates.length){
       /* Befund 1: frueher stand hier nur ein Hinweis, und ohne Auswahl unter
          C02 erschienen P01 bis P09 nie. Jetzt kann direkt hier gewaehlt
          werden. Bewusst KEINE Vorauswahl, auch nicht bei nur einer Aufgabe:
@@ -1149,7 +1163,7 @@ function warnings(){
   if(state.processCandidates.length === 0)
     w.push("Unter C01 ist noch keine Aufgabe eingetragen.");
   else if(!state.primaryProcessId)
-    w.push("Unter C02 ist noch keine Aufgabe ausgewählt. Ohne Auswahl fehlen die Detailfragen P01 bis P09.");
+    w.push("Unter C02 ist noch keine Aufgabe ausgewählt. Ohne Auswahl fehlen die Detailfragen P01 bis P04.");
   var offen = openItems();
   if(offen.length)
     w.push("Noch ohne Antwort oder Status: " + offen.map(function(id){

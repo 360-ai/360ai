@@ -290,7 +290,7 @@ function offenePunkte(doc: Any): string[] {
     return !hatInhalt(ans[id]);
   });
   const prim = (doc.processCandidates || []).find((p: Any) => p.id === doc.primaryProcessId);
-  if (!prim) punkte.push("<b>Keine Aufgabe zum Vertiefen gewählt:</b> P01 bis P09 fehlen komplett.");
+  if (!prim) punkte.push("<b>Keine Aufgabe zum Vertiefen gewählt:</b> P01 bis P04 fehlen komplett.");
   else {
     for (const id of FR.REQUIRED_PRIMARY_PROCESS) if (!hatInhalt((prim.answers || {})[id])) fehlt.push(id);
   }
@@ -325,26 +325,43 @@ function offenePunkte(doc: Any): string[] {
   return punkte;
 }
 
+// Reihenfolge wie auf der Seite (FR.LAYOUT). Teil 1 immer vollstaendig, Teil 2
+// (freiwillig) nur mit Fragen, die eine Antwort oder einen Status haben.
+function gruppen(doc: Any): { titel: string; bloecke: [Any, Any][] }[] {
+  const out: { titel: string; bloecke: [Any, Any][] }[] = [];
+  const ans = doc.answers || {};
+  const pc = (doc.processCandidates || []) as Any[];
+  for (const g of FR.LAYOUT) {
+    let titel = g.titel;
+    let paare: [Any, Any][] = [];
+    if (g.prozess) {
+      const p = pc.find((x: Any) => x.vertiefung === (g.prozess === "primary" ? "primaer" : "vergleich"));
+      if (!p) {
+        if (g.teil === 1) out.push({ titel, bloecke: [] });
+        continue;
+      }
+      titel += ": " + (voll(p.bezeichnung) ? p.bezeichnung : "(ohne Bezeichnung)");
+      const map = g.prozess === "primary" ? FR.P_BY_ID : FR.PS_BY_ID;
+      paare = g.ids.map((id: string) => [map[id], (p.answers || {})[id]]);
+    } else {
+      paare = g.ids.map((id: string) => [FR.BY_ID[id], ans[id]]);
+    }
+    if (g.teil === 2) {
+      paare = paare.filter(([q, a]) =>
+        q.type === "respondents" ? (doc.respondents || []).length > 0 : hatInhalt(a));
+      if (!paare.length) continue;
+    }
+    out.push({ titel: (g.teil === 2 ? "Teil 2 · " : "") + titel, bloecke: paare });
+  }
+  return out;
+}
+
 function zusammenfassung(doc: Any, intern: boolean): string {
   let html = "";
-  const ans = doc.answers || {};
-  for (const s of FR.SECTIONS) {
-    html += `<h2 style="font-size:16px;margin:26px 0 4px;color:#1a1a2e">${esc(s.id)} · ${esc(s.title)}</h2>`;
-    for (const q of s.questions) html += frageBlock(q, ans[q.id], doc, intern);
-    if (s.id === "C") {
-      for (const [rolle, titel, defs] of [
-        ["primaer", "Erste Aufgabe, ausführlicher", FR.P_FULL],
-        ["vergleich", "Zweite Aufgabe, Kurzvergleich", FR.P_SHORT],
-      ] as [string, string, Any[]][]) {
-        const p = (doc.processCandidates || []).find((x: Any) => x.vertiefung === rolle);
-        if (!p) {
-          if (rolle === "primaer") html += `<h2 style="font-size:16px;margin:26px 0 4px">${titel}</h2><p style="color:#8c2020">Keine Aufgabe ausgewählt.</p>`;
-          continue;
-        }
-        html += `<h2 style="font-size:16px;margin:26px 0 4px;color:#1a1a2e">${titel}: ${voll(p.bezeichnung) ? esc(p.bezeichnung) : "(ohne Bezeichnung)"}</h2>`;
-        for (const q of defs) html += frageBlock(q, (p.answers || {})[q.id], doc, intern);
-      }
-    }
+  for (const g of gruppen(doc)) {
+    html += `<h2 style="font-size:16px;margin:26px 0 4px;color:#1a1a2e">${esc(g.titel)}</h2>`;
+    if (!g.bloecke.length) html += `<p style="color:#8c2020">Keine Aufgabe ausgewählt.</p>`;
+    for (const [q, a] of g.bloecke) html += frageBlock(q, a, doc, intern);
   }
   return html;
 }
@@ -361,15 +378,15 @@ ${inhalt}
 // Fuer Mailprogramme ohne HTML: kurze Textfassung, der Inhalt steckt im Anhang.
 function textFassung(doc: Any, intern: boolean): string {
   const z: string[] = [];
-  const ans = doc.answers || {};
-  for (const s of FR.SECTIONS) {
-    z.push(`\n== ${s.id} ${s.title} ==`);
-    for (const q of s.questions) {
-      const a = ans[q.id];
+  const ent = (t: string) =>
+    t.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+  for (const g of gruppen(doc)) {
+    z.push(`\n== ${g.titel} ==`);
+    for (const [q, a] of g.bloecke) {
+      if (["respondents", "systems", "processes"].includes(q.type)) continue;
       const roh = antwortZeilen(q, a, doc).map((x) => x.replace(/<br>/g, "\n").replace(/<[^>]+>/g, ""));
       const st = a && STATUS_TEXT[a.status] ? ` [${STATUS_TEXT[a.status]}]` : "";
-      if (["respondents", "systems", "processes"].includes(q.type)) continue;
-      z.push(`${q.id} ${q.label}${st}\n${roh.join("\n").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'") || "(keine Angabe)"}`);
+      z.push(`${q.id} ${q.label}${st}\n${ent(roh.join("\n")) || "(keine Angabe)"}`);
     }
   }
   return (intern ? "Vollständige Angaben im JSON-Anhang und in der HTML-Fassung dieser Mail.\n" : "") + z.join("\n");
@@ -484,6 +501,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 <div style="font-weight:700;margin-bottom:6px">Zu klären</div>
 ${punkte.length ? `<ul style="margin:0;padding-left:18px">${punkte.map((x) => `<li style="margin:3px 0">${x}</li>`).join("")}</ul>` : "Nichts Auffälliges. Alle Pflichtfragen haben eine Antwort."}
 </div>
+<p style="font-size:13px;color:#3d4b70;margin:10px 0 0"><b>Im Termin klären (nicht im Bogen):</b> Grenzen (D02), Vorgaben und Beteiligte (D03), Test und Verantwortung (D04), Akzeptanz (D05), Nutzerzahl (D06), Budget einmalig und laufend (E01, E02), Entscheider und Prozessperson (E04), Prüfung und Fehlerfolge (P07). Steht im Gesprächsbogen.</p>
 <p style="font-size:12px;color:#6b7080;margin:6px 0 0">Vollständige Rohdaten im Anhang ${esc(dateiname)}.</p>`;
   const htmlIntern = rahmen(kopf + zusammenfassung(doc, true));
   const betreffIntern = einzeilig(`Vorbereitung eingegangen: ${kunde} (${p.k}${fassung})`, 180);

@@ -53,7 +53,7 @@ var SECTIONS = [
            "Jemand fragt nach, weil eine Information nicht mitgekommen ist.",
            "Etwas wird ein zweites Mal eingegeben, weil zwei Programme nicht miteinander reden."
          ]},
-         {text:"Wenn Ihnen dazu gerade nichts einfällt, lassen Sie das Feld offen. Weiter unten hilft Ihnen der aufklappbare Kasten bei den Aufgaben weiter."}
+         {text:"Wenn Ihnen dazu gerade nichts einfällt, lassen Sie das Feld offen. Der aufklappbare Kasten bei C01 hilft ebenfalls weiter."}
        ]
      }},
     {id:"A06", type:"textarea", label:"Was haben Sie dort bereits verändert oder ausprobiert, und was ist daraus geworden?",
@@ -233,17 +233,61 @@ var P_SHORT = [
   {id:"P06", type:"textarea", label:"Optional: bekannte Besonderheiten, Fehlerfolgen oder Grenzen", hint:"Nur wenn Ihnen etwas dazu bekannt ist."}
 ];
 
-/* Pflichtblöcke für die Fortschrittsanzeige */
-var REQUIRED_TOP = ["A01","A02","A03","A04","B00","B01","C01","C02","D01","D02","D03","D04","D06","E01","E02","E03","E04"];
-var REQUIRED_PRIMARY_PROCESS = ["P01","P02","P03","P04","P07","P08"];
+/* ------------------------------------------------------------------
+   KURZFASSUNG ONLINE (Entscheidung Denis 03.10.2026)
+   Anlass: In allen drei Ruecklaeufen (Haase, WFG, Staupp) blieben Block D,
+   Block E und der hintere Prozessteil leer. Diese Fragen sind abstrakt,
+   solange kein Kandidat feststeht, und werden im Termin besser beantwortet.
+   Sie stehen jetzt im Gespraechsbogen (Strategie/Neuausrichtung/
+   online-vorbereitung/360ai_Gespraechsbogen.html), nicht mehr hier.
+   Wortlaut und Kennungen der verbliebenen Fragen sind unveraendert.
+------------------------------------------------------------------ */
+var IM_GESPRAECH = ["D02","D03","D04","D05","D06","E01","E02","E04","P07"];
+
+/* Pflichtkern fuer Fortschritt und "Zu klaeren" */
+var REQUIRED_TOP = ["A01","A02","A04","B00","B01","C01","C02"];
+var REQUIRED_PRIMARY_PROCESS = ["P01","P02","P03","P04"];
+
+/* Reihenfolge auf der Seite. teil 1 = Pflichtkern, teil 2 = freiwillig.
+   prozess: "primary" oder "comparison" fuer die Detailbloecke. */
+var LAYOUT = [
+  {teil:1, titel:"A · Betrieb und Ziel", sub:"Kurze Antworten genügen. Zwei bis drei Sätze reichen fast überall.",
+   ids:["A01","A02","A04"]},
+  {teil:1, titel:"B · Programme und Informationen", sub:"Papier, Excel und Messenger sind ebenfalls Antworten.",
+   ids:["B00","B01"]},
+  {teil:1, titel:"C · Aufgaben entdecken", sub:"Erst frei sammeln, dann eine Aufgabe auswählen, die wir näher ansehen.",
+   ids:["C01","C02"]},
+  {teil:1, prozess:"primary", titel:"Die ausgewählte Aufgabe",
+   sub:"Diese Fragen beziehen sich auf die Aufgabe, die Sie unter C02 ausgewählt haben.",
+   ids:["P01","P02","P03","P04"]},
+  {teil:2, titel:"Betrieb und Ziel, Ergänzungen", sub:"",
+   ids:["A03","A05","A06"]},
+  {teil:2, titel:"Programme und Informationen, Ergänzungen", sub:"",
+   ids:["B02","B03","B04","B05","D01"]},
+  {teil:2, prozess:"primary", titel:"Die ausgewählte Aufgabe, Ergänzungen", sub:"",
+   ids:["P05","P06","P08","P09"]},
+  {teil:2, prozess:"comparison", titel:"Zweite Aufgabe, optionaler Kurzvergleich",
+   sub:"Nur ausfüllen, wenn Sie unter C02 eine zweite Aufgabe zum Vergleich benannt haben.",
+   ids:["P01","P02","P03","P08","P04","P06"]},
+  {teil:2, titel:"Zum Schluss", sub:"",
+   ids:["E03","E05"]}
+];
 
 var SCHEMA_VERSION        = "1.0.0";
-var QUESTIONNAIRE_VERSION = "2026-09-20";
+var QUESTIONNAIRE_VERSION = "2026-10-03-kurz";
 var DOC_TYPE              = "360ai.preassessment";
+
+/* Fragen nach Kennung. P-Fragen getrennt nach Vertiefung und Vergleich. */
+var BY_ID = {}, P_BY_ID = {}, PS_BY_ID = {};
+SECTIONS.forEach(function(s){ s.questions.forEach(function(q){ BY_ID[q.id] = q; }); });
+P_FULL.forEach(function(q){ P_BY_ID[q.id] = q; });
+P_SHORT.forEach(function(q){ PS_BY_ID[q.id] = q; });
 
 globalThis.VB_FRAGEN = {
   STATUS_OPTIONS: STATUS_OPTIONS, BASIS_OPTIONS: BASIS_OPTIONS,
   SECTIONS: SECTIONS, P_FULL: P_FULL, P_SHORT: P_SHORT,
+  BY_ID: BY_ID, P_BY_ID: P_BY_ID, PS_BY_ID: PS_BY_ID,
+  LAYOUT: LAYOUT, IM_GESPRAECH: IM_GESPRAECH,
   REQUIRED_TOP: REQUIRED_TOP, REQUIRED_PRIMARY_PROCESS: REQUIRED_PRIMARY_PROCESS,
   SCHEMA_VERSION: SCHEMA_VERSION, QUESTIONNAIRE_VERSION: QUESTIONNAIRE_VERSION, DOC_TYPE: DOC_TYPE
 };
