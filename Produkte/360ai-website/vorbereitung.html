@@ -1286,7 +1286,9 @@ function doSend(built){
   var btn = document.getElementById("btnSend");
   sending = true; btn.disabled = true; btn.textContent = "Wird gesendet …";
   hideMsg();
-  turnstileToken().then(function(ts){
+  turnstileToken().catch(function(){
+    var e = new Error("turnstile"); e.turnstile = true; throw e;
+  }).then(function(ts){
     return fetch("/api/vorbereitung", {
       method: "POST",
       headers: {"content-type":"application/json"},
@@ -1311,9 +1313,16 @@ function doSend(built){
     autosave();
     resetSendButton();
     showDone(r.d);
-  }).catch(function(){
+  }).catch(function(err){
     sending = false;
     resetSendButton();
+    if(err && err.turnstile){
+      showMsg("err", "Die Sicherheitsprüfung hat nicht geklappt.", [
+        "Ihre Angaben sind nicht verloren, sie bleiben hier gespeichert.",
+        "Bitte senden Sie in einer Minute noch einmal. Klappt es dann nicht, sichern Sie Ihre Angaben als Datei und schicken Sie sie per E-Mail an info@360-ai.org."
+      ], fallbackBox());
+      return;
+    }
     showMsg("err", "Keine Verbindung zu 360ai.", [
       "Ihre Angaben sind nicht verloren, sie bleiben hier gespeichert.",
       "Prüfen Sie Ihre Internetverbindung und senden Sie dann noch einmal. Alternativ als Datei sichern und per E-Mail an info@360-ai.org schicken."
