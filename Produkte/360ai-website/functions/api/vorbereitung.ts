@@ -213,6 +213,14 @@ function zuKlaeren(doc: Any): string[] {
     }
   });
   if (offen.length) p.push(`<b>Übergang unklar:</b> ${offen.join("; ")}`);
+  // Schritt ohne Womit: der Uebergang faellt sonst still aus der Programmkarte.
+  const ohneWomit: string[] = [];
+  (doc.ablaeufe || []).forEach((a: Any) => {
+    (a.schritte || []).filter((x: Any) => voll(x.was)).forEach((x: Any, i: number) => {
+      if (!x.womit?.programmId && !x.womit?.art && !voll(x.womit?.frei)) ohneWomit.push(`${esc(a.name)}, Schritt ${i + 1}`);
+    });
+  });
+  if (ohneWomit.length) p.push(`<b>Womit fehlt:</b> ${ohneWomit.join("; ")}`);
   return p;
 }
 

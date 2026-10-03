@@ -660,8 +660,17 @@ function turnstileToken(){
       callback:res, "error-callback":function(){ rej(new Error("turnstile")); }, "timeout-callback":function(){ rej(new Error("turnstile")); }});
   }); });
 }
+/* Notweg nach gescheitertem Senden: das vollstaendige Antwortdokument, nicht der
+   Zwischenstand. Nur so kann 360ai die Datei pruefen und auswerten. */
+function antwortDatei(){
+  var fp = JSON.stringify(stand);
+  var unver = meta.lastFp !== null && fp === meta.lastFp;
+  var doc = C.dokument(stand, {kennung:CFG.kennung, kunde:CFG.kunde, anrede:ANREDE, createdAt:meta.createdAt,
+    lastSubmissionId:meta.lastSubmissionId, lastRevision:meta.lastRevision, unveraendert:unver, submissionId: unver ? meta.lastSubmissionId : null});
+  download(dateiName().replace("Vorbereitung_", "Antworten_"), JSON.stringify(doc, null, 2));
+}
 function rueckfall(){
-  return el("div", {"class":"nav"}, [el("button", {"class":"btn ghost", type:"button", text:"Angaben als Datei sichern", on:{click:dateiSichern}})]);
+  return el("div", {"class":"nav"}, [el("button", {"class":"btn ghost", type:"button", id:"btnRueckfall", text:"Angaben als Datei sichern", on:{click:antwortDatei}})]);
 }
 function senden(){
   if(sending) return;
