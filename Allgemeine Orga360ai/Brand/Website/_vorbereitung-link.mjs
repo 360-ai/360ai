@@ -9,12 +9,14 @@
 //     "kennung": "REITTER-2026-10-09",
 //     "kunde":   "Reitter, Frankenberg",
 //     "email":   "info@firmareitter.de",      <- NUR hierhin geht die Kopie
-//     "anrede":  "Hallo Tom, hallo Leon,",    <- erste Zeile der Kopie-Mail
-//     "gruss":   "",                          <- optionale Zeile oben auf der Seite
+//     "anrede":  "du",                        <- "du" oder "sie", gilt fuer Seite und Kopie-Mail
+//     "begruessung": "Hallo Tom, hallo Leon,", <- erste Zeile der Kopie-Mail
 //     "frist":   "2026-10-05",
 //     "termin":  "2026-10-09",
 //     "gueltigTage": 30,
-//     "prefill": { "respondents": [], "systems": [], "processCandidates": [], "answers": {} }
+//     "prefill": { "betrieb": {"taetigkeit": ""}, "programme": [{"name": "", "wofuer": ""}],
+//                  "ablaeufe": [{"name": ""}] }      <- Format v2, Ablaeufe nur vorbelegen,
+//                                                      wenn sicher (Anker-Befund 11)
 //   }
 //
 // Das Geheimnis liegt ausserhalb des Repos in
@@ -41,6 +43,11 @@ for (const f of ["kennung", "kunde", "email"]) {
   if (!c[f] || typeof c[f] !== "string") throw new Error(`Feld fehlt: ${f}`);
 }
 if (!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(c.email)) throw new Error(`Keine gueltige Mailadresse: ${c.email}`);
+const anrede = (c.anrede || "sie").toLowerCase();
+if (!["du", "sie"].includes(anrede)) throw new Error("anrede bitte du oder sie");
+if (c.prefill && (c.prefill.processCandidates || c.prefill.systems || c.prefill.answers || c.prefill.respondents)) {
+  throw new Error("Vorbelegung im alten Format (v1). Bitte auf betrieb/programme/ablaeufe umstellen.");
+}
 for (const f of ["frist", "termin"]) {
   if (c[f] && !/^\d{4}-\d{2}-\d{2}$/.test(c[f])) throw new Error(`${f} bitte als JJJJ-MM-TT`);
 }
@@ -48,11 +55,12 @@ for (const f of ["frist", "termin"]) {
 const tage = Number(c.gueltigTage) || 30;
 const payload = {
   typ: "vb",
+  v: 2,
+  du: anrede === "du",
   k: c.kennung,
   r: c.kunde,
   e: c.email.toLowerCase(),
-  ...(c.gruss ? { g: c.gruss } : {}),
-  ...(c.anrede ? { a: c.anrede } : {}),
+  ...(c.begruessung ? { a: c.begruessung } : {}),
   ...(c.frist ? { f: c.frist } : {}),
   ...(c.termin ? { d: c.termin } : {}),
   ...(c.prefill ? { p: c.prefill } : {}),
@@ -66,5 +74,5 @@ const sig = b64url(createHmac("sha256", secret).update(teil).digest());
 const link = `${basis}/vorbereitung#t=${teil}.${sig}`;
 
 console.log(link);
-console.error(`\nKennung ${c.kennung}, Kopie an ${payload.e}, gueltig bis ${new Date(payload.exp).toLocaleDateString("de-DE")}, Laenge ${link.length} Zeichen`);
+console.error(`\nKennung ${c.kennung}, ${anrede === "du" ? "Du" : "Sie"}, Kopie an ${payload.e}, gueltig bis ${new Date(payload.exp).toLocaleDateString("de-DE")}, Laenge ${link.length} Zeichen`);
 if (link.length > 2000) console.error("ACHTUNG: ueber 2000 Zeichen. Manche Mailprogramme kuerzen so lange Links. Vorbelegung kuerzen.");
