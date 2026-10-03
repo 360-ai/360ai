@@ -1,0 +1,1575 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>360ai · Vorbereitung auf Ihren Termin</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+@font-face{font-family:'Outfit';font-style:normal;font-weight:300 800;font-display:swap;
+  src:url('/assets/fonts/outfit-var-latin.woff2') format('woff2');}
+@font-face{font-family:'Coolvetica Rg';font-style:normal;font-weight:normal;font-display:swap;
+  src:url('/assets/fonts/coolvetica-rg.otf') format('opentype');}
+
+/* 360ai CI, Lavender/Mint. Tokens 1:1 aus prototyp/02_360ai-Vorbereitung.html
+   (dort aus 360ai_VORLAGE.html und der Staupp-Terminvorbereitung). */
+:root{
+  --lavender:#7B8CB6; --steel:#97B9C1; --mint:#84C1BC;
+  --gradient:linear-gradient(90deg,#7B8CB6,#84C1BC);
+  --gradient-135:linear-gradient(135deg,#7B8CB6,#97B9C1,#84C1BC);
+  --dark:#1a1d35; --dark-2:#232842; --dark-3:#1e2240;
+  --bg:#F9F9F9; --bg-soft:#F0F3FA; --card:#ffffff; --border:#E4E8F0;
+  --ink:#1a1a2e; --muted:#6b7080;
+  --accent-dim:rgba(123,140,182,0.10);
+  --accent-border:rgba(123,140,182,0.25);
+  --mint-dim:rgba(132,193,188,0.10);
+  --warn:#8a4b12; --warn-soft:#FBF3E8;
+  --err:#8c2020; --err-soft:#FBECEC;
+  --ok:#2f6b66; --ok-soft:#EAF5F3;
+  --radius:8px; --radius-lg:12px;
+  --shadow:0 8px 40px rgba(0,0,0,0.08);
+  --shadow-brand:0 4px 20px rgba(123,140,182,0.25);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:15px/1.6 'Outfit',Arial,sans-serif;-webkit-font-smoothing:antialiased}
+
+header.top{background:linear-gradient(135deg,var(--dark) 0%,var(--dark-2) 60%,var(--dark-3) 100%);
+  color:#fff;padding:32px 16px;position:relative;overflow:hidden}
+header.top::after{content:'';position:absolute;top:-40%;right:-8%;width:460px;height:460px;
+  background:radial-gradient(circle,rgba(132,193,188,0.14),transparent 65%);pointer-events:none}
+header.top .inner{max-width:820px;margin:0 auto;position:relative}
+.header-logo{font-family:'Coolvetica Rg','Outfit',Arial,sans-serif;font-size:26px;
+  letter-spacing:-0.5px;color:var(--mint);line-height:1.1}
+.header-logo span{color:#fff}
+header.top h1{font-size:26px;font-weight:700;margin:10px 0 0;letter-spacing:-0.3px}
+header.top p{margin:4px 0 0;font-size:14px;color:rgba(255,255,255,0.6)}
+
+.wrap{max-width:820px;margin:0 auto;padding:26px 16px 120px}
+
+.intro,section.block,.q,.panel{background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:22px 24px;margin:0 0 18px;
+  position:relative;overflow:hidden}
+.intro::before,section.block::before,.q::before,.panel::before{content:'';position:absolute;
+  top:0;left:0;right:0;height:3px;background:var(--gradient-135)}
+.intro{margin:24px 0}
+.intro p{margin:0 0 12px}
+.intro p:last-child{margin-bottom:0}
+section.block > h2,.panel > h2{margin:0 0 4px;font-size:18px;font-weight:700;color:var(--ink)}
+section.block > .sub{margin:0 0 18px;color:var(--muted);font-size:13px}
+
+.note{background:var(--bg-soft);border:1px solid var(--border);
+  border-left:3px solid var(--lavender);border-radius:0 var(--radius) var(--radius) 0;
+  padding:13px 16px;margin:16px 0;font-size:13px;color:var(--muted)}
+.note strong{color:var(--ink)}
+
+.q{padding:18px 0;border:0;border-top:1px solid var(--border);
+  border-radius:0;margin:0;background:transparent;overflow:visible}
+.q::before{display:none}
+.q:first-of-type{border-top:none;padding-top:4px}
+.q > label.qlabel,.q > .qlabel,section.block > label.qlabel{display:block;font-weight:600;margin-bottom:4px}
+.qid{color:var(--lavender);font-weight:700;font-size:11px;letter-spacing:1px;margin-right:8px}
+.hint{color:var(--muted);font-size:13px;margin:0 0 10px}
+
+textarea,input[type=text],select{width:100%;font:inherit;color:inherit;background:#fafbfd;
+  border:1.5px solid var(--border);border-radius:var(--radius);padding:9px 11px}
+textarea{min-height:88px;resize:vertical}
+textarea:focus,input:focus,select:focus{background:#fff;border-color:var(--lavender)}
+textarea:focus-visible,input:focus-visible,select:focus-visible,button:focus-visible,
+summary:focus-visible{outline:3px solid var(--lavender);outline-offset:3px}
+
+.statusrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:8px}
+.statusrow label{font-size:12px;color:var(--muted)}
+.statusrow select{width:auto;min-width:210px;font-size:13px;padding:6px 9px}
+.count{font-size:11px;color:var(--muted);margin-top:5px}
+.count.over{color:var(--err);font-weight:700}
+
+fieldset{border:1.5px solid var(--border);border-radius:var(--radius);padding:10px 14px;margin:0 0 8px}
+fieldset legend{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  color:var(--lavender);padding:0 5px}
+.opt{display:block;margin:5px 0;font-weight:400}
+.opt input{margin-right:8px;accent-color:var(--lavender)}
+
+table.rows{width:100%;border-collapse:collapse;font-size:13px}
+table.rows th{text-align:left;font-size:11px;color:var(--lavender);font-weight:700;
+  letter-spacing:0.5px;padding:0 6px 7px 0}
+table.rows td{padding:3px 6px 3px 0;vertical-align:top}
+table.rows input{padding:7px 9px}
+table.rows input[data-vorbelegt]{background:var(--warn-soft);border-color:#e0c49f}
+.rowwrap{overflow-x:auto}
+.cell-label{display:none}
+
+.btn{font:inherit;font-weight:700;background:var(--gradient);color:#fff;border:0;
+  border-radius:var(--radius);padding:10px 18px;cursor:pointer;
+  box-shadow:var(--shadow-brand);transition:opacity .15s,transform .15s}
+.btn:hover{opacity:.9;transform:translateY(-2px)}
+.btn.ghost{background:#fff;color:var(--lavender);border:1.5px solid var(--lavender);box-shadow:none}
+.btn.ghost:hover{background:var(--accent-dim);transform:none}
+.btn.small{padding:7px 14px;font-size:13px}
+.btn.big{padding:14px 26px;font-size:16px}
+.btn.rm{background:#fff;color:var(--err);border:1.5px solid var(--border);
+  box-shadow:none;font-weight:600;padding:7px 12px;font-size:13px}
+.btn.rm:hover{border-color:var(--err);background:var(--err-soft);transform:none}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+
+details.hilfe{border:1.5px dashed var(--accent-border);border-radius:var(--radius-lg);
+  margin:0 0 12px;background:var(--bg-soft)}
+details.hilfe > summary{cursor:pointer;padding:11px 14px;font-size:13px;font-weight:700;
+  color:var(--lavender);list-style:none}
+details.hilfe > summary::-webkit-details-marker{display:none}
+details.hilfe > summary::before{content:"\25B8  ";font-weight:400}
+details.hilfe[open] > summary::before{content:"\25BE  "}
+details.hilfe > summary:hover{background:var(--accent-dim);border-radius:var(--radius-lg)}
+.hilfe-inhalt{padding:0 16px 14px;font-size:13px}
+.hilfe-inhalt h4{margin:14px 0 4px;font-size:13px;font-weight:700;color:var(--ink)}
+.hilfe-inhalt p{margin:0 0 8px;color:var(--muted)}
+.hilfe-inhalt ul{margin:4px 0 10px 18px;padding:0;color:var(--muted)}
+.hilfe-inhalt li{margin:3px 0}
+.hilfe-inhalt .schluss{color:var(--ink);font-style:italic;margin-top:10px}
+
+details.mehr{margin-top:18px;font-size:13px}
+details.mehr > summary{cursor:pointer;color:var(--lavender);font-weight:600}
+
+.prefill{font-size:12px;color:var(--warn);background:var(--warn-soft);
+  border:1px solid #e8d5ba;border-radius:var(--radius);padding:6px 10px;
+  margin:0 0 9px;display:inline-block}
+
+.msg{margin-top:14px;padding:13px 16px;border-radius:var(--radius);font-size:13px;display:none}
+.msg.show{display:block}
+.msg.info{background:var(--accent-dim);color:#3d4b70;border:1px solid var(--accent-border)}
+.msg.warn{background:var(--warn-soft);color:var(--warn);border:1px solid #e8d5ba}
+.msg.err{background:var(--err-soft);color:var(--err);border:1px solid #edc9c9}
+.msg ul{margin:8px 0 0 18px;padding:0}
+.msg .actions{margin-top:10px}
+
+/* Absendebestaetigung. Bewusst gross: im Datei-Verfahren wurde die kleine
+   Meldung nicht wahrgenommen (Befund 10). */
+.panel.ok{border-color:#bfe0dc;background:var(--ok-soft)}
+.panel.ok h2{font-size:22px;color:var(--ok)}
+.panel.ok p{margin:10px 0 0}
+.panel.stop h2{color:var(--err)}
+
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+.bar{position:sticky;bottom:0;background:var(--card);border-top:1px solid var(--border);
+  padding:12px 16px;margin:0 -16px -120px;box-shadow:0 -4px 18px rgba(26,29,53,.07)}
+.bar .inner{max-width:820px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.bar .prog{flex:1 1 220px;font-size:13px;color:var(--muted)}
+#saveState{font-size:12px;font-weight:600;padding:6px 11px;border-radius:var(--radius);
+  background:var(--mint-dim);color:var(--ok)}
+#saveState.bad{background:var(--err-soft);color:var(--err)}
+
+footer.foot{color:var(--muted);font-size:12px;margin-top:28px}
+a{color:var(--lavender)}
+[hidden]{display:none !important}
+#turnstile{margin-top:12px}
+
+/* Handy. Tabellen werden zu gestapelten Karten, Eingaben bekommen 16px,
+   damit iOS beim Antippen nicht hineinzoomt, und die Fortschrittsleiste
+   klebt nicht mehr unten, weil sie sonst ueber der Tastatur Platz frisst. */
+@media(max-width:620px){
+  .meta{grid-template-columns:1fr}
+  header.top{padding:26px 16px}
+  header.top h1{font-size:22px}
+  .intro,section.block,.panel{padding:18px 16px}
+  textarea,input[type=text],select,table.rows input,.statusrow select{font-size:16px}
+  .statusrow select{width:100%;min-width:0}
+  table.rows,table.rows tbody,table.rows tr,table.rows td{display:block;width:100%}
+  table.rows thead{display:none}
+  table.rows tr{border:1.5px solid var(--border);border-radius:var(--radius);
+    padding:10px 12px 6px;margin:0 0 10px;background:#fff}
+  table.rows td{padding:0 0 8px}
+  .cell-label{display:block;font-size:11px;font-weight:700;color:var(--lavender);
+    letter-spacing:0.5px;margin:0 0 3px}
+  .rowwrap{overflow:visible}
+  .bar{position:static;margin:24px -16px -120px;box-shadow:none}
+  .bar .inner{flex-direction:column;align-items:stretch}
+  .btn.big{width:100%}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner">
+    <div class="header-logo">360<span>ai</span></div>
+    <h1>Vorbereitung auf Ihren Termin</h1>
+    <p id="subline">Kompakte KI-Potenzialanalyse</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div id="loading" class="panel"><p>Ihr persönlicher Link wird geprüft …</p></div>
+
+  <div id="stop" class="panel stop" hidden>
+    <h2 id="stopTitle">Dieser Link funktioniert nicht</h2>
+    <p id="stopText">Bitte öffnen Sie den Link direkt aus unserer E-Mail. Wenn es dann weiterhin nicht klappt, melden Sie sich kurz bei uns: <a href="mailto:info@360-ai.org">info@360-ai.org</a>.</p>
+    <div class="actions" id="stopActions" hidden>
+      <button class="btn ghost" id="btnStopSave" type="button">Bisherigen Stand als Datei sichern</button>
+    </div>
+  </div>
+
+  <div id="app" hidden>
+
+    <div id="done" class="panel ok" hidden tabindex="-1">
+      <h2>Vielen Dank, Ihre Vorbereitung ist bei 360ai angekommen.</h2>
+      <p id="doneText"></p>
+      <p>Möchten Sie noch etwas ergänzen? Ändern Sie einfach die Angaben unten und senden Sie erneut. Die neue Fassung ersetzt dann die vorige.</p>
+    </div>
+
+    <div class="intro">
+      <p id="introGruss" hidden></p>
+      <p>Wir möchten den Termin nutzen, um Ihre wichtigsten Abläufe zu verstehen und gemeinsam einen sinnvollen ersten Schritt auszuwählen. Dafür bereiten wir uns anhand Ihrer Antworten vor.</p>
+      <p>Reservieren Sie sich möglichst etwa eine Stunde. Sie können jederzeit unterbrechen: Ihr Stand wird in diesem Browser automatisch gesichert. Öffnen Sie später einfach wieder denselben Link auf demselben Gerät. Antworten Sie nach bestem Wissen; grobe Schätzungen sind hilfreich, wenn Sie diese als Schätzung kennzeichnen. Wenn Ihnen etwas nicht bekannt ist, wählen Sie bitte „Weiß ich nicht“.</p>
+      <p>Beschreiben Sie zuerst Ihre Arbeit und Ihre Schwierigkeiten. Sie müssen noch keine KI-Lösung kennen. Beziehen Sie bei Bedarf jemanden ein, der die Abläufe täglich ausführt oder die Programme betreut.</p>
+      <p>Bitte senden Sie keine Passwörter, Zugangsschlüssel oder unbearbeiteten personenbezogenen Unterlagen. Für erste Beispiele reichen bereinigte Beschreibungen ohne Namen und vertrauliche Einzelheiten.</p>
+      <p>Aus Ihren Angaben bereiten wir passende Rückfragen und mögliche Ansatzpunkte vor. Im Termin prüfen wir, welche Verbesserung sich lohnt und was vor einer Umsetzung noch geklärt werden muss. Es kann auch sinnvoll sein, vorhandene Software besser zu nutzen oder einen Ablauf ohne KI zu ändern.</p>
+      <p id="introFrist" hidden></p>
+    </div>
+
+    <section class="block">
+      <h2>Zuordnung</h2>
+      <p class="sub">Diese Angaben hat 360ai vorbereitet. Bitte prüfen und bei Bedarf korrigieren.</p>
+      <div class="meta">
+        <div>
+          <label class="qlabel" for="customerReference">Unternehmen / Kundenreferenz</label>
+          <input type="text" id="customerReference" data-meta="customerReference">
+        </div>
+        <div>
+          <label class="qlabel" for="qidField">Kennung dieser Vorbereitung</label>
+          <input type="text" id="qidField" readonly>
+        </div>
+      </div>
+    </section>
+
+    <main id="form" aria-live="polite"></main>
+
+    <section class="block" id="senden">
+      <h2>An 360ai senden</h2>
+      <p class="sub">Sie können auch mit Lücken senden. „Weiß ich nicht“ und „möchte ich im Gespräch klären“ sind vollwertige Antworten.</p>
+
+      <div id="checkBox" class="msg warn" role="status"></div>
+
+      <div class="actions">
+        <button class="btn big" id="btnSend" type="button">Vorbereitung an 360ai senden</button>
+      </div>
+      <div id="turnstile"></div>
+      <div class="msg" id="msg" role="status"></div>
+
+      <p class="hint" style="margin-top:14px">Beim Senden gehen Ihre Angaben per E-Mail an 360ai. Eine Kopie erhalten Sie an <span id="copyAddr">die bei uns hinterlegte Adresse</span>. Auf unserem Webserver wird nichts gespeichert; der Versand läuft über den Dienst Resend in der EU (Irland). Ihr Zwischenstand liegt nur hier in Ihrem Browser. Mehr dazu in der <a href="/datenschutz" target="_blank" rel="noopener">Datenschutzerklärung</a>.</p>
+
+      <details class="mehr">
+        <summary>Weitere Möglichkeiten</summary>
+        <div class="actions">
+          <button class="btn ghost small" id="btnSaveFile" type="button">Zwischenstand als Datei sichern</button>
+          <button class="btn ghost small" id="btnLoadFile" type="button">Zwischenstand aus Datei laden</button>
+          <input type="file" id="fileInput" accept=".json,application/json" hidden>
+        </div>
+        <p class="hint" style="margin-top:10px">Nützlich, wenn Sie das Gerät wechseln möchten: auf dem einen Gerät als Datei sichern, auf dem anderen denselben Link öffnen und die Datei laden.</p>
+        <div class="actions" style="margin-top:14px">
+          <button class="btn rm" id="btnReset" type="button">Formular leeren und neu anfangen</button>
+        </div>
+      </details>
+    </section>
+
+    <footer class="foot">
+      <p>360ai, Denis Schmidt, Frankenberg (Eder) · <a href="/impressum" target="_blank" rel="noopener">Impressum</a> · <a href="/datenschutz" target="_blank" rel="noopener">Datenschutz</a></p>
+    </footer>
+
+    <div class="bar">
+      <div class="inner">
+        <div class="prog" id="progress">Fortschritt wird berechnet …</div>
+        <div id="saveState">Automatische Sicherung wird geprüft …</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="/vorbereitung-fragen.js"></script>
+<script>
+"use strict";
+
+/* ------------------------------------------------------------------
+   Online-Fassung der 360ai-Vorbereitung.
+   Abgeleitet aus Strategie/Neuausrichtung/prototyp/02_360ai-Vorbereitung.html.
+   Unterschiede: Konfiguration (Kennung, Kunde, Vorbelegung) kommt aus dem
+   signierten Link (#t=...), Rueckgabe per Absenden statt Dateidownload.
+   Technische Befunde aus den Ruecklaeufen Haase, WFG, Staupp behoben:
+   (1) C02-Tor, (2) Status nach Leeren, (5) leere Zeilen, (7) Handy,
+   (8) Fokusverlust in Block C, (10) Absendebestaetigung.
+------------------------------------------------------------------ */
+var F = globalThis.VB_FRAGEN;
+var STATUS_OPTIONS = F.STATUS_OPTIONS, BASIS_OPTIONS = F.BASIS_OPTIONS;
+var SECTIONS = F.SECTIONS, P_FULL = F.P_FULL, P_SHORT = F.P_SHORT;
+var REQUIRED_TOP = F.REQUIRED_TOP, REQUIRED_PRIMARY_PROCESS = F.REQUIRED_PRIMARY_PROCESS;
+var SCHEMA_VERSION = F.SCHEMA_VERSION, QUESTIONNAIRE_VERSION = F.QUESTIONNAIRE_VERSION, DOC_TYPE = F.DOC_TYPE;
+
+/* Werden nach der Linkpruefung aus der Antwort des Servers gesetzt. */
+var QUESTIONNAIRE_ID   = "";
+var CUSTOMER_REFERENCE = "";
+var PREFILL = {respondents:[], systems:[], processCandidates:[], answers:{}};
+var TOKEN = "";
+var CONFIG = null;
+
+var LIMITS = {
+  fileBytes: 2097152,
+  processes: 8,
+  systems: 40,
+  respondents: 10,
+  textCodepoints: 5000
+};
+
+var state = {
+  createdAt: null,
+  customerReference: "",
+  answers: {},
+  respondents: [],
+  systems: [],
+  processCandidates: [],
+  primaryProcessId: null,
+  comparisonProcessId: null,
+  lastSubmissionId: null,
+  lastRevision: -1,
+  lastExportFingerprint: null,
+  lastSentAt: null
+};
+
+var STORAGE_KEY = "";
+var storageWorks = null;
+var saveTimer = null;
+var initialFingerprint = null;
+
+/* ------------------------------------------------------------------
+   Hilfsfunktionen
+------------------------------------------------------------------ */
+function el(tag, attrs, children){
+  var n = document.createElement(tag);
+  if(attrs) for(var k in attrs){
+    if(k === "text") n.textContent = attrs[k];
+    else if(k === "html") throw new Error("kein innerHTML");
+    else if(attrs[k] !== null && attrs[k] !== undefined) n.setAttribute(k, attrs[k]);
+  }
+  if(children) children.forEach(function(c){ if(c) n.appendChild(c); });
+  return n;
+}
+function codepoints(s){ return Array.from(String(s || "")).length; }
+
+function newId(prefix){
+  var rnd;
+  if(window.crypto && window.crypto.getRandomValues){
+    var a = new Uint8Array(8); window.crypto.getRandomValues(a);
+    rnd = Array.prototype.map.call(a, function(b){ return ("0"+b.toString(16)).slice(-2); }).join("");
+  } else {
+    rnd = Math.random().toString(16).slice(2, 10) + Math.random().toString(16).slice(2, 10);
+  }
+  return prefix + "-" + rnd;
+}
+function nowIso(){ return new Date().toISOString(); }
+function filled(v){ return v !== undefined && v !== null && String(v).trim() !== ""; }
+
+function ans(id){
+  if(!state.answers[id]) state.answers[id] = {value:"", status:"nicht beantwortet"};
+  return state.answers[id];
+}
+function procAns(pid, qid){
+  var p = findProcess(pid);
+  if(!p) return {value:"", status:"nicht beantwortet"};
+  if(!p.answers[qid]) p.answers[qid] = {value:"", status:"nicht beantwortet"};
+  return p.answers[qid];
+}
+function findProcess(id){
+  for(var i=0;i<state.processCandidates.length;i++)
+    if(state.processCandidates[i].id === id) return state.processCandidates[i];
+  return null;
+}
+function hasContent(a){
+  if(!a) return false;
+  if(a.status === "unbekannt" || a.status === "nicht zutreffend" || a.status === "Gespräch gewünscht") return true;
+  if(a.status === "beantwortet") return true;
+  return hasValue(a);
+}
+/* Nur echte Eingaben, ohne Blick auf den Status. */
+function hasValue(a){
+  if(!a) return false;
+  if(filled(a.value)) return true;
+  if(a.selected && a.selected.length) return true;
+  if(a.extra && a.extra.length) return true;
+  if(filled(a.total) || filled(a.regular) || filled(a.occasional)) return true;
+  if(filled(a.count) || filled(a.period) || filled(a.basis)) return true;
+  if(filled(a.active) || filled(a.wait)) return true;
+  return false;
+}
+function rowFilled(row, cols){
+  for(var i=0;i<cols.length;i++) if(filled(row[cols[i]])) return true;
+  return false;
+}
+var COLS = {
+  respondents: ["name","funktion","erreichbarkeit"],
+  systems: ["name","aufgabe","nutzer","betreuung","version"],
+  processes: ["bezeichnung","rolle","haeufigkeit","problem"]
+};
+function processLabel(p, i){
+  var name = (p.bezeichnung || "").trim();
+  return (name === "" ? "Aufgabe ohne Bezeichnung" : name) + "  (Nr. " + (i+1) + ")";
+}
+
+/* ------------------------------------------------------------------
+   Rendern
+------------------------------------------------------------------ */
+var formRoot = document.getElementById("form");
+
+function render(){
+  formRoot.textContent = "";
+  SECTIONS.forEach(function(sec){
+    var block = el("section", {"class":"block", id:"sec-"+sec.id}, [
+      el("h2", {text: sec.id + " · " + sec.title}),
+      el("p", {"class":"sub", text: sec.sub})
+    ]);
+    sec.questions.forEach(function(q){ block.appendChild(renderQuestion(q, null)); });
+    formRoot.appendChild(block);
+
+    if(sec.id === "C"){
+      formRoot.appendChild(renderProcessDetail("primary"));
+      formRoot.appendChild(renderProcessDetail("comparison"));
+    }
+  });
+  document.getElementById("qidField").value = QUESTIONNAIRE_ID;
+  document.getElementById("customerReference").value = state.customerReference || "";
+  updateProgress();
+}
+
+/* Neuaufbau ohne Sprung: Fokus und Scrollposition bleiben erhalten. Nur fuer
+   Klicks (Zeile hinzufuegen, Auswahl aendern), nie fuer Tastendruecke. */
+function rerender(focusId){
+  var y = window.scrollY;
+  var active = focusId || (document.activeElement && document.activeElement.id);
+  render();
+  window.scrollTo(0, y);
+  if(active){
+    var n = document.getElementById(active);
+    if(n){ try{ n.focus({preventScroll:true}); }catch(e){ n.focus(); } }
+  }
+}
+
+function statusSelect(a, onChange, idBase){
+  var wrap = el("div", {"class":"statusrow"});
+  var lab  = el("label", {"for": idBase + "-status", text:"Status dieser Antwort:"});
+  var sel  = el("select", {id: idBase + "-status"});
+  STATUS_OPTIONS.forEach(function(o){
+    var op = el("option", {value:o[0], text:o[1]});
+    if(a.status === o[0]) op.selected = true;
+    sel.appendChild(op);
+  });
+  /* Von Hand gewaehlt: ab jetzt nie mehr automatisch umschalten. */
+  sel.addEventListener("change", function(){ a.status = sel.value; a.autoStatus = false; onChange(); });
+  wrap.appendChild(lab); wrap.appendChild(sel);
+  return {wrap:wrap, sel:sel};
+}
+
+/* Hat die Frage gerade echten Inhalt? Fuer Listenfragen zaehlen die Zeilen. */
+function questionFilled(q, a){
+  if(q.type === "respondents") return state.respondents.some(function(r){ return rowFilled(r, COLS.respondents); });
+  if(q.type === "systems")     return state.systems.some(function(r){ return rowFilled(r, COLS.systems); });
+  if(q.type === "processes")   return state.processCandidates.some(function(r){ return rowFilled(r, COLS.processes); });
+  if(q.type === "processpick") return filled(a.value) || !!state.primaryProcessId;
+  return hasValue(a);
+}
+
+function renderQuestion(q, processCtx){
+  var key   = processCtx ? (processCtx.pid + "::" + q.id) : q.id;
+  var a     = processCtx ? procAns(processCtx.pid, q.id) : ans(q.id);
+  var idBase= "f-" + key.replace(/[^a-zA-Z0-9_-]/g, "_");
+  var box   = el("div", {"class":"q", id: idBase + "-box"});
+
+  var labelNode = el("label", {"class":"qlabel", "for": idBase});
+  labelNode.appendChild(el("span", {"class":"qid", text:q.id}));
+  labelNode.appendChild(document.createTextNode(q.label));
+  box.appendChild(labelNode);
+  if(q.hint) box.appendChild(el("p", {"class":"hint", text:q.hint}));
+
+  /* Befund 2: Status folgt dem Inhalt, solange der Kunde ihn nicht selbst
+     gewaehlt hat. Feld angetippt und wieder geleert heisst wieder offen. */
+  function touched(){
+    var s = document.getElementById(idBase + "-status");
+    var voll = questionFilled(q, a);
+    if(voll && a.status === "nicht beantwortet"){
+      a.status = "beantwortet"; a.autoStatus = true;
+      if(s) s.value = "beantwortet";
+    } else if(!voll && a.status === "beantwortet" && a.autoStatus !== false){
+      a.status = "nicht beantwortet"; a.autoStatus = true;
+      if(s) s.value = "nicht beantwortet";
+    }
+    if(a.herkunft === "vorbelegt"){
+      a.herkunft = "kunde";
+      var b = document.getElementById(idBase + "-badge");
+      if(b) b.parentNode.removeChild(b);
+    }
+    changed();
+  }
+
+  if(a.herkunft === "vorbelegt"){
+    box.appendChild(el("p", {"class":"prefill", id: idBase + "-badge",
+      text:"Von uns vorbelegt. Bitte prüfen und bei Bedarf korrigieren."}));
+  }
+
+  if(q.hilfe) box.appendChild(renderHilfe(q.hilfe));
+
+  if(q.type === "textarea"){
+    var ta = el("textarea", {id:idBase});
+    ta.value = a.value || "";
+    var cnt = el("div", {"class":"count"});
+    function upd(){
+      var n = codepoints(ta.value);
+      cnt.textContent = n + " von höchstens " + LIMITS.textCodepoints + " Zeichen";
+      cnt.className = "count" + (n > LIMITS.textCodepoints ? " over" : "");
+    }
+    ta.addEventListener("input", function(){ a.value = ta.value; upd(); touched(); });
+    box.appendChild(ta); box.appendChild(cnt); upd();
+
+    if(q.extraChecks){
+      if(!a.extra) a.extra = [];
+      var fs = el("fieldset", null, [el("legend", {text:q.extraChecks.legend})]);
+      q.extraChecks.options.forEach(function(opt, i){
+        var cid = idBase + "-x" + i;
+        var lb = el("label", {"class":"opt", "for":cid});
+        var cb = el("input", {type:"checkbox", id:cid, value:opt});
+        cb.checked = a.extra.indexOf(opt) >= 0;
+        cb.addEventListener("change", function(){
+          var p = a.extra.indexOf(opt);
+          if(cb.checked && p < 0) a.extra.push(opt);
+          if(!cb.checked && p >= 0) a.extra.splice(p, 1);
+          touched();
+        });
+        lb.appendChild(cb); lb.appendChild(document.createTextNode(opt));
+        fs.appendChild(lb);
+      });
+      box.appendChild(fs);
+    }
+  }
+
+  else if(q.type === "checkboxes"){
+    if(!a.selected) a.selected = [];
+    var fs2 = el("fieldset", null, [el("legend", {text:"Mehrfachauswahl möglich"})]);
+    q.options.forEach(function(opt, i){
+      var cid = idBase + "-c" + i;
+      var lb = el("label", {"class":"opt", "for":cid});
+      var cb = el("input", {type:"checkbox", id:cid, value:opt});
+      cb.checked = a.selected.indexOf(opt) >= 0;
+      cb.addEventListener("change", function(){
+        var p = a.selected.indexOf(opt);
+        if(cb.checked && p < 0) a.selected.push(opt);
+        if(!cb.checked && p >= 0) a.selected.splice(p, 1);
+        touched();
+      });
+      lb.appendChild(cb); lb.appendChild(document.createTextNode(opt));
+      fs2.appendChild(lb);
+    });
+    box.appendChild(fs2);
+    if(q.freeLabel){
+      box.appendChild(el("label", {"class":"hint", "for":idBase, text:q.freeLabel}));
+      var tf = el("input", {type:"text", id:idBase});
+      tf.value = a.value || "";
+      tf.addEventListener("input", function(){ a.value = tf.value; touched(); });
+      box.appendChild(tf);
+    }
+  }
+
+  else if(q.type === "radio"){
+    var fs3 = el("fieldset", null, [el("legend", {text:"Bitte eine Antwort wählen"})]);
+    q.options.forEach(function(opt, i){
+      var rid = idBase + "-r" + i;
+      var lb = el("label", {"class":"opt", "for":rid});
+      var rb = el("input", {type:"radio", id:rid, name:idBase, value:opt});
+      rb.checked = a.value === opt;
+      rb.addEventListener("change", function(){ a.value = opt; touched(); });
+      lb.appendChild(rb); lb.appendChild(document.createTextNode(opt));
+      fs3.appendChild(lb);
+    });
+    box.appendChild(fs3);
+  }
+
+  else if(q.type === "frequency"){
+    var g = el("div", {"class":"meta"});
+    g.appendChild(labeledInput(idBase + "-count", "Anzahl oder Bandbreite", a.count || "", function(v){ a.count = v; touched(); }));
+    g.appendChild(labeledInput(idBase + "-period", "Zeitraum (z. B. pro Woche)", a.period || "", function(v){ a.period = v; touched(); }));
+    box.appendChild(g);
+    box.appendChild(basisSelect(idBase, a, touched, "Woher stammt diese Angabe?"));
+    var note = el("input", {type:"text", id:idBase});
+    note.setAttribute("placeholder", "Ergänzung, z. B. saisonale Schwankungen oder Stapelverarbeitung");
+    note.value = a.value || "";
+    note.addEventListener("input", function(){ a.value = note.value; touched(); });
+    box.appendChild(note);
+  }
+
+  else if(q.type === "duration"){
+    var g2 = el("div", {"class":"meta"});
+    g2.appendChild(labeledInput(idBase + "-active", "Aktive Arbeitsminuten je Vorgang", a.active || "", function(v){ a.active = v; touched(); }));
+    g2.appendChild(labeledInput(idBase + "-wait", "Optional: Warte- oder Liegezeit", a.wait || "", function(v){ a.wait = v; touched(); }));
+    box.appendChild(g2);
+    box.appendChild(basisSelect(idBase, a, touched, "Woher stammt diese Angabe?"));
+    var note2 = el("input", {type:"text", id:idBase});
+    note2.setAttribute("placeholder", "Ergänzung, z. B. wer beteiligt ist");
+    note2.value = a.value || "";
+    note2.addEventListener("input", function(){ a.value = note2.value; touched(); });
+    box.appendChild(note2);
+  }
+
+  else if(q.type === "users"){
+    var g3 = el("div", {"class":"meta"});
+    g3.appendChild(labeledInput(idBase, "Personen insgesamt", a.total || "", function(v){ a.total = v; touched(); }));
+    g3.appendChild(labeledInput(idBase + "-reg", "davon regelmäßig / täglich", a.regular || "", function(v){ a.regular = v; touched(); }));
+    g3.appendChild(labeledInput(idBase + "-occ", "davon gelegentlich", a.occasional || "", function(v){ a.occasional = v; touched(); }));
+    g3.appendChild(labeledInput(idBase + "-note", "Ergänzung", a.value || "", function(v){ a.value = v; touched(); }));
+    box.appendChild(g3);
+    box.appendChild(el("p", {"class":"hint", text:"Bei reiner Hintergrundautomatisierung bitte „keine direkte Bedienung“ in die Ergänzung schreiben."}));
+  }
+
+  else if(q.type === "respondents"){
+    box.appendChild(rowEditor({
+      list: state.respondents, max: LIMITS.respondents, prefix:"per",
+      cols:[["name","Name oder Rolle"],["funktion","Aufgabe im Betrieb"],["erreichbarkeit","Erreichbar über"]],
+      addLabel:"Person hinzufügen", limitLabel:"Auskunftspersonen",
+      onChange: touched
+    }));
+  }
+
+  else if(q.type === "systems"){
+    box.appendChild(rowEditor({
+      list: state.systems, max: LIMITS.systems, prefix:"sys",
+      cols:[["name","Name / Produkt"],["aufgabe","Wofür genutzt"],["nutzer","Nutzer / Rolle"],
+            ["betreuung","Betreut von"],["version","Version / Tarif (falls bekannt)"]],
+      addLabel:"System hinzufügen", limitLabel:"Systemzeilen",
+      onChange: touched
+    }));
+  }
+
+  else if(q.type === "processes"){
+    /* Befund 8: Tippen baut das Formular NICHT neu auf (frueher render() bei
+       jedem Tastendruck: Fokus weg, Seite springt, Handytastatur zu). Nur die
+       Namen in der C02-Auswahl und im Detailblock werden nachgezogen. */
+    box.appendChild(rowEditor({
+      list: state.processCandidates, max: LIMITS.processes, prefix:"prc",
+      cols:[["bezeichnung","Bezeichnung der Aufgabe"],["rolle","Zuständige Rolle"],["haeufigkeit","Grobe Häufigkeit"],["problem","Was daran stört"]],
+      addLabel:"Aufgabe hinzufügen", limitLabel:"Aufgaben",
+      init:function(o){ o.answers = {}; },
+      onRemove:function(id){
+        if(state.primaryProcessId === id) state.primaryProcessId = null;
+        if(state.comparisonProcessId === id) state.comparisonProcessId = null;
+      },
+      onChange: function(){ touched(); refreshProcessNames(); },
+      structural: true
+    }));
+  }
+
+  else if(q.type === "processpick"){
+    var g4 = el("div");
+    g4.appendChild(processSelect(idBase, "Diese Aufgabe zuerst näher ansehen", state.primaryProcessId, function(v){
+      choosePrimary(v, idBase);
+    }));
+    g4.appendChild(processSelect(idBase + "-cmp", "Optional: zweite Aufgabe zum Vergleich", state.comparisonProcessId, function(v){
+      state.comparisonProcessId = v || null;
+      if(state.primaryProcessId === v) state.primaryProcessId = null;
+      touched(); rerender(idBase + "-cmp");
+    }, state.primaryProcessId));
+    var why = el("textarea", {id:idBase + "-why"});
+    why.setAttribute("placeholder", "Warum diese Aufgabe zuerst?");
+    why.value = a.value || "";
+    why.addEventListener("input", function(){ a.value = why.value; touched(); });
+    g4.appendChild(el("label", {"class":"hint", "for":idBase + "-why", text:"Begründung"}));
+    g4.appendChild(why);
+    box.appendChild(g4);
+  }
+
+  var st = statusSelect(a, changed, idBase);
+  box.appendChild(st.wrap);
+  return box;
+}
+
+/* Auswahl der ersten Aufgabe, gleich ob aus C02 oder aus dem Detailblock.
+   Setzt den C02-Status mit, damit beide Stellen dasselbe sagen. */
+function choosePrimary(v, focusId){
+  state.primaryProcessId = v || null;
+  if(state.comparisonProcessId === v) state.comparisonProcessId = null;
+  var a = ans("C02");
+  if(state.primaryProcessId && a.status === "nicht beantwortet"){ a.status = "beantwortet"; a.autoStatus = true; }
+  if(!state.primaryProcessId && !filled(a.value) && a.status === "beantwortet" && a.autoStatus !== false){
+    a.status = "nicht beantwortet"; a.autoStatus = true;
+  }
+  if(a.herkunft === "vorbelegt") a.herkunft = "kunde";
+  changed();
+  rerender(focusId);
+}
+
+/* Namen in Auswahllisten und Detailkoepfen ohne Neuaufbau aktualisieren. */
+function refreshProcessNames(){
+  [].forEach.call(document.querySelectorAll("select[data-procpick]"), function(s){
+    [].forEach.call(s.options, function(op){
+      if(!op.value) return;
+      for(var i=0;i<state.processCandidates.length;i++){
+        if(state.processCandidates[i].id === op.value){ op.textContent = processLabel(state.processCandidates[i], i); break; }
+      }
+    });
+  });
+  [].forEach.call(document.querySelectorAll("[data-procname]"), function(n){
+    var p = findProcess(n.getAttribute("data-procname"));
+    var nm = (p && p.bezeichnung || "").trim();
+    n.textContent = "Betrachtete Aufgabe: " + (nm === "" ? "(noch ohne Bezeichnung)" : nm);
+  });
+}
+
+function renderHilfe(h){
+  var d = el("details", {"class":"hilfe"});
+  d.appendChild(el("summary", {text: h.titel}));
+  var inhalt = el("div", {"class":"hilfe-inhalt"});
+  (h.bloecke || []).forEach(function(b){
+    if(b.ueberschrift) inhalt.appendChild(el("h4", {text: b.ueberschrift}));
+    if(b.text)         inhalt.appendChild(el("p",  {text: b.text}));
+    if(b.liste){
+      var ul = el("ul");
+      b.liste.forEach(function(t){ ul.appendChild(el("li", {text:t})); });
+      inhalt.appendChild(ul);
+    }
+  });
+  if(h.schluss) inhalt.appendChild(el("p", {"class":"schluss", text: h.schluss}));
+  d.appendChild(inhalt);
+  return d;
+}
+
+function labeledInput(id, label, value, onInput){
+  var d = el("div");
+  d.appendChild(el("label", {"class":"hint", "for":id, text:label}));
+  var i = el("input", {type:"text", id:id});
+  i.value = value;
+  i.addEventListener("input", function(){ onInput(i.value); });
+  d.appendChild(i);
+  return d;
+}
+
+function basisSelect(idBase, a, onChange, label){
+  var d = el("div", {"class":"statusrow"});
+  d.appendChild(el("label", {"for": idBase + "-basis", text: label}));
+  var s = el("select", {id: idBase + "-basis"});
+  BASIS_OPTIONS.forEach(function(o){
+    var op = el("option", {value:o[0], text:o[1]});
+    if((a.basis || "") === o[0]) op.selected = true;
+    s.appendChild(op);
+  });
+  s.addEventListener("change", function(){ a.basis = s.value; onChange(); });
+  d.appendChild(s);
+  return d;
+}
+
+function processSelect(id, label, current, onChange, excludeId){
+  var d = el("div");
+  d.appendChild(el("label", {"class":"hint", "for":id, text:label}));
+  var s = el("select", {id:id, "data-procpick":"1"});
+  s.appendChild(el("option", {value:"", text:"(keine Auswahl)"}));
+  state.processCandidates.forEach(function(p, i){
+    if(excludeId && p.id === excludeId) return;
+    var op = el("option", {value:p.id, text:processLabel(p, i)});
+    if(current === p.id) op.selected = true;
+    s.appendChild(op);
+  });
+  s.addEventListener("change", function(){ onChange(s.value); });
+  d.appendChild(s);
+  if(state.processCandidates.length === 0)
+    d.appendChild(el("p", {"class":"hint", text:"Bitte tragen Sie zuerst unter C01 mindestens eine Aufgabe ein."}));
+  return d;
+}
+
+/* Wiederholbare Zeilen mit stabilen Kennungen. Tippen aendert nur den
+   Zustand; Neuaufbau gibt es nur bei Hinzufuegen und Entfernen. */
+function rowEditor(cfg){
+  var wrap  = el("div");
+  var scroll= el("div", {"class":"rowwrap"});
+  var table = el("table", {"class":"rows"});
+  if(cfg.list.length){
+    var thead = el("thead");
+    var htr   = el("tr");
+    cfg.cols.forEach(function(c){ htr.appendChild(el("th", {text:c[1]})); });
+    htr.appendChild(el("th", {text:""}));
+    thead.appendChild(htr); table.appendChild(thead);
+  }
+
+  var tbody = el("tbody");
+  cfg.list.forEach(function(row){
+    var tr = el("tr");
+    cfg.cols.forEach(function(c){
+      var td = el("td");
+      var inpId = cfg.prefix + "-" + row.id + "-" + c[0];
+      /* Auf dem Handy wird die Tabelle zur Karte, dann braucht jedes Feld
+         eine sichtbare Beschriftung. Am Rechner per CSS ausgeblendet. */
+      td.appendChild(el("label", {"class":"cell-label", "for":inpId, text:c[1]}));
+      var inp = el("input", {type:"text", id: inpId, "aria-label": c[1]});
+      inp.value = row[c[0]] || "";
+      if(row.herkunft === "vorbelegt") inp.setAttribute("data-vorbelegt", "1");
+      inp.addEventListener("input", function(){
+        row[c[0]] = inp.value;
+        if(row.herkunft === "vorbelegt"){
+          row.herkunft = "kunde";
+          [].forEach.call(tr.querySelectorAll("[data-vorbelegt]"), function(n){
+            n.removeAttribute("data-vorbelegt");
+          });
+        }
+        cfg.onChange();
+      });
+      td.appendChild(inp); tr.appendChild(td);
+    });
+    var tdx = el("td");
+    var rm = el("button", {"class":"btn rm", type:"button", text:"entfernen"});
+    rm.addEventListener("click", function(){
+      var i = cfg.list.indexOf(row);
+      if(i >= 0) cfg.list.splice(i, 1);
+      if(cfg.onRemove) cfg.onRemove(row.id);
+      cfg.onChange(); rerender();
+    });
+    tdx.appendChild(rm); tr.appendChild(tdx);
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+  scroll.appendChild(table); wrap.appendChild(scroll);
+
+  var vorbelegt = cfg.list.filter(function(r){ return r.herkunft === "vorbelegt"; }).length;
+  if(vorbelegt) wrap.insertBefore(el("p", {"class":"prefill",
+    text: vorbelegt + " Zeile(n) haben wir für Sie vorbelegt (gelb hinterlegt). Bitte prüfen, ergänzen oder korrigieren."}), scroll);
+
+  var info = el("p", {"class":"count", text: cfg.list.length + " von höchstens " + cfg.max + " " + cfg.limitLabel});
+  if(cfg.list.length > cfg.max) info.className = "count over";
+  wrap.appendChild(info);
+
+  var add = el("button", {"class":"btn ghost small", type:"button", text: cfg.addLabel});
+  if(cfg.list.length >= cfg.max) add.disabled = true;
+  add.addEventListener("click", function(){
+    var o = {id: newId(cfg.prefix)};
+    cfg.cols.forEach(function(c){ o[c[0]] = ""; });
+    if(cfg.init) cfg.init(o);
+    cfg.list.push(o);
+    cfg.onChange();
+    /* Direkt ins erste Feld der neuen Zeile, damit man weiterschreiben kann. */
+    rerender(cfg.prefix + "-" + o.id + "-" + cfg.cols[0][0]);
+  });
+  wrap.appendChild(add);
+  return wrap;
+}
+
+function renderProcessDetail(kind){
+  var pid  = kind === "primary" ? state.primaryProcessId : state.comparisonProcessId;
+  var defs = kind === "primary" ? P_FULL : P_SHORT;
+  var title= kind === "primary" ? "Erste Aufgabe, ausführlicher" : "Zweite Aufgabe, optionaler Kurzvergleich";
+  var sub  = kind === "primary"
+    ? "Diese Fragen beziehen sich auf die unter C02 zuerst gewählte Aufgabe."
+    : "Nur ausfüllen, wenn Sie unter C02 eine zweite Aufgabe zum Vergleich benannt haben. Dieser Block ist freiwillig.";
+
+  var block = el("section", {"class":"block", id:"sec-" + kind}, [
+    el("h2", {text: title}),
+    el("p", {"class":"sub", text: sub})
+  ]);
+
+  if(!pid){
+    if(kind === "primary" && state.processCandidates.length){
+      /* Befund 1: frueher stand hier nur ein Hinweis, und ohne Auswahl unter
+         C02 erschienen P01 bis P09 nie. Jetzt kann direkt hier gewaehlt
+         werden. Bewusst KEINE Vorauswahl, auch nicht bei nur einer Aufgabe:
+         sonst wird die vorbelegte Aufgabe automatisch zur vertieften. */
+      block.appendChild(el("p", {"class":"note",
+        text:"Welche Ihrer Aufgaben aus C01 sollen wir näher ansehen? Sobald Sie hier oder unter C02 eine auswählen, erscheinen die Detailfragen."}));
+      block.appendChild(processSelect("pick-primary", "Diese Aufgabe zuerst näher ansehen", null, function(v){
+        choosePrimary(v, "pick-primary");
+      }));
+    } else {
+      block.appendChild(el("p", {"class":"hint",
+        text: kind === "primary"
+          ? "Sobald Sie unter C01 eine Aufgabe eintragen und unter C02 auswählen, erscheinen hier die Detailfragen."
+          : "Kein Vergleichskandidat gewählt. Das ist in Ordnung, eine Aufgabe genügt."}));
+    }
+    return block;
+  }
+
+  var p = findProcess(pid);
+  var nm = (p && p.bezeichnung || "").trim();
+  block.appendChild(el("p", {"class":"note", "data-procname": pid,
+    text: "Betrachtete Aufgabe: " + (nm === "" ? "(noch ohne Bezeichnung)" : nm)}));
+  defs.forEach(function(q){ block.appendChild(renderQuestion(q, {pid:pid})); });
+  return block;
+}
+
+/* ------------------------------------------------------------------
+   Fortschritt und offene Punkte
+------------------------------------------------------------------ */
+function openItems(){
+  var offen = [];
+  REQUIRED_TOP.forEach(function(id){ if(!hasContent(state.answers[id])) offen.push(id); });
+  if(state.primaryProcessId){
+    REQUIRED_PRIMARY_PROCESS.forEach(function(qid){
+      if(!hasContent(procAns(state.primaryProcessId, qid))) offen.push(qid);
+    });
+  }
+  return offen;
+}
+
+function updateProgress(){
+  var total = REQUIRED_TOP.length + REQUIRED_PRIMARY_PROCESS.length;
+  var offen = openItems().length + (state.primaryProcessId ? 0 : REQUIRED_PRIMARY_PROCESS.length);
+  var done = total - offen;
+  var pct = total ? Math.round(done / total * 100) : 0;
+  document.getElementById("progress").textContent =
+    "Wesentliche Blöcke: " + done + " von " + total + " beantwortet (" + pct + " %). " +
+    "„Weiß ich nicht“ zählt als Antwort.";
+}
+
+/* ------------------------------------------------------------------
+   Speichern im Browser, mit echter Schreib-/Leseprobe
+------------------------------------------------------------------ */
+function testStorage(){
+  try{
+    var probe = STORAGE_KEY + ".probe";
+    window.localStorage.setItem(probe, "1");
+    var back = window.localStorage.getItem(probe);
+    window.localStorage.removeItem(probe);
+    return back === "1";
+  }catch(e){ return false; }
+}
+
+function setSaveState(text, bad){
+  var n = document.getElementById("saveState");
+  n.textContent = text;
+  n.className = bad ? "bad" : "";
+}
+
+function autosave(){
+  if(!storageWorks){
+    setSaveState("Automatische Sicherung nicht möglich. Bitte vor dem Schließen senden oder als Datei sichern.", true);
+    return;
+  }
+  try{
+    var payload = JSON.stringify(snapshot());
+    window.localStorage.setItem(STORAGE_KEY, payload);
+    var back = window.localStorage.getItem(STORAGE_KEY);
+    if(back !== payload) throw new Error("Rücklesen fehlgeschlagen");
+    var t = new Date();
+    setSaveState("Zwischenstand gesichert um " +
+      ("0"+t.getHours()).slice(-2) + ":" + ("0"+t.getMinutes()).slice(-2), false);
+  }catch(e){
+    storageWorks = false;
+    setSaveState("Automatische Sicherung fehlgeschlagen. Bitte vor dem Schließen senden oder als Datei sichern.", true);
+  }
+}
+
+function changed(){
+  updateProgress();
+  if(saveTimer) clearTimeout(saveTimer);
+  saveTimer = setTimeout(autosave, 600);
+}
+
+/* ------------------------------------------------------------------
+   Datenhuelle
+------------------------------------------------------------------ */
+function applyPrefill(){
+  function mit(basis, quelle){
+    for(var k in quelle) if(Object.prototype.hasOwnProperty.call(quelle, k)) basis[k] = quelle[k];
+    return basis;
+  }
+  (PREFILL.respondents || []).forEach(function(r){
+    state.respondents.push(mit({id:newId("per"), name:"", funktion:"", erreichbarkeit:"",
+      herkunft:"vorbelegt"}, r));
+  });
+  (PREFILL.systems || []).forEach(function(s){
+    state.systems.push(mit({id:newId("sys"), name:"", aufgabe:"", nutzer:"", betreuung:"",
+      version:"", herkunft:"vorbelegt"}, s));
+  });
+  (PREFILL.processCandidates || []).forEach(function(p){
+    state.processCandidates.push(mit({id:newId("prc"), bezeichnung:"", rolle:"",
+      haeufigkeit:"", problem:"", answers:{}, herkunft:"vorbelegt"}, p));
+  });
+  var pa = PREFILL.answers || {};
+  for(var id in pa){
+    if(!Object.prototype.hasOwnProperty.call(pa, id)) continue;
+    var a = mit(ans(id), pa[id]);
+    if(!a.status || a.status === "nicht beantwortet"){ a.status = "beantwortet"; a.autoStatus = true; }
+    a.herkunft = "vorbelegt";
+  }
+}
+
+function snapshot(){
+  return {
+    type: DOC_TYPE,
+    schemaVersion: SCHEMA_VERSION,
+    questionnaireVersion: QUESTIONNAIRE_VERSION,
+    questionnaireId: QUESTIONNAIRE_ID,
+    kind: "zwischenstand",
+    createdAt: state.createdAt,
+    savedAt: nowIso(),
+    customerReference: state.customerReference,
+    respondents: state.respondents,
+    answers: state.answers,
+    systems: state.systems,
+    processCandidates: state.processCandidates,
+    primaryProcessId: state.primaryProcessId,
+    comparisonProcessId: state.comparisonProcessId,
+    lastSubmissionId: state.lastSubmissionId,
+    lastRevision: state.lastRevision,
+    lastExportFingerprint: state.lastExportFingerprint,
+    lastSentAt: state.lastSentAt
+  };
+}
+
+function contentFingerprint(){
+  return JSON.stringify({
+    c: state.customerReference,
+    r: state.respondents,
+    a: state.answers,
+    s: state.systems,
+    p: state.processCandidates,
+    pp: state.primaryProcessId,
+    cp: state.comparisonProcessId
+  });
+}
+
+/* Antwort ohne interne Hilfsfelder (autoStatus). */
+function cleanAnswers(src){
+  var out = {};
+  Object.keys(src || {}).forEach(function(k){
+    var a = src[k], b = {};
+    Object.keys(a).forEach(function(f){ if(f !== "autoStatus") b[f] = a[f]; });
+    out[k] = b;
+  });
+  return out;
+}
+
+function buildSubmission(){
+  var fp    = contentFingerprint();
+  var same  = state.lastExportFingerprint !== null && fp === state.lastExportFingerprint;
+  var prevId= state.lastSubmissionId;
+
+  var subId, rev, base;
+  if(same){
+    subId = prevId; rev = state.lastRevision; base = null;
+  } else {
+    subId = newId("sub"); rev = state.lastRevision + 1; base = prevId;
+  }
+
+  /* Befund 5: komplett leere Zeilen gehen nicht mit. Eine Aufgabe bleibt
+     drin, sobald sie ausgewaehlt ist oder Detailantworten hat. Kurze, aber
+     nicht leere Eintraege bleiben drin; die Mail an 360ai markiert sie. */
+  function procKeep(p){
+    if(rowFilled(p, COLS.processes)) return true;
+    if(p.id === state.primaryProcessId || p.id === state.comparisonProcessId) return true;
+    return Object.keys(p.answers || {}).some(function(k){ return hasContent(p.answers[k]); });
+  }
+
+  var doc = {
+    type: DOC_TYPE,
+    schemaVersion: SCHEMA_VERSION,
+    questionnaireVersion: QUESTIONNAIRE_VERSION,
+    questionnaireId: QUESTIONNAIRE_ID,
+    submissionId: subId,
+    revision: rev,
+    baseSubmissionId: base,
+    supersedesSubmissionId: base,
+    createdAt: state.createdAt,
+    exportedAt: nowIso(),
+    customerReference: state.customerReference,
+    respondents: state.respondents.filter(function(r){ return rowFilled(r, COLS.respondents); }).map(function(r){
+      return {id:r.id, name:r.name, funktion:r.funktion, erreichbarkeit:r.erreichbarkeit,
+              herkunft: r.herkunft || "kunde"};
+    }),
+    answers: cleanAnswers(state.answers),
+    systems: state.systems.filter(function(s){ return rowFilled(s, COLS.systems); }).map(function(s){
+      return {id:s.id, name:s.name, aufgabe:s.aufgabe, nutzer:s.nutzer,
+              betreuung:s.betreuung, version:s.version || "",
+              herkunft: s.herkunft || "kunde"};
+    }),
+    processCandidates: state.processCandidates.filter(procKeep).map(function(p){
+      var rolle = p.id === state.primaryProcessId ? "primaer"
+                : p.id === state.comparisonProcessId ? "vergleich" : "genannt";
+      return {id:p.id, bezeichnung:p.bezeichnung, zustaendigeRolle:p.rolle,
+              haeufigkeit:p.haeufigkeit, problem:p.problem,
+              vertiefung: rolle, herkunft: p.herkunft || "kunde",
+              answers: cleanAnswers(p.answers)};
+    }),
+    primaryProcessId: state.primaryProcessId,
+    comparisonProcessId: state.comparisonProcessId
+  };
+  return {doc:doc, fingerprint:fp, unchanged:same};
+}
+
+/* ------------------------------------------------------------------
+   Pruefung vor dem Senden. Nichts wird still gekuerzt.
+------------------------------------------------------------------ */
+function validate(doc){
+  var errs = [];
+  if(state.processCandidates.length > LIMITS.processes)
+    errs.push("Es sind " + state.processCandidates.length + " Aufgaben eingetragen, erlaubt sind höchstens " + LIMITS.processes + ".");
+  if(state.systems.length > LIMITS.systems)
+    errs.push("Es sind " + state.systems.length + " Systemzeilen eingetragen, erlaubt sind höchstens " + LIMITS.systems + ".");
+  if(state.respondents.length > LIMITS.respondents)
+    errs.push("Es sind " + state.respondents.length + " Auskunftspersonen eingetragen, erlaubt sind höchstens " + LIMITS.respondents + ".");
+
+  function checkText(where, v){
+    if(typeof v === "string" && codepoints(v) > LIMITS.textCodepoints)
+      errs.push(where + ": " + codepoints(v) + " Zeichen, erlaubt sind höchstens " + LIMITS.textCodepoints + ".");
+  }
+  Object.keys(state.answers).forEach(function(k){ checkText("Frage " + k, state.answers[k].value); });
+  state.processCandidates.forEach(function(p, i){
+    Object.keys(p.answers || {}).forEach(function(k){
+      checkText("Aufgabe " + (i+1) + ", Frage " + k, p.answers[k].value);
+    });
+  });
+
+  var ids = {};
+  state.processCandidates.forEach(function(p){
+    if(ids[p.id]) errs.push("Doppelte interne Aufgabenkennung. Bitte 360ai informieren.");
+    ids[p.id] = true;
+  });
+
+  var bytes = new TextEncoder().encode(JSON.stringify(doc)).length;
+  if(bytes > LIMITS.fileBytes)
+    errs.push("Ihre Angaben wären " + Math.round(bytes/1024) + " KB groß, erlaubt sind höchstens 2048 KB.");
+
+  return errs;
+}
+
+function labelFor(id){
+  var all = [];
+  SECTIONS.forEach(function(s){ all = all.concat(s.questions); });
+  all = all.concat(P_FULL);
+  for(var i=0;i<all.length;i++) if(all[i].id === id) return all[i].label;
+  return "";
+}
+
+/* Hinweise vor dem Senden. Blockieren nicht. */
+function warnings(){
+  var w = [];
+  if(state.processCandidates.length === 0)
+    w.push("Unter C01 ist noch keine Aufgabe eingetragen.");
+  else if(!state.primaryProcessId)
+    w.push("Unter C02 ist noch keine Aufgabe ausgewählt. Ohne Auswahl fehlen die Detailfragen P01 bis P09.");
+  var offen = openItems();
+  if(offen.length)
+    w.push("Noch ohne Antwort oder Status: " + offen.map(function(id){
+      var l = labelFor(id); return id + (l ? " (" + l + ")" : "");
+    }).join("; "));
+  return w;
+}
+
+/* ------------------------------------------------------------------
+   Meldungen und Datei-Sicherung
+------------------------------------------------------------------ */
+function showMsg(kind, title, items, extra){
+  var m = document.getElementById("msg");
+  m.textContent = "";
+  m.className = "msg show " + kind;
+  m.appendChild(el("strong", {text:title}));
+  if(items && items.length){
+    var ul = el("ul");
+    items.forEach(function(t){ ul.appendChild(el("li", {text:t})); });
+    m.appendChild(ul);
+  }
+  if(extra) m.appendChild(extra);
+  m.scrollIntoView({block:"nearest"});
+}
+function hideMsg(){ var m = document.getElementById("msg"); m.className = "msg"; m.textContent = ""; }
+
+function download(filename, text){
+  var blob = new Blob([text], {type:"application/json;charset=utf-8"});
+  var url  = URL.createObjectURL(blob);
+  var a    = document.createElement("a");
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+}
+
+function safeName(){
+  var base = (state.customerReference || "Vorbereitung").replace(/[^\wäöüÄÖÜß .-]/g, "_").trim();
+  return base === "" ? "Vorbereitung" : base;
+}
+
+function saveAsFile(){
+  download("360ai-Zwischenstand_" + safeName() + ".json", JSON.stringify(snapshot(), null, 2));
+}
+
+/* ------------------------------------------------------------------
+   Turnstile (nur wenn 360ai einen Schluessel hinterlegt hat).
+   Das Token wird erst beim Senden geholt: es gilt nur rund 5 Minuten,
+   das Ausfuellen dauert eine Stunde.
+------------------------------------------------------------------ */
+var tsWidget = null, tsLoading = null;
+function turnstileToken(){
+  if(!CONFIG || !CONFIG.turnstileSiteKey) return Promise.resolve("");
+  if(!tsLoading){
+    tsLoading = new Promise(function(res, rej){
+      var s = document.createElement("script");
+      s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+      s.async = true; s.onload = res; s.onerror = function(){ rej(new Error("turnstile")); };
+      document.head.appendChild(s);
+    });
+  }
+  return tsLoading.then(function(){
+    return new Promise(function(res, rej){
+      var box = document.getElementById("turnstile");
+      if(tsWidget !== null){ try{ window.turnstile.remove(tsWidget); }catch(e){} tsWidget = null; }
+      tsWidget = window.turnstile.render(box, {
+        sitekey: CONFIG.turnstileSiteKey,
+        appearance: "interaction-only",
+        callback: function(t){ res(t); },
+        "error-callback": function(){ rej(new Error("turnstile")); },
+        "timeout-callback": function(){ rej(new Error("turnstile")); }
+      });
+    });
+  });
+}
+
+/* ------------------------------------------------------------------
+   Senden. Zweistufig: erst zeigen, was noch offen ist, dann senden.
+   Bei jedem Fehler bleibt alles erhalten, und die Datei-Sicherung wird
+   direkt angeboten.
+------------------------------------------------------------------ */
+var sendArmed = false, sending = false;
+
+function fallbackBox(){
+  var d = el("div", {"class":"actions"});
+  var b = el("button", {"class":"btn ghost small", type:"button", text:"Angaben als Datei sichern"});
+  b.addEventListener("click", function(){
+    var built = buildSubmission();
+    download("360ai-Antworten_" + safeName() + ".json", JSON.stringify(built.doc, null, 2));
+  });
+  d.appendChild(b);
+  return d;
+}
+
+function resetSendButton(){
+  sendArmed = false;
+  var btn = document.getElementById("btnSend");
+  btn.textContent = "Vorbereitung an 360ai senden";
+  btn.disabled = false;
+  var cb = document.getElementById("checkBox");
+  cb.className = "msg warn"; cb.textContent = "";
+}
+
+document.getElementById("btnSend").addEventListener("click", function(){
+  if(sending) return;
+  var built = buildSubmission();
+  var errs  = validate(built.doc);
+  if(errs.length){
+    showMsg("err", "Bitte korrigieren Sie zuerst:", errs);
+    return;
+  }
+  var btn = document.getElementById("btnSend");
+  if(!sendArmed){
+    var w = warnings();
+    if(w.length){
+      var cb = document.getElementById("checkBox");
+      cb.textContent = "";
+      cb.className = "msg warn show";
+      cb.appendChild(el("strong", {text:"Kurzer Blick vor dem Senden:"}));
+      var ul = el("ul");
+      w.forEach(function(t){ ul.appendChild(el("li", {text:t})); });
+      cb.appendChild(ul);
+      cb.appendChild(el("p", {text:"Sie können trotzdem senden. Fehlendes klären wir im Termin.", style:"margin:8px 0 0"}));
+      sendArmed = true;
+      btn.textContent = "Trotzdem jetzt senden";
+      cb.scrollIntoView({block:"nearest"});
+      return;
+    }
+  }
+  doSend(built);
+});
+
+function doSend(built){
+  var btn = document.getElementById("btnSend");
+  sending = true; btn.disabled = true; btn.textContent = "Wird gesendet …";
+  hideMsg();
+  turnstileToken().then(function(ts){
+    return fetch("/api/vorbereitung", {
+      method: "POST",
+      headers: {"content-type":"application/json"},
+      body: JSON.stringify({aktion:"senden", t:TOKEN, turnstile:ts, doc:built.doc, website:""})
+    });
+  }).then(function(res){
+    return res.json().catch(function(){ return {ok:false}; }).then(function(d){ return {status:res.status, d:d}; });
+  }).then(function(r){
+    sending = false;
+    if(!r.d || !r.d.ok){
+      resetSendButton();
+      showMsg("err", (r.d && r.d.fehler) || "Das Senden hat nicht geklappt.", [
+        "Ihre Angaben sind nicht verloren, sie bleiben hier gespeichert.",
+        "Versuchen Sie es in ein paar Minuten noch einmal. Klappt es dann nicht, sichern Sie Ihre Angaben als Datei und schicken Sie sie per E-Mail an info@360-ai.org."
+      ], fallbackBox());
+      return;
+    }
+    state.lastSubmissionId      = built.doc.submissionId;
+    state.lastRevision          = built.doc.revision;
+    state.lastExportFingerprint = built.fingerprint;
+    state.lastSentAt            = nowIso();
+    autosave();
+    resetSendButton();
+    showDone(r.d);
+  }).catch(function(){
+    sending = false;
+    resetSendButton();
+    showMsg("err", "Keine Verbindung zu 360ai.", [
+      "Ihre Angaben sind nicht verloren, sie bleiben hier gespeichert.",
+      "Prüfen Sie Ihre Internetverbindung und senden Sie dann noch einmal. Alternativ als Datei sichern und per E-Mail an info@360-ai.org schicken."
+    ], fallbackBox());
+  });
+}
+
+function showDone(d){
+  var box = document.getElementById("done");
+  var t = new Date();
+  var zeit = ("0"+t.getHours()).slice(-2) + ":" + ("0"+t.getMinutes()).slice(-2) + " Uhr";
+  var txt = "Eingegangen heute um " + zeit + ".";
+  if(d && d.kopie) txt += " Eine Kopie Ihrer Angaben ist an " + d.kopie + " unterwegs.";
+  if(d && d.revision > 0) txt += " Das ist Ihre " + (d.revision + 1) + ". Fassung; sie ersetzt die vorige.";
+  document.getElementById("doneText").textContent = txt;
+  box.hidden = false;
+  window.scrollTo(0, 0);
+  try{ box.focus({preventScroll:true}); }catch(e){}
+}
+
+/* ------------------------------------------------------------------
+   Datei laden und Zuruecksetzen
+------------------------------------------------------------------ */
+document.getElementById("btnSaveFile").addEventListener("click", function(){
+  saveAsFile();
+  showMsg("info", "Download gestartet.", [
+    "Diese Datei ist nur Ihr Zwischenstand. Gesendet ist damit noch nichts."
+  ]);
+});
+document.getElementById("btnLoadFile").addEventListener("click", function(){
+  document.getElementById("fileInput").click();
+});
+document.getElementById("fileInput").addEventListener("change", function(ev){
+  var f = ev.target.files && ev.target.files[0];
+  ev.target.value = "";
+  if(!f) return;
+  if(f.size > LIMITS.fileBytes){
+    showMsg("err", "Diese Datei ist zu groß und wurde nicht geladen.", ["Ihre bisherigen Eingaben bleiben unverändert."]);
+    return;
+  }
+  var reader = new FileReader();
+  reader.onerror = function(){
+    showMsg("err", "Die Datei konnte nicht gelesen werden.", ["Ihre bisherigen Eingaben bleiben unverändert."]);
+  };
+  reader.onload = function(){
+    var text;
+    try{ text = new TextDecoder("utf-8", {fatal:true}).decode(new Uint8Array(reader.result)); }
+    catch(e){ showMsg("err", "Die Datei ist keine gültige UTF-8-Textdatei.", ["Sie wurde nicht geladen."]); return; }
+    if(text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+    var data;
+    try{ data = JSON.parse(text); }
+    catch(e){ showMsg("err", "Die Datei enthält keine lesbaren Formulardaten.", ["Sie wurde nicht geladen."]); return; }
+    if(!data || data.type !== DOC_TYPE){
+      showMsg("err", "Diese Datei gehört nicht zu dieser Vorbereitung.", ["Sie wurde nicht geladen."]); return;
+    }
+    if(data.schemaVersion !== SCHEMA_VERSION){
+      showMsg("err", "Die Datei wurde mit einer anderen Fassung des Formulars erstellt.", ["Sie wurde nicht geladen. Bitte melden Sie sich bei 360ai."]); return;
+    }
+    if(data.questionnaireId && data.questionnaireId !== QUESTIONNAIRE_ID){
+      showMsg("err", "Die Datei gehört zu einer anderen Vorbereitung (" + String(data.questionnaireId) + ").",
+        ["Sie wurde nicht geladen, damit keine fremden Angaben in Ihr Formular geraten."]); return;
+    }
+    applyLoaded(data);
+    showMsg("info", "Zwischenstand geladen.", ["Bitte prüfen Sie kurz, ob alle Ihre Eingaben da sind."]);
+  };
+  reader.readAsArrayBuffer(f);
+});
+
+function applyLoaded(data){
+  state.createdAt           = data.createdAt || nowIso();
+  state.customerReference   = data.customerReference || "";
+  state.answers             = data.answers || {};
+  state.respondents         = Array.isArray(data.respondents) ? data.respondents : [];
+  state.systems             = Array.isArray(data.systems) ? data.systems : [];
+  state.processCandidates   = (Array.isArray(data.processCandidates) ? data.processCandidates : []).map(function(p){
+    return {id:p.id || newId("prc"), bezeichnung:p.bezeichnung || "",
+            rolle: p.rolle || p.zustaendigeRolle || "", haeufigkeit:p.haeufigkeit || "",
+            problem:p.problem || "", answers:p.answers || {}, herkunft:p.herkunft};
+  });
+  state.primaryProcessId    = data.primaryProcessId || null;
+  state.comparisonProcessId = data.comparisonProcessId || null;
+  if(!state.primaryProcessId || !state.comparisonProcessId){
+    (data.processCandidates || []).forEach(function(p){
+      if(p.vertiefung === "primaer"  && !state.primaryProcessId)    state.primaryProcessId = p.id;
+      if(p.vertiefung === "vergleich" && !state.comparisonProcessId) state.comparisonProcessId = p.id;
+    });
+  }
+  state.lastSubmissionId      = data.lastSubmissionId || data.submissionId || null;
+  state.lastRevision          = typeof data.lastRevision === "number" ? data.lastRevision
+                              : (typeof data.revision === "number" ? data.revision : -1);
+  state.lastExportFingerprint = data.lastExportFingerprint || null;
+  state.lastSentAt            = data.lastSentAt || null;
+  render();
+  autosave();
+}
+
+(function(){
+  var btn = document.getElementById("btnReset");
+  var scharf = false, timer = null;
+  var normal = "Formular leeren und neu anfangen";
+  function zurueck(){
+    scharf = false; btn.textContent = normal; btn.className = "btn rm"; btn.style.background = "";
+    if(timer) { clearTimeout(timer); timer = null; }
+  }
+  btn.addEventListener("click", function(){
+    if(!scharf){
+      scharf = true;
+      btn.textContent = "Wirklich? Alle Eingaben gehen verloren";
+      btn.className = "btn";
+      btn.style.background = "var(--err)";
+      timer = setTimeout(zurueck, 6000);
+      return;
+    }
+    try{ window.localStorage.removeItem(STORAGE_KEY); }catch(e){}
+    state.createdAt             = nowIso();
+    state.customerReference     = CUSTOMER_REFERENCE;
+    state.answers               = {};
+    state.respondents           = [];
+    state.systems               = [];
+    state.processCandidates     = [];
+    state.primaryProcessId      = null;
+    state.comparisonProcessId   = null;
+    state.lastSubmissionId      = null;
+    state.lastRevision          = -1;
+    state.lastExportFingerprint = null;
+    state.lastSentAt            = null;
+    applyPrefill();
+    render();
+    initialFingerprint = contentFingerprint();
+    zurueck();
+    autosave();
+    document.getElementById("done").hidden = true;
+    showMsg("info", "Das Formular ist geleert.", [
+      "Die von uns vorbelegten Angaben stehen wieder wie zu Beginn drin.",
+      "Bereits Gesendetes ist davon nicht betroffen."
+    ]);
+    window.scrollTo(0, 0);
+  });
+})();
+
+document.getElementById("customerReference").addEventListener("input", function(e){
+  state.customerReference = e.target.value; changed();
+});
+
+/* Nur warnen, wenn seit dem Oeffnen wirklich etwas eingegeben wurde und
+   der aktuelle Stand noch nicht gesendet ist. */
+window.addEventListener("beforeunload", function(e){
+  if(initialFingerprint === null) return;
+  var jetzt = contentFingerprint();
+  if(jetzt === initialFingerprint) return;
+  if(state.lastExportFingerprint === jetzt) return;
+  if(storageWorks) return; /* Stand ist im Browser gesichert, kein Verlust */
+  e.preventDefault(); e.returnValue = "";
+});
+
+/* ------------------------------------------------------------------
+   Start: Link pruefen, dann Formular aufbauen
+------------------------------------------------------------------ */
+function stop(title, text, offerSave){
+  document.getElementById("loading").hidden = true;
+  document.getElementById("app").hidden = true;
+  document.getElementById("stop").hidden = false;
+  if(title) document.getElementById("stopTitle").textContent = title;
+  if(text) document.getElementById("stopText").textContent = text;
+  if(offerSave){
+    document.getElementById("stopActions").hidden = false;
+    document.getElementById("btnStopSave").addEventListener("click", function(){
+      download("360ai-Zwischenstand.json", offerSave);
+    });
+  }
+}
+
+function fmtDatum(iso){
+  if(!iso) return "";
+  var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
+  return m ? (m[3] + "." + m[2] + "." + m[1]) : "";
+}
+
+function start(cfg){
+  CONFIG = cfg;
+  QUESTIONNAIRE_ID   = cfg.kennung;
+  CUSTOMER_REFERENCE = cfg.kunde || "";
+  PREFILL            = cfg.prefill || PREFILL;
+  STORAGE_KEY        = "360ai.preassessment.online." + QUESTIONNAIRE_ID;
+
+  if(cfg.termin) document.getElementById("subline").textContent = "Kompakte KI-Potenzialanalyse · Termin am " + fmtDatum(cfg.termin);
+  if(cfg.gruss){
+    var g = document.getElementById("introGruss");
+    g.textContent = cfg.gruss; g.hidden = false;
+  }
+  if(cfg.frist){
+    var f = document.getElementById("introFrist");
+    f.textContent = "Bitte senden Sie uns Ihre Angaben bis zum " + fmtDatum(cfg.frist) + ". Den Knopf dafür finden Sie ganz unten.";
+    f.hidden = false;
+  }
+  if(cfg.kopieAn) document.getElementById("copyAddr").textContent = cfg.kopieAn;
+
+  storageWorks = testStorage();
+  var restored = false;
+  if(storageWorks){
+    try{
+      var raw = window.localStorage.getItem(STORAGE_KEY);
+      if(raw){
+        var d = JSON.parse(raw);
+        if(d && d.type === DOC_TYPE && d.schemaVersion === SCHEMA_VERSION && d.questionnaireId === QUESTIONNAIRE_ID){
+          applyLoaded(d); restored = true;
+        }
+      }
+    }catch(e){}
+  }
+  if(!restored){
+    state.createdAt = nowIso();
+    state.customerReference = CUSTOMER_REFERENCE;
+    applyPrefill();
+    render();
+  }
+  document.getElementById("loading").hidden = true;
+  document.getElementById("app").hidden = false;
+
+  if(!storageWorks){
+    setSaveState("Automatische Sicherung nicht möglich. Bitte vor dem Schließen senden oder als Datei sichern.", true);
+    showMsg("warn", "Dieser Browser speichert keinen Zwischenstand.", [
+      "Ihre Eingaben gehen beim Schließen verloren, wenn Sie sie vorher nicht senden oder als Datei sichern (unter „Weitere Möglichkeiten“)."
+    ]);
+  } else if(restored){
+    setSaveState("Ihr letzter Zwischenstand ist wieder da.", false);
+    if(state.lastSentAt){
+      var info = document.getElementById("done");
+      document.getElementById("doneText").textContent = "Zuletzt gesendet am " + fmtDatum(state.lastSentAt) + ".";
+      info.hidden = false;
+    }
+  } else {
+    setSaveState("Automatische Sicherung aktiv.", false);
+  }
+  initialFingerprint = contentFingerprint();
+}
+
+(function init(){
+  var m = /[#&]t=([^&]+)/.exec(location.hash || "");
+  TOKEN = m ? decodeURIComponent(m[1]) : "";
+  if(!TOKEN){ stop(); return; }
+  fetch("/api/vorbereitung", {
+    method: "POST",
+    headers: {"content-type":"application/json"},
+    body: JSON.stringify({aktion:"pruefen", t:TOKEN})
+  }).then(function(res){ return res.json(); }).then(function(d){
+    if(d && d.ok && d.config){ start(d.config); return; }
+    /* Abgelaufen: vorhandenen Stand nicht wegwerfen, sondern zum Sichern anbieten. */
+    var saved = null;
+    if(d && d.kennung){
+      try{ saved = window.localStorage.getItem("360ai.preassessment.online." + d.kennung); }catch(e){}
+    }
+    stop(d && d.titel, d && d.fehler, saved);
+  }).catch(function(){
+    stop("Keine Verbindung", "Die Seite konnte 360ai gerade nicht erreichen. Bitte prüfen Sie Ihre Internetverbindung und laden Sie die Seite neu.");
+  });
+})();
+</script>
+</body>
+</html>
