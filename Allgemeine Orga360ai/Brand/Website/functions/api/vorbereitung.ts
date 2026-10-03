@@ -20,6 +20,7 @@ interface Env {
   MAIL_FROM: string;
   MAIL_TO: string;
   VB_MAIL_TO?: string;
+  VB_MAIL_FROM?: string;
   TURNSTILE_SECRET?: string;
   TURNSTILE_SITEKEY?: string;
   MAIL_DRY_RUN?: string;
@@ -488,7 +489,7 @@ ${punkte.length ? `<ul style="margin:0;padding-left:18px">${punkte.map((x) => `<
   const betreffIntern = einzeilig(`Vorbereitung eingegangen: ${kunde} (${p.k}${fassung})`, 180);
 
   const intern = await resend(env, {
-    from: env.MAIL_FROM,
+    from: env.VB_MAIL_FROM || env.MAIL_FROM,
     to: [env.VB_MAIL_TO || env.MAIL_TO || "info@360-ai.org"],
     reply_to: p.e,
     subject: betreffIntern,
@@ -509,7 +510,7 @@ ${punkte.length ? `<ul style="margin:0;padding-left:18px">${punkte.map((x) => `<
 ${p.d ? `<p style="font-size:15px;line-height:1.6;margin:0 0 12px">Wir sehen uns am ${esc(datum(p.d))}.</p>` : ""}`;
   let kopie: string | null = p.e;
   const kunden = await resend(env, {
-    from: env.MAIL_FROM,
+    from: env.VB_MAIL_FROM || env.MAIL_FROM,
     to: [p.e],
     reply_to: env.VB_MAIL_TO || env.MAIL_TO || "info@360-ai.org",
     subject: "Ihre Vorbereitung ist bei 360ai angekommen",
