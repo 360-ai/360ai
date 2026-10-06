@@ -7,6 +7,8 @@
 // <kunde.json> (Beispiel):
 //   {
 //     "kennung": "REITTER-2026-10-09",
+//     "lead_id": "L-20260909-reitter",        <- optional: dann wird der Versand im CRM vermerkt
+//                                                (Erinnerung 3 Tage vor Frist), --ohne-crm schaltet ab
 //     "kunde":   "Reitter, Frankenberg",
 //     "email":   "info@firmareitter.de",      <- NUR hierhin geht die Kopie
 //     "anrede":  "du",                        <- "du" oder "sie", gilt fuer Seite und Kopie-Mail
@@ -76,3 +78,37 @@ const link = `${basis}/vorbereitung#t=${teil}.${sig}`;
 console.log(link);
 console.error(`\nKennung ${c.kennung}, ${anrede === "du" ? "Du" : "Sie"}, Kopie an ${payload.e}, gueltig bis ${new Date(payload.exp).toLocaleDateString("de-DE")}, Laenge ${link.length} Zeichen`);
 if (link.length > 2000) console.error("ACHTUNG: ueber 2000 Zeichen. Manche Mailprogramme kuerzen so lange Links. Vorbelegung kuerzen.");
+
+// Versand im CRM vermerken: Phase "Fragebogen raus", Frist, Termin, Link. Daraus erzeugt der
+// Langdock-Workflow 3 Tage vor der Frist die Erinnerung. Nur wenn "lead_id" in kunde.json steht.
+// Zugang: %USERPROFILE%\.360ai_crm_service_token mit {"client_id": "...", "client_secret": "..."}
+// (Cloudflare Access Service Token, siehe Tools/Akquise-Tool/crm/langdock/EINRICHTUNG.md).
+if (c.lead_id && !args.includes("--ohne-crm")) {
+  let zugang = null;
+  try {
+    zugang = JSON.parse(readFileSync(join(homedir(), ".360ai_crm_service_token"), "utf8"));
+  } catch {
+    console.error("\nCRM: kein Zugang in ~/.360ai_crm_service_token, Versand NICHT vermerkt. Ohne Vermerk keine Erinnerung.");
+  }
+  if (zugang) {
+    const antwort = await fetch("https://360ai-akquise-crm.pages.dev/api/agent/vorbereitung", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "CF-Access-Client-Id": zugang.client_id,
+        "CF-Access-Client-Secret": zugang.client_secret,
+      },
+      body: JSON.stringify({
+        lead_id: c.lead_id, kennung: c.kennung, link, mail: payload.e, anrede,
+        begruessung: c.begruessung || "", frist: c.frist || "", termin: c.termin || "",
+      }),
+      redirect: "manual",
+    }).catch((e) => ({ ok: false, status: 0, text: async () => String(e) }));
+    const text = await antwort.text();
+    console.error(antwort.ok
+      ? `\nCRM: Versand bei ${c.lead_id} vermerkt (Fragebogen raus${c.frist ? ", Erinnerung ab 3 Tage vor " + c.frist : ""}).`
+      : `\nCRM: Vermerk FEHLGESCHLAGEN (HTTP ${antwort.status}) ${text.slice(0, 200)}`);
+  }
+} else if (!c.lead_id) {
+  console.error("\nCRM: keine lead_id in kunde.json, Versand nicht vermerkt. Ohne Vermerk keine Erinnerung.");
+}
