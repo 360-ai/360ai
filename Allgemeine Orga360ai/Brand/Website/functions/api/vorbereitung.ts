@@ -26,6 +26,8 @@ interface Env {
   TURNSTILE_SECRET?: string;
   TURNSTILE_SITEKEY?: string;
   MAIL_DRY_RUN?: string;
+  LANGDOCK_WEBHOOK_URL?: string; // Langdock-Workflow "Ruecklauf auswerten", leer = aus
+  LANGDOCK_WEBHOOK_TOKEN?: string; // geht als X-360ai-Token mit, der Workflow prueft ihn
 }
 
 interface Payload {
@@ -345,7 +347,25 @@ async function resend(env: Env, mail: Record<string, unknown>): Promise<{ ok: bo
 
 // ---------------------------------------------------------------------------
 
-export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
+// Meldet den Ruecklauf an Langdock (Rueckfragen-Entwurf, CRM, Kalender, Drive).
+// Laeuft nach der Antwort an den Kunden weiter; ein Fehler hier stoert den Versand nie.
+async function langdockMelden(env: Env, daten: Record<string, unknown>): Promise<void> {
+  const ziel = env.LANGDOCK_WEBHOOK_URL || "";
+  if (!/^(https:\/\/|http:\/\/(127\.0\.0\.1|localhost)[:/])/.test(ziel)) return; // http nur lokal fuer Tests
+  try {
+    const r = await fetch(ziel, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-360ai-Token": env.LANGDOCK_WEBHOOK_TOKEN || "" },
+      body: JSON.stringify(daten),
+    });
+    if (!r.ok) console.log("Langdock-Webhook HTTP", r.status);
+  } catch (e) {
+    console.log("Langdock-Webhook nicht erreichbar:", String(e).slice(0, 200));
+  }
+}
+
+export const onRequestPost: PagesFunction<Env> = async (context) => {
+  const { request, env } = context;
   const laenge = Number(request.headers.get("content-length") || "0");
   if (laenge > MAX_BODY) return json({ ok: false, fehler: "Die Angaben sind zu umfangreich." }, 413);
 
@@ -490,6 +510,23 @@ ${terminZeile(doc)}
     console.log("Resend-Fehler (vorbereitung kopie):", kunden.detail);
     kopie = null;
   }
+
+  context.waitUntil(langdockMelden(env, {
+    schema: "360ai-ruecklauf-1",
+    kennung: p.k,
+    fassung: rev + 1,
+    ersetzt_vorige: rev > 0,
+    kunde,
+    mail: p.e,
+    anrede: du ? "du" : "sie",
+    begruessung: p.a || "",
+    frist: p.f || "",
+    termin: p.d || "",
+    betreff_intern: betreffIntern, // damit der Workflow die Eingangsmail in Gmail findet und labelt
+    zu_klaeren: punkte.map((x) => x.replace(/<[^>]+>/g, "")),
+    text: textFassung(doc),
+    doc,
+  }));
 
   const antwort: Record<string, unknown> = { ok: true, revision: rev, kopie };
   if (env.MAIL_DRY_RUN === "1") antwort.vorschau = { betreff: betreffIntern, html: htmlIntern };
