@@ -105,8 +105,13 @@ if (c.lead_id && !args.includes("--ohne-crm")) {
       redirect: "manual",
     }).catch((e) => ({ ok: false, status: 0, text: async () => String(e) }));
     const text = await antwort.text();
+    let plan = "";
+    try {
+      const j = JSON.parse(text);
+      plan = j.erinnerung_am ? `Erinnerung geht am ${j.erinnerung_am} raus` : `KEINE Erinnerung: ${j.erinnerung_grund}`;
+    } catch { /* Antwort ohne JSON */ }
     console.error(antwort.ok
-      ? `\nCRM: Versand bei ${c.lead_id} vermerkt (Fragebogen raus${c.frist ? ", Erinnerung ab 3 Tage vor " + c.frist : ""}).`
+      ? `\nCRM: Versand bei ${c.lead_id} vermerkt (Fragebogen raus). ${plan}.`
       : `\nCRM: Vermerk FEHLGESCHLAGEN (HTTP ${antwort.status}) ${text.slice(0, 200)}`);
   }
 } else if (!c.lead_id) {
