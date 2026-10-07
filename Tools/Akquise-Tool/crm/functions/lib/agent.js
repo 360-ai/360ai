@@ -178,10 +178,12 @@ export async function phaseSetzen(context, eingabe) {
 // Online-Vorbereitung: Versand vermerken, faellige Erinnerungen, Ruecklauf vermerken.
 // Die Langdock-Workflows rufen das auf (crm/langdock/EINRICHTUNG.md, Abschnitte 4 und 5).
 
-// Tage vor der Frist, ab denen erinnert wird.
+// Tage vor der Frist, an denen erinnert wird.
 export const ERINNERUNG_TAGE = 3;
-// Liegen zwischen Versand und Frist weniger Tage, lohnt keine Erinnerung.
+// Liegen zwischen Versand und Frist weniger Tage, wird erst 1 Tag vor der Frist erinnert
+// (Entscheidung Denis 07.10.2026).
 const MIN_LAUFZEIT_TAGE = ERINNERUNG_TAGE + 2;
+const KURZ_ERINNERUNG_TAGE = 1;
 
 export const heuteBerlin = (jetzt = new Date()) => new Intl.DateTimeFormat('en-CA', {
   timeZone: 'Europe/Berlin', year: 'numeric', month: '2-digit', day: '2-digit',
@@ -236,8 +238,21 @@ export function erinnerungsMail(lead) {
   };
 }
 
-// Faellig: Fragebogen raus, nichts zurueck, noch nicht erinnert, Frist in 0 bis 3 Tagen.
-// Bewusst ein Fenster statt "genau heute + 3": Faellt ein Lauf aus, holt der naechste nach.
+const tageVor = (iso, tage) => new Date(Date.parse(iso + 'T00:00:00Z') - tage * 86400000)
+  .toISOString().slice(0, 10);
+
+// Erinnerungstag: 3 Tage vor dem Stichtag, bei knapper Laufzeit 1 Tag vorher.
+// Leer, wenn auch das nicht mindestens einen Tag nach dem Versand liegt.
+function erinnerungsTag(stichtag, versand) {
+  if (!istDatum(versand)) return tageVor(stichtag, ERINNERUNG_TAGE);
+  const laufzeit = tagesAbstand(versand, stichtag);
+  if (laufzeit >= MIN_LAUFZEIT_TAGE) return tageVor(stichtag, ERINNERUNG_TAGE);
+  if (laufzeit > KURZ_ERINNERUNG_TAGE) return tageVor(stichtag, KURZ_ERINNERUNG_TAGE);
+  return '';
+}
+
+// Faellig: Fragebogen raus, nichts zurueck, noch nicht erinnert, ab Erinnerungstag bis zur Frist.
+// Bewusst ein Fenster statt "genau heute": Faellt ein Lauf aus, holt der naechste nach.
 // Ohne Frist zaehlt der Termin. Ohne beides keine Erinnerung.
 export function erinnerungenFaellig(leads, heute = heuteBerlin()) {
   return leads
@@ -246,11 +261,9 @@ export function erinnerungenFaellig(leads, heute = heuteBerlin()) {
     .filter((lead) => lead.vb_link && (lead.vb_mail || lead.mail))
     .filter((lead) => {
       const stichtag = istDatum(lead.vb_frist) ? lead.vb_frist : lead.vb_termin;
-      if (!istDatum(stichtag)) return false;
-      const rest = tagesAbstand(heute, stichtag);
-      if (rest < 0 || rest > ERINNERUNG_TAGE) return false;
-      if (!istDatum(lead.vb_versand_am)) return true;
-      return lead.vb_versand_am < heute && tagesAbstand(lead.vb_versand_am, stichtag) >= MIN_LAUFZEIT_TAGE;
+      if (!istDatum(stichtag) || heute > stichtag) return false;
+      const tag = erinnerungsTag(stichtag, lead.vb_versand_am);
+      return Boolean(tag) && heute >= tag;
     })
     .map((lead) => ({
       lead_id: lead.lead_id,
@@ -266,10 +279,8 @@ export function erinnerungenFaellig(leads, heute = heuteBerlin()) {
 export function erinnerungsPlan(frist, termin, versand) {
   const stichtag = istDatum(frist) ? frist : termin;
   if (!istDatum(stichtag)) return { erinnerung_am: '', erinnerung_grund: 'keine Frist und kein Termin' };
-  if (tagesAbstand(versand, stichtag) < MIN_LAUFZEIT_TAGE) {
-    return { erinnerung_am: '', erinnerung_grund: `weniger als ${MIN_LAUFZEIT_TAGE} Tage bis ${stichtag}` };
-  }
-  const tag = new Date(Date.parse(stichtag + 'T00:00:00Z') - ERINNERUNG_TAGE * 86400000).toISOString().slice(0, 10);
+  const tag = erinnerungsTag(stichtag, versand);
+  if (!tag) return { erinnerung_am: '', erinnerung_grund: `weniger als ${KURZ_ERINNERUNG_TAGE + 1} Tage bis ${stichtag}` };
   return { erinnerung_am: tag, erinnerung_grund: '' };
 }
 

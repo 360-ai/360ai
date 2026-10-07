@@ -63,19 +63,27 @@ test('Ohne Frist zaehlt der Termin, ohne beides gibt es keine Erinnerung', () =>
   assert.equal(erinnerungenFaellig([{ ...basis, vb_frist: '', vb_termin: '' }], '2026-10-17').length, 0);
 });
 
-test('Kurze Frist: keine Erinnerung, wenn zwischen Versand und Frist weniger als 5 Tage liegen', () => {
-  const kurz = { ...basis, vb_versand_am: '2026-10-12' };
-  assert.equal(erinnerungenFaellig([kurz], '2026-10-13').length, 0);
-  const vier = { ...basis, vb_versand_am: '2026-10-12', vb_frist: '2026-10-16' };
-  assert.equal(erinnerungenFaellig([vier], '2026-10-14').length, 0, '4 Tage Laufzeit');
-  const fuenf = { ...basis, vb_versand_am: '2026-10-11', vb_frist: '2026-10-16' };
-  assert.equal(erinnerungenFaellig([fuenf], '2026-10-13').length, 1);
+test('Kurze Frist: unter 5 Tagen Laufzeit erst 1 Tag vor der Frist, unter 2 Tagen gar nicht', () => {
+  const fuenf = { ...basis, vb_versand_am: '2026-10-11' };
+  assert.equal(erinnerungenFaellig([fuenf], '2026-10-13').length, 1, '5 Tage: normal 3 Tage vorher');
+  const vier = { ...basis, vb_versand_am: '2026-10-12' };
+  assert.equal(erinnerungenFaellig([vier], '2026-10-13').length, 0, '4 Tage: nicht 3 Tage vorher');
+  assert.equal(erinnerungenFaellig([vier], '2026-10-14').length, 0);
+  assert.equal(erinnerungenFaellig([vier], '2026-10-15').length, 1, '4 Tage: 1 Tag vorher');
+  assert.equal(erinnerungenFaellig([vier], '2026-10-16').length, 1, 'Nachholen am Fristtag');
+  const zwei = { ...basis, vb_versand_am: '2026-10-14' };
+  assert.equal(erinnerungenFaellig([zwei], '2026-10-15').length, 1, '2 Tage: 1 Tag vorher');
+  const eins = { ...basis, vb_versand_am: '2026-10-15' };
+  assert.equal(erinnerungenFaellig([eins], '2026-10-15').length, 0, '1 Tag: keine');
+  assert.equal(erinnerungenFaellig([eins], '2026-10-16').length, 0);
 });
 
 test('Erinnerungsplan nennt Datum oder Grund', async () => {
   const { erinnerungsPlan } = await import('../functions/lib/agent.js');
   assert.deepEqual(erinnerungsPlan('2026-10-16', '', '2026-10-06'), { erinnerung_am: '2026-10-13', erinnerung_grund: '' });
-  assert.equal(erinnerungsPlan('2026-10-09', '', '2026-10-06').erinnerung_am, '');
+  assert.equal(erinnerungsPlan('2026-10-09', '', '2026-10-06').erinnerung_am, '2026-10-08');
+  assert.equal(erinnerungsPlan('2026-10-07', '', '2026-10-06').erinnerung_am, '');
+  assert.match(erinnerungsPlan('2026-10-07', '', '2026-10-06').erinnerung_grund, /weniger als 2 Tage/);
   assert.match(erinnerungsPlan('', '', '2026-10-06').erinnerung_grund, /keine Frist/);
   assert.equal(erinnerungsPlan('', '2026-10-20', '2026-10-06').erinnerung_am, '2026-10-17');
 });

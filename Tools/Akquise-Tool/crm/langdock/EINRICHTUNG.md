@@ -209,7 +209,8 @@ dieselben Werte wie in Abschnitt 1). Später übernimmt das der Agent „Nach de
 - Erinnerung nur in Phase „Fragebogen raus“, ohne Eingang, nur einmal, im Fenster 3 bis 0 Tage vor der Frist.
   Fällt ein Tageslauf aus, holt der nächste nach. Nach der Frist kommt keine Erinnerung mehr.
 - Ohne Frist zählt der Termin. Ohne beides keine Erinnerung.
-- Liegen zwischen Versand und Frist weniger als 5 Tage, gibt es keine Erinnerung.
+- Liegen zwischen Versand und Frist weniger als 5 Tage, kommt die Erinnerung erst 1 Tag vor der Frist.
+  Bei weniger als 2 Tagen gibt es keine Erinnerung.
 - Eine zweite Fassung desselben Rücklaufs ändert die Phase nicht mehr, sie bekommt nur eine Notiz.
 - Die Phase geht nie zurück. Ist der Lead schon bei „Termin“ oder weiter, bleibt er dort.
 
@@ -395,8 +396,9 @@ Ohne die Variable passiert nichts. Ein Fehler beim Webhook stört den Versand an
 
 1. Testlead im CRM anlegen (Firma „ZZ Test“, Mail = eigene Gmail).
 2. `kunde.json` mit `lead_id` des Testleads, Frist **in 3 Tagen**, Termin in 5 Tagen, Link erzeugen.
-   Im CRM steht jetzt „Fragebogen raus“. Weil zwischen Versand und Frist sonst weniger als 5 Tage liegen,
-   im Google Sheet beim Testlead `vb_versand_am` auf ein Datum vor einer Woche setzen.
+   Im CRM steht jetzt „Fragebogen raus“. Weil zwischen Versand und Frist sonst weniger als 5 Tage liegen
+   (dann käme die Erinnerung erst 1 Tag vor der Frist), im Google Sheet beim Testlead `vb_versand_am`
+   auf ein Datum vor einer Woche setzen.
 3. Workflow „Fragebogen-Erinnerung“ einmal manuell starten → Mail kommt in der eigenen Gmail an,
    CRM-Notiz „Erinnerung verschickt“. Zweiter manueller Start → nichts (schon erinnert).
 4. Bogen über den Link ausfüllen und senden → Workflow „Rücklauf auswerten“ läuft: Phase „Fragebogen da“,
