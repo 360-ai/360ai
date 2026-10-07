@@ -239,7 +239,7 @@ function dashboardView() {
     + '<div class="metric-grid">'
     + metricCard('Leads gesamt', metrics.total, metrics.newCount + ' neu in der Pipeline', 'metric-lavender')
     + metricCard('Heute fällig', metrics.due, metrics.overdue + ' davon überfällig', 'metric-amber')
-    + metricCard('Erfolgsquote', metrics.successRate + '%', metrics.won + ' Leads gewonnen', 'metric-green')
+    + metricCard('Erfolgsquote', metrics.successRate + '%', metrics.won + ' wurden Kunde', 'metric-green')
     + metricCard('Ø Akquise-Score', metrics.averageScore, 'über alle bewerteten Leads', 'metric-mint')
     + '</div><div class="dashboard-grid"><div class="stack">'
     + '<section class="panel"><div class="panel-head"><h2>Pipeline-Verteilung</h2><a href="#kanban">Zum Kanban →</a></div>'
@@ -340,8 +340,10 @@ function detailView(leadId) {
     + '<h1 id="view-title" tabindex="-1">' + escapeHtml(leadDisplayName(lead)) + '</h1>'
     + '<p>' + escapeHtml([lead.branche, lead.ort].filter(Boolean).join(' · ') || 'Lead-Details') + '</p></div>'
     + '<div class="view-head-actions">' + statusBadge(lead.status) + '</div></header>'
-    + (lead.status === 'beendet' && !lead.ende_grund
-      ? '<p class="missing-note">Für diesen beendeten Lead fehlt noch der Abschlussgrund.</p>' : '')
+    + (lead.status === 'beendet' && (!lead.ende_grund || !String(lead.verlust_notiz || '').trim())
+      ? '<p class="missing-note">Für diesen verlorenen Lead fehlt noch der Absagegrund oder die Notiz dazu.</p>' : '')
+    + (lead.status === 'ruht' && !lead.next_action_at
+      ? '<p class="missing-note">Dieser Lead ruht ohne Datum. Bitte „Fällig am“ setzen, sonst meldet er sich nie wieder.</p>' : '')
     + (isArchived(lead)
       ? '<p class="missing-note">Dieser Lead ist seit ' + escapeHtml(formatDate(lead.archiviert_am))
         + ' archiviert und taucht in den Arbeitsansichten nicht mehr auf.</p>' : '')
@@ -353,10 +355,11 @@ function detailView(leadId) {
     + '<section class="panel"><div class="panel-head"><h2>CRM-Felder bearbeiten</h2></div>'
     + '<form class="edit-form" id="lead-edit-form" data-lead-id="' + attr(lead.lead_id) + '"><div class="form-grid">'
     + '<label class="field"><span>Status</span><select name="status">' + statusOptions(lead.status) + '</select></label>'
-    + '<label class="field"><span>Abschlussgrund</span><select name="ende_grund">' + reasonOptions(lead.ende_grund || '') + '</select></label>'
+    + '<label class="field"><span>Absagegrund</span><select name="ende_grund">' + reasonOptions(lead.ende_grund || '') + '</select></label>'
     + '<label class="field"><span>Nächste Aktion</span><select name="next_action">' + actionOptions(lead.next_action || '') + '</select></label>'
     + '<label class="field"><span>Fällig am</span><input name="next_action_at" type="date" value="' + attr(String(lead.next_action_at || '').slice(0,10)) + '"></label>'
     + '<label class="field"><span>Wiedervorlage</span><input name="wiedervorlage_am" type="date" value="' + attr(String(lead.wiedervorlage_am || '').slice(0,10)) + '"></label>'
+    + '<label class="field form-full"><span>Warum abgesagt / nicht weiter</span><textarea name="verlust_notiz" maxlength="2000" rows="2" placeholder="Was genau gesagt wurde, was ich daraus lerne …">' + escapeHtml(lead.verlust_notiz || '') + '</textarea></label>'
     + '<label class="field form-full"><span>Notiz</span><textarea name="notiz" maxlength="5000" placeholder="Nächste Schritte, Gesprächsnotizen …">' + escapeHtml(lead.notiz || '') + '</textarea></label>'
     + '</div><div class="form-actions"><button class="button button-primary" type="submit">Änderungen speichern</button></div></form>'
     + '</section>'
@@ -994,15 +997,22 @@ async function postWrite(payload) {
 
 // Oeffnet den Bestaetigungsdialog. Liefert den Rueckgabewert und, falls ein
 // Abschlussgrund verlangt wird, dessen Auswahl.
-async function oeffneDialog({ title, message, needsReason = false, reasonValue = '' }) {
-  if (dialog.open) return { bestaetigt: false, reason: null };
+async function oeffneDialog({
+  title, message, needsReason = false, reasonValue = '', notizValue = '',
+}) {
+  if (dialog.open) return { bestaetigt: false, reason: null, notiz: '' };
   document.querySelector('#dialog-title').textContent = title;
   document.querySelector('#dialog-message').textContent = message;
   const reasonWrap = document.querySelector('#dialog-reason-wrap');
   const reasonSelect = document.querySelector('#dialog-reason');
+  const notizWrap = document.querySelector('#dialog-notiz-wrap');
+  const notizFeld = document.querySelector('#dialog-notiz');
   reasonWrap.hidden = !needsReason;
   reasonSelect.required = needsReason;
   reasonSelect.innerHTML = needsReason ? reasonOptions(reasonValue) : '';
+  notizWrap.hidden = !needsReason;
+  notizFeld.required = needsReason;
+  notizFeld.value = needsReason ? notizValue : '';
   dialog.returnValue = '';
   dialog.showModal();
   // Fokus auf das Feld, das ausgefuellt werden muss, sonst auf Bestaetigen.
@@ -1010,7 +1020,11 @@ async function oeffneDialog({ title, message, needsReason = false, reasonValue =
   const returnValue = await new Promise((resolve) => {
     dialog.addEventListener('close', () => resolve(dialog.returnValue), { once: true });
   });
-  return { bestaetigt: returnValue === 'confirm', reason: reasonSelect.value || null };
+  return {
+    bestaetigt: returnValue === 'confirm',
+    reason: reasonSelect.value || null,
+    notiz: normText(notizFeld.value).trim(),
+  };
 }
 
 async function confirmAction({ title, message }) {
@@ -1020,29 +1034,33 @@ async function confirmAction({ title, message }) {
 
 async function confirmStatusChange(lead, target, { forceConfirmation = false } = {}) {
   const backward = isBackwardTransition(lead.status, target);
-  const needsReason = target === 'beendet' && !lead.ende_grund;
+  // Verloren braucht immer Grund UND Notiz, sonst ist spaeter nicht auswertbar, warum.
+  const needsReason = target === 'beendet'
+    && (!lead.ende_grund || !String(lead.verlust_notiz || '').trim());
   if (!backward && !needsReason && !forceConfirmation) {
     return { confirmed: true, reason: null, backward: false };
   }
-  const { bestaetigt, reason } = await oeffneDialog({
-    title: backward ? 'Rücksprung bestätigen?' : 'Lead beenden?',
+  const { bestaetigt, reason, notiz } = await oeffneDialog({
+    title: backward ? 'Rücksprung bestätigen?' : 'Als verloren markieren?',
     message: backward
       ? 'Der Status wird von „' + label(STATUS_LABELS, lead.status) + '“ auf „'
         + label(STATUS_LABELS, target) + '“ zurückgesetzt. Dieser Schritt bleibt in den '
         + 'Aktivitäten sichtbar.'
-      : 'Bitte einen Abschlussgrund wählen. Er lässt sich später in der Lead-Akte ändern.',
+      : 'Bitte Absagegrund wählen und kurz notieren, was passiert ist. Beides lässt sich später in der Lead-Akte ändern.',
     needsReason,
     reasonValue: lead.ende_grund || '',
+    notizValue: lead.verlust_notiz || '',
   });
   if (!bestaetigt) return { confirmed: false };
   // Frueher schloss der Dialog hier kommentarlos und es passierte nichts.
-  if (needsReason && !reason) {
-    toast('Ohne Abschlussgrund wurde nichts geändert.', 'error');
+  if (needsReason && (!reason || !notiz)) {
+    toast('Ohne Absagegrund und Notiz wurde nichts geändert.', 'error');
     return { confirmed: false };
   }
   return {
     confirmed: true,
     reason: needsReason ? reason : null,
+    notiz: needsReason ? notiz : null,
     backward: backward || forceConfirmation,
   };
 }
@@ -1083,6 +1101,13 @@ async function moveLead(leadId, target, options = {}) {
       });
       lead.ende_grund = decision.reason;
     }
+    if (decision.notiz && decision.notiz !== lead.verlust_notiz) {
+      await postWrite({
+        lead_id: leadId, feld: 'verlust_notiz', wert: decision.notiz,
+        erwarteter_status: target,
+      });
+      lead.verlust_notiz = decision.notiz;
+    }
     lead.status = target;
     state.activities.unshift({
       activity_id: 'local-' + Date.now(), lead_id: leadId,
@@ -1091,7 +1116,10 @@ async function moveLead(leadId, target, options = {}) {
     });
     toast('Status auf „' + label(STATUS_LABELS, target) + '“ geändert.');
     if (result.needs_ende_grund && !decision.reason) {
-      toast('Bitte noch einen Abschlussgrund ergänzen.', 'error');
+      toast('Bitte noch einen Absagegrund ergänzen.', 'error');
+    }
+    if (target === 'ruht' && !lead.next_action_at) {
+      toast('Lead ruht. Bitte „Fällig am“ setzen, damit er wieder auftaucht.', 'error');
     }
     render();
     return true;
@@ -1123,7 +1151,8 @@ const vergleichswert = (feld, value) => (DATUMSFELDER.has(feld)
   : normText(value));
 
 const FELD_TITEL = {
-  notiz: 'Notiz', ende_grund: 'Abschlussgrund', wiedervorlage_am: 'Wiedervorlage',
+  notiz: 'Notiz', ende_grund: 'Absagegrund', verlust_notiz: 'Absage-Notiz',
+  wiedervorlage_am: 'Wiedervorlage',
   next_action: 'Nächste Aktion', next_action_at: 'Fällig am',
   ...Object.fromEntries(STAMMDATEN_FELDER.map((feld) => [feld.name, feld.label])),
 };
@@ -1170,7 +1199,7 @@ async function saveDetailForm(form) {
   button.textContent = 'Wird gespeichert …';
   try {
     const ergebnis = await saveFields(lead, values, [
-      'notiz', 'ende_grund', 'wiedervorlage_am', 'next_action', 'next_action_at',
+      'notiz', 'ende_grund', 'verlust_notiz', 'wiedervorlage_am', 'next_action', 'next_action_at',
     ]);
     if (!ergebnis.ok) return;
     state.saving.delete(lead.lead_id);

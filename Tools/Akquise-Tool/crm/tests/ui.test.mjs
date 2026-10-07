@@ -49,9 +49,12 @@ async function starte({ leads, activities, audits } = createDemoData()) {
 
   const quelle = await readFile(new URL('../public/app.js', import.meta.url), 'utf8');
   const domainQuelle = await readFile(new URL('../public/domain.js', import.meta.url), 'utf8');
-  // ES-Module ohne Bundler: domain.js wird eingebettet und der Import entfernt.
-  const zusammen = domainQuelle.replaceAll(/^export /gm, '')
-    + '\n' + quelle.replace(/^import \{[\s\S]*?\} from '\.\/domain\.js';\n/m, '');
+  const leitfadenQuelle = await readFile(new URL('../public/leitfaden.js', import.meta.url), 'utf8');
+  // ES-Module ohne Bundler: Module werden eingebettet und ihre Importe entfernt.
+  // Die Dateien haben CRLF-Zeilenenden, deshalb \r?\n statt \n.
+  const zusammen = [domainQuelle, leitfadenQuelle]
+    .map((modul) => modul.replaceAll(/^export /gm, '')).join('\n')
+    + '\n' + quelle.replaceAll(/^import \{[\s\S]*?\} from '\.\/[a-z]+\.js';\r?\n/gm, '');
   window.eval(zusammen);
   await new Promise((resolve) => { setTimeout(resolve, 30); });
   return { window, dom, fehler };
@@ -174,4 +177,47 @@ test('leere Datenquelle bietet das Anlegen an', async () => {
   window.dispatchEvent(new window.Event('hashchange'));
   assert.match(text(window), /Noch kein Lead in der Pipeline/);
   assert.ok(window.document.querySelector('a[href="#neu"]'));
+});
+
+// Absprache 04.10.2026: Verloren nur mit Grund UND Notiz, sonst ist spaeter
+// nicht auswertbar, warum ein Lead abgesprungen ist.
+async function verlorenSetzen({ grund, notiz }) {
+  const umgebung = await starte();
+  const { window } = umgebung;
+  const schreibvorgaenge = [];
+  window.fetch = async (_url, optionen) => {
+    schreibvorgaenge.push(JSON.parse(optionen.body));
+    return new Response(JSON.stringify({ ok: true }), { status: 200 });
+  };
+  window.location.hash = 'lead/L-DEMO-004';
+  window.dispatchEvent(new window.Event('hashchange'));
+  const form = window.document.querySelector('#lead-edit-form');
+  form.querySelector('[name="status"]').value = 'beendet';
+  form.dispatchEvent(new window.Event('submit', { bubbles: true, cancelable: true }));
+  await new Promise((resolve) => { setTimeout(resolve, 10); });
+  const dialog = window.document.querySelector('#confirm-dialog') || window.document.querySelector('dialog');
+  assert.equal(dialog.open, true, 'Dialog muss sich oeffnen');
+  assert.equal(window.document.querySelector('#dialog-notiz-wrap').hidden, false, 'Notizfeld fehlt');
+  window.document.querySelector('#dialog-reason').value = grund;
+  window.document.querySelector('#dialog-notiz').value = notiz;
+  dialog.close('confirm');
+  await new Promise((resolve) => { setTimeout(resolve, 30); });
+  return { ...umgebung, schreibvorgaenge };
+}
+
+test('Verloren schreibt Status, Absagegrund und Absage-Notiz', async () => {
+  const { schreibvorgaenge, fehler } = await verlorenSetzen({
+    grund: 'zeitpunkt', notiz: 'Erst nach der Saison, im Januar nochmal anrufen.',
+  });
+  assert.deepEqual(fehler, []);
+  const felder = schreibvorgaenge.map((eintrag) => eintrag.feld);
+  assert.deepEqual(felder, ['status', 'ende_grund', 'verlust_notiz']);
+  assert.equal(schreibvorgaenge[1].wert, 'zeitpunkt');
+  assert.match(schreibvorgaenge[2].wert, /Januar/);
+});
+
+test('Verloren ohne Notiz aendert nichts', async () => {
+  const { schreibvorgaenge, window } = await verlorenSetzen({ grund: 'zu_teuer', notiz: '  ' });
+  assert.deepEqual(schreibvorgaenge, []);
+  assert.match(window.document.querySelector('#alert-region').textContent, /Absagegrund und Notiz/);
 });

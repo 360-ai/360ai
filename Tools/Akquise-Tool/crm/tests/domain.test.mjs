@@ -33,10 +33,21 @@ const offsetDay = (offset) => {
   return todayIso(date);
 };
 
-test('Statusmodell enthaelt die sieben dokumentierten Pipeline-Stufen', () => {
+test('Statusmodell fuehrt eine Pipeline von Lead bis Kunde plus zwei Seitenwege', () => {
   assert.deepEqual(STATUS_VALUES, [
-    'neu', 'analysiert', 'kontaktiert', 'qualifiziert', 'angebot', 'gewonnen', 'beendet',
+    'neu', 'analysiert', 'kontaktiert', 'qualifiziert', 'fragebogen_raus', 'fragebogen_da',
+    'termin', 'angebot', 'gewonnen', 'kunde_betreuung', 'ruht', 'beendet',
   ]);
+});
+
+test('Ruecksprung gilt nur innerhalb der Pipeline und aus Verloren heraus', () => {
+  assert.equal(isBackwardTransition('angebot', 'kontaktiert'), true);
+  assert.equal(isBackwardTransition('gewonnen', 'kunde_betreuung'), false);
+  assert.equal(isBackwardTransition('kunde_betreuung', 'gewonnen'), true);
+  assert.equal(isBackwardTransition('fragebogen_da', 'ruht'), false);
+  assert.equal(isBackwardTransition('ruht', 'kontaktiert'), false);
+  assert.equal(isBackwardTransition('termin', 'beendet'), false);
+  assert.equal(isBackwardTransition('beendet', 'qualifiziert'), true);
 });
 
 test('Leads ohne Firma bleiben ueber Name oder Kontaktdaten erkennbar', () => {
@@ -49,7 +60,9 @@ test('Leads ohne Firma bleiben ueber Name oder Kontaktdaten erkennbar', () => {
 test('Faelligkeit schliesst terminale Leads aus', () => {
   assert.equal(isDue({ status: 'neu', next_action_at: offsetDay(0) }), true);
   assert.equal(isOverdue({ status: 'angebot', next_action_at: offsetDay(-1) }), true);
-  assert.equal(isDue({ status: 'gewonnen', next_action_at: offsetDay(-2) }), false);
+  // Kunden koennen faellige Aufgaben haben, nur Verlorene nicht.
+  assert.equal(isDue({ status: 'gewonnen', next_action_at: offsetDay(-2) }), true);
+  assert.equal(isDue({ status: 'ruht', next_action_at: offsetDay(0) }), true);
   assert.equal(isOverdue({ status: 'beendet', next_action_at: offsetDay(-2) }), false);
   assert.equal(isDue({ status: 'neu', next_action_at: '' }), false);
 });

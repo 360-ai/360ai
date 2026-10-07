@@ -49,9 +49,14 @@ export async function verifyAccessToken(token, env, keySet = null) {
     audience,
     algorithms: ['RS256'],
   });
+  if (payload.type !== 'app') throw new Error('Access-Identitaet nicht erlaubt');
   const email = String(payload.email || '').trim().toLowerCase();
-  if (payload.type !== 'app' || email !== allowedEmail) {
-    throw new Error('Access-Identitaet nicht erlaubt');
+  if (email && email === allowedEmail) return payload;
+  // Service Token (Langdock): Access traegt dann keine E-Mail, sondern die Client-ID
+  // in common_name. Die Middleware beschraenkt solche Identitaeten auf /api/agent/*.
+  const serviceId = String(env.ALLOWED_SERVICE_TOKEN_ID || '').trim();
+  if (!email && serviceId && payload.common_name === serviceId) {
+    return { ...payload, service: true };
   }
-  return payload;
+  throw new Error('Access-Identitaet nicht erlaubt');
 }

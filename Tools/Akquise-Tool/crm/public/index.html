@@ -71,8 +71,12 @@
       <h2 id="dialog-title">Status ändern?</h2>
       <p id="dialog-message"></p>
       <label class="dialog-field" id="dialog-reason-wrap" hidden>
-        <span>Abschlussgrund</span>
+        <span>Absagegrund</span>
         <select id="dialog-reason"></select>
+      </label>
+      <label class="dialog-field" id="dialog-notiz-wrap" hidden>
+        <span>Was ist passiert?</span>
+        <textarea id="dialog-notiz" maxlength="2000" rows="3"></textarea>
       </label>
       <!-- Bestätigen steht im Markup zuerst, damit Enter im Formular bestätigt statt
            abzubrechen. Die Optik dreht die Reihenfolge per CSS wieder um. -->

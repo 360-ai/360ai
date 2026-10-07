@@ -1,6 +1,16 @@
+// Felder der Online-Vorbereitung. Muss zu WF-4 ("Anfrage pruefen") und WF-5 passen.
+export const VB_FIELDS = [
+  'vb_kennung', 'vb_link', 'vb_mail', 'vb_begruessung', 'vb_frist', 'vb_termin',
+  'vb_versand_am', 'vb_erinnert_am', 'vb_eingang_am',
+];
+const VB_DATUM = ['vb_frist', 'vb_termin', 'vb_versand_am', 'vb_erinnert_am', 'vb_eingang_am'];
+
 // CRM-Felder: Arbeitsstand der Pipeline.
 export const CRM_FIELDS = [
   'status', 'notiz', 'ende_grund', 'wiedervorlage_am', 'next_action', 'next_action_at',
+  'verlust_notiz', 'kunden_id',
+  // Online-Vorbereitung: Versand, Erinnerung und Ruecklauf, gesetzt ueber /api/agent/vorbereitung*.
+  ...VB_FIELDS,
 ];
 // Stammdaten: Wer der Lead ist. Frueher nur von WF-1 geschrieben, jetzt auch im CRM.
 export const STAMM_FIELDS = [
@@ -9,12 +19,15 @@ export const STAMM_FIELDS = [
 ];
 export const EDITABLE_FIELDS = new Set([...CRM_FIELDS, ...STAMM_FIELDS]);
 
+// Muss zu public/domain.js und zu WF-4 ("Anfrage pruefen") passen.
 export const STATUSES = [
-  'neu', 'analysiert', 'kontaktiert', 'qualifiziert', 'angebot', 'gewonnen', 'beendet',
+  'neu', 'analysiert', 'kontaktiert', 'qualifiziert', 'fragebogen_raus', 'fragebogen_da',
+  'termin', 'angebot', 'gewonnen', 'kunde_betreuung', 'ruht', 'beendet',
 ];
 const END_REASONS = [
   '', 'kein_bedarf', 'hat_agentur', 'zu_teuer',
   'keine_reaktion', 'ungeeignet', 'mail_unzustellbar',
+  'zeitpunkt', 'wettbewerber', 'intern_geloest', 'ich_abgesagt', 'sonstiges',
 ];
 const NEXT_ACTIONS = [
   '', 'analyse', 'anruf', 'followup_call', 'followup_mail',
@@ -54,6 +67,27 @@ const FEHLER = (status, error, message) => ({ ok: false, status, error, message 
 function pruefeFeld(feld, wert) {
   if (feld === 'notiz') {
     return wert.length > 5000 ? FEHLER(400, 'value_too_long', 'Die Notiz ist zu lang') : null;
+  }
+  if (feld === 'verlust_notiz' && wert.length > 2000) {
+    return FEHLER(400, 'value_too_long', 'Die Absage-Notiz ist zu lang');
+  }
+  if (feld === 'kunden_id' && !/^[A-Za-z0-9._-]{0,60}$/.test(wert)) {
+    return FEHLER(400, 'invalid_kunden_id', 'Ungültige Kunden-ID');
+  }
+  if (feld === 'vb_kennung' && !/^[A-Za-z0-9._-]{0,80}$/.test(wert)) {
+    return FEHLER(400, 'invalid_kennung', 'Ungültige Kennung');
+  }
+  if (feld === 'vb_link' && wert !== '' && !(/^https:\/\/[^\s]+$/.test(wert) && wert.length <= 8000)) {
+    return FEHLER(400, 'invalid_link', 'Der Link muss mit https:// beginnen');
+  }
+  if (feld === 'vb_mail' && !validMail(wert)) {
+    return FEHLER(400, 'invalid_mail', 'Die E-Mail-Adresse ist ungültig');
+  }
+  if (feld === 'vb_begruessung' && wert.length > 200) {
+    return FEHLER(400, 'value_too_long', 'Die Begrüßung ist zu lang');
+  }
+  if (VB_DATUM.includes(feld) && !validDate(wert)) {
+    return FEHLER(400, 'invalid_date', 'Datum muss JJJJ-MM-TT entsprechen');
   }
   if (feld === 'status' && !STATUSES.includes(wert)) {
     return FEHLER(400, 'invalid_status', 'Ungültiger Status');

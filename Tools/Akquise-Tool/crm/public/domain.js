@@ -23,27 +23,44 @@ export const STAMMDATEN_FELDER = [
   },
 ];
 
+// Eine Pipeline von Lead bis Kunde. Die internen Werte der ersten Phasen bleiben
+// aus Rueckwaertskompatibilitaet stehen, weil WF-1 bis WF-4 sie automatisch setzen:
+// qualifiziert = Antwort/Gespraech, gewonnen = Kunde in Umsetzung, beendet = verloren.
+// Reihenfolge = Kanban-Spalten. 'ruht' und 'beendet' liegen seitlich zur Pipeline.
 export const STATUS_DEFINITIONS = [
   { value: 'neu', label: 'Neu' },
-  { value: 'analysiert', label: 'Analysiert' },
+  { value: 'analysiert', label: 'Website analysiert' },
   { value: 'kontaktiert', label: 'Kontaktiert' },
-  { value: 'qualifiziert', label: 'Qualifiziert' },
-  { value: 'angebot', label: 'Angebot' },
-  { value: 'gewonnen', label: 'Gewonnen' },
-  { value: 'beendet', label: 'Beendet' },
+  { value: 'qualifiziert', label: 'Im Gespräch' },
+  { value: 'fragebogen_raus', label: 'Fragebogen raus' },
+  { value: 'fragebogen_da', label: 'Fragebogen da' },
+  { value: 'termin', label: 'Termin' },
+  { value: 'angebot', label: 'Angebot raus' },
+  { value: 'gewonnen', label: 'Kunde: Umsetzung' },
+  { value: 'kunde_betreuung', label: 'Kunde: Betreuung' },
+  { value: 'ruht', label: 'Ruht' },
+  { value: 'beendet', label: 'Verloren' },
 ];
 export const STATUS_VALUES = STATUS_DEFINITIONS.map((status) => status.value);
 export const STATUS_LABELS = Object.fromEntries(
   STATUS_DEFINITIONS.map((status) => [status.value, status.label]),
 );
+// Vorwaertsreihenfolge. Was hier fehlt ('ruht', 'beendet'), ist ein Seitenweg.
+export const PIPELINE = STATUS_VALUES.filter((value) => !['ruht', 'beendet'].includes(value));
+export const KUNDEN_STATUS = ['gewonnen', 'kunde_betreuung'];
 export const END_REASON_LABELS = {
   '': 'Kein Grund gewählt',
   kein_bedarf: 'Kein Bedarf',
-  hat_agentur: 'Hat bereits eine Agentur',
   zu_teuer: 'Zu teuer',
+  zeitpunkt: 'Jetzt nicht, später vielleicht',
+  wettbewerber: 'Anderer Anbieter',
+  intern_geloest: 'Macht es selbst',
+  hat_agentur: 'Hat bereits eine Agentur',
   keine_reaktion: 'Keine Reaktion',
+  ich_abgesagt: 'Ich habe abgesagt (passt nicht)',
   ungeeignet: 'Ungeeignet',
   mail_unzustellbar: 'Mail unzustellbar',
+  sonstiges: 'Sonstiges',
 };
 export const ACTION_LABELS = {
   '': 'Keine nächste Aktion',
@@ -57,7 +74,8 @@ export const ACTION_LABELS = {
   termin: 'Termin',
 };
 
-const terminal = new Set(['gewonnen', 'beendet']);
+// Nur verlorene Leads sind abgeschlossen. Kunden koennen faellige Aufgaben haben.
+const terminal = new Set(['beendet']);
 export const asNumber = (value) => {
   const parsed = Number(String(value ?? '').replace(',', '.'));
   return Number.isFinite(parsed) ? parsed : 0;
@@ -155,7 +173,7 @@ export function dashboardMetrics(allLeads, activities) {
   // Archivierte Leads zaehlen nirgends mit, sonst weicht die Kopfzahl von der Liste ab.
   const leads = allLeads.filter((lead) => !isArchived(lead));
   const total = leads.length;
-  const won = leads.filter((lead) => lead.status === 'gewonnen').length;
+  const won = leads.filter((lead) => KUNDEN_STATUS.includes(lead.status)).length;
   const scores = leads.map((lead) => asNumber(lead.akquise_score)).filter((score) => score > 0);
   return {
     total,
@@ -205,11 +223,12 @@ export const auditsForLead = (audits, leadId) => audits
   .filter((audit) => audit.lead_id === leadId)
   .sort((a, b) => String(b.datum || '').localeCompare(String(a.datum || '')));
 
+// Muss zur Ruecksprungpruefung in WF-4 ("Aenderung pruefen") passen.
 export function isBackwardTransition(from, to) {
   if (from === to) return false;
   if (terminal.has(from)) return true;
-  if (to === 'beendet') return false;
-  return STATUS_VALUES.indexOf(to) < STATUS_VALUES.indexOf(from);
+  if (!PIPELINE.includes(to) || !PIPELINE.includes(from)) return false;
+  return PIPELINE.indexOf(to) < PIPELINE.indexOf(from);
 }
 
 // encodeURIComponent zerstoert tel:/mailto:-Ziele (aus + wird %2B, aus @ wird %40).

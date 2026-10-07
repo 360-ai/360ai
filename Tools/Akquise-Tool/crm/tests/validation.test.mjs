@@ -14,6 +14,9 @@ const valid = (overrides = {}) => ({
 test('CRM- und Stammdatenfelder sind editierbar, berechnete Felder nicht', () => {
   assert.deepEqual([...EDITABLE_FIELDS], [
     'status', 'notiz', 'ende_grund', 'wiedervorlage_am', 'next_action', 'next_action_at',
+    'verlust_notiz', 'kunden_id',
+    'vb_kennung', 'vb_link', 'vb_mail', 'vb_begruessung', 'vb_frist', 'vb_termin',
+    'vb_versand_am', 'vb_erinnert_am', 'vb_eingang_am',
     'firma', 'ansprechpartner', 'strasse', 'ort', 'branche',
     'telefon', 'handy', 'mail', 'website', 'anrede', 'kontaktquelle',
   ]);
@@ -146,7 +149,11 @@ test('Datumsfelder akzeptieren nur echte ISO-Kalendertage oder leer', () => {
 
 test('Abschlussgruende und Aktionen sind auf definierte Werte begrenzt', () => {
   assert.equal(validateWritePayload(valid({ feld: 'ende_grund', wert: 'kein_bedarf' })).ok, true);
-  assert.equal(validateWritePayload(valid({ feld: 'ende_grund', wert: 'sonstiges' })).error, 'invalid_ende_grund');
+  assert.equal(validateWritePayload(valid({ feld: 'ende_grund', wert: 'sonstiges' })).ok, true);
+  assert.equal(validateWritePayload(valid({ feld: 'ende_grund', wert: 'egal' })).error, 'invalid_ende_grund');
+  assert.equal(validateWritePayload(valid({ feld: 'verlust_notiz', wert: 'x'.repeat(2001) })).error, 'value_too_long');
+  assert.equal(validateWritePayload(valid({ feld: 'kunden_id', wert: 'K-2026-007' })).ok, true);
+  assert.equal(validateWritePayload(valid({ feld: 'kunden_id', wert: 'K 7; drop' })).error, 'invalid_kunden_id');
   assert.equal(validateWritePayload(valid({ feld: 'next_action', wert: 'angebot_erstellen' })).ok, true);
   assert.equal(validateWritePayload(valid({ feld: 'next_action', wert: 'delete_all' })).error, 'invalid_next_action');
 });

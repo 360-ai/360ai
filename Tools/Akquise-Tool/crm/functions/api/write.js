@@ -1,5 +1,6 @@
 import { localBypassEnabled } from '../lib/access.js';
 import { apiError, json } from '../lib/responses.js';
+import { schreibeCrm } from '../lib/crm-write.js';
 import { validateWritePayload } from '../lib/validation.js';
 
 // Der Browser sendet Sec-Fetch-Site bei jedem fetch() derselben Herkunft.
@@ -8,14 +9,6 @@ function sameOrigin(request) {
   const origin = request.headers.get('Origin');
   if (origin && origin !== new URL(request.url).origin) return false;
   return request.headers.get('Sec-Fetch-Site') === 'same-origin';
-}
-
-function webhookUrl(value) {
-  const url = new URL(String(value || ''));
-  if (url.protocol !== 'https:' || url.username || url.password || url.hash) {
-    throw new Error('Webhook-URL ungueltig');
-  }
-  return url;
 }
 
 const bodySize = (value) => new TextEncoder().encode(value).byteLength;
@@ -47,60 +40,19 @@ export async function onRequestPost(context) {
     return json({ ok: true, ...validation.value, demo: true });
   }
 
-  const token = String(context.env.CRM_WEBHOOK_TOKEN || '');
-  if (!token) return apiError(503, 'write_not_configured', 'Schreibzugriff ist nicht konfiguriert');
-  let url;
-  try {
-    url = webhookUrl(context.env.CRM_WEBHOOK_URL);
-  } catch {
-    return apiError(503, 'write_not_configured', 'Schreibzugriff ist nicht konfiguriert');
-  }
-  let upstream;
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 12000);
-  try {
-    upstream = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CRM-Token': token,
-      },
-      body: JSON.stringify(validation.value),
-      redirect: 'manual',
-      signal: controller.signal,
-    });
-  } catch {
-    return apiError(502, 'write_unavailable', 'Änderung konnte nicht gespeichert werden');
-  } finally {
-    clearTimeout(timeout);
-  }
-  const text = (await upstream.text()).slice(0, 4096);
-  let result = {};
-  try {
-    result = text ? JSON.parse(text) : {};
-  } catch {
-    result = {};
-  }
-  if (!upstream.ok) {
-    // 401/503 kommen von einer Fehlkonfiguration in n8n und waren bisher von einem
-    // echten Ausfall nicht zu unterscheiden.
-    if (upstream.status === 401 || upstream.status === 503) {
-      return apiError(503, 'write_not_configured',
-        'Der Schreibzugriff ist in n8n nicht korrekt konfiguriert');
-    }
-    const status = [400, 404, 409, 422].includes(upstream.status) ? upstream.status : 502;
-    if (status === 502) {
-      return apiError(502, 'write_failed', 'Änderung konnte nicht gespeichert werden');
+  const antwort = await schreibeCrm(context.env, validation.value);
+  if (!antwort.ok) {
+    if (antwort.status === 502 || antwort.status === 503) {
+      return apiError(antwort.status, antwort.error, antwort.message);
     }
     return json({
       ok: false,
-      error: result.error || 'validation_failed',
-      message: result.message || (status === 409
-        ? 'Status hat sich geändert, bitte neu laden'
-        : 'Änderung wurde abgelehnt'),
-      current_status: result.current_status || null,
-    }, { status });
+      error: antwort.error,
+      message: antwort.message,
+      current_status: antwort.current_status,
+    }, { status: antwort.status });
   }
+  const result = antwort.result;
   return json({
     ok: true,
     aktion: validation.value.aktion,

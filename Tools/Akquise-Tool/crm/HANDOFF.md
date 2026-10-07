@@ -1,6 +1,70 @@
 # Akquise-CRM – Übergabestand
 
-Stand: 20. August 2026
+## Stand 6. Oktober 2026: LIVE, plus Fragebogen-Automatik
+
+- n8n-Patch WF-2 bis WF-5 **geschrieben und aktiv** (Sicherung `n8n-backup-2026-10-06T18-09-51-833Z/`).
+  Gegenprobe: WF-4 nimmt `termin` und `vb_frist` an. WF-5 liest `Leads` jetzt `A:BZ` und liefert die `vb_*`-Spalten.
+- CRM **deployed** (Deployment `a8c6da3c`, Produktion). Anonym weiterhin 302. Code ist deployed, aber **nicht committet**.
+- Neu: Felder `vb_kennung, vb_link, vb_mail, vb_begruessung, vb_frist, vb_termin, vb_versand_am, vb_erinnert_am,
+  vb_eingang_am` (validation.js, WF-4, WF-5) und Routen `/api/agent/vorbereitung` (Versand), `.../faellig`
+  (Erinnerungen mit fertigem Mailtext), `.../erinnert`, `.../eingang` (Rücklauf). Logik in `functions/lib/agent.js`,
+  Tests `tests/vorbereitung.test.mjs` (111 Tests grün). Schreib-Lese-Probe auf neuer Spalte am Testlead ok, Spalte vb_kennung im Sheet angelegt.
+- Langdock-Seite: `langdock/EINRICHTUNG.md` Abschnitte 4 bis 9. Website-Seite (Webhook in `vorbereitung.ts`,
+  CRM-Vermerk in `_vorbereitung-link.mjs`) liegt im Branch `vorbereitung-online`, noch nicht auf `main`.
+- Offen bei Denis: Service Token (Abschnitt 1), Actions 1 bis 8, Gmail/Kalender/Drive prüfen, Workflows bauen,
+  Cloudflare-Variablen, Merge nach main. Danach Testdurchlauf Abschnitt 9.
+
+## Stand 4. Oktober 2026: eine Pipeline von Lead bis Kunde, Agent-Schnittstelle für Langdock
+
+Plan: `C:/Users/Ai Automations/.claude/plans/also-ich-m-chte-jetzt-toasty-truffle.md` (Etappen 1 und 2).
+**Lokal fertig und getestet (97 Tests), NICHT deployed, NICHT committet.** Reihenfolge beim Livegang unten.
+
+**Phasen.** Die internen Werte der ersten Phasen bleiben, weil WF-1 bis WF-4 sie automatisch setzen
+(WF-2/WF-3 setzen `qualifiziert` bei eingehender Antwort, WF-3 löscht Drive-Ordner nur bei `beendet`).
+Nur die Anzeige ändert sich, dazu kommen neue Phasen:
+`neu` Neu · `analysiert` Website analysiert · `kontaktiert` · `qualifiziert` **Im Gespräch** ·
+`fragebogen_raus` · `fragebogen_da` · `termin` · `angebot` Angebot raus · `gewonnen` **Kunde: Umsetzung** ·
+`kunde_betreuung` · Seitenwege `ruht` und `beendet` **Verloren**. Keine Datenmigration nötig.
+Rücksprung (Bestätigung nötig) nur rückwärts innerhalb der Pipeline oder aus Verloren heraus; `ruht` ist nie ein Rücksprung.
+Fällig-Liste schließt nur noch Verlorene aus, Kunden können fällige Aufgaben haben.
+
+**Verloren** verlangt im Dialog Absagegrund **und** Notiz (neue Spalte `verlust_notiz`). Neue Gründe:
+`zeitpunkt`, `wettbewerber`, `intern_geloest`, `ich_abgesagt`, `sonstiges`. Neue Spalte `kunden_id` für die
+spätere Übergabe ans Kunden-Tool. Die DSGVO-Löschung in WF-3 greift unverändert nur bei `kein_bedarf`/`ungeeignet`.
+
+**Agent-Schnittstelle** `functions/api/agent/` (leads, lead, notiz, phase), Logik in `functions/lib/agent.js`,
+Schreibweg gemeinsam mit /api/write in `functions/lib/crm-write.js`. Zugang per Cloudflare Access **Service Token**
+(`ALLOWED_SERVICE_TOKEN_ID` = Client-ID), per `identitaetDarfPfad` in `_middleware.js` nur auf `/api/agent/*`.
+Agenten schreiben Notizen mit Präfix „Langdock: “ und dürfen nie rückwärts springen. Einrichtung in Langdock:
+`langdock/EINRICHTUNG.md`.
+
+**Deploy-Blocker behoben:** `tests/ui.test.mjs` kannte den Import von `leitfaden.js` nicht (und CRLF). `npm run deploy` läuft wieder.
+
+**Lokal testen:** Die aktuelle wrangler-Version setzt `CF_PAGES=1` auch bei `pages dev`; damit ist der lokale
+Bypass gesperrt. In der (gitignorierten) `.dev.vars` steht deshalb zusätzlich `CF_PAGES=` (leer).
+
+**Achtung n8n:** `scripts/build-crm-workflows.mjs` und `n8n/*.json` sind **älter als der Live-Stand** vom 20.08.
+Nicht daraus neu bauen. Die Phasen-Änderung an WF-2 bis WF-5 macht `scripts/n8n-phasen-patch.cjs`
+(Probelauf ohne Schalter, schreiben mit `--schreiben`, sichert vorher in `n8n-backup-*/`).
+
+### Livegang, in dieser Reihenfolge
+
+1. `node scripts/n8n-phasen-patch.cjs --schreiben` (aus `Tools/Akquise-Tool`). Vorher kann das CRM die neuen Phasen nicht speichern.
+2. **Prüfen, ob der Patch aktiv ist:** Diese n8n-Instanz hat ein Editor/Publish-Modell. Im Editor bei WF-2 bis WF-5
+   nachsehen, ob die neue Version aktiv ist (sonst Publish). Gegenprobe: WF-4 mit einem neuen Statuswert
+   (z. B. `termin`) darf nicht mehr `invalid_status` liefern. **Erst dann** Schritt 3.
+3. CRM deployen (`npm run deploy` bzw. wrangler, siehe unten).
+4. Prüfung mit echtem Bestand statt Testlead (ein neuer Lead bekäme `next_action: analyse` und landete in der
+   Morgenmeldung): bei einem der vier verlorenen Altleads die Absage-Notiz nachtragen, im Sheet prüfen, dass die
+   Spalte `verlust_notiz` entstanden ist und das CRM sie nach dem Neuladen anzeigt (WF-5 liefert sie aus).
+5. Service Token und Langdock nach `langdock/EINRICHTUNG.md`.
+
+Hinweis: WF-3 setzt bei unzustellbarer Mail automatisch Verloren ohne Notiz. Solche Leads zeigen danach den
+Hinweis „Absagegrund oder Notiz fehlt“. Das ist erwartet.
+
+---
+
+## Stand 20. August 2026
 
 ## Was sich in der Nacht vom 20. August geändert hat
 
