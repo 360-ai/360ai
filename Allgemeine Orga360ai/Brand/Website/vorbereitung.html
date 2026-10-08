@@ -82,9 +82,19 @@ button:focus-visible,summary:focus-visible{outline:3px solid var(--lavender);out
 
 /* Liste der gewaehlten Programme */
 .prgliste{list-style:none;margin:8px 0 0;padding:0}
-.prgliste li{display:flex;gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--border)}
+.prgliste li{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--border)}
 .prgliste .name{min-width:120px;font-weight:600}
 .prgliste input{flex:1}
+.prgliste .rueck{flex-basis:100%;padding:2px 0 0}
+.prgliste .rueck .rf{font-size:13px;color:var(--muted);margin:4px 0 4px}
+.prgliste .rueck .chips{gap:6px;margin:0 0 4px}
+.prgliste .rueck .chip{font-size:14px;min-height:38px;padding:5px 11px}
+.davon{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 4px}
+.davon label{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted);flex:1 1 220px}
+.davon input{width:72px;flex:none}
+.summe{margin:18px 0 0;padding:12px 14px;border-radius:var(--radius);background:var(--accent-dim);border:1px solid var(--accent-border);font-size:15px;color:#2e3a5c}
+.summe .chips{margin:8px 0 0;gap:6px}
+.summe .chip{font-size:14px;min-height:38px;padding:5px 11px}
 .prgliste .vb{font-size:11px;color:var(--warn);background:var(--warn-soft);border-radius:4px;padding:1px 6px;margin-left:6px;font-weight:400}
 
 /* Schrittkarten */
@@ -235,7 +245,7 @@ function pflicht(sc){
   var a = ablaufVon(sc); if(!a) return [];
   var p = "ablauf:" + a.id + ":";
   if(/:ausl$/.test(sc)) return [p+"ausloeser"];
-  if(/:kette$/.test(sc)) return [p+"schritte"];
+  if(/:kette$/.test(sc)) return [p+"schritte", p+"uebergaenge"];
   if(/:menge$/.test(sc)) return [p+"haeufigkeit", p+"dauer"];
   return [];
 }
@@ -244,7 +254,7 @@ function screenFuer(schluessel){
   if(schluessel === "programme") return "programme";
   if(schluessel === "ablaeufe") return "ablaeufe";
   var m = /^ablauf:([^:]+):(.+)$/.exec(schluessel);
-  if(m) return "a:" + m[1] + ":" + ({ausloeser:"ausl", schritte:"kette", haeufigkeit:"menge", dauer:"menge"}[m[2]] || "ausl");
+  if(m) return "a:" + m[1] + ":" + ({ausloeser:"ausl", schritte:"kette", uebergaenge:"kette", haeufigkeit:"menge", dauer:"menge"}[m[2]] || "ausl");
   return "start";
 }
 
@@ -355,7 +365,19 @@ function baueBetrieb(box){
   var p = stand.betrieb.personen;
   box.appendChild(kacheln(K.PERSONEN, function(v){ return p.auswahl === v; },
     function(v){ p.auswahl = p.auswahl === v ? "" : v; wnAus("betrieb.personen"); geaendert(); }, "c-personen"));
-  box.appendChild(textfeld("f-personen-frei", p.frei, function(v){ p.frei = v; wnAus("betrieb.personen"); }, {zeile:true, platz:"Genauer, z. B. 3 im Büro, 12 auf Baustellen"}));
+  box.appendChild(el("p", {"class":"klein", style:"margin:10px 0 0", text:T("betrieb_davon")}));
+  function zahlfeld(id, feld, text){
+    var n = el("input", {type:"text", id:id, inputmode:"numeric", "aria-label":T("betrieb_davon") + " " + text});
+    n.value = p[feld] || "";
+    n.addEventListener("input", function(){ p[feld] = n.value; wnAus("betrieb.personen"); geaendert(); });
+    return el("label", null, [n, text]);
+  }
+  box.appendChild(el("div", {"class":"davon"}, [zahlfeld("f-personen-buero", "buero", T("betrieb_buero")), zahlfeld("f-personen-draussen", "draussen", T("betrieb_draussen"))]));
+  box.appendChild(el("p", {"class":"klein", style:"margin:10px 0 6px", text:T("betrieb_azubis")}));
+  box.appendChild(kacheln(K.AZUBIS, function(v){ return p.azubis === v; },
+    function(v){ p.azubis = p.azubis === v ? "" : v; geaendert(); }, "c-azubis"));
+  /* Freitext aus Schema 2.0.0 nur zeigen, wenn dort schon etwas steht. */
+  if(voll(p.frei)) box.appendChild(textfeld("f-personen-frei", p.frei, function(v){ p.frei = v; wnAus("betrieb.personen"); }, {zeile:true, platz:"Anmerkung"}));
 }
 
 /* ---------------------------------------------------------------- Programme */
@@ -410,10 +432,25 @@ function baueProgramme(box){
       var w = textfeld("wofuer-" + p.id, p.wofuer, function(v){ p.wofuer = v; }, {zeile:true, platz:T("prog_wofuer"), label:p.name + " " + T("prog_wofuer")});
       var rm = el("button", {"class":"btn rm", type:"button", "aria-label":p.name + " entfernen", text:"×"});
       rm.addEventListener("click", function(){ programmUmschalten(p.name); neu(); });
-      ul.appendChild(el("li", null, [el("span", {"class":"name"}, [p.name, p.herkunft === "vorbelegt" ? el("span", {"class":"vb", text:"vorbelegt"}) : null]), w, rm]));
+      ul.appendChild(el("li", null, [el("span", {"class":"name"}, [p.name, p.herkunft === "vorbelegt" ? el("span", {"class":"vb", text:"vorbelegt"}) : null]), w, rm, rueckfragen(p)]));
     });
+    if(stand.programme.some(function(p){ return C.rueckfragenFuer(p).length; })) box.appendChild(el("p", {"class":"klein", text:T("prog_rueck")}));
     box.appendChild(ul);
   }
+}
+
+/* Rueckfragen am Programm: Kacheln mit "weiss nicht", nur Klick, kein Neuaufbau. */
+function rueckfragen(p){
+  var fr = C.rueckfragenFuer(p);
+  if(!fr.length) return null;
+  if(!p.details) p.details = {};
+  var box = el("div", {"class":"rueck"});
+  fr.forEach(function(r){
+    box.appendChild(el("p", {"class":"rf", text:r.frage[ANREDE]}));
+    box.appendChild(kacheln(r.optionen.concat([K.RUECK_WEISSNICHT]), function(v){ return p.details[r.id] === v; },
+      function(v){ p.details[r.id] = p.details[r.id] === v ? "" : v; geaendert(); }, "c-rf-" + r.id + "-" + p.id));
+  });
+  return box;
 }
 
 /* ---------------------------------------------------------------- Ziel */
@@ -456,8 +493,8 @@ function baueAusloeser(box, a){
   ablaufKopf(box, a, "Auslöser");
   box.appendChild(el("p", {"class":"frage", text:T("ausl_frage")}));
   var x = a.ausloeser, k = "ablauf:" + a.id + ":ausloeser";
-  box.appendChild(kacheln(K.AUSLOESER, function(v){ return x.auswahl === v; },
-    function(v){ x.auswahl = x.auswahl === v ? "" : v; wnAus(k); geaendert(); }, "c-ausl"));
+  box.appendChild(kacheln(K.AUSLOESER, function(v){ return x.kacheln.indexOf(v) >= 0; },
+    function(v){ var i = x.kacheln.indexOf(v); if(i >= 0) x.kacheln.splice(i, 1); else x.kacheln.push(v); wnAus(k); geaendert(); }, "c-ausl"));
   box.appendChild(textfeld("f-ausl-frei", x.frei, function(v){ x.frei = v; wnAus(k); }, {zeile:true, platz:T("frei")}));
 }
 
@@ -465,7 +502,8 @@ function baueAusloeser(box, a){
 function baueKette(box, a){
   ablaufKopf(box, a, "Schritte");
   box.appendChild(el("p", {"class":"frage", text:T("kette_frage")}));
-  var k = "ablauf:" + a.id + ":schritte";
+  box.appendChild(el("p", {"class":"klein", style:"margin:-4px 0 8px", text:T("kette_weiter_hinweis")}));
+  var k = "ablauf:" + a.id + ":schritte", ku = "ablauf:" + a.id + ":uebergaenge";
   if(!a.schritte.length) a.schritte.push(C.neuerSchritt(), C.neuerSchritt());
   box.appendChild(el("details", {"class":"hilfe"}, [el("summary", {text:T("kette_beispiel")}),
     el("ul", null, K.BEISPIEL_KETTE.map(function(b){ return el("li", {text:b}); }))]));
@@ -511,7 +549,7 @@ function baueKette(box, a){
     karte.appendChild(sel); karte.appendChild(frei);
 
     if(!letzter){
-      karte.appendChild(el("label", {text:T("kette_weiter")}));
+      karte.appendChild(el("label", {text:T("kette_weiter") + " " + (i + 2) + "?"}));
       var wz = el("div", {"class":"weiter"});
       var auto = el("input", {type:"text", id:"auto-" + i, placeholder:T("kette_auto_womit"), "class":"frei"});
       auto.value = x.weiter.womit; auto.hidden = x.weiter.art !== "automatisch";
@@ -522,6 +560,7 @@ function baueKette(box, a){
           var id = K.WEITER.filter(function(w){ return w.titel === t; })[0].id;
           x.weiter.art = x.weiter.art === id ? "" : id;
           auto.hidden = x.weiter.art !== "automatisch";
+          wnAus(ku);
           geaendert();
         }, "c-weiter-" + i));
       wz.appendChild(auto);
@@ -545,12 +584,32 @@ function baueMenge(box, a){
   var p = "ablauf:" + a.id + ":";
   box.appendChild(el("p", {"class":"frage", text:T("menge_oft")}));
   box.appendChild(kacheln(K.HAEUFIGKEIT, function(v){ return a.haeufigkeit.auswahl === v; },
-    function(v){ a.haeufigkeit.auswahl = a.haeufigkeit.auswahl === v ? "" : v; wnAus(p+"haeufigkeit"); geaendert(); }, "c-oft"));
-  box.appendChild(textfeld("f-oft-frei", a.haeufigkeit.frei, function(v){ a.haeufigkeit.frei = v; wnAus(p+"haeufigkeit"); }, {zeile:true, platz:T("menge_frei") + ", z. B. 20 Anfragen pro Woche"}));
+    function(v){ a.haeufigkeit.auswahl = a.haeufigkeit.auswahl === v ? "" : v; wnAus(p+"haeufigkeit"); geaendert(); summe(); }, "c-oft"));
+  /* Freitext aus Schema 2.0.0 nur zeigen, wenn dort schon etwas steht. Neu: Zahl pro Woche. */
+  if(voll(a.haeufigkeit.frei)) box.appendChild(textfeld("f-oft-frei", a.haeufigkeit.frei, function(v){ a.haeufigkeit.frei = v; wnAus(p+"haeufigkeit"); }, {zeile:true, platz:T("menge_frei")}));
+  box.appendChild(el("p", {"class":"klein", style:"margin:8px 0 4px", text:T("menge_prowoche")}));
+  var pw = textfeld("f-prowoche", a.haeufigkeit.proWoche, function(v){ a.haeufigkeit.proWoche = v; wnAus(p+"haeufigkeit"); summe(); }, {zeile:true, platz:"z. B. 5 oder 3 bis 6", label:T("menge_prowoche")});
+  pw.setAttribute("inputmode", "decimal"); pw.style.maxWidth = "240px";
+  box.appendChild(pw);
   box.appendChild(el("p", {"class":"frage", text:T("menge_dauer")}));
+  box.appendChild(el("p", {"class":"klein", style:"margin:-4px 0 8px", text:T("menge_dauer_hinweis")}));
   box.appendChild(kacheln(K.DAUER, function(v){ return a.dauer.auswahl === v; },
-    function(v){ a.dauer.auswahl = a.dauer.auswahl === v ? "" : v; wnAus(p+"dauer"); geaendert(); }, "c-dauer"));
+    function(v){ a.dauer.auswahl = a.dauer.auswahl === v ? "" : v; wnAus(p+"dauer"); geaendert(); summe(); }, "c-dauer"));
   box.appendChild(textfeld("f-dauer-frei", a.dauer.frei, function(v){ a.dauer.frei = v; wnAus(p+"dauer"); }, {zeile:true, platz:T("menge_frei")}));
+  /* Rueckrechnung auf die Woche, damit "pro Vorgang" und "pro Woche" nicht verwechselt werden. */
+  var sm = el("div", {"class":"summe", id:"menge-summe"});
+  var smText = el("div", {id:"menge-summe-text"});
+  sm.appendChild(smText);
+  sm.appendChild(el("p", {"class":"klein", style:"margin:8px 0 0", text:T("menge_passt")}));
+  sm.appendChild(kacheln(K.MENGE_PASST, function(v){ return a.mengePasst === v; },
+    function(v){ a.mengePasst = a.mengePasst === v ? "" : v; geaendert(); }, "c-passt"));
+  box.appendChild(sm);
+  function summe(){
+    var w = C.wochenStunden(a);
+    sm.hidden = !w;
+    smText.textContent = w ? T("menge_summe") + " " + C.stundenText(w) + "." : "";
+  }
+  summe();
 }
 
 function baueAerger(box, a){
@@ -652,7 +711,9 @@ function bauePruefen(box){
   }
   ablaeufeMitName().forEach(function(a){
     var leer = !a.schritte.some(function(x){ return voll(x.was); });
+    var w = C.wochenStunden(a);
     box.appendChild(el("div", {"class":"pruefabl"}, [el("h3", {text:a.name}), leer ? el("p", {"class":"klein", text:"noch keine Schritte"}) : kettenAnsicht(a),
+      w ? el("p", {"class":"klein", style:"margin:2px 0 0", text:"ca. " + C.stundenText(w)}) : null,
       el("button", {"class":"btn leise", type:"button", text:"bearbeiten", on:{click:function(){ gehe("a:" + a.id + ":kette"); }}})]));
   });
   var xb = C.extraBeantwortet(stand).length;
@@ -698,7 +759,7 @@ function dateiLaden(ev){
   var f = ev.target.files && ev.target.files[0]; ev.target.value = ""; if(!f) return;
   f.text().then(function(t){
     var d = JSON.parse(t.replace(/^﻿/, ""));
-    if(!d || d.schemaVersion !== K.SCHEMA_VERSION) throw new Error("version");
+    if(!d || K.SCHEMA_VERSIONEN_OK.indexOf(d.schemaVersion) < 0) throw new Error("version");
     if(d.questionnaireId && d.questionnaireId !== CFG.kennung) throw new Error("kennung");
     var s = d.stand || d;
     stand = C.normalisieren({betrieb:s.betrieb, programme:s.programme, ziel:s.ziel, ablaeufe:s.ablaeufe, nochEtwas:s.nochEtwas, weissNicht:s.weissNicht});

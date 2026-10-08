@@ -5,7 +5,9 @@
 //                     zurueckgeben (Kennung, Kunde, Vorbelegung, Fristen).
 //   aktion "senden":  Antworten entgegennehmen, lesbare Zusammenfassung plus
 //                     JSON-Anhang an 360ai, Kopie an den Kunden.
-//                     Schema 2.0.0: Ablaeufe als Kette, Programmkarte.
+//                     Schema 2.1.0: Ablaeufe als Kette, Programmkarte,
+//                     Rueckfragen am Programm, Hochrechnung pro Woche.
+//                     2.0.0 wird weiter angenommen (normalisieren).
 //
 // Es wird NICHTS gespeichert. Alles, was die Seite braucht, steckt signiert im
 // Link (#t=...). Den Link erzeugt _vorbereitung-link.mjs mit demselben
@@ -145,7 +147,7 @@ async function mengeOk(schluessel: string, max: number, sekunden: number): Promi
 }
 
 // ---------------------------------------------------------------------------
-// Lesbare Zusammenfassung (Schema 2.0.0)
+// Lesbare Zusammenfassung (Schema 2.1.0)
 // ---------------------------------------------------------------------------
 
 function esc(v: unknown): string {
@@ -174,6 +176,26 @@ function wahl(x: Any): string {
   return [x?.auswahl, x?.frei].filter(voll).map((s: string) => String(s).trim()).join(", ");
 }
 
+// Personen: Groesse, davon Buero und draussen, Azubis, Anmerkung
+function personenText(x: Any): string {
+  return [x?.auswahl, voll(x?.buero) ? `${String(x.buero).trim()} im Büro` : "",
+    voll(x?.draussen) ? `${String(x.draussen).trim()} draußen` : "",
+    voll(x?.azubis) ? `Azubis mitgezählt: ${x.azubis}` : "", x?.frei].filter(voll).map((t: string) => String(t).trim()).join(", ");
+}
+// Wie oft: Kachel, Zahl pro Woche, alter Freitext
+function oftText(x: Any): string {
+  return [x?.auswahl, voll(x?.proWoche) ? `${String(x.proWoche).trim()} pro Woche` : "", x?.frei]
+    .filter(voll).map((t: string) => String(t).trim()).join(", ");
+}
+function hochrechnung(a: Any): string {
+  const w = C.wochenStunden(a);
+  if (!w) return "";
+  return `ca. ${C.stundenText(w)}${voll(a.mengePasst) ? ` (Kunde: ${a.mengePasst})` : ""}`;
+}
+function rueckText(x: Any): string {
+  return x.antworten.map((r: Any) => `${r.kurz}: ${r.wert}`).join(", ");
+}
+
 const H2 = `style="font-size:16px;margin:26px 0 6px;color:#1a1a2e"`;
 const KLEIN = `style="font-size:12px;color:#6b7080"`;
 const MARK_VB = ` <span style="font-size:11px;color:#8a4b12;background:#FBF3E8;padding:1px 5px;border-radius:4px">vorbelegt, nicht bestätigt</span>`;
@@ -188,7 +210,7 @@ function schluesselText(doc: Any, k: string): string {
   const m = /^ablauf:([^:]+):(.+)$/.exec(k);
   if (m) {
     const a = (doc.ablaeufe || []).find((x: Any) => x.id === m[1]);
-    const teil: Record<string, string> = { ausloeser: "Auslöser", schritte: "Schritte", haeufigkeit: "wie oft", dauer: "wie lange", aerger: "was nervt" };
+    const teil: Record<string, string> = { ausloeser: "Auslöser", schritte: "Schritte", uebergaenge: "Übergänge", haeufigkeit: "wie oft", dauer: "wie lange", aerger: "was nervt" };
     return `${a ? a.name : "Ablauf"}: ${teil[m[2]] || m[2]}`;
   }
   return k;
@@ -196,7 +218,7 @@ function schluesselText(doc: Any, k: string): string {
 
 function zuKlaeren(doc: Any): string[] {
   const p: string[] = [];
-  const l = C.luecken(doc);
+  const l = C.luecken(doc).filter((x: Any) => !/:uebergaenge$/.test(x.schluessel));
   if (l.length) p.push(`<b>Fehlt:</b> ${l.map((x: Any) => esc(x.text)).join("; ")}`);
   const wn = (doc.weissNicht || []) as string[];
   if (wn.length) p.push(`<b>Weiß ich nicht:</b> ${wn.map((k) => esc(schluesselText(doc, k))).join("; ")}`);
@@ -223,6 +245,11 @@ function zuKlaeren(doc: Any): string[] {
     });
   });
   if (ohneWomit.length) p.push(`<b>Womit fehlt:</b> ${ohneWomit.join("; ")}`);
+  const rf = C.rueckfragenStand(doc).filter((x: Any) => x.offen.length);
+  if (rf.length) p.push(`<b>Programm offen:</b> ${rf.map((x: Any) => `${esc(x.name)} (${esc(x.offen.join(", "))})`).join("; ")}`);
+  const menge = (doc.ablaeufe || []).filter((a: Any) => a.mengePasst === "eher mehr" || a.mengePasst === "eher weniger")
+    .map((a: Any) => `${esc(a.name)}: Hochrechnung ${esc(C.stundenText(C.wochenStunden(a)))}, Kunde sagt ${esc(a.mengePasst)}`);
+  if (menge.length) p.push(`<b>Menge prüfen:</b> ${menge.join("; ")}`);
   return p;
 }
 
@@ -230,6 +257,7 @@ const ART_FARBE: Record<string, [string, string]> = {
   automatisch: ["#EAF5F3", "#2f6b66"],
   abgetippt: ["#FBF3E8", "#8a4b12"],
   weitergeleitet: ["#FBF3E8", "#8a4b12"],
+  uebergeben: ["#FBF3E8", "#8a4b12"],
 };
 function artText(art: string): string {
   const w = K.WEITER.find((x: Any) => x.id === art);
@@ -242,7 +270,7 @@ function programmkarteHtml(doc: Any): string {
   const td = `style="padding:5px 8px 5px 0;border-top:1px solid #E4E8F0;vertical-align:top"`;
   const zeilen = paare.map((x: Any) => {
     const [bg, fg] = ART_FARBE[x.art] || ["#F0F3FA", "#3d4b70"];
-    const hinweis = x.art === "abgetippt" || x.art === "weitergeleitet" ? " · <b>Ansatzpunkt</b>" : "";
+    const hinweis = x.art === "abgetippt" || x.art === "weitergeleitet" || x.art === "uebergeben" ? " · <b>Ansatzpunkt</b>" : "";
     return `<tr><td ${td}>${esc(x.von)}</td>
 <td ${td}><span style="background:${bg};color:${fg};padding:2px 6px;border-radius:4px;font-size:12px">${esc(artText(x.art))}${x.womit ? " (" + esc(x.womit) + ")" : ""}</span>${hinweis}</td>
 <td ${td}>${esc(x.nach)}</td>
@@ -264,10 +292,10 @@ function ablaufHtml(a: Any, doc: Any, intern: boolean): string {
   const zeile = (k: string, v: string) => v ? `<div style="margin:2px 0"><span style="color:#6b7080">${k}:</span> ${v}</div>` : "";
   const aerger = [...(a.aerger?.kacheln || []), a.aerger?.frei].filter(voll).map((s: string) => esc(s)).join(", ");
   return `<h3 style="font-size:15px;margin:20px 0 4px">${esc(a.name || "(ohne Namen)")}${intern && a.herkunft === "vorbelegt" ? MARK_VB : ""}</h3>
-<div style="font-size:14px">${zeile("Los geht es mit", esc(wahl(a.ausloeser)))}
+<div style="font-size:14px">${zeile("Los geht es mit", esc(C.ausloeserText(a)))}
 ${sch.length ? `<ol style="margin:6px 0 6px;padding-left:22px">${liste}</ol>` : `<div style="color:#8c2020">Keine Schritte beschrieben.</div>`}
 ${sch.length > 1 ? `<div ${KLEIN}>Kurz: ${esc(C.ketteText(a, doc.programme || []))}</div>` : ""}
-${zeile("Wie oft", esc(wahl(a.haeufigkeit)))}${zeile("Dauer je Vorgang", esc(wahl(a.dauer)))}${zeile("Was nervt", aerger)}</div>`;
+${zeile("Wie oft", esc(oftText(a.haeufigkeit)))}${zeile("Dauer je Vorgang", esc(wahl(a.dauer)))}${zeile("Hochgerechnet", esc(hochrechnung(a)))}${zeile("Was nervt", aerger)}</div>`;
 }
 
 // Gespraechsbogen-Punkte: was die Extra-Runde schon beantwortet hat, was im Termin offen bleibt.
@@ -294,9 +322,13 @@ function zusammenfassung(doc: Any, intern: boolean): string {
   h += (doc.ablaeufe || []).length
     ? doc.ablaeufe.map((a: Any) => ablaufHtml(a, doc, intern)).join("")
     : `<p style="color:#8c2020">Kein Ablauf beschrieben.</p>`;
-  h += `<h2 ${H2}>Betrieb</h2><div style="font-size:14px">${nl(doc.betrieb?.taetigkeit) || "<i>keine Angabe</i>"}${intern && doc.betrieb?.herkunft === "vorbelegt" ? MARK_VB : ""}<br><span style="color:#6b7080">Personen:</span> ${esc(wahl(doc.betrieb?.personen)) || "<i>keine Angabe</i>"}</div>`;
-  const pr = (doc.programme || []).map((x: Any) =>
-    `<li>${esc(x.name)}${voll(x.wofuer) ? ` <span style="color:#6b7080">· ${esc(x.wofuer)}</span>` : ""}${intern && x.herkunft === "vorbelegt" ? MARK_VB : ""}</li>`).join("");
+  h += `<h2 ${H2}>Betrieb</h2><div style="font-size:14px">${nl(doc.betrieb?.taetigkeit) || "<i>keine Angabe</i>"}${intern && doc.betrieb?.herkunft === "vorbelegt" ? MARK_VB : ""}<br><span style="color:#6b7080">Personen:</span> ${esc(personenText(doc.betrieb?.personen)) || "<i>keine Angabe</i>"}</div>`;
+  const rueck = new Map(C.rueckfragenStand(doc).map((x: Any) => [x.name, x]));
+  const pr = (doc.programme || []).map((x: Any) => {
+    const r: Any = rueck.get(x.name);
+    const details = r && r.antworten.length ? `<br><span style="font-size:12px;color:#3d4b70">${esc(rueckText(r))}</span>` : "";
+    return `<li style="margin:3px 0">${esc(x.name)}${voll(x.wofuer) ? ` <span style="color:#6b7080">· ${esc(x.wofuer)}</span>` : ""}${intern && x.herkunft === "vorbelegt" ? MARK_VB : ""}${details}</li>`;
+  }).join("");
   h += `<h2 ${H2}>Programme</h2>${pr ? `<ul style="margin:0;padding-left:18px;font-size:14px">${pr}</ul>` : "<i>keine Angabe</i>"}`;
   const ziel = [nl(doc.ziel?.text), (doc.ziel?.kacheln || []).length ? `<span style="color:#6b7080">Richtung:</span> ${esc(doc.ziel.kacheln.join(", "))}` : ""].filter(Boolean).join("<br>");
   h += `<h2 ${H2}>Ziel</h2><div style="font-size:14px">${ziel || "<i>keine Angabe</i>"}</div>`;
@@ -309,11 +341,15 @@ function zusammenfassung(doc: Any, intern: boolean): string {
 function textFassung(doc: Any): string {
   const z: string[] = [];
   for (const a of doc.ablaeufe || []) {
-    z.push(`\n== ${a.name} ==`, `Los geht es mit: ${wahl(a.ausloeser)}`, C.ketteText(a, doc.programme || []),
-      `Wie oft: ${wahl(a.haeufigkeit)} | Dauer: ${wahl(a.dauer)}`);
+    z.push(`\n== ${a.name} ==`, `Los geht es mit: ${C.ausloeserText(a)}`, C.ketteText(a, doc.programme || []),
+      `Wie oft: ${oftText(a.haeufigkeit)} | Dauer: ${wahl(a.dauer)}${hochrechnung(a) ? ` | Hochgerechnet: ${hochrechnung(a)}` : ""}`);
   }
-  z.push(`\n== Betrieb ==`, String(doc.betrieb?.taetigkeit || ""), `Personen: ${wahl(doc.betrieb?.personen)}`);
-  z.push(`\n== Programme ==`, (doc.programme || []).map((x: Any) => x.name + (voll(x.wofuer) ? ` (${x.wofuer})` : "")).join(", "));
+  z.push(`\n== Betrieb ==`, String(doc.betrieb?.taetigkeit || ""), `Personen: ${personenText(doc.betrieb?.personen)}`);
+  const rueck = new Map(C.rueckfragenStand(doc).map((x: Any) => [x.name, x]));
+  z.push(`\n== Programme ==`, ...(doc.programme || []).map((x: Any) => {
+    const r: Any = rueck.get(x.name);
+    return x.name + (voll(x.wofuer) ? ` (${x.wofuer})` : "") + (r && r.antworten.length ? ` [${rueckText(r)}]` : "");
+  }));
   if (voll(doc.ziel?.text)) z.push(`\n== Ziel ==`, String(doc.ziel.text));
   const ex = C.extraBeantwortet(doc);
   if (ex.length) z.push(`\n== Extra-Runde ==`, ...ex.map((x: Any) => `${x.titel}: ${x.wert}`));

@@ -8,8 +8,9 @@ require("../vorbereitung-fragen.js");
 const K = globalThis.VB2;
 
 test("Katalog: Versionen und Schalter", () => {
-  assert.equal(K.SCHEMA_VERSION, "2.0.0");
-  assert.equal(K.QUESTIONNAIRE_VERSION, "2026-10-v2");
+  assert.equal(K.SCHEMA_VERSION, "2.1.0");
+  assert.equal(K.QUESTIONNAIRE_VERSION, "2026-10-v2.1");
+  assert.deepEqual(K.SCHEMA_VERSIONEN_OK, ["2.0.0","2.1.0"]);
   assert.equal(K.FOTOS_AKTIV, false);
 });
 test("Katalog: jeder Text hat Du und Sie", () => {
@@ -19,7 +20,7 @@ test("Katalog: keine Gedankenstriche", () => {
   assert.ok(!/[–—]/.test(JSON.stringify(K)), "Gedankenstrich gefunden");
 });
 test("Katalog: Kachel-Listen vollstaendig", () => {
-  assert.deepEqual(K.WEITER.map(w => w.id), ["automatisch","abgetippt","weitergeleitet","bescheid","weissnicht"]);
+  assert.deepEqual(K.WEITER.map(w => w.id), ["automatisch","abgetippt","weitergeleitet","uebergeben","bescheid","weissnicht"]);
   assert.equal(K.HAEUFIGKEIT.length, 6);
   assert.equal(K.DAUER.length, 6);
   assert.ok(K.PROGRAMM_BEREICHE.length >= 7);
@@ -105,7 +106,7 @@ test("Dokument: Huelle, Revision, leere Zeilen raus", () => {
   s.ablaeufe.push(C.neuerAblauf(""));
   const meta = { kennung:"T-1", kunde:"Test", anrede:"du", createdAt:"2026-10-03T10:00:00Z", lastSubmissionId:null, lastRevision:-1 };
   const d = C.dokument(s, meta);
-  assert.equal(d.schemaVersion, "2.0.0"); assert.equal(d.questionnaireId, "T-1");
+  assert.equal(d.schemaVersion, "2.1.0"); assert.equal(d.questionnaireId, "T-1");
   assert.equal(d.revision, 0); assert.equal(d.anrede, "du");
   assert.equal(d.ablaeufe.length, 1); assert.equal(d.ablaeufe[0].schritte.length, 3);
 });
@@ -154,4 +155,114 @@ test("Extra-Runde: normalisieren ergaenzt fehlendes extra", () => {
 test("Katalog: Extra-Runde mit Texten und Kacheln", () => {
   for (const k of ["extra_titel","extra_text","extra_ja","extra_nein","x_betreut","x_einmal","x_grenzen"]) assert.ok(K.TEXTE[k], k);
   assert.ok(K.EXTRA.EINMAL.includes("noch offen")); assert.ok(K.EXTRA.DATEN.includes("Gesundheitsdaten"));
+});
+
+// ---------------------------------------------------------------- v2.1 (Reitter-Ruecklauf 08.10.)
+test("Uebergaenge: offene werden als Luecke gemeldet, weissNicht erfuellt", () => {
+  const s = beispiel(); const a = s.ablaeufe[0];
+  a.schritte[0].weiter.art = "";
+  assert.deepEqual(C.uebergaengeOffen(a), [0]);
+  const k = `ablauf:${a.id}:uebergaenge`;
+  assert.ok(C.luecken(s).map(x => x.schluessel).includes(k));
+  s.weissNicht.push(k);
+  assert.ok(!C.luecken(s).map(x => x.schluessel).includes(k));
+});
+test("Uebergaenge: bei weniger als zwei Schritten keine Extra-Luecke", () => {
+  const s = beispiel(); const a = s.ablaeufe[0]; a.schritte.splice(1);
+  assert.ok(!C.luecken(s).map(x => x.schluessel).includes(`ablauf:${a.id}:uebergaenge`));
+});
+test("Kette: neuer Uebergang 'uebergeben'", () => {
+  const s = beispiel(); s.ablaeufe[0].schritte[0].weiter.art = "uebergeben";
+  assert.match(C.ketteText(s.ablaeufe[0], s.programme), /^Lead kommt rein \(Telefon\) → übergeben →/);
+});
+test("Ausloeser: Mehrfachauswahl, alte Einzelauswahl wird uebernommen", () => {
+  const d = { betrieb:{}, programme:[], ablaeufe:[{ name:"A", ausloeser:{ auswahl:"Anruf", frei:"" }, schritte:[] }] };
+  C.normalisieren(d);
+  assert.deepEqual(d.ablaeufe[0].ausloeser.kacheln, ["Anruf"]);
+  assert.equal(d.ablaeufe[0].ausloeser.auswahl, "");
+  d.ablaeufe[0].ausloeser.kacheln.push("E-Mail"); d.ablaeufe[0].ausloeser.frei = "Website";
+  assert.equal(C.ausloeserText(d.ablaeufe[0]), "Anruf, E-Mail, Website");
+  const s = beispiel(); const a = s.ablaeufe[0];
+  a.ausloeser.auswahl = ""; a.ausloeser.kacheln = ["E-Mail"];
+  assert.ok(!C.luecken(s).map(x => x.schluessel).includes(`ablauf:${a.id}:ausloeser`));
+});
+test("Menge: Hochrechnung pro Woche aus Kacheln und Zahl", () => {
+  const a = C.neuerAblauf("X");
+  assert.equal(C.wochenStunden(a), null);
+  a.haeufigkeit.auswahl = "täglich"; a.dauer.auswahl = "30 bis 60 Min";
+  assert.deepEqual(C.wochenStunden(a), { von:2.5, bis:5 });
+  assert.equal(C.stundenText(C.wochenStunden(a)), "2,5 bis 5 Std. pro Woche");
+  a.haeufigkeit.proWoche = "3"; a.dauer.auswahl = "1 bis 2 Std";
+  assert.equal(C.stundenText(C.wochenStunden(a)), "3 bis 6 Std. pro Woche");
+  a.haeufigkeit.proWoche = "2 bis 4"; a.dauer.auswahl = "5 bis 15 Min";
+  assert.equal(C.stundenText(C.wochenStunden(a)), "10 bis 60 Min. pro Woche");
+  a.dauer.auswahl = "länger";
+  assert.equal(C.wochenStunden(a), null);
+});
+test("Menge: Zahl pro Woche reicht als Angabe zu wie oft", () => {
+  const s = beispiel(); const a = s.ablaeufe[0];
+  a.haeufigkeit.auswahl = ""; a.haeufigkeit.proWoche = "5";
+  assert.ok(!C.luecken(s).map(x => x.schluessel).includes(`ablauf:${a.id}:haeufigkeit`));
+});
+test("Personen: Buero und draussen reichen als Angabe", () => {
+  const s = beispiel(); s.betrieb.personen.auswahl = ""; s.betrieb.personen.buero = "1";
+  assert.ok(!C.luecken(s).map(x => x.schluessel).includes("betrieb.personen"));
+});
+test("Rueckfragen: richtige Fragen je Programm", () => {
+  const ids = n => C.rueckfragenFuer(C.neuesProgramm(...n)).map(r => r.id);
+  assert.deepEqual(ids(["Outlook"]), ["postfach","gemeinsam"]);
+  assert.deepEqual(ids(["Apple Mail"]), ["postfach","gemeinsam"]);
+  assert.deepEqual(ids(["GMX","","kunde","mail"]), ["postfach","gemeinsam"]);
+  assert.deepEqual(ids(["Excel"]), ["office"]);
+  assert.deepEqual(ids(["Excel-Listen"]), []);
+  assert.deepEqual(ids(["Google Drive"]), ["googlekonto"]);
+  assert.deepEqual(ids(["ChatGpt"]), ["kiversion","kiwer"]);
+  assert.deepEqual(ids(["Zapier"]), ["automationen"]);
+  assert.deepEqual(ids(["Hero","","kunde","kunden"]), ["laeuft"]);
+  assert.deepEqual(ids(["Excellent P.2","","vorbelegt"]), ["laeuft"]);
+  assert.deepEqual(ids(["HubSpot"]), []);
+  assert.deepEqual(ids(["WhatsApp"]), []);
+  assert.deepEqual(ids(["Canva","","kunde","sonst"]), []);
+});
+test("Rueckfragen: Stand mit beantworteten und offenen", () => {
+  const s = C.leererStand();
+  const o = C.neuesProgramm("Outlook"); o.details.postfach = "Microsoft 365 (Firmenkonto)"; o.details.gemeinsam = K.RUECK_WEISSNICHT;
+  const c = C.neuesProgramm("Claude"); const w = C.neuesProgramm("WhatsApp");
+  s.programme.push(o, c, w);
+  assert.deepEqual(C.rueckfragenStand(s), [
+    { name:"Outlook", antworten:[{ kurz:"Postfach", wert:"Microsoft 365 (Firmenkonto)" }], offen:["Gemeinsames Postfach"] },
+    { name:"Claude", antworten:[], offen:["Version","Nutzung"] }
+  ]);
+});
+test("Normalisieren: eigener Eintrag mit passender Kachel wird zugeordnet", () => {
+  const d = { betrieb:{}, programme:[{ name:"ChatGpt", quelle:"frei", bereich:"sonst" }, { name:"Canva", quelle:"frei", bereich:"sonst" }], ablaeufe:[] };
+  C.normalisieren(d);
+  assert.deepEqual([d.programme[0].name, d.programme[0].quelle, d.programme[0].bereich], ["ChatGPT","kachel","ki"]);
+  assert.equal(d.programme[1].quelle, "frei");
+});
+test("Rueckfragen: alte Programme ohne details werden ergaenzt", () => {
+  const d = { betrieb:{}, programme:[{ name:"Outlook", quelle:"kachel", bereich:"mail" }], ablaeufe:[] };
+  C.normalisieren(d);
+  assert.deepEqual(d.programme[0].details, {});
+  assert.doesNotThrow(() => C.rueckfragenStand(d));
+});
+test("Pruefung: Dokumente nach Schema 2.0.0 werden weiter angenommen", () => {
+  const d = C.dokument(beispiel(), { kennung:"T-1", kunde:"Test", anrede:"sie", createdAt:"x", lastSubmissionId:null, lastRevision:-1 });
+  d.schemaVersion = "2.0.0";
+  assert.deepEqual(C.pruefen(d, "T-1"), []);
+  d.schemaVersion = "1.0.0";
+  assert.ok(C.pruefen(d, "T-1").length);
+});
+test("Reitter-Ruecklauf 08.10. laeuft durch und meldet die offenen Uebergaenge", async () => {
+  const fs = await import("node:fs");
+  // Kundendaten liegen nicht in jedem Checkout (Worktree): Pfad dann per VB_REITTER setzen.
+  const pfad = process.env.VB_REITTER || new URL("../../../../Kunden/Reitter/Projekte/KI-Beratung/REITTER-2026-10-09_r0.json", import.meta.url);
+  if (!fs.existsSync(pfad)) return;
+  const d = C.normalisieren(JSON.parse(fs.readFileSync(pfad, "utf8")));
+  const l = C.luecken(d).map(x => x.schluessel);
+  assert.equal(l.filter(k => k.endsWith(":uebergaenge")).length, 3);
+  assert.equal(d.ablaeufe[0].ausloeser.kacheln[0], "Anruf");
+  assert.equal(C.stundenText(C.wochenStunden(d.ablaeufe[1])), "2,5 bis 5 Std. pro Woche");
+  const offen = C.rueckfragenStand(d).map(x => x.name);
+  for (const n of ["Outlook","Word","Google Drive","Claude","ChatGPT","Excellent P.2 (UNI-Electronic)"]) assert.ok(offen.includes(n), n);
 });

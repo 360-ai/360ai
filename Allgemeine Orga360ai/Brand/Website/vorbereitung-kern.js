@@ -57,7 +57,7 @@ function extraBeantwortet(s){
                      .filter(function(x){ return voll(x.wert); });
 }
 function leererStand(){
-  return { betrieb:{taetigkeit:"", personen:{auswahl:"", frei:""}, herkunft:"kunde"},
+  return { betrieb:{taetigkeit:"", personen:{auswahl:"", frei:"", buero:"", draussen:"", azubis:""}, herkunft:"kunde"},
            programme:[], ziel:{text:"", kacheln:[]}, ablaeufe:[], nochEtwas:"", weissNicht:[],
            extra:leeresExtra() };
 }
@@ -65,15 +65,15 @@ function leererStand(){
 function neuesProgramm(name, wofuer, herkunft, bereich){
   var k = kachelZu(name);
   return {id:id("prg"), name:k ? k.name : String(name || "").trim(), quelle:k ? "kachel" : "frei",
-          bereich:k ? k.bereich : (bereich || ""), wofuer:wofuer || "", herkunft:herkunft || "kunde"};
+          bereich:k ? k.bereich : (bereich || ""), wofuer:wofuer || "", herkunft:herkunft || "kunde", details:{}};
 }
 function neuerSchritt(){
   return {id:id("stp"), was:"", womit:{programmId:"", art:"", frei:""}, weiter:{art:"", womit:""}};
 }
 function neuerAblauf(name, herkunft){
   return {id:id("abl"), name:name || "", herkunft:herkunft || "kunde",
-          ausloeser:{auswahl:"", frei:""}, schritte:[], haeufigkeit:{auswahl:"", frei:""},
-          dauer:{auswahl:"", frei:""}, aerger:{kacheln:[], frei:""}, bilder:[]};
+          ausloeser:{kacheln:[], auswahl:"", frei:""}, schritte:[], haeufigkeit:{auswahl:"", frei:"", proWoche:""},
+          dauer:{auswahl:"", frei:""}, mengePasst:"", aerger:{kacheln:[], frei:""}, bilder:[]};
 }
 function prefillAnwenden(s, p){
   if(!p) return s;
@@ -98,9 +98,21 @@ function normalisieren(d){
   if(!Array.isArray(d.ablaeufe)) d.ablaeufe = [];
   if(!Array.isArray(d.weissNicht)) d.weissNicht = [];
   d.programme = d.programme.filter(function(p){ return p && typeof p === "object"; });
+  d.programme.forEach(function(p){
+    if(!p.details || typeof p.details !== "object" || Array.isArray(p.details)) p.details = {};
+    /* Eigener Eintrag, fuer den es inzwischen eine Kachel gibt (z. B. ChatGPT seit v2.1): zuordnen. */
+    var k = p.quelle === "frei" ? kachelZu(p.name) : null;
+    if(k){ p.quelle = "kachel"; p.bereich = k.bereich; p.name = k.name; }
+  });
   d.ablaeufe = d.ablaeufe.filter(function(a){ return a && typeof a === "object"; });
   d.ablaeufe.forEach(function(a){
     var std = neuerAblauf(""); delete std.id; mitStandard(a, std);
+    if(!Array.isArray(a.ausloeser.kacheln)) a.ausloeser.kacheln = [];
+    /* Schema 2.0.0 hatte nur eine Auswahl: in die Mehrfachauswahl uebernehmen. */
+    if(voll(a.ausloeser.auswahl)){
+      if(a.ausloeser.kacheln.indexOf(a.ausloeser.auswahl) < 0) a.ausloeser.kacheln.push(a.ausloeser.auswahl);
+      a.ausloeser.auswahl = "";
+    }
     if(!Array.isArray(a.schritte)) a.schritte = [];
     a.schritte = a.schritte.filter(function(x){ return x && typeof x === "object"; });
     a.schritte.forEach(function(x){ var ss = neuerSchritt(); delete ss.id; mitStandard(x, ss); });
@@ -114,18 +126,80 @@ function luecken(s){
   var l = [];
   function fehlt(k, text){ if(!istWN(s, k)) l.push({schluessel:k, text:text}); }
   if(!voll(s.betrieb.taetigkeit)) fehlt("betrieb.taetigkeit", "Was der Betrieb macht");
-  if(!voll(s.betrieb.personen.auswahl) && !voll(s.betrieb.personen.frei)) fehlt("betrieb.personen", "Wie viele Personen");
+  var ps = s.betrieb.personen;
+  if(!voll(ps.auswahl) && !voll(ps.frei) && !voll(ps.buero) && !voll(ps.draussen)) fehlt("betrieb.personen", "Wie viele Personen");
   if(!s.programme.length) fehlt("programme", "Programme");
   var mitName = s.ablaeufe.filter(function(a){ return voll(a.name); });
   if(!mitName.length) fehlt("ablaeufe", "Mindestens ein Ablauf");
   mitName.forEach(function(a){
     var p = "ablauf:" + a.id + ":";
-    if(!voll(a.ausloeser.auswahl) && !voll(a.ausloeser.frei)) fehlt(p+"ausloeser", a.name + ": Auslöser");
+    if(!a.ausloeser.kacheln.length && !voll(a.ausloeser.auswahl) && !voll(a.ausloeser.frei)) fehlt(p+"ausloeser", a.name + ": Auslöser");
     if(a.schritte.filter(function(x){ return voll(x.was); }).length < 2) fehlt(p+"schritte", a.name + ": mindestens zwei Schritte");
-    if(!voll(a.haeufigkeit.auswahl) && !voll(a.haeufigkeit.frei)) fehlt(p+"haeufigkeit", a.name + ": wie oft");
+    else if(uebergaengeOffen(a).length) fehlt(p+"uebergaenge", a.name + ": wie es von Schritt zu Schritt weitergeht");
+    if(!voll(a.haeufigkeit.auswahl) && !voll(a.haeufigkeit.frei) && !voll(a.haeufigkeit.proWoche)) fehlt(p+"haeufigkeit", a.name + ": wie oft");
     if(!voll(a.dauer.auswahl) && !voll(a.dauer.frei)) fehlt(p+"dauer", a.name + ": wie lange");
   });
   return l;
+}
+
+/* Schritte (mit Inhalt), nach denen der Uebergang nicht angegeben ist. Der letzte hat keinen. */
+function uebergaengeOffen(a){
+  var sch = schritteMitInhalt(a), l = [];
+  for(var i=0;i<sch.length-1;i++) if(!voll(sch[i].weiter.art)) l.push(i);
+  return l;
+}
+
+/* ---------------------------------------------------------------- Menge */
+function zahlen(v){
+  var m = String(v || "").replace(/,/g, ".").match(/\d+(\.\d+)?/g);
+  return m ? m.map(Number).filter(function(n){ return n > 0; }) : [];
+}
+/* Hochrechnung Stunden pro Woche aus wie oft und Dauer je Vorgang. null, wenn zu ungenau. */
+function wochenStunden(a){
+  var oft = null, n = zahlen(a.haeufigkeit.proWoche);
+  if(n.length) oft = [n[0], n[n.length > 1 ? 1 : 0]];
+  else if(K.HAEUFIGKEIT_PRO_WOCHE[a.haeufigkeit.auswahl]) oft = K.HAEUFIGKEIT_PRO_WOCHE[a.haeufigkeit.auswahl];
+  var min = K.DAUER_MINUTEN[a.dauer.auswahl] || null;
+  if(!oft || !min) return null;
+  return {von:oft[0] * min[0] / 60, bis:oft[1] * min[1] / 60};
+}
+function zahlText(x){ return String(Math.round(x * 10) / 10).replace(".", ","); }
+function stundenText(w){
+  if(!w) return "";
+  if(w.bis <= 1){
+    var a = Math.max(1, Math.round(w.von * 60)), b = Math.max(1, Math.round(w.bis * 60));
+    return (a === b ? a : a + " bis " + b) + " Min. pro Woche";
+  }
+  var v = zahlText(w.von), z = zahlText(w.bis);
+  return (v === z ? v : v + " bis " + z) + " Std. pro Woche";
+}
+function ausloeserText(a){
+  var x = a.ausloeser, l = (x.kacheln || []).slice();
+  if(voll(x.auswahl) && l.indexOf(x.auswahl) < 0) l.push(x.auswahl);
+  if(voll(x.frei)) l.push(String(x.frei).trim());
+  return l.join(", ");
+}
+
+/* ---------------------------------------------------------------- Rueckfragen am Programm */
+function rueckfragenFuer(p){
+  return K.RUECKFRAGEN.filter(function(r){
+    if(r.bereiche && r.bereiche.indexOf(p.bereich) >= 0) return true;
+    if(r.namen && p.quelle === "kachel" && r.namen.indexOf(p.name) >= 0) return true;
+    if(r.frei && p.quelle === "frei" && r.frei.indexOf(p.bereich || "") >= 0) return true;
+    return false;
+  });
+}
+/* Je Programm: beantwortete und offene Rueckfragen ("weiss nicht" zaehlt als offen). */
+function rueckfragenStand(s){
+  return s.programme.map(function(p){
+    var fr = rueckfragenFuer(p), d = p.details || {};
+    return {
+      name:p.name,
+      antworten:fr.filter(function(r){ return voll(d[r.id]) && d[r.id] !== K.RUECK_WEISSNICHT; })
+                  .map(function(r){ return {kurz:r.kurz, wert:d[r.id]}; }),
+      offen:fr.filter(function(r){ return !voll(d[r.id]) || d[r.id] === K.RUECK_WEISSNICHT; }).map(function(r){ return r.kurz; })
+    };
+  }).filter(function(x){ return x.antworten.length || x.offen.length; });
 }
 
 /* ---------------------------------------------------------------- Kette */
@@ -137,7 +211,7 @@ function womitName(w, programme){
   }
   return "";
 }
-var WEITER_KURZ = {automatisch:"automatisch", abgetippt:"abgetippt", weitergeleitet:"weitergeleitet",
+var WEITER_KURZ = {automatisch:"automatisch", abgetippt:"abgetippt", weitergeleitet:"weitergeleitet", uebergeben:"übergeben",
                    bescheid:"Bescheid gesagt", weissnicht:"?"};
 function weiterKurz(art){ return WEITER_KURZ[art] || ""; }
 function schritteMitInhalt(a){ return a.schritte.filter(function(x){ return voll(x.was); }); }
@@ -202,7 +276,7 @@ function dokument(s, m){
 function zeichen(v){ return Array.from(String(v || "")).length; }
 function pruefen(d, kennung){
   var f = [];
-  if(!d || d.type !== K.DOC_TYPE || d.schemaVersion !== K.SCHEMA_VERSION) f.push("Falscher Dokumenttyp oder falsche Version.");
+  if(!d || d.type !== K.DOC_TYPE || K.SCHEMA_VERSIONEN_OK.indexOf(d.schemaVersion) < 0) f.push("Falscher Dokumenttyp oder falsche Version.");
   if(!d || d.questionnaireId !== kennung) f.push("Kennung passt nicht zu dieser Vorbereitung.");
   if(!d || !Array.isArray(d.ablaeufe) || !Array.isArray(d.programme)){ f.push("Abläufe oder Programme fehlen."); return f; }
   if(d.ablaeufe.length > K.MAX_ABLAEUFE) f.push("Mehr als " + K.MAX_ABLAEUFE + " Abläufe.");
@@ -222,6 +296,8 @@ globalThis.VB2_KERN = {
   prefillAnwenden:prefillAnwenden, kachelZu:kachelZu, voll:voll, normalisieren:normalisieren,
   luecken:luecken, womitName:womitName, weiterKurz:weiterKurz, ketteText:ketteText, programmkarte:programmkarte,
   programmInVerwendung:programmInVerwendung, programmEntfernen:programmEntfernen,
-  dokument:dokument, pruefen:pruefen, extraBeantwortet:extraBeantwortet, EXTRA_FELDER:EXTRA_FELDER
+  dokument:dokument, pruefen:pruefen, extraBeantwortet:extraBeantwortet, EXTRA_FELDER:EXTRA_FELDER,
+  uebergaengeOffen:uebergaengeOffen, wochenStunden:wochenStunden, stundenText:stundenText, ausloeserText:ausloeserText,
+  rueckfragenFuer:rueckfragenFuer, rueckfragenStand:rueckfragenStand
 };
 })();
