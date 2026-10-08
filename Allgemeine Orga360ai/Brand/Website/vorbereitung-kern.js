@@ -181,23 +181,40 @@ function ausloeserText(a){
 }
 
 /* ---------------------------------------------------------------- Rueckfragen am Programm */
-function rueckfragenFuer(p){
+function rueckfragePasst(r, p){
+  if(r.bereiche && r.bereiche.indexOf(p.bereich) >= 0) return true;
+  if(r.namen && p.quelle === "kachel" && r.namen.indexOf(p.name) >= 0) return true;
+  if(r.frei && p.quelle === "frei" && r.frei.indexOf(p.bereich || "") >= 0) return true;
+  return false;
+}
+function familie(r, programme){ return programme.filter(function(p){ return rueckfragePasst(r, p); }); }
+/* Fragen fuer ein Programm. Mit programme: Familienfragen nur beim ersten passenden Programm. */
+function rueckfragenFuer(p, programme){
   return K.RUECKFRAGEN.filter(function(r){
-    if(r.bereiche && r.bereiche.indexOf(p.bereich) >= 0) return true;
-    if(r.namen && p.quelle === "kachel" && r.namen.indexOf(p.name) >= 0) return true;
-    if(r.frei && p.quelle === "frei" && r.frei.indexOf(p.bereich || "") >= 0) return true;
-    return false;
+    if(!rueckfragePasst(r, p)) return false;
+    return !(r.einmal && programme && familie(r, programme)[0] !== p);
   });
+}
+/* Antwort lesen; bei Familienfragen gilt die erste vorhandene Antwort der Familie. */
+function rueckfrageWert(s, p, r){
+  var l = r.einmal ? familie(r, s.programme) : [p];
+  for(var i=0;i<l.length;i++){ var v = (l[i].details || {})[r.id]; if(voll(v)) return v; }
+  return "";
+}
+/* Antwort setzen; Familienfragen fuer alle Programme der Familie, damit Entfernen nichts verliert. */
+function rueckfrageSetzen(s, p, r, v){
+  (r.einmal ? familie(r, s.programme) : [p]).forEach(function(x){ if(!x.details) x.details = {}; x.details[r.id] = v; });
 }
 /* Je Programm: beantwortete und offene Rueckfragen ("weiss nicht" zaehlt als offen). */
 function rueckfragenStand(s){
   return s.programme.map(function(p){
-    var fr = rueckfragenFuer(p), d = p.details || {};
+    var fr = rueckfragenFuer(p, s.programme);
+    var w = function(r){ return rueckfrageWert(s, p, r); };
     return {
       name:p.name,
-      antworten:fr.filter(function(r){ return voll(d[r.id]) && d[r.id] !== K.RUECK_WEISSNICHT; })
-                  .map(function(r){ return {kurz:r.kurz, wert:d[r.id]}; }),
-      offen:fr.filter(function(r){ return !voll(d[r.id]) || d[r.id] === K.RUECK_WEISSNICHT; }).map(function(r){ return r.kurz; })
+      antworten:fr.filter(function(r){ return voll(w(r)) && w(r) !== K.RUECK_WEISSNICHT; })
+                  .map(function(r){ return {kurz:r.kurz, wert:w(r)}; }),
+      offen:fr.filter(function(r){ return !voll(w(r)) || w(r) === K.RUECK_WEISSNICHT; }).map(function(r){ return r.kurz; })
     };
   }).filter(function(x){ return x.antworten.length || x.offen.length; });
 }
@@ -298,6 +315,6 @@ globalThis.VB2_KERN = {
   programmInVerwendung:programmInVerwendung, programmEntfernen:programmEntfernen,
   dokument:dokument, pruefen:pruefen, extraBeantwortet:extraBeantwortet, EXTRA_FELDER:EXTRA_FELDER,
   uebergaengeOffen:uebergaengeOffen, wochenStunden:wochenStunden, stundenText:stundenText, ausloeserText:ausloeserText,
-  rueckfragenFuer:rueckfragenFuer, rueckfragenStand:rueckfragenStand
+  rueckfragenFuer:rueckfragenFuer, rueckfragenStand:rueckfragenStand, rueckfrageWert:rueckfrageWert, rueckfrageSetzen:rueckfrageSetzen
 };
 })();

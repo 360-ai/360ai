@@ -240,6 +240,19 @@ test("Normalisieren: eigener Eintrag mit passender Kachel wird zugeordnet", () =
   assert.deepEqual([d.programme[0].name, d.programme[0].quelle, d.programme[0].bereich], ["ChatGPT","kachel","ki"]);
   assert.equal(d.programme[1].quelle, "frei");
 });
+test("Rueckfragen: Office nur einmal je Familie, Antwort gilt fuer alle", () => {
+  const s = C.leererStand();
+  const w = C.neuesProgramm("Word"), e = C.neuesProgramm("Excel"), t = C.neuesProgramm("Microsoft Teams");
+  s.programme.push(w, e, t);
+  const office = K.RUECKFRAGEN.find(r => r.id === "office");
+  assert.deepEqual(C.rueckfragenFuer(w, s.programme).map(r => r.id), ["office"]);
+  assert.deepEqual(C.rueckfragenFuer(e, s.programme), []);
+  assert.deepEqual(C.rueckfragenStand(s), [{ name:"Word", antworten:[], offen:["Office"] }]);
+  C.rueckfrageSetzen(s, w, office, "Microsoft-365-Abo");
+  assert.equal(C.rueckfrageWert(s, e, office), "Microsoft-365-Abo");
+  C.programmEntfernen(s, w.id);
+  assert.deepEqual(C.rueckfragenStand(s), [{ name:"Excel", antworten:[{ kurz:"Office", wert:"Microsoft-365-Abo" }], offen:[] }]);
+});
 test("Rueckfragen: alte Programme ohne details werden ergaenzt", () => {
   const d = { betrieb:{}, programme:[{ name:"Outlook", quelle:"kachel", bereich:"mail" }], ablaeufe:[] };
   C.normalisieren(d);
@@ -265,4 +278,5 @@ test("Reitter-Ruecklauf 08.10. laeuft durch und meldet die offenen Uebergaenge",
   assert.equal(C.stundenText(C.wochenStunden(d.ablaeufe[1])), "2,5 bis 5 Std. pro Woche");
   const offen = C.rueckfragenStand(d).map(x => x.name);
   for (const n of ["Outlook","Word","Google Drive","Claude","ChatGPT","Excellent P.2 (UNI-Electronic)"]) assert.ok(offen.includes(n), n);
+  for (const n of ["Excel","Microsoft Teams"]) assert.ok(!offen.includes(n), n + " fragt Office nicht ein zweites Mal");
 });

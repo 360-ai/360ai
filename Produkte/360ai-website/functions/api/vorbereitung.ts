@@ -247,7 +247,7 @@ function zuKlaeren(doc: Any): string[] {
   if (ohneWomit.length) p.push(`<b>Womit fehlt:</b> ${ohneWomit.join("; ")}`);
   const rf = C.rueckfragenStand(doc).filter((x: Any) => x.offen.length);
   if (rf.length) p.push(`<b>Programm offen:</b> ${rf.map((x: Any) => `${esc(x.name)} (${esc(x.offen.join(", "))})`).join("; ")}`);
-  const menge = (doc.ablaeufe || []).filter((a: Any) => a.mengePasst === "eher mehr" || a.mengePasst === "eher weniger")
+  const menge = (doc.ablaeufe || []).filter((a: Any) => (a.mengePasst === "eher mehr" || a.mengePasst === "eher weniger") && C.wochenStunden(a))
     .map((a: Any) => `${esc(a.name)}: Hochrechnung ${esc(C.stundenText(C.wochenStunden(a)))}, Kunde sagt ${esc(a.mengePasst)}`);
   if (menge.length) p.push(`<b>Menge prüfen:</b> ${menge.join("; ")}`);
   return p;

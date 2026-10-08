@@ -434,21 +434,20 @@ function baueProgramme(box){
       rm.addEventListener("click", function(){ programmUmschalten(p.name); neu(); });
       ul.appendChild(el("li", null, [el("span", {"class":"name"}, [p.name, p.herkunft === "vorbelegt" ? el("span", {"class":"vb", text:"vorbelegt"}) : null]), w, rm, rueckfragen(p)]));
     });
-    if(stand.programme.some(function(p){ return C.rueckfragenFuer(p).length; })) box.appendChild(el("p", {"class":"klein", text:T("prog_rueck")}));
+    if(stand.programme.some(function(p){ return C.rueckfragenFuer(p, stand.programme).length; })) box.appendChild(el("p", {"class":"klein", text:T("prog_rueck")}));
     box.appendChild(ul);
   }
 }
 
 /* Rueckfragen am Programm: Kacheln mit "weiss nicht", nur Klick, kein Neuaufbau. */
 function rueckfragen(p){
-  var fr = C.rueckfragenFuer(p);
+  var fr = C.rueckfragenFuer(p, stand.programme);
   if(!fr.length) return null;
-  if(!p.details) p.details = {};
   var box = el("div", {"class":"rueck"});
   fr.forEach(function(r){
     box.appendChild(el("p", {"class":"rf", text:r.frage[ANREDE]}));
-    box.appendChild(kacheln(r.optionen.concat([K.RUECK_WEISSNICHT]), function(v){ return p.details[r.id] === v; },
-      function(v){ p.details[r.id] = p.details[r.id] === v ? "" : v; geaendert(); }, "c-rf-" + r.id + "-" + p.id));
+    box.appendChild(kacheln(r.optionen.concat([K.RUECK_WEISSNICHT]), function(v){ return C.rueckfrageWert(stand, p, r) === v; },
+      function(v){ C.rueckfrageSetzen(stand, p, r, C.rueckfrageWert(stand, p, r) === v ? "" : v); geaendert(); }, "c-rf-" + r.id + "-" + p.id));
   });
   return box;
 }
@@ -601,13 +600,21 @@ function baueMenge(box, a){
   var smText = el("div", {id:"menge-summe-text"});
   sm.appendChild(smText);
   sm.appendChild(el("p", {"class":"klein", style:"margin:8px 0 0", text:T("menge_passt")}));
-  sm.appendChild(kacheln(K.MENGE_PASST, function(v){ return a.mengePasst === v; },
-    function(v){ a.mengePasst = a.mengePasst === v ? "" : v; geaendert(); }, "c-passt"));
+  var passtChips = kacheln(K.MENGE_PASST, function(v){ return a.mengePasst === v; },
+    function(v){ a.mengePasst = a.mengePasst === v ? "" : v; geaendert(); }, "c-passt");
+  sm.appendChild(passtChips);
   box.appendChild(sm);
+  /* Aendert sich die Hochrechnung, gilt eine fruehere Bestaetigung nicht mehr. */
+  var altText = null;
   function summe(){
-    var w = C.wochenStunden(a);
+    var w = C.wochenStunden(a), text = w ? T("menge_summe") + " " + C.stundenText(w) + "." : "";
+    if(altText !== null && text !== altText && a.mengePasst){
+      a.mengePasst = ""; geaendert();
+      [].forEach.call(passtChips.querySelectorAll(".chip"), function(c){ c.setAttribute("aria-pressed", "false"); });
+    }
+    altText = text;
     sm.hidden = !w;
-    smText.textContent = w ? T("menge_summe") + " " + C.stundenText(w) + "." : "";
+    smText.textContent = text;
   }
   summe();
 }

@@ -133,7 +133,9 @@ var EXTRA = {
    entscheidet, was technisch geht. Kundensprache, keine Begruendung.
    Wann eine Frage erscheint: bereiche (Zeile der Kachel), namen (genaue
    Kachel) oder frei (eigener Eintrag in diesen Zeilen, "" = vorbelegt ohne Zeile).
-   kurz: Bezeichnung in der Mail an 360ai. */
+   kurz: Bezeichnung in der Mail an 360ai.
+   einmal: gilt fuer die ganze Programmfamilie (Word, Excel, Teams sind ein Office),
+   wird nur beim ersten passenden Programm gefragt und fuer alle gespeichert. */
 var RUECKFRAGEN = [
   {id:"postfach", kurz:"Postfach", bereiche:["mail"],
    frage:t("Wo liegt Ihr Firmenpostfach?", "Wo liegt euer Firmenpostfach?"),
@@ -141,10 +143,10 @@ var RUECKFRAGEN = [
   {id:"gemeinsam", kurz:"Gemeinsames Postfach", bereiche:["mail"],
    frage:t("Gibt es ein gemeinsames Postfach, z. B. info@?", "Gibt es ein gemeinsames Postfach, z. B. info@?"),
    optionen:["ja", "nein"]},
-  {id:"office", kurz:"Office", namen:["Word","Excel","Microsoft Teams","OneDrive oder SharePoint"],
+  {id:"office", kurz:"Office", einmal:true, namen:["Word","Excel","Microsoft Teams","OneDrive oder SharePoint"],
    frage:t("Wie läuft Office bei Ihnen?", "Wie läuft Office bei euch?"),
    optionen:["Microsoft-365-Abo", "gekaufte Version, z. B. Office 2021"]},
-  {id:"googlekonto", kurz:"Google-Konto", namen:["Google Drive","Google Docs und Tabellen"],
+  {id:"googlekonto", kurz:"Google-Konto", einmal:true, namen:["Google Drive","Google Docs und Tabellen"],
    frage:t("Mit welchem Konto?", "Mit welchem Konto?"),
    optionen:["Firmenkonto (Google Workspace)", "privates Google-Konto"]},
   {id:"kiversion", kurz:"Version", bereiche:["ki"],
