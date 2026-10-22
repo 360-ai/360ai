@@ -243,8 +243,8 @@ function ablaufVon(sc){
   return null;
 }
 function pflicht(sc){
-  if(sc === "betrieb") return ["betrieb.taetigkeit","betrieb.personen"];
-  if(sc === "programme") return ["programme"];
+  if(sc === "betrieb") return ["betrieb.taetigkeit","betrieb.personen","betrieb.kiZugaenge"];
+  if(sc === "programme") return C.mailFrageNoetig(stand) ? ["betrieb.plattform","betrieb.plattformMail","programme"] : ["betrieb.plattform","programme"];
   if(sc === "ablaeufe") return ["ablaeufe"];
   var a = ablaufVon(sc); if(!a) return [];
   var p = "ablauf:" + a.id + ":";
@@ -253,6 +253,7 @@ function pflicht(sc){
   return [];
 }
 function screenFuer(schluessel){
+  if(schluessel.indexOf("betrieb.plattform") === 0) return "programme";
   if(schluessel.indexOf("betrieb") === 0) return "betrieb";
   if(schluessel === "programme") return "programme";
   if(schluessel === "ablaeufe") return "ablaeufe";
@@ -378,6 +379,12 @@ function baueBetrieb(box){
   box.appendChild(el("p", {"class":"klein", style:"margin:10px 0 6px", text:T("betrieb_azubis")}));
   box.appendChild(kacheln(K.AZUBIS, function(v){ return p.azubis === v; },
     function(v){ p.azubis = p.azubis === v ? "" : v; geaendert(); }, "c-azubis"));
+  var kz = stand.betrieb.kiZugaenge;
+  box.appendChild(el("p", {"class":"frage", style:"margin-top:18px", text:T("betrieb_ki")}));
+  box.appendChild(el("p", {"class":"klein", style:"margin:-4px 0 8px", text:T("betrieb_ki_hinweis")}));
+  box.appendChild(kacheln(K.KI_ZUGAENGE, function(v){ return kz.auswahl === v; },
+    function(v){ kz.auswahl = kz.auswahl === v ? "" : v; wnAus("betrieb.kiZugaenge"); geaendert(); }, "c-kizugang"));
+  box.appendChild(textfeld("f-kizugang-frei", kz.frei, function(v){ kz.frei = v; wnAus("betrieb.kiZugaenge"); }, {zeile:true, platz:T("betrieb_ki_frei")}));
   /* Freitext aus Schema 2.0.0 nur zeigen, wenn dort schon etwas steht. */
   if(voll(p.frei)) box.appendChild(textfeld("f-personen-frei", p.frei, function(v){ p.frei = v; wnAus("betrieb.personen"); }, {zeile:true, platz:"Anmerkung"}));
 }
@@ -396,7 +403,17 @@ function programmUmschalten(name){
   C.programmEntfernen(stand, p.id); armiert = null; geaendert();
 }
 function baueProgramme(box){
-  kopf(box, "2 · " + T("prog_titel"), T("prog_titel"), T("prog_frage"));
+  kopf(box, "2 · " + T("prog_titel"), T("prog_titel"), null);
+  var pf = stand.betrieb.plattform;
+  box.appendChild(el("p", {"class":"frage", text:T("plattform_frage")}));
+  box.appendChild(el("p", {"class":"klein", style:"margin:-4px 0 8px", text:T("plattform_hinweis")}));
+  box.appendChild(kacheln(K.PLATTFORM, function(v){ return pf.auswahl === v; },
+    function(v){ pf.auswahl = pf.auswahl === v ? "" : v; wnAus("betrieb.plattform"); geaendert(); neu(C.mailFrageNoetig(stand) ? "f-plattform-mail" : null); }, "c-plattform"));
+  if(C.mailFrageNoetig(stand)){
+    box.appendChild(el("p", {"class":"frage", style:"margin-top:14px", text:T("plattform_mail")}));
+    box.appendChild(textfeld("f-plattform-mail", pf.mail, function(v){ pf.mail = v; wnAus("betrieb.plattformMail"); }, {platz:T("plattform_mail_platz"), label:T("plattform_mail")}));
+  }
+  box.appendChild(el("p", {"class":"frage", style:"margin-top:20px", text:T("prog_frage")}));
   K.PROGRAMM_BEREICHE.forEach(function(b){
     box.appendChild(el("p", {"class":"bereich", text:b.titel}));
     /* Kacheln der Zeile plus eigene Eintraege, die in dieser Zeile gemacht wurden. */
@@ -572,8 +589,6 @@ function baueExtraTeam(box){
   var e = stand.extra;
   kopf(box, T("extra_eyebrow"), T("extra_team_titel"), null);
   frage(box, "x_imablauf"); box.appendChild(zeilenfeld("x-imablauf", e, "imAblauf", "Rollen genügen, z. B. Büro, Meister"));
-  frage(box, "x_nutzer"); box.appendChild(einzelwahl(K.EXTRA.NUTZER, e.nutzer, "c-nutzer"));
-  box.appendChild(zeilenfeld("x-nutzer-frei", e.nutzer, "frei", "genauer"));
   frage(box, "x_entscheider"); box.appendChild(zeilenfeld("x-entscheider", e, "entscheider"));
   frage(box, "x_probiert"); box.appendChild(textfeld("x-probiert", e.probiert, function(v){ e.probiert = v; }, {platz:ANREDE === "du" ? "auch „noch nichts“ hilft uns" : "auch „noch nichts“ hilft uns"}));
 }

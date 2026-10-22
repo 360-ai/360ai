@@ -177,6 +177,18 @@ function wahl(x: Any): string {
 }
 
 // Personen: Groesse, davon Buero und draussen, Azubis, Anmerkung
+// Seit 2.2: KI-Zugaenge und Microsoft 365 / Google Workspace (feste Fragen).
+function betriebZusatz(doc: Any): [string, string][] {
+  const b = doc.betrieb || {}, l: [string, string][] = [];
+  const kz = [b.kiZugaenge?.auswahl, b.kiZugaenge?.frei].filter(voll).map((t: string) => String(t).trim()).join(", ");
+  if (kz) l.push(["KI-Zugänge", kz]);
+  if (voll(b.plattform?.auswahl)) l.push(["Microsoft 365 / Google Workspace", String(b.plattform.auswahl)]);
+  if (voll(b.plattform?.mail)) l.push(["Mail-Aufbau", String(b.plattform.mail).trim()]);
+  return l;
+}
+function betriebZusatzHtml(doc: Any): string {
+  return betriebZusatz(doc).map(([k, v]) => `<br><span style="color:#6b7080">${esc(k)}:</span> ${nl(v)}`).join("");
+}
 function personenText(x: Any): string {
   return [x?.auswahl, voll(x?.buero) ? `${String(x.buero).trim()} im Büro` : "",
     voll(x?.draussen) ? `${String(x.draussen).trim()} draußen` : "",
@@ -204,6 +216,7 @@ const MARK_VB = ` <span style="font-size:11px;color:#8a4b12;background:#FBF3E8;p
 function schluesselText(doc: Any, k: string): string {
   const fest: Record<string, string> = {
     "betrieb.taetigkeit": "Was der Betrieb macht", "betrieb.personen": "Wie viele Personen",
+    "betrieb.kiZugaenge": "KI-Zugänge", "betrieb.plattform": "Microsoft 365 / Google Workspace", "betrieb.plattformMail": "Wie die Mail läuft",
     programme: "Programme", ablaeufe: "Abläufe", ziel: "Ziel",
   };
   if (fest[k]) return fest[k];
@@ -305,6 +318,8 @@ const GESPRAECH: [string, string][] = [["B04", "Programmbetreuung"], ["B05", "We
   ["E01", "Budget einmalig"], ["E02", "Budget laufend"], ["E04", "Entscheider"], ["P07", "Prüfung und Fehlerfolge"]];
 function terminZeile(doc: Any): string {
   const da = new Set(C.extraBeantwortet(doc).map((x: Any) => x.code));
+  const kz = doc.betrieb?.kiZugaenge;
+  if (voll(kz?.auswahl) || voll(kz?.frei)) da.add("D06"); // seit 2.2 feste Frage im Betrieb
   const vorab = GESPRAECH.filter(([c]) => da.has(c)).map(([c, t]) => `${t} (${c})`);
   const offen = GESPRAECH.filter(([c]) => !da.has(c)).map(([c, t]) => `${t} (${c})`);
   return `<p style="font-size:13px;color:#3d4b70;margin:10px 0 0">${vorab.length ? `<b>Schon vorab beantwortet:</b> ${vorab.join(", ")}.<br>` : ""}<b>Im Termin noch klären:</b> ${offen.join(", ")}. Steht im Gesprächsbogen.</p>`;
@@ -324,7 +339,7 @@ function zusammenfassung(doc: Any, intern: boolean): string {
   h += (doc.ablaeufe || []).length
     ? doc.ablaeufe.map((a: Any) => ablaufHtml(a, doc, intern)).join("")
     : `<p style="color:#8c2020">Kein Ablauf beschrieben.</p>`;
-  h += `<h2 ${H2}>Betrieb</h2><div style="font-size:14px">${nl(doc.betrieb?.taetigkeit) || "<i>keine Angabe</i>"}${intern && doc.betrieb?.herkunft === "vorbelegt" ? MARK_VB : ""}<br><span style="color:#6b7080">Personen:</span> ${esc(personenText(doc.betrieb?.personen)) || "<i>keine Angabe</i>"}</div>`;
+  h += `<h2 ${H2}>Betrieb</h2><div style="font-size:14px">${nl(doc.betrieb?.taetigkeit) || "<i>keine Angabe</i>"}${intern && doc.betrieb?.herkunft === "vorbelegt" ? MARK_VB : ""}<br><span style="color:#6b7080">Personen:</span> ${esc(personenText(doc.betrieb?.personen)) || "<i>keine Angabe</i>"}${betriebZusatzHtml(doc)}</div>`;
   const rueck = new Map(C.rueckfragenStand(doc).map((x: Any) => [x.name, x]));
   const pr = (doc.programme || []).map((x: Any) => {
     const r: Any = rueck.get(x.name);
@@ -349,7 +364,8 @@ function textFassung(doc: Any): string {
     if (voll(C.ketteText(a, doc.programme || []))) z.push(C.ketteText(a, doc.programme || []));
     z.push(`Wie oft: ${oftText(a.haeufigkeit)} | Dauer: ${wahl(a.dauer)}${hochrechnung(a) ? ` | Hochgerechnet: ${hochrechnung(a)}` : ""}`);
   }
-  z.push(`\n== Betrieb ==`, String(doc.betrieb?.taetigkeit || ""), `Personen: ${personenText(doc.betrieb?.personen)}`);
+  z.push(`\n== Betrieb ==`, String(doc.betrieb?.taetigkeit || ""), `Personen: ${personenText(doc.betrieb?.personen)}`,
+    ...betriebZusatz(doc).map(([k, v]) => `${k}: ${v}`));
   const rueck = new Map(C.rueckfragenStand(doc).map((x: Any) => [x.name, x]));
   z.push(`\n== Programme ==`, ...(doc.programme || []).map((x: Any) => {
     const r: Any = rueck.get(x.name);

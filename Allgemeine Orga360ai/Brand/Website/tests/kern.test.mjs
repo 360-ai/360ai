@@ -56,6 +56,7 @@ test("neuerAblauf und neuerSchritt erzeugen eindeutige Kennungen", () => {
 function beispiel(){
   const s = C.leererStand();
   s.betrieb.taetigkeit = "Personal Training"; s.betrieb.personen.auswahl = "6 bis 20";
+  s.betrieb.kiZugaenge.auswahl = "3 bis 5"; s.betrieb.plattform.auswahl = "Microsoft 365";
   const sales = C.neuesProgramm("Sales Suite"); const click = C.neuesProgramm("ClickUp");
   s.programme.push(sales, click);
   const a = C.neuerAblauf("Lead bis Termin");
@@ -80,7 +81,7 @@ test("Luecken: fehlende Angaben werden benannt, weissNicht erfuellt", () => {
 });
 test("Luecken: ohne Ablauf und ohne Programm", () => {
   const l = C.luecken(C.leererStand()).map(x => x.schluessel);
-  assert.deepEqual(l.sort(), ["ablaeufe","betrieb.personen","betrieb.taetigkeit","programme"]);
+  assert.deepEqual(l.sort(), ["ablaeufe","betrieb.kiZugaenge","betrieb.personen","betrieb.plattform","betrieb.taetigkeit","programme"]);
 });
 test("Kette als Text", () => {
   const s = beispiel();
@@ -201,9 +202,9 @@ test("Personen: Buero und draussen reichen als Angabe", () => {
 });
 test("Rueckfragen: richtige Fragen je Programm", () => {
   const ids = n => C.rueckfragenFuer(C.neuesProgramm(...n)).map(r => r.id);
-  assert.deepEqual(ids(["Outlook"]), ["postfach","gemeinsam"]);
-  assert.deepEqual(ids(["Apple Mail"]), ["postfach","gemeinsam"]);
-  assert.deepEqual(ids(["GMX","","kunde","mail"]), ["postfach","gemeinsam"]);
+  assert.deepEqual(ids(["Outlook"]), ["gemeinsam"]);
+  assert.deepEqual(ids(["Apple Mail"]), ["gemeinsam"]);
+  assert.deepEqual(ids(["GMX","","kunde","mail"]), ["gemeinsam"]);
   assert.deepEqual(ids(["Excel"]), ["office"]);
   assert.deepEqual(ids(["Excel-Listen"]), []);
   assert.deepEqual(ids(["Google Drive"]), ["googlekonto"]);
@@ -217,11 +218,11 @@ test("Rueckfragen: richtige Fragen je Programm", () => {
 });
 test("Rueckfragen: Stand mit beantworteten und offenen", () => {
   const s = C.leererStand();
-  const o = C.neuesProgramm("Outlook"); o.details.postfach = "Microsoft 365 (Firmenkonto)"; o.details.gemeinsam = K.RUECK_WEISSNICHT;
+  const o = C.neuesProgramm("Outlook"); o.details.gemeinsam = "ja";
   const c = C.neuesProgramm("Claude"); const w = C.neuesProgramm("WhatsApp");
   s.programme.push(o, c, w);
   assert.deepEqual(C.rueckfragenStand(s), [
-    { name:"Outlook", antworten:[{ kurz:"Postfach", wert:"Microsoft 365 (Firmenkonto)" }], offen:["Gemeinsames Postfach"] },
+    { name:"Outlook", antworten:[{ kurz:"Gemeinsames Postfach", wert:"ja" }], offen:[] },
     { name:"Claude", antworten:[], offen:["Version","Nutzung"] }
   ]);
 });
@@ -275,6 +276,7 @@ test("Reitter-Ruecklauf 08.10. laeuft durch und meldet die offenen Uebergaenge",
 // ---------------------------------------------------------------- v2.2 (Denis 22.10.: Freitext statt Kette)
 test("Freitext: Beschreibung fehlt als Luecke, Text reicht ohne Ausloeser und Schritte", () => {
   const s = C.leererStand(); s.betrieb.taetigkeit = "Maler"; s.betrieb.personen.auswahl = "1 bis 5";
+  s.betrieb.kiZugaenge.auswahl = "1 bis 2"; s.betrieb.plattform.auswahl = "Google Workspace";
   s.programme.push(C.neuesProgramm("Excel"));
   const a = C.neuerAblauf("Anfrage bis Angebot"); a.haeufigkeit.auswahl = "täglich"; a.dauer.auswahl = "5 bis 15 Min";
   s.ablaeufe.push(a);
@@ -297,4 +299,25 @@ test("Freitext: Beispiel in Du und Sie, ohne Gedankenstrich", () => {
   assert.ok(K.BEISPIEL_BESCHREIBUNG.du && K.BEISPIEL_BESCHREIBUNG.sie);
   for (const k of ["beschr_frage","beschr_hinweis","beschr_beispiel"]) assert.ok(K.TEXTE[k], k);
   for (const k of ["x_testet","x_grenzen","ausl_frage","kette_frage","menge_passt"]) assert.ok(!K.TEXTE[k], k + " ist raus");
+});
+
+// ---------------------------------------------------------------- v2.2 (Denis 22.10.: KI-Zugaenge, Microsoft 365 / Google Workspace)
+test("KI-Zugaenge und Plattform sind feste Fragen, Mail-Aufbau nur ohne 365/Workspace", () => {
+  const s = beispiel(); const b = s.betrieb;
+  b.kiZugaenge.auswahl = ""; b.plattform.auswahl = "";
+  let l = C.luecken(s).map(x => x.schluessel);
+  assert.ok(l.includes("betrieb.kiZugaenge") && l.includes("betrieb.plattform"));
+  b.kiZugaenge.frei = "2 im Büro"; b.plattform.auswahl = "keins davon";
+  l = C.luecken(s).map(x => x.schluessel);
+  assert.deepEqual(l, ["betrieb.plattformMail"]);
+  b.plattform.mail = "IONOS, Outlook";
+  assert.deepEqual(C.luecken(s), []);
+  b.plattform.auswahl = "beides"; b.plattform.mail = "";
+  assert.equal(C.mailFrageNoetig(s), false); assert.deepEqual(C.luecken(s), []);
+});
+test("Alter Stand ohne die neuen Felder wird ergaenzt", () => {
+  const d = { betrieb:{ taetigkeit:"X" }, programme:[], ablaeufe:[] };
+  C.normalisieren(d);
+  assert.deepEqual(d.betrieb.kiZugaenge, { auswahl:"", frei:"" });
+  assert.deepEqual(d.betrieb.plattform, { auswahl:"", mail:"" });
 });

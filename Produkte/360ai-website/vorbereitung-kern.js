@@ -57,7 +57,8 @@ function extraBeantwortet(s){
                      .filter(function(x){ return voll(x.wert); });
 }
 function leererStand(){
-  return { betrieb:{taetigkeit:"", personen:{auswahl:"", frei:"", buero:"", draussen:"", azubis:""}, herkunft:"kunde"},
+  return { betrieb:{taetigkeit:"", personen:{auswahl:"", frei:"", buero:"", draussen:"", azubis:""}, herkunft:"kunde",
+                    kiZugaenge:{auswahl:"", frei:""}, plattform:{auswahl:"", mail:""}},
            programme:[], ziel:{text:"", kacheln:[]}, ablaeufe:[], nochEtwas:"", weissNicht:[],
            extra:leeresExtra() };
 }
@@ -128,6 +129,10 @@ function luecken(s){
   if(!voll(s.betrieb.taetigkeit)) fehlt("betrieb.taetigkeit", "Was der Betrieb macht");
   var ps = s.betrieb.personen;
   if(!voll(ps.auswahl) && !voll(ps.frei) && !voll(ps.buero) && !voll(ps.draussen)) fehlt("betrieb.personen", "Wie viele Personen");
+  var kz = s.betrieb.kiZugaenge;
+  if(!voll(kz.auswahl) && !voll(kz.frei)) fehlt("betrieb.kiZugaenge", "Wie viele einen KI-Zugang bräuchten");
+  if(!voll(s.betrieb.plattform.auswahl)) fehlt("betrieb.plattform", "Microsoft 365 oder Google Workspace");
+  else if(mailFrageNoetig(s) && !voll(s.betrieb.plattform.mail)) fehlt("betrieb.plattformMail", "Wie die Firmen-Mail läuft");
   if(!s.programme.length) fehlt("programme", "Programme");
   var mitName = s.ablaeufe.filter(function(a){ return voll(a.name); });
   if(!mitName.length) fehlt("ablaeufe", "Mindestens ein Ablauf");
@@ -141,6 +146,7 @@ function luecken(s){
   return l;
 }
 
+function mailFrageNoetig(s){ return K.PLATTFORM_MIT_MAILFRAGE.indexOf(s.betrieb.plattform.auswahl) >= 0; }
 function beschrieben(a){ return voll(a.beschreibung) || schritteMitInhalt(a).length >= 2; }
 
 /* Schritte (mit Inhalt), nach denen der Uebergang nicht angegeben ist. Der letzte hat keinen. */
@@ -320,7 +326,7 @@ function pruefen(d, kennung){
 globalThis.VB2_KERN = {
   leererStand:leererStand, neuesProgramm:neuesProgramm, neuerSchritt:neuerSchritt, neuerAblauf:neuerAblauf,
   prefillAnwenden:prefillAnwenden, kachelZu:kachelZu, voll:voll, normalisieren:normalisieren,
-  luecken:luecken, beschrieben:beschrieben, womitName:womitName, weiterKurz:weiterKurz, ketteText:ketteText, ketteAlsText:ketteAlsText, programmkarte:programmkarte,
+  luecken:luecken, beschrieben:beschrieben, mailFrageNoetig:mailFrageNoetig, womitName:womitName, weiterKurz:weiterKurz, ketteText:ketteText, ketteAlsText:ketteAlsText, programmkarte:programmkarte,
   programmInVerwendung:programmInVerwendung, programmEntfernen:programmEntfernen,
   dokument:dokument, pruefen:pruefen, extraBeantwortet:extraBeantwortet, EXTRA_FELDER:EXTRA_FELDER,
   uebergaengeOffen:uebergaengeOffen, wochenStunden:wochenStunden, stundenText:stundenText, ausloeserText:ausloeserText,

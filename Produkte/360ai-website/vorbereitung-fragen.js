@@ -20,6 +20,13 @@ var TEXTE = {
   betrieb_buero: t("im Büro", "im Büro"),
   betrieb_draussen: t("draußen (Baustelle, Außendienst, bei Kunden)", "draußen (Baustelle, Außendienst, bei Kunden)"),
   betrieb_azubis: t("Sind Auszubildende mitgezählt?", "Sind Azubis mitgezählt?"),
+  betrieb_ki:    t("Wie viele Personen bräuchten am Ende einen eigenen Zugang zur KI?", "Wie viele von euch bräuchten am Ende einen eigenen Zugang zur KI?"),
+  betrieb_ki_hinweis: t("Eine Schätzung reicht. Gemeint sind alle, die selbst damit arbeiten würden, z. B. nur das Büro oder auch die Leute draußen.", "Eine Schätzung reicht. Gemeint sind alle, die selbst damit arbeiten würden, z. B. nur das Büro oder auch die Leute draußen."),
+  betrieb_ki_frei: t("z. B. 2 im Büro, später vielleicht der Meister", "z. B. 2 im Büro, später vielleicht der Meister"),
+  plattform_frage: t("Haben Sie Microsoft 365 oder Google Workspace?", "Habt ihr Microsoft 365 oder Google Workspace?"),
+  plattform_hinweis: t("Gemeint ist ein bezahltes Firmenkonto, meist für Mail, Kalender und Dateien.", "Gemeint ist ein bezahltes Firmenkonto, meist für Mail, Kalender und Dateien."),
+  plattform_mail: t("Wie läuft Ihre Firmen-Mail dann?", "Wie läuft eure Firmen-Mail dann?"),
+  plattform_mail_platz: t("z. B. Domain und Mail bei IONOS oder Strato, abgerufen in Outlook auf dem PC und am Handy", "z. B. Domain und Mail bei IONOS oder Strato, abgerufen in Outlook auf dem PC und am Handy"),
   prog_titel:    t("Ihre Programme", "Eure Programme"),
   prog_frage:    t("Welche Programme und Hilfsmittel nutzen Sie im Alltag? Tippen Sie alles an, was vorkommt.", "Welche Programme und Hilfsmittel nutzt ihr im Alltag? Tipp alles an, was vorkommt."),
   prog_frei:     t("eigenes", "eigenes"),
@@ -74,6 +81,10 @@ var TEXTE = {
 };
 var PERSONEN = ["1 bis 5","6 bis 20","21 bis 50","mehr als 50"];
 var AZUBIS = ["ja","nein","keine Azubis"];
+var KI_ZUGAENGE = ["1 bis 2","3 bis 5","6 bis 15","mehr als 15","weiß ich noch nicht"];
+/* Feste Frage (Denis 22.10.). Bei "keins davon" oder "weiß nicht" fragt der Bogen nach dem Mail-Aufbau. */
+var PLATTFORM = ["Microsoft 365","Google Workspace","beides","keins davon","weiß nicht"];
+var PLATTFORM_MIT_MAILFRAGE = ["keins davon","weiß nicht"];
 var PROGRAMM_BEREICHE = [
   {id:"mail",   titel:"Mail und Kalender",                 kacheln:["Outlook","Gmail","Apple Mail"],                beispiel:"z. B. GMX, iCloud"},
   {id:"buero",  titel:"Büro",                              kacheln:["Word","Excel","Google Docs und Tabellen"],     beispiel:"z. B. Pages"},
@@ -126,9 +137,7 @@ var EXTRA = {
    einmal: gilt fuer die ganze Programmfamilie (Word, Excel, Teams sind ein Office),
    wird nur beim ersten passenden Programm gefragt und fuer alle gespeichert. */
 var RUECKFRAGEN = [
-  {id:"postfach", kurz:"Postfach", bereiche:["mail"],
-   frage:t("Wo haben Sie Ihre Firmen-Mailadresse her?", "Wo habt ihr eure Firmen-Mailadresse her?"),
-   optionen:["mit der Website, z. B. IONOS, Strato, one.com", "Telekom oder anderer Internetanbieter", "Microsoft (Outlook im Abo)", "Google (Gmail mit eigener Adresse)", "private Adresse, z. B. GMX, web.de, Gmail"]},
+  /* "postfach" entfaellt seit 2.2: die feste Frage Microsoft 365 / Google Workspace plus Mail-Aufbau deckt es ab. */
   {id:"gemeinsam", kurz:"Gemeinsames Postfach", bereiche:["mail"],
    frage:t("Gibt es ein gemeinsames Postfach, z. B. info@?", "Gibt es ein gemeinsames Postfach, z. B. info@?"),
    optionen:["ja", "nein"]},
@@ -170,7 +179,7 @@ globalThis.VB2 = {
   FOTOS_AKTIV:false, MAX_ABLAEUFE:3, MAX_SCHRITTE:12, MAX_PROGRAMME:40, MAX_TEXT:5000,
   TEXTE:TEXTE, PERSONEN:PERSONEN, PROGRAMM_BEREICHE:PROGRAMM_BEREICHE, WOMIT_EXTRA:WOMIT_EXTRA,
   WEITER:WEITER, AUSLOESER:AUSLOESER, HAEUFIGKEIT:HAEUFIGKEIT, DAUER:DAUER, ZIEL:ZIEL, AERGER:AERGER,
-  AZUBIS:AZUBIS, HAEUFIGKEIT_PRO_WOCHE:HAEUFIGKEIT_PRO_WOCHE, DAUER_MINUTEN:DAUER_MINUTEN, MENGE_PASST:MENGE_PASST,
+  AZUBIS:AZUBIS, KI_ZUGAENGE:KI_ZUGAENGE, PLATTFORM:PLATTFORM, PLATTFORM_MIT_MAILFRAGE:PLATTFORM_MIT_MAILFRAGE, HAEUFIGKEIT_PRO_WOCHE:HAEUFIGKEIT_PRO_WOCHE, DAUER_MINUTEN:DAUER_MINUTEN, MENGE_PASST:MENGE_PASST,
   RUECKFRAGEN:RUECKFRAGEN, RUECK_WEISSNICHT:RUECK_WEISSNICHT,
   EXTRA:EXTRA, BEISPIEL_BESCHREIBUNG:BEISPIEL_BESCHREIBUNG, BEISPIEL_KETTE:BEISPIEL_KETTE, BEISPIEL_ABLAEUFE:BEISPIEL_ABLAEUFE
 };
