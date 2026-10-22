@@ -129,6 +129,10 @@ details.hilfe ul{margin:0 0 12px 30px;padding:0;font-size:14px;color:var(--muted
 .kette{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 4px}
 .kette .glied{background:var(--bg-soft);border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:14px}
 .kette .ueber{font-size:12px;color:var(--lavender)}
+.beispiel{margin:12px 0 0;padding:12px 14px;border-left:3px solid var(--mint);background:var(--bg-soft);border-radius:0 var(--radius) var(--radius) 0;font-size:14px;color:var(--muted)}
+.beispiel strong{display:block;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--lavender);margin:0 0 4px}
+.beispiel p{margin:0;font-style:italic}
+.pruefabl .beschr{margin:4px 0 0;font-size:14px;color:var(--muted);white-space:pre-line}
 .pruefabl{padding:10px 0;border-top:1px solid var(--border)}
 .pruefabl h3{font-size:16px;margin:0 0 2px}
 
@@ -228,7 +232,7 @@ function ablaeufeMitName(){ return stand.ablaeufe.filter(function(a){ return vol
 function folge(){
   var f = ["start","betrieb","programme","ziel","ablaeufe"];
   ablaeufeMitName().forEach(function(a){
-    ["ausl","kette","menge","aerger"].forEach(function(t){ f.push("a:" + a.id + ":" + t); });
+    ["beschreibung","menge","aerger"].forEach(function(t){ f.push("a:" + a.id + ":" + t); });
   });
   f.push("extra-start","extra-prog","extra-team","extra-rahmen","noch","pruefen");
   return f;
@@ -244,8 +248,7 @@ function pflicht(sc){
   if(sc === "ablaeufe") return ["ablaeufe"];
   var a = ablaufVon(sc); if(!a) return [];
   var p = "ablauf:" + a.id + ":";
-  if(/:ausl$/.test(sc)) return [p+"ausloeser"];
-  if(/:kette$/.test(sc)) return [p+"schritte", p+"uebergaenge"];
+  if(/:beschreibung$/.test(sc)) return [p+"beschreibung"];
   if(/:menge$/.test(sc)) return [p+"haeufigkeit", p+"dauer"];
   return [];
 }
@@ -254,7 +257,7 @@ function screenFuer(schluessel){
   if(schluessel === "programme") return "programme";
   if(schluessel === "ablaeufe") return "ablaeufe";
   var m = /^ablauf:([^:]+):(.+)$/.exec(schluessel);
-  if(m) return "a:" + m[1] + ":" + ({ausloeser:"ausl", schritte:"kette", uebergaenge:"kette", haeufigkeit:"menge", dauer:"menge"}[m[2]] || "ausl");
+  if(m) return "a:" + m[1] + ":" + ({haeufigkeit:"menge", dauer:"menge"}[m[2]] || "beschreibung");
   return "start";
 }
 
@@ -265,7 +268,7 @@ function bestaetigen(sc){
   if(sc === "ablaeufe") stand.ablaeufe.forEach(function(a){ a.herkunft = "kunde"; });
 }
 function aufraeumen(){
-  stand.ablaeufe = stand.ablaeufe.filter(function(a){ return voll(a.name) || a.schritte.some(function(x){ return voll(x.was); }); });
+  stand.ablaeufe = stand.ablaeufe.filter(function(a){ return voll(a.name) || voll(a.beschreibung) || a.schritte.some(function(x){ return voll(x.was); }); });
 }
 
 function gehe(sc, fokusId){ ui.screen = sc; versteckeMsg(); speichern(true); zeichne(fokusId); window.scrollTo(0, 0); }
@@ -295,8 +298,7 @@ function zeichne(fokusId){
   else if(sc === "programme") baueProgramme(box);
   else if(sc === "ziel") baueZiel(box);
   else if(sc === "ablaeufe") baueAblaeufe(box);
-  else if(/:ausl$/.test(sc)) baueAusloeser(box, ablaufVon(sc));
-  else if(/:kette$/.test(sc)) baueKette(box, ablaufVon(sc));
+  else if(/:beschreibung$/.test(sc)) baueBeschreibung(box, ablaufVon(sc));
   else if(/:menge$/.test(sc)) baueMenge(box, ablaufVon(sc));
   else if(/:aerger$/.test(sc)) baueAerger(box, ablaufVon(sc));
   else if(sc === "extra-start") baueExtraStart(box);
@@ -457,10 +459,6 @@ function baueZiel(box){
   kopf(box, "3 · " + T("ziel_titel"), T("ziel_titel"), null);
   box.appendChild(el("p", {"class":"frage", text:T("ziel_frage")}));
   box.appendChild(textfeld("f-ziel", stand.ziel.text, function(v){ stand.ziel.text = v; }));
-  box.appendChild(el("p", {"class":"klein", text:"Gedankenstütze, optional:"}));
-  var z = stand.ziel.kacheln;
-  box.appendChild(kacheln(K.ZIEL, function(v){ return z.indexOf(v) >= 0; },
-    function(v){ var i = z.indexOf(v); if(i >= 0) z.splice(i, 1); else z.push(v); geaendert(); }, "c-ziel"));
 }
 
 /* ---------------------------------------------------------------- Ablaeufe */
@@ -488,94 +486,21 @@ function ablaufKopf(box, a, teil){
   kopf(box, "Ablauf " + nr + " von " + liste.length + " · " + teil, a.name, null);
 }
 
-function baueAusloeser(box, a){
-  ablaufKopf(box, a, "Auslöser");
-  box.appendChild(el("p", {"class":"frage", text:T("ausl_frage")}));
-  var x = a.ausloeser, k = "ablauf:" + a.id + ":ausloeser";
-  box.appendChild(kacheln(K.AUSLOESER, function(v){ return x.kacheln.indexOf(v) >= 0; },
-    function(v){ var i = x.kacheln.indexOf(v); if(i >= 0) x.kacheln.splice(i, 1); else x.kacheln.push(v); wnAus(k); geaendert(); }, "c-ausl"));
-  box.appendChild(textfeld("f-ausl-frei", x.frei, function(v){ x.frei = v; wnAus(k); }, {zeile:true, platz:T("frei")}));
-}
-
-/* Die Kette. Tippen aendert nur den Stand, Klicks bauen neu auf. */
-function baueKette(box, a){
-  ablaufKopf(box, a, "Schritte");
-  box.appendChild(el("p", {"class":"frage", text:T("kette_frage")}));
-  box.appendChild(el("p", {"class":"klein", style:"margin:-4px 0 8px", text:T("kette_weiter_hinweis")}));
-  var k = "ablauf:" + a.id + ":schritte", ku = "ablauf:" + a.id + ":uebergaenge";
-  if(!a.schritte.length) a.schritte.push(C.neuerSchritt(), C.neuerSchritt());
-  box.appendChild(el("details", {"class":"hilfe"}, [el("summary", {text:T("kette_beispiel")}),
-    el("ul", null, K.BEISPIEL_KETTE.map(function(b){ return el("li", {text:b}); }))]));
-
-  a.schritte.forEach(function(x, i){
-    var letzter = i === a.schritte.length - 1;
-    var karte = el("div", {"class":"schritt", id:"schritt-" + i});
-    var rm = a.schritte.length > 1 ? el("button", {"class":"btn rm", type:"button", text:"entfernen", "aria-label":"Schritt " + (i+1) + " entfernen"}) : null;
-    if(rm) rm.addEventListener("click", function(){ a.schritte.splice(i, 1); geaendert(); neu(); });
-    karte.appendChild(el("div", {"class":"kopf"}, [el("span", {"class":"nr", text:"SCHRITT " + (i+1)}), rm]));
-
-    karte.appendChild(el("label", {"for":"was-" + i, text:T("kette_was")}));
-    var was = el("textarea", {id:"was-" + i, rows:"2", style:"min-height:52px"});
-    was.value = x.was;
-    was.addEventListener("input", function(){ x.was = was.value; wnAus(k); geaendert(); });
-    karte.appendChild(was);
-
-    /* Womit als Auswahlliste: bleibt kompakt, auch bei 15 Programmen. */
-    karte.appendChild(el("label", {"for":"womit-" + i, text:T("kette_womit")}));
-    var sel = el("select", {id:"womit-" + i});
-    sel.appendChild(el("option", {value:"", text:"(bitte wählen)"}));
-    if(stand.programme.length){
-      var g1 = el("optgroup", {label:ANREDE === "du" ? "Eure Programme" : "Ihre Programme"});
-      stand.programme.forEach(function(p){ g1.appendChild(el("option", {value:"p:" + p.id, text:p.name})); });
-      sel.appendChild(g1);
-    }
-    var g2 = el("optgroup", {label:"Sonstiges"});
-    K.WOMIT_EXTRA.forEach(function(w){ g2.appendChild(el("option", {value:"a:" + w.id, text:w.titel})); });
-    g2.appendChild(el("option", {value:"frei", text:"anderes, selbst eintragen"}));
-    sel.appendChild(g2);
-    sel.value = x.womit.programmId ? "p:" + x.womit.programmId : x.womit.art ? "a:" + x.womit.art : voll(x.womit.frei) ? "frei" : "";
-    var frei = el("input", {type:"text", id:"womit-frei-" + i, placeholder:"Programm oder Hilfsmittel", "class":"frei"});
-    frei.value = x.womit.frei; frei.hidden = sel.value !== "frei";
-    sel.addEventListener("change", function(){
-      var v = sel.value;
-      x.womit.programmId = v.indexOf("p:") === 0 ? v.slice(2) : "";
-      x.womit.art = v.indexOf("a:") === 0 ? v.slice(2) : "";
-      if(v !== "frei") x.womit.frei = "";
-      frei.hidden = v !== "frei"; if(v === "frei") frei.focus();
-      geaendert();
-    });
-    frei.addEventListener("input", function(){ x.womit.frei = frei.value; geaendert(); });
-    karte.appendChild(sel); karte.appendChild(frei);
-
-    if(!letzter){
-      karte.appendChild(el("label", {text:T("kette_weiter") + " " + (i + 2) + "?"}));
-      var wz = el("div", {"class":"weiter"});
-      var auto = el("input", {type:"text", id:"auto-" + i, placeholder:T("kette_auto_womit"), "class":"frei"});
-      auto.value = x.weiter.womit; auto.hidden = x.weiter.art !== "automatisch";
-      auto.addEventListener("input", function(){ x.weiter.womit = auto.value; geaendert(); });
-      wz.appendChild(kacheln(K.WEITER.map(function(w){ return w.titel; }),
-        function(t){ return K.WEITER.some(function(w){ return w.titel === t && w.id === x.weiter.art; }); },
-        function(t){
-          var id = K.WEITER.filter(function(w){ return w.titel === t; })[0].id;
-          x.weiter.art = x.weiter.art === id ? "" : id;
-          auto.hidden = x.weiter.art !== "automatisch";
-          wnAus(ku);
-          geaendert();
-        }, "c-weiter-" + i));
-      wz.appendChild(auto);
-      karte.appendChild(wz);
-    }
-    box.appendChild(karte);
-    if(!letzter) box.appendChild(el("div", {"class":"pfeil", "aria-hidden":"true", text:"↓"}));
-  });
-  if(a.schritte.length < K.MAX_SCHRITTE){
-    box.appendChild(el("button", {"class":"btn ghost", type:"button", id:"btnSchritt", text:T("kette_plus"), on:{click:function(){
-      a.schritte.push(C.neuerSchritt()); geaendert();
-      var nid = "was-" + (a.schritte.length - 1);
-      neu(nid);
-      var n = document.getElementById(nid); if(n) n.scrollIntoView({block:"center"});
-    }}}));
+/* Seit 2.2 ein Freitext statt der Kette (Denis 22.10.: "Schritt fuer Schritt" ist fuer Kunden zu schwer). */
+function baueBeschreibung(box, a){
+  ablaufKopf(box, a, "So läuft es");
+  /* Stand aus 2.0/2.1 mit Kette: einmalig in den Freitext uebernehmen, damit nichts verschwindet. */
+  if(!voll(a.beschreibung) && a.schritte.some(function(x){ return voll(x.was); })){
+    a.beschreibung = C.ketteAlsText(a, stand.programme);
+    a.schritte = []; geaendert();
   }
+  var k = "ablauf:" + a.id + ":beschreibung";
+  box.appendChild(el("p", {"class":"frage", text:T("beschr_frage")}));
+  box.appendChild(el("p", {"class":"klein", style:"margin:-4px 0 8px", text:T("beschr_hinweis")}));
+  var n = textfeld("f-beschreibung", a.beschreibung, function(v){ a.beschreibung = v; wnAus(k); }, {label:T("beschr_frage")});
+  n.rows = 8; n.style.minHeight = "190px";
+  box.appendChild(n);
+  box.appendChild(el("div", {"class":"beispiel"}, [el("strong", {text:T("beschr_beispiel")}), el("p", {text:K.BEISPIEL_BESCHREIBUNG[ANREDE]})]));
 }
 
 function baueMenge(box, a){
@@ -583,40 +508,13 @@ function baueMenge(box, a){
   var p = "ablauf:" + a.id + ":";
   box.appendChild(el("p", {"class":"frage", text:T("menge_oft")}));
   box.appendChild(kacheln(K.HAEUFIGKEIT, function(v){ return a.haeufigkeit.auswahl === v; },
-    function(v){ a.haeufigkeit.auswahl = a.haeufigkeit.auswahl === v ? "" : v; wnAus(p+"haeufigkeit"); geaendert(); summe(); }, "c-oft"));
-  /* Freitext aus Schema 2.0.0 nur zeigen, wenn dort schon etwas steht. Neu: Zahl pro Woche. */
-  if(voll(a.haeufigkeit.frei)) box.appendChild(textfeld("f-oft-frei", a.haeufigkeit.frei, function(v){ a.haeufigkeit.frei = v; wnAus(p+"haeufigkeit"); }, {zeile:true, platz:T("menge_frei")}));
-  box.appendChild(el("p", {"class":"klein", style:"margin:8px 0 4px", text:T("menge_prowoche")}));
-  var pw = textfeld("f-prowoche", a.haeufigkeit.proWoche, function(v){ a.haeufigkeit.proWoche = v; wnAus(p+"haeufigkeit"); summe(); }, {zeile:true, platz:"z. B. 5 oder 3 bis 6", label:T("menge_prowoche")});
-  pw.setAttribute("inputmode", "decimal"); pw.style.maxWidth = "240px";
-  box.appendChild(pw);
+    function(v){ a.haeufigkeit.auswahl = a.haeufigkeit.auswahl === v ? "" : v; wnAus(p+"haeufigkeit"); geaendert(); }, "c-oft"));
+  box.appendChild(textfeld("f-oft-frei", a.haeufigkeit.frei, function(v){ a.haeufigkeit.frei = v; wnAus(p+"haeufigkeit"); }, {zeile:true, platz:T("menge_frei")}));
   box.appendChild(el("p", {"class":"frage", text:T("menge_dauer")}));
   box.appendChild(el("p", {"class":"klein", style:"margin:-4px 0 8px", text:T("menge_dauer_hinweis")}));
   box.appendChild(kacheln(K.DAUER, function(v){ return a.dauer.auswahl === v; },
-    function(v){ a.dauer.auswahl = a.dauer.auswahl === v ? "" : v; wnAus(p+"dauer"); geaendert(); summe(); }, "c-dauer"));
+    function(v){ a.dauer.auswahl = a.dauer.auswahl === v ? "" : v; wnAus(p+"dauer"); geaendert(); }, "c-dauer"));
   box.appendChild(textfeld("f-dauer-frei", a.dauer.frei, function(v){ a.dauer.frei = v; wnAus(p+"dauer"); }, {zeile:true, platz:T("menge_frei")}));
-  /* Rueckrechnung auf die Woche, damit "pro Vorgang" und "pro Woche" nicht verwechselt werden. */
-  var sm = el("div", {"class":"summe", id:"menge-summe"});
-  var smText = el("div", {id:"menge-summe-text"});
-  sm.appendChild(smText);
-  sm.appendChild(el("p", {"class":"klein", style:"margin:8px 0 0", text:T("menge_passt")}));
-  var passtChips = kacheln(K.MENGE_PASST, function(v){ return a.mengePasst === v; },
-    function(v){ a.mengePasst = a.mengePasst === v ? "" : v; geaendert(); }, "c-passt");
-  sm.appendChild(passtChips);
-  box.appendChild(sm);
-  /* Aendert sich die Hochrechnung, gilt eine fruehere Bestaetigung nicht mehr. */
-  var altText = null;
-  function summe(){
-    var w = C.wochenStunden(a), text = w ? T("menge_summe") + " " + C.stundenText(w) + "." : "";
-    if(altText !== null && text !== altText && a.mengePasst){
-      a.mengePasst = ""; geaendert();
-      [].forEach.call(passtChips.querySelectorAll(".chip"), function(c){ c.setAttribute("aria-pressed", "false"); });
-    }
-    altText = text;
-    sm.hidden = !w;
-    smText.textContent = text;
-  }
-  summe();
 }
 
 function baueAerger(box, a){
@@ -674,7 +572,6 @@ function baueExtraTeam(box){
   var e = stand.extra;
   kopf(box, T("extra_eyebrow"), T("extra_team_titel"), null);
   frage(box, "x_imablauf"); box.appendChild(zeilenfeld("x-imablauf", e, "imAblauf", "Rollen genügen, z. B. Büro, Meister"));
-  frage(box, "x_testet"); box.appendChild(zeilenfeld("x-testet", e, "testet"));
   frage(box, "x_nutzer"); box.appendChild(einzelwahl(K.EXTRA.NUTZER, e.nutzer, "c-nutzer"));
   box.appendChild(zeilenfeld("x-nutzer-frei", e.nutzer, "frei", "genauer"));
   frage(box, "x_entscheider"); box.appendChild(zeilenfeld("x-entscheider", e, "entscheider"));
@@ -688,8 +585,6 @@ function baueExtraRahmen(box){
   frage(box, "x_einmal"); box.appendChild(el("p", {"class":"klein", text:T("x_budget_hinweis")}));
   box.appendChild(einzelwahl(K.EXTRA.EINMAL, e.budgetEinmal, "c-einmal"));
   frage(box, "x_laufend"); box.appendChild(einzelwahl(K.EXTRA.LAUFEND, e.budgetLaufend, "c-laufend"));
-  frage(box, "x_grenzen"); box.appendChild(mehrfachwahl(K.EXTRA.GRENZEN, e.grenzen, "c-grenzen"));
-  box.appendChild(zeilenfeld("x-grenzen-frei", e.grenzen, "frei"));
 }
 
 /* ---------------------------------------------------------------- Pruefen und senden */
@@ -717,11 +612,11 @@ function bauePruefen(box){
     box.appendChild(el("div", {"class":"luecken", id:"luecken"}, [el("strong", {text:T("pruef_luecken")}), ul]));
   }
   ablaeufeMitName().forEach(function(a){
-    var leer = !a.schritte.some(function(x){ return voll(x.was); });
-    var w = C.wochenStunden(a);
-    box.appendChild(el("div", {"class":"pruefabl"}, [el("h3", {text:a.name}), leer ? el("p", {"class":"klein", text:"noch keine Schritte"}) : kettenAnsicht(a),
-      w ? el("p", {"class":"klein", style:"margin:2px 0 0", text:"ca. " + C.stundenText(w)}) : null,
-      el("button", {"class":"btn leise", type:"button", text:"bearbeiten", on:{click:function(){ gehe("a:" + a.id + ":kette"); }}})]));
+    var kette = a.schritte.some(function(x){ return voll(x.was); });
+    var inhalt = voll(a.beschreibung) ? el("p", {"class":"beschr", text:a.beschreibung.trim()})
+               : kette ? kettenAnsicht(a) : el("p", {"class":"klein", text:"noch nicht beschrieben"});
+    box.appendChild(el("div", {"class":"pruefabl"}, [el("h3", {text:a.name}), inhalt,
+      el("button", {"class":"btn leise", type:"button", text:"bearbeiten", on:{click:function(){ gehe("a:" + a.id + ":beschreibung"); }}})]));
   });
   var xb = C.extraBeantwortet(stand).length;
   box.appendChild(el("div", {"class":"pruefabl"}, [el("h3", {text:T("extra_titel").replace("Fast geschafft. ", "Extra-Runde: ")}),

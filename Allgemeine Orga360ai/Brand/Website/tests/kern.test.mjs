@@ -8,9 +8,9 @@ require("../vorbereitung-fragen.js");
 const K = globalThis.VB2;
 
 test("Katalog: Versionen und Schalter", () => {
-  assert.equal(K.SCHEMA_VERSION, "2.1.0");
-  assert.equal(K.QUESTIONNAIRE_VERSION, "2026-10-v2.1");
-  assert.deepEqual(K.SCHEMA_VERSIONEN_OK, ["2.0.0","2.1.0"]);
+  assert.equal(K.SCHEMA_VERSION, "2.2.0");
+  assert.equal(K.QUESTIONNAIRE_VERSION, "2026-10-v2.2");
+  assert.deepEqual(K.SCHEMA_VERSIONEN_OK, ["2.0.0","2.1.0","2.2.0"]);
   assert.equal(K.FOTOS_AKTIV, false);
 });
 test("Katalog: jeder Text hat Du und Sie", () => {
@@ -74,7 +74,7 @@ test("Luecken: fehlende Angaben werden benannt, weissNicht erfuellt", () => {
   a.dauer.auswahl = ""; a.schritte.splice(1);
   const l = C.luecken(s).map(x => x.schluessel);
   assert.ok(l.includes(`ablauf:${a.id}:dauer`));
-  assert.ok(l.includes(`ablauf:${a.id}:schritte`));
+  assert.ok(l.includes(`ablauf:${a.id}:beschreibung`));
   s.weissNicht.push(`ablauf:${a.id}:dauer`);
   assert.ok(!C.luecken(s).map(x => x.schluessel).includes(`ablauf:${a.id}:dauer`));
 });
@@ -106,7 +106,7 @@ test("Dokument: Huelle, Revision, leere Zeilen raus", () => {
   s.ablaeufe.push(C.neuerAblauf(""));
   const meta = { kennung:"T-1", kunde:"Test", anrede:"du", createdAt:"2026-10-03T10:00:00Z", lastSubmissionId:null, lastRevision:-1 };
   const d = C.dokument(s, meta);
-  assert.equal(d.schemaVersion, "2.1.0"); assert.equal(d.questionnaireId, "T-1");
+  assert.equal(d.schemaVersion, "2.2.0"); assert.equal(d.questionnaireId, "T-1");
   assert.equal(d.revision, 0); assert.equal(d.anrede, "du");
   assert.equal(d.ablaeufe.length, 1); assert.equal(d.ablaeufe[0].schritte.length, 3);
 });
@@ -153,20 +153,11 @@ test("Extra-Runde: normalisieren ergaenzt fehlendes extra", () => {
   assert.equal(d.extra.nutzer.auswahl, ""); assert.deepEqual(d.extra.grenzen.kacheln, []);
 });
 test("Katalog: Extra-Runde mit Texten und Kacheln", () => {
-  for (const k of ["extra_titel","extra_text","extra_ja","extra_nein","x_betreut","x_einmal","x_grenzen"]) assert.ok(K.TEXTE[k], k);
+  for (const k of ["extra_titel","extra_text","extra_ja","extra_nein","x_betreut","x_einmal"]) assert.ok(K.TEXTE[k], k);
   assert.ok(K.EXTRA.EINMAL.includes("noch offen")); assert.ok(K.EXTRA.DATEN.includes("Gesundheitsdaten"));
 });
 
 // ---------------------------------------------------------------- v2.1 (Reitter-Ruecklauf 08.10.)
-test("Uebergaenge: offene werden als Luecke gemeldet, weissNicht erfuellt", () => {
-  const s = beispiel(); const a = s.ablaeufe[0];
-  a.schritte[0].weiter.art = "";
-  assert.deepEqual(C.uebergaengeOffen(a), [0]);
-  const k = `ablauf:${a.id}:uebergaenge`;
-  assert.ok(C.luecken(s).map(x => x.schluessel).includes(k));
-  s.weissNicht.push(k);
-  assert.ok(!C.luecken(s).map(x => x.schluessel).includes(k));
-});
 test("Uebergaenge: bei weniger als zwei Schritten keine Extra-Luecke", () => {
   const s = beispiel(); const a = s.ablaeufe[0]; a.schritte.splice(1);
   assert.ok(!C.luecken(s).map(x => x.schluessel).includes(`ablauf:${a.id}:uebergaenge`));
@@ -279,4 +270,31 @@ test("Reitter-Ruecklauf 08.10. laeuft durch und meldet die offenen Uebergaenge",
   const offen = C.rueckfragenStand(d).map(x => x.name);
   for (const n of ["Outlook","Word","Google Drive","Claude","ChatGPT","Excellent P.2 (UNI-Electronic)"]) assert.ok(offen.includes(n), n);
   for (const n of ["Excel","Microsoft Teams"]) assert.ok(!offen.includes(n), n + " fragt Office nicht ein zweites Mal");
+});
+
+// ---------------------------------------------------------------- v2.2 (Denis 22.10.: Freitext statt Kette)
+test("Freitext: Beschreibung fehlt als Luecke, Text reicht ohne Ausloeser und Schritte", () => {
+  const s = C.leererStand(); s.betrieb.taetigkeit = "Maler"; s.betrieb.personen.auswahl = "1 bis 5";
+  s.programme.push(C.neuesProgramm("Excel"));
+  const a = C.neuerAblauf("Anfrage bis Angebot"); a.haeufigkeit.auswahl = "täglich"; a.dauer.auswahl = "5 bis 15 Min";
+  s.ablaeufe.push(a);
+  assert.deepEqual(C.luecken(s).map(x => x.schluessel), [`ablauf:${a.id}:beschreibung`]);
+  a.beschreibung = "Kunde ruft an, ich schreibe es auf.";
+  assert.deepEqual(C.luecken(s), []);
+  const d = C.dokument(s, { kennung:"T", createdAt:"", lastRevision:-1 });
+  assert.equal(d.ablaeufe[0].beschreibung, "Kunde ruft an, ich schreibe es auf.");
+});
+test("Freitext: alte Kette ohne Beschreibung gilt als beschrieben, offene Uebergaenge sind keine Luecke mehr", () => {
+  const s = beispiel(); s.ablaeufe[0].schritte[0].weiter.art = ""; s.ablaeufe[0].ausloeser.kacheln = [];
+  assert.deepEqual(C.luecken(s), []);
+});
+test("Freitext: Kette wird als nummerierter Text uebernommen", () => {
+  const s = beispiel(); const t = C.ketteAlsText(s.ablaeufe[0], s.programme);
+  assert.match(t, /^1\. Lead kommt rein \(Telefon\)/);
+  assert.equal(t.split("\n").length, s.ablaeufe[0].schritte.filter(x => x.was).length);
+});
+test("Freitext: Beispiel in Du und Sie, ohne Gedankenstrich", () => {
+  assert.ok(K.BEISPIEL_BESCHREIBUNG.du && K.BEISPIEL_BESCHREIBUNG.sie);
+  for (const k of ["beschr_frage","beschr_hinweis","beschr_beispiel"]) assert.ok(K.TEXTE[k], k);
+  for (const k of ["x_testet","x_grenzen","ausl_frage","kette_frage","menge_passt"]) assert.ok(!K.TEXTE[k], k + " ist raus");
 });

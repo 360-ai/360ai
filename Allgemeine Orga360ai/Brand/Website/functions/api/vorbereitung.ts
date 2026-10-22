@@ -210,7 +210,7 @@ function schluesselText(doc: Any, k: string): string {
   const m = /^ablauf:([^:]+):(.+)$/.exec(k);
   if (m) {
     const a = (doc.ablaeufe || []).find((x: Any) => x.id === m[1]);
-    const teil: Record<string, string> = { ausloeser: "Auslöser", schritte: "Schritte", uebergaenge: "Übergänge", haeufigkeit: "wie oft", dauer: "wie lange", aerger: "was nervt" };
+    const teil: Record<string, string> = { beschreibung: "wie es abläuft", ausloeser: "Auslöser", schritte: "Schritte", uebergaenge: "Übergänge", haeufigkeit: "wie oft", dauer: "wie lange", aerger: "was nervt" };
     return `${a ? a.name : "Ablauf"}: ${teil[m[2]] || m[2]}`;
   }
   return k;
@@ -293,9 +293,10 @@ function ablaufHtml(a: Any, doc: Any, intern: boolean): string {
   const aerger = [...(a.aerger?.kacheln || []), a.aerger?.frei].filter(voll).map((s: string) => esc(s)).join(", ");
   return `<h3 style="font-size:15px;margin:20px 0 4px">${esc(a.name || "(ohne Namen)")}${intern && a.herkunft === "vorbelegt" ? MARK_VB : ""}</h3>
 <div style="font-size:14px">${zeile("Los geht es mit", esc(C.ausloeserText(a)))}
-${sch.length ? `<ol style="margin:6px 0 6px;padding-left:22px">${liste}</ol>` : `<div style="color:#8c2020">Keine Schritte beschrieben.</div>`}
+${voll(a.beschreibung) ? `<div style="margin:6px 0 8px;padding:8px 10px;background:#F0F3FA;border-radius:6px">${nl(a.beschreibung)}</div>` : ""}
+${sch.length ? `<ol style="margin:6px 0 6px;padding-left:22px">${liste}</ol>` : voll(a.beschreibung) ? "" : `<div style="color:#8c2020">Nicht beschrieben.</div>`}
 ${sch.length > 1 ? `<div ${KLEIN}>Kurz: ${esc(C.ketteText(a, doc.programme || []))}</div>` : ""}
-${zeile("Wie oft", esc(oftText(a.haeufigkeit)))}${zeile("Dauer je Vorgang", esc(wahl(a.dauer)))}${zeile("Hochgerechnet", esc(hochrechnung(a)))}${zeile("Was nervt", aerger)}</div>`;
+${zeile("Wie oft", esc(oftText(a.haeufigkeit)))}${zeile("Dauer je Fall", esc(wahl(a.dauer)))}${intern ? zeile("Hochgerechnet", esc(hochrechnung(a))) : ""}${zeile("Was nervt", aerger)}</div>`;
 }
 
 // Gespraechsbogen-Punkte: was die Extra-Runde schon beantwortet hat, was im Termin offen bleibt.
@@ -317,7 +318,8 @@ function extraHtml(doc: Any): string {
 
 function zusammenfassung(doc: Any, intern: boolean): string {
   let h = "";
-  if (intern) h += `<h2 ${H2}>Programmkarte</h2>` + programmkarteHtml(doc);
+  // Seit 2.2 Freitext: die Programmkarte gibt es nur noch fuer Ketten aus 2.0/2.1.
+  if (intern && C.programmkarte(doc).length) h += `<h2 ${H2}>Programmkarte</h2>` + programmkarteHtml(doc);
   h += `<h2 ${H2}>Abläufe</h2>`;
   h += (doc.ablaeufe || []).length
     ? doc.ablaeufe.map((a: Any) => ablaufHtml(a, doc, intern)).join("")
@@ -341,8 +343,11 @@ function zusammenfassung(doc: Any, intern: boolean): string {
 function textFassung(doc: Any): string {
   const z: string[] = [];
   for (const a of doc.ablaeufe || []) {
-    z.push(`\n== ${a.name} ==`, `Los geht es mit: ${C.ausloeserText(a)}`, C.ketteText(a, doc.programme || []),
-      `Wie oft: ${oftText(a.haeufigkeit)} | Dauer: ${wahl(a.dauer)}${hochrechnung(a) ? ` | Hochgerechnet: ${hochrechnung(a)}` : ""}`);
+    z.push(`\n== ${a.name} ==`);
+    if (voll(C.ausloeserText(a))) z.push(`Los geht es mit: ${C.ausloeserText(a)}`);
+    if (voll(a.beschreibung)) z.push(String(a.beschreibung).trim());
+    if (voll(C.ketteText(a, doc.programme || []))) z.push(C.ketteText(a, doc.programme || []));
+    z.push(`Wie oft: ${oftText(a.haeufigkeit)} | Dauer: ${wahl(a.dauer)}${hochrechnung(a) ? ` | Hochgerechnet: ${hochrechnung(a)}` : ""}`);
   }
   z.push(`\n== Betrieb ==`, String(doc.betrieb?.taetigkeit || ""), `Personen: ${personenText(doc.betrieb?.personen)}`);
   const rueck = new Map(C.rueckfragenStand(doc).map((x: Any) => [x.name, x]));

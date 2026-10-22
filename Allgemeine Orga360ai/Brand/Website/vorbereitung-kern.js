@@ -71,7 +71,7 @@ function neuerSchritt(){
   return {id:id("stp"), was:"", womit:{programmId:"", art:"", frei:""}, weiter:{art:"", womit:""}};
 }
 function neuerAblauf(name, herkunft){
-  return {id:id("abl"), name:name || "", herkunft:herkunft || "kunde",
+  return {id:id("abl"), name:name || "", herkunft:herkunft || "kunde", beschreibung:"",
           ausloeser:{kacheln:[], auswahl:"", frei:""}, schritte:[], haeufigkeit:{auswahl:"", frei:"", proWoche:""},
           dauer:{auswahl:"", frei:""}, mengePasst:"", aerger:{kacheln:[], frei:""}, bilder:[]};
 }
@@ -133,14 +133,15 @@ function luecken(s){
   if(!mitName.length) fehlt("ablaeufe", "Mindestens ein Ablauf");
   mitName.forEach(function(a){
     var p = "ablauf:" + a.id + ":";
-    if(!a.ausloeser.kacheln.length && !voll(a.ausloeser.auswahl) && !voll(a.ausloeser.frei)) fehlt(p+"ausloeser", a.name + ": Auslöser");
-    if(a.schritte.filter(function(x){ return voll(x.was); }).length < 2) fehlt(p+"schritte", a.name + ": mindestens zwei Schritte");
-    else if(uebergaengeOffen(a).length) fehlt(p+"uebergaenge", a.name + ": wie es von Schritt zu Schritt weitergeht");
+    /* Seit 2.2 Freitext. Eine Kette aus 2.0/2.1 mit mindestens zwei Schritten gilt auch als beschrieben. */
+    if(!beschrieben(a)) fehlt(p+"beschreibung", a.name + ": wie es abläuft");
     if(!voll(a.haeufigkeit.auswahl) && !voll(a.haeufigkeit.frei) && !voll(a.haeufigkeit.proWoche)) fehlt(p+"haeufigkeit", a.name + ": wie oft");
     if(!voll(a.dauer.auswahl) && !voll(a.dauer.frei)) fehlt(p+"dauer", a.name + ": wie lange");
   });
   return l;
 }
+
+function beschrieben(a){ return voll(a.beschreibung) || schritteMitInhalt(a).length >= 2; }
 
 /* Schritte (mit Inhalt), nach denen der Uebergang nicht angegeben ist. Der letzte hat keinen. */
 function uebergaengeOffen(a){
@@ -245,6 +246,14 @@ function ketteText(a, programme){
   });
   return teile.join(" → ");
 }
+/* Kette aus 2.0/2.1 als Freitext, eine Zeile je Schritt (fuer die Uebernahme in 2.2). */
+function ketteAlsText(a, programme){
+  var sch = schritteMitInhalt(a);
+  return sch.map(function(x, i){
+    var w = womitName(x.womit, programme), t = i < sch.length - 1 ? weiterKurz(x.weiter.art) : "";
+    return (i + 1) + ". " + String(x.was).trim() + (w ? " (" + w + ")" : "") + (t && t !== "?" ? ", dann " + t : "");
+  }).join("\n");
+}
 function programmkarte(s){
   var paare = [];
   s.ablaeufe.forEach(function(a){
@@ -274,7 +283,7 @@ function programmEntfernen(s, pid){
 function dokument(s, m){
   var k = normalisieren(kopie(s));
   k.programme = k.programme.filter(function(p){ return voll(p.name); });
-  k.ablaeufe = k.ablaeufe.filter(function(a){ return voll(a.name) || a.schritte.some(function(x){ return voll(x.was); }); });
+  k.ablaeufe = k.ablaeufe.filter(function(a){ return voll(a.name) || voll(a.beschreibung) || a.schritte.some(function(x){ return voll(x.was); }); });
   k.ablaeufe.forEach(function(a){
     a.schritte = a.schritte.filter(function(x){ return voll(x.was) || voll(x.womit.frei) || x.womit.programmId; });
   });
@@ -311,7 +320,7 @@ function pruefen(d, kennung){
 globalThis.VB2_KERN = {
   leererStand:leererStand, neuesProgramm:neuesProgramm, neuerSchritt:neuerSchritt, neuerAblauf:neuerAblauf,
   prefillAnwenden:prefillAnwenden, kachelZu:kachelZu, voll:voll, normalisieren:normalisieren,
-  luecken:luecken, womitName:womitName, weiterKurz:weiterKurz, ketteText:ketteText, programmkarte:programmkarte,
+  luecken:luecken, beschrieben:beschrieben, womitName:womitName, weiterKurz:weiterKurz, ketteText:ketteText, ketteAlsText:ketteAlsText, programmkarte:programmkarte,
   programmInVerwendung:programmInVerwendung, programmEntfernen:programmEntfernen,
   dokument:dokument, pruefen:pruefen, extraBeantwortet:extraBeantwortet, EXTRA_FELDER:EXTRA_FELDER,
   uebergaengeOffen:uebergaengeOffen, wochenStunden:wochenStunden, stundenText:stundenText, ausloeserText:ausloeserText,

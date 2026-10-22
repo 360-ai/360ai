@@ -27,25 +27,16 @@ var TEXTE = {
   prog_rueck:    t("Bei einigen Programmen fragen wir kurz nach. Das erspart uns Rückfragen im Termin.", "Bei einigen Programmen fragen wir kurz nach. Das erspart uns Rückfragen im Termin."),
   prog_inuse:    t("Wird in einem Ablauf verwendet. Dort bleibt der Name als Text stehen.", "Wird in einem Ablauf verwendet. Dort bleibt der Name als Text stehen."),
   ziel_titel:    t("Ihr Ziel", "Euer Ziel"),
-  ziel_frage:    t("Was soll in einem Jahr anders sein als heute?", "Was soll in einem Jahr anders sein als heute?"),
+  ziel_frage:    t("Wenn wir Ihnen eine Arbeit abnehmen könnten, welche wäre das?", "Wenn wir dir eine Arbeit abnehmen könnten, welche wäre das?"),
   abl_titel:     t("Ihre Abläufe", "Eure Abläufe"),
   abl_frage:     t("Welche Abläufe kosten Sie am meisten Zeit oder Nerven? Bis zu drei, einer genügt.", "Welche Abläufe kosten euch am meisten Zeit oder Nerven? Bis zu drei, einer genügt."),
   abl_hilfe:     t("Mir fällt nichts ein", "Mir fällt nichts ein"),
-  ausl_frage:    t("Wann geht es los? Was löst den Ablauf aus? Mehrere möglich.", "Wann geht es los? Was löst den Ablauf aus? Mehrere möglich."),
-  kette_frage:   t("Denken Sie an das letzte Mal. Was ist Schritt für Schritt passiert?", "Denk an das letzte Mal. Was ist Schritt für Schritt passiert?"),
-  kette_was:     t("Was passiert?", "Was passiert?"),
-  kette_womit:   t("Womit?", "Womit?"),
-  kette_weiter:  t("Wie kommt das zu Schritt", "Wie kommt das zu Schritt"),
-  kette_weiter_hinweis: t("Genau diese Übergänge sind für uns am wichtigsten.", "Genau diese Übergänge sind für uns am wichtigsten."),
-  kette_auto_womit: t("womit, z. B. Zapier (falls bekannt)", "womit, z. B. Zapier (falls bekannt)"),
-  kette_plus:    t("+ nächster Schritt", "+ nächster Schritt"),
-  kette_beispiel:t("Beispiel ansehen", "Beispiel ansehen"),
+  beschr_frage:  t("Erzählen Sie, wie das beim letzten Mal gelaufen ist: Wer hat was gemacht, womit, und wie ging es dann weiter?", "Erzähl, wie das beim letzten Mal gelaufen ist: Wer hat was gemacht, womit, und wie ging es dann weiter?"),
+  beschr_hinweis:t("In Ihren eigenen Worten, so wie Sie es einem neuen Kollegen erklären würden.", "In deinen eigenen Worten, so wie du es einem neuen Kollegen erklären würdest."),
+  beschr_beispiel: t("Beispiel aus einem Malerbetrieb", "Beispiel aus einem Malerbetrieb"),
   menge_oft:     t("Wie oft kommt das vor?", "Wie oft kommt das vor?"),
-  menge_prowoche:t("Falls Sie es wissen: ungefähr wie oft pro Woche?", "Falls du es weißt: ungefähr wie oft pro Woche?"),
-  menge_dauer:   t("Wie lange dauert EIN Vorgang, alle Beteiligten zusammen?", "Wie lange dauert EIN Vorgang, alle Beteiligten zusammen?"),
-  menge_dauer_hinweis: t("Gemeint ist ein einzelner Durchgang, z. B. ein Angebot oder eine Bestellung, nicht die ganze Woche.", "Gemeint ist ein einzelner Durchgang, z. B. ein Angebot oder eine Bestellung, nicht die ganze Woche."),
-  menge_summe:   t("Das ergibt ungefähr", "Das ergibt ungefähr"),
-  menge_passt:   t("Passt das ungefähr?", "Passt das ungefähr?"),
+  menge_dauer:   t("Wie lange sind Sie insgesamt mit einem Fall beschäftigt, ungefähr?", "Wie lange seid ihr insgesamt mit einem Fall beschäftigt, ungefähr?"),
+  menge_dauer_hinweis: t("Ein Fall ist z. B. ein Angebot oder eine Bestellung. Alle Beteiligten zusammen, grob geschätzt reicht.", "Ein Fall ist z. B. ein Angebot oder eine Bestellung. Alle Beteiligten zusammen, grob geschätzt reicht."),
   menge_frei:    t("Genauer, falls Sie mögen", "Genauer, falls du magst"),
   aerger_frage:  t("Was nervt daran?", "Was nervt daran?"),
   noch_titel:    t("Noch etwas?", "Noch etwas?"),
@@ -66,20 +57,18 @@ var TEXTE = {
   extra_prog_titel:   t("Programme und Daten", "Programme und Daten"),
   extra_team_titel:   t("Team und Entscheidung", "Team und Entscheidung"),
   extra_rahmen_titel: t("Zeit und Budget", "Zeit und Budget"),
-  x_betreut:     t("Wer betreut Ihre Programme und könnte Zugänge oder Exporte ermöglichen?", "Wer betreut eure Programme und könnte Zugänge oder Exporte ermöglichen?"),
+  x_betreut:     t("Wen rufen Sie an, wenn ein Programm nicht läuft?", "Wen ruft ihr an, wenn ein Programm nicht läuft?"),
   x_wechsel:     t("Steht bei Ihren Programmen ein Wechsel oder eine größere Änderung an?", "Steht bei euren Programmen ein Wechsel oder eine größere Änderung an?"),
   x_vorlagen:    t("Wo liegen Vorlagen und Arbeitsanweisungen?", "Wo liegen Vorlagen und Arbeitsanweisungen?"),
   x_daten:       t("Welche Daten kommen in den beschriebenen Abläufen vor?", "Welche Daten kommen in den beschriebenen Abläufen vor?"),
   x_imablauf:    t("Wer arbeitet täglich in den beschriebenen Abläufen?", "Wer arbeitet täglich in den beschriebenen Abläufen?"),
-  x_testet:      t("Wer würde eine neue Lösung testen und später betreuen?", "Wer würde eine neue Lösung testen und später betreuen?"),
   x_nutzer:      t("Wie viele Personen würden eine Lösung nutzen?", "Wie viele Leute würden eine Lösung nutzen?"),
   x_entscheider: t("Wer entscheidet über eine Umsetzung?", "Wer entscheidet über eine Umsetzung?"),
   x_probiert:    t("Was haben Sie schon ausprobiert, und was ist daraus geworden?", "Was habt ihr schon ausprobiert, und was ist daraus geworden?"),
   x_zieltermin:  t("Gibt es einen Zieltermin oder einen konkreten Anlass?", "Gibt es einen Zieltermin oder einen konkreten Anlass?"),
-  x_einmal:      t("Welcher einmalige Rahmen wäre bei nachgewiesenem Nutzen denkbar?", "Welcher einmalige Rahmen wäre bei nachgewiesenem Nutzen denkbar?"),
+  x_einmal:      t("Was wäre Ihnen eine Lösung einmalig ungefähr wert?", "Was wäre euch eine Lösung einmalig ungefähr wert?"),
   x_laufend:     t("Und laufend pro Monat für Software und Betreuung?", "Und laufend pro Monat für Software und Betreuung?"),
   x_budget_hinweis: t("Nur eine grobe Orientierung, keine Zusage.", "Nur eine grobe Orientierung, keine Zusage."),
-  x_grenzen:     t("Was darf eine Lösung auf keinen Fall selbst tun?", "Was darf eine Lösung auf keinen Fall selbst tun?"),
   danke_titel:   t("Vielen Dank, Ihre Vorbereitung ist bei 360ai angekommen.", "Danke, deine Vorbereitung ist bei 360ai angekommen."),
   danke_text:    t("Wenn Ihnen noch etwas einfällt, öffnen Sie denselben Link wieder und senden Sie erneut. Die neue Fassung ersetzt die vorige.", "Wenn dir noch etwas einfällt, öffne denselben Link wieder und sende erneut. Die neue Fassung ersetzt die vorige.")
 };
@@ -138,14 +127,14 @@ var EXTRA = {
    wird nur beim ersten passenden Programm gefragt und fuer alle gespeichert. */
 var RUECKFRAGEN = [
   {id:"postfach", kurz:"Postfach", bereiche:["mail"],
-   frage:t("Wo liegt Ihr Firmenpostfach?", "Wo liegt euer Firmenpostfach?"),
-   optionen:["Microsoft 365 (Firmenkonto)", "Google Workspace (Firmenkonto)", "beim Webhoster, z. B. IONOS, Strato, one.com", "privates Konto"]},
+   frage:t("Wo haben Sie Ihre Firmen-Mailadresse her?", "Wo habt ihr eure Firmen-Mailadresse her?"),
+   optionen:["mit der Website, z. B. IONOS, Strato, one.com", "Telekom oder anderer Internetanbieter", "Microsoft (Outlook im Abo)", "Google (Gmail mit eigener Adresse)", "private Adresse, z. B. GMX, web.de, Gmail"]},
   {id:"gemeinsam", kurz:"Gemeinsames Postfach", bereiche:["mail"],
    frage:t("Gibt es ein gemeinsames Postfach, z. B. info@?", "Gibt es ein gemeinsames Postfach, z. B. info@?"),
    optionen:["ja", "nein"]},
   {id:"office", kurz:"Office", einmal:true, namen:["Word","Excel","Microsoft Teams","OneDrive oder SharePoint"],
-   frage:t("Wie läuft Office bei Ihnen?", "Wie läuft Office bei euch?"),
-   optionen:["Microsoft-365-Abo", "gekaufte Version, z. B. Office 2021"]},
+   frage:t("Zahlen Sie für Office regelmäßig oder haben Sie es einmal gekauft?", "Zahlt ihr für Office regelmäßig oder habt ihr es einmal gekauft?"),
+   optionen:["regelmäßig, monatlich oder jährlich (Abo)", "einmal gekauft, z. B. Office 2021"]},
   {id:"googlekonto", kurz:"Google-Konto", einmal:true, namen:["Google Drive","Google Docs und Tabellen"],
    frage:t("Mit welchem Konto?", "Mit welchem Konto?"),
    optionen:["Firmenkonto (Google Workspace)", "privates Google-Konto"]},
@@ -159,10 +148,16 @@ var RUECKFRAGEN = [
    frage:t("Wie viele Automationen laufen darüber?", "Wie viele Automationen laufen darüber?"),
    optionen:["1 bis 3", "4 bis 10", "mehr als 10"]},
   {id:"laeuft", kurz:"Läuft", frei:["kunden","buch",""],
-   frage:t("Wo läuft das Programm?", "Wo läuft das Programm?"),
-   optionen:["auf einem Rechner oder Server im Büro", "im Browser oder in der Cloud"]}
+   frage:t("Wie öffnen Sie das Programm?", "Wie öffnet ihr das Programm?"),
+   optionen:["auf dem Rechner installiert", "im Internet-Browser, mit Anmeldung"]}
 ];
 var RUECK_WEISSNICHT = "weiß nicht";
+/* Beispiel unter dem Freitext (Denis 22.10.: sichtbar, nicht zugeklappt). Absichtlich aus
+   einer Branche, die in der Akquise selten vorkommt, damit es nicht abgeschrieben wird. */
+var BEISPIEL_BESCHREIBUNG = t(
+  "Ein Kunde ruft an, meine Frau schreibt Name und Nummer auf einen Zettel. Abends tippe ich das in Excel ab. Am nächsten Tag fahre ich raus, messe auf und schreibe das Angebot in Word. Das schicke ich per Mail. Ob der Kunde zusagt, merke ich erst, wenn er zurückruft. Dann trage ich den Termin in den Kalender ein und sage den Jungs per WhatsApp Bescheid.",
+  "Ein Kunde ruft an, meine Frau schreibt Name und Nummer auf einen Zettel. Abends tippe ich das in Excel ab. Am nächsten Tag fahre ich raus, messe auf und schreibe das Angebot in Word. Das schicke ich per Mail. Ob der Kunde zusagt, merke ich erst, wenn er zurückruft. Dann trage ich den Termin in den Kalender ein und sage den Jungs per WhatsApp Bescheid.");
+/* Nur noch fuer Staende aus 2.0/2.1 (Kette Schritt fuer Schritt). */
 var BEISPIEL_KETTE = [
   "Kunde ruft an · Telefon · wird abgetippt",
   "Anfrage eintragen · Branchensoftware · jemand sagt Bescheid",
@@ -171,12 +166,12 @@ var BEISPIEL_KETTE = [
 ];
 var BEISPIEL_ABLAEUFE = ["Anfrage bis Angebot","Stundenzettel bis Abrechnung","Eingangsrechnung bis Buchhaltung","Neuer Kunde bis erster Termin"];
 globalThis.VB2 = {
-  SCHEMA_VERSION:"2.1.0", SCHEMA_VERSIONEN_OK:["2.0.0","2.1.0"], QUESTIONNAIRE_VERSION:"2026-10-v2.1", DOC_TYPE:"360ai.preassessment",
+  SCHEMA_VERSION:"2.2.0", SCHEMA_VERSIONEN_OK:["2.0.0","2.1.0","2.2.0"], QUESTIONNAIRE_VERSION:"2026-10-v2.2", DOC_TYPE:"360ai.preassessment",
   FOTOS_AKTIV:false, MAX_ABLAEUFE:3, MAX_SCHRITTE:12, MAX_PROGRAMME:40, MAX_TEXT:5000,
   TEXTE:TEXTE, PERSONEN:PERSONEN, PROGRAMM_BEREICHE:PROGRAMM_BEREICHE, WOMIT_EXTRA:WOMIT_EXTRA,
   WEITER:WEITER, AUSLOESER:AUSLOESER, HAEUFIGKEIT:HAEUFIGKEIT, DAUER:DAUER, ZIEL:ZIEL, AERGER:AERGER,
   AZUBIS:AZUBIS, HAEUFIGKEIT_PRO_WOCHE:HAEUFIGKEIT_PRO_WOCHE, DAUER_MINUTEN:DAUER_MINUTEN, MENGE_PASST:MENGE_PASST,
   RUECKFRAGEN:RUECKFRAGEN, RUECK_WEISSNICHT:RUECK_WEISSNICHT,
-  EXTRA:EXTRA, BEISPIEL_KETTE:BEISPIEL_KETTE, BEISPIEL_ABLAEUFE:BEISPIEL_ABLAEUFE
+  EXTRA:EXTRA, BEISPIEL_BESCHREIBUNG:BEISPIEL_BESCHREIBUNG, BEISPIEL_KETTE:BEISPIEL_KETTE, BEISPIEL_ABLAEUFE:BEISPIEL_ABLAEUFE
 };
 })();
