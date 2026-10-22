@@ -32,7 +32,7 @@ var TEXTE = {
   abl_frage:     t("Welche Abläufe kosten Sie am meisten Zeit oder Nerven? Bis zu drei, einer genügt.", "Welche Abläufe kosten euch am meisten Zeit oder Nerven? Bis zu drei, einer genügt."),
   abl_hilfe:     t("Mir fällt nichts ein", "Mir fällt nichts ein"),
   beschr_frage:  t("Erzählen Sie, wie das beim letzten Mal gelaufen ist: Wer hat was gemacht, womit, und wie ging es dann weiter?", "Erzähl, wie das beim letzten Mal gelaufen ist: Wer hat was gemacht, womit, und wie ging es dann weiter?"),
-  beschr_hinweis:t("In Ihren eigenen Worten, so wie Sie es einem neuen Kollegen erklären würden.", "In deinen eigenen Worten, so wie du es einem neuen Kollegen erklären würdest."),
+  beschr_hinweis:t("In Ihren eigenen Worten, so wie Sie es einem neuen Kollegen erklären würden. Bitte schreiben Sie bei jedem Schritt in Klammern dazu, womit er passiert, z. B. (Excel), (Zettel) oder (WhatsApp).", "In deinen eigenen Worten, so wie du es einem neuen Kollegen erklären würdest. Bitte schreib bei jedem Schritt in Klammern dazu, womit er passiert, z. B. (Excel), (Zettel) oder (WhatsApp)."),
   beschr_beispiel: t("Beispiel aus einem Malerbetrieb", "Beispiel aus einem Malerbetrieb"),
   menge_oft:     t("Wie oft kommt das vor?", "Wie oft kommt das vor?"),
   menge_dauer:   t("Wie lange sind Sie insgesamt mit einem Fall beschäftigt, ungefähr?", "Wie lange seid ihr insgesamt mit einem Fall beschäftigt, ungefähr?"),
@@ -155,8 +155,8 @@ var RUECK_WEISSNICHT = "weiß nicht";
 /* Beispiel unter dem Freitext (Denis 22.10.: sichtbar, nicht zugeklappt). Absichtlich aus
    einer Branche, die in der Akquise selten vorkommt, damit es nicht abgeschrieben wird. */
 var BEISPIEL_BESCHREIBUNG = t(
-  "Ein Kunde ruft an, meine Frau schreibt Name und Nummer auf einen Zettel. Abends tippe ich das in Excel ab. Am nächsten Tag fahre ich raus, messe auf und schreibe das Angebot in Word. Das schicke ich per Mail. Ob der Kunde zusagt, merke ich erst, wenn er zurückruft. Dann trage ich den Termin in den Kalender ein und sage den Jungs per WhatsApp Bescheid.",
-  "Ein Kunde ruft an, meine Frau schreibt Name und Nummer auf einen Zettel. Abends tippe ich das in Excel ab. Am nächsten Tag fahre ich raus, messe auf und schreibe das Angebot in Word. Das schicke ich per Mail. Ob der Kunde zusagt, merke ich erst, wenn er zurückruft. Dann trage ich den Termin in den Kalender ein und sage den Jungs per WhatsApp Bescheid.");
+  "Ein Kunde ruft an (Telefon), meine Frau schreibt Name und Nummer auf (Zettel). Abends tippe ich das ab (Excel). Am nächsten Tag fahre ich raus, messe auf (Notizblock) und schreibe das Angebot (Word). Das schicke ich dem Kunden (Outlook). Ob er zusagt, merke ich erst, wenn er zurückruft (Telefon). Dann trage ich den Termin ein (Google Kalender) und sage den Jungs Bescheid (WhatsApp).",
+  "Ein Kunde ruft an (Telefon), meine Frau schreibt Name und Nummer auf (Zettel). Abends tippe ich das ab (Excel). Am nächsten Tag fahre ich raus, messe auf (Notizblock) und schreibe das Angebot (Word). Das schicke ich dem Kunden (Outlook). Ob er zusagt, merke ich erst, wenn er zurückruft (Telefon). Dann trage ich den Termin ein (Google Kalender) und sage den Jungs Bescheid (WhatsApp).");
 /* Nur noch fuer Staende aus 2.0/2.1 (Kette Schritt fuer Schritt). */
 var BEISPIEL_KETTE = [
   "Kunde ruft an · Telefon · wird abgetippt",
