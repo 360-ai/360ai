@@ -29,7 +29,7 @@ interface Env {
   TURNSTILE_SITEKEY?: string;
   MAIL_DRY_RUN?: string;
   LANGDOCK_WEBHOOK_URL?: string; // Langdock-Workflow "Ruecklauf auswerten", leer = aus
-  LANGDOCK_WEBHOOK_TOKEN?: string; // geht als X-360ai-Token mit, der Workflow prueft ihn
+  LANGDOCK_WEBHOOK_TOKEN?: string; // geht als X-Webhook-Secret mit (Header-Authentifizierung des Langdock-Webhooks)
 }
 
 interface Payload {
@@ -391,7 +391,7 @@ async function langdockMelden(env: Env, daten: Record<string, unknown>): Promise
   try {
     const r = await fetch(ziel, {
       method: "POST",
-      headers: { "Content-Type": "application/json", "X-360ai-Token": env.LANGDOCK_WEBHOOK_TOKEN || "" },
+      headers: { "Content-Type": "application/json", "X-Webhook-Secret": env.LANGDOCK_WEBHOOK_TOKEN || "" },
       body: JSON.stringify(daten),
     });
     if (!r.ok) console.log("Langdock-Webhook HTTP", r.status);
