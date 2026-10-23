@@ -1,0 +1,13 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Schmidt;Denis;;;
+FN:Denis Schmidt
+ORG:360ai
+TITLE:KI-Beratung & Automatisierung für den Mittelstand
+TEL;TYPE=CELL,VOICE:+4915129008128
+EMAIL;TYPE=WORK:info@360-ai.org
+URL:https://360-ai.org
+ADR;TYPE=WORK:;;Wangershäuser Str. 7;Frankenberg (Eder);;35066;Deutschland
+X-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/denis-s-51679a34b
+X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/360ai_fkb/
+END:VCARD

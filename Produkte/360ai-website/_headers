@@ -29,3 +29,14 @@
 /vorbereitung.html
   X-Robots-Tag: noindex, nofollow
   Referrer-Policy: no-referrer
+
+# Visitenkarten-Seite (QR-Code auf der Karte): nur fuer Scans, nicht in Suchmaschinen.
+/karte
+  X-Robots-Tag: noindex, nofollow
+
+/karte.html
+  X-Robots-Tag: noindex, nofollow
+
+/denis-schmidt-360ai.vcf
+  Content-Type: text/vcard; charset=utf-8
+  X-Robots-Tag: noindex
