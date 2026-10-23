@@ -12,3 +12,6 @@ Vertrieb/akquise-daten/
 Kunden/Akquise/L-*/
 Kunden/Akquise/TEST-*/
 Kunden/Akquise/REF-*/
+
+# Apps Script mit eingesetztem Secret (Lead-Magnet), nur lokal
+*.FERTIG.gs

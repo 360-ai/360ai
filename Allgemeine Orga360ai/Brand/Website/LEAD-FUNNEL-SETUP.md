@@ -78,12 +78,9 @@ Solange `TURNSTILE_SECRET` fehlt, laeuft alles ohne Turnstile weiter.
 
 ## Die erzeugten Secrets
 
-Einmalig am 16.09.2026 erzeugt. Nicht oeffentlich machen, nicht in Aussentexte kopieren.
-
-```
-TOKEN_SECRET=M0DCC0XtJGTDizin_0grH37WMG5J395dtRcEuqT9dZE
-SHEET_SECRET=T0K9PFoT8xCEIHqQZfkoVVLvUMyfwTlU
-```
+Am 23.10.2026 rotiert, weil die alten Werte hier im oeffentlichen Repo standen. Die aktuellen Werte liegen
+nur lokal in `%USERPROFILE%\.360ai_leadfunnel_secrets`, nie ins Repo schreiben. Die Apps-Script-Fassung mit
+eingesetztem Secret (`apps-script/lead-sheet.FERTIG.gs`) ist per `.gitignore` ausgeschlossen.
 
 `TOKEN_SECRET` signiert die Bestaetigungslinks. Wird es geaendert, werden alle noch nicht
 geklickten Links ungueltig.
