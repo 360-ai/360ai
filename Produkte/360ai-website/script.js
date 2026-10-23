@@ -103,7 +103,7 @@ if (contactSection) {
     const message = value(whatsappForm, 'message');
     const text = [`Hallo 360ai,`, '', `ich bin ${name}${company ? ` von ${company}` : ''}.`, message || 'Ich würde gern kurz über mein Anliegen sprechen.'].join('\n');
     showContactFallback(whatsappForm, text, 'Ihre Nachricht ist gesichert. Falls WhatsApp nicht öffnet, kopieren Sie den Text einfach.');
-    window.open(`https://wa.me/4915229239908?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+    window.open(`https://wa.me/4915129008128?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
   });
 }
 
