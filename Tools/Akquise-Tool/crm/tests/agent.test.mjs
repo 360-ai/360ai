@@ -138,3 +138,208 @@ test('Service Token wird nur mit passender Client-ID und nur fuer /api/agent/ zu
   }
   assert.equal(identitaetDarfPfad({ email: 'denis@example.org' }, 'https://crm.example.org/sync'), true);
 });
+
+// --- Lead anlegen (POST /api/agent/lead) ---
+const leereDaten = { leads: [{ lead_id: 'L-ALT', firma: 'Schreck Kunststofftechnik GmbH', mail: 'info@alt.de', status: 'termin' }], activities: [] };
+const neuerLead = {
+  firma: 'Musterbau GmbH', ansprechpartner: 'Erika Muster', ort: '35066 Frankenberg',
+  mail: 'erika@musterbau.de', website: 'https:// musterbau.de', anrede: 'Du', kontaktquelle: 'sonstiges',
+};
+
+test('Lead anlegen schreibt create, Phase, naechste Aktion und Datum, danach die Notiz', async () => {
+  const { r, aufrufe } = await mitWf4([], async () => (await import('../functions/lib/agent.js')).leadAnlegen(
+    kontext(), { ...neuerLead, phase: 'angebot', faellig_am: '2026-10-28', notiz: 'Bestandskunde' },
+    leereDaten, '2026-10-21'));
+  const body = await r.json();
+  assert.equal(r.status, 200, JSON.stringify(body));
+  assert.deepEqual(aufrufe.map((a) => a.aktion === 'create' || a.aktion === 'notiz' ? a.aktion : a.feld),
+    ['create', 'status', 'next_action', 'next_action_at', 'notiz']);
+  assert.match(aufrufe[0].lead_id, /^L-20261021-musterbau-gmbh-[a-z0-9]{1,4}$/);
+  assert.equal(aufrufe[0].lead.website, 'https://musterbau.de');
+  assert.equal(aufrufe[0].lead.anrede, 'du');
+  assert.equal(aufrufe[1].erwarteter_status, 'neu');
+  assert.equal(aufrufe[2].wert, 'wiedervorlage');
+  assert.equal(aufrufe[2].erwarteter_status, 'angebot');
+  assert.equal(body.phase, 'angebot');
+});
+
+test('Lead anlegen in Phase neu laesst die Analyse-Aufgabe von WF-4 stehen', async () => {
+  const { aufrufe } = await mitWf4([], async () => (await import('../functions/lib/agent.js')).leadAnlegen(
+    kontext(), neuerLead, leereDaten, '2026-10-21'));
+  assert.deepEqual(aufrufe.map((a) => a.aktion), ['create']);
+});
+
+test('Moegliche Dublette (Firma ohne Gross/Klein oder Mail) gibt 409 und schreibt nichts', async () => {
+  const { leadAnlegen } = await import('../functions/lib/agent.js');
+  const { r, aufrufe } = await mitWf4([], () => leadAnlegen(
+    kontext(), { firma: 'schreck kunststofftechnik gmbh', phase: 'angebot' }, leereDaten, '2026-10-21'));
+  assert.equal(r.status, 409);
+  assert.equal((await r.json()).treffer[0].lead_id, 'L-ALT');
+  assert.equal(aufrufe.length, 0);
+  const zwei = await mitWf4([], () => leadAnlegen(
+    kontext(), { firma: 'Anders', mail: 'INFO@alt.de', doppelt_ok: true }, leereDaten, '2026-10-21'));
+  assert.equal(zwei.r.status, 200);
+});
+
+test('Ungueltige Eingaben werden vor dem Anlegen abgelehnt', async () => {
+  const { leadAnlegen } = await import('../functions/lib/agent.js');
+  const { aufrufe } = await mitWf4([], async () => {
+    for (const eingabe of [
+      { ...neuerLead, phase: 'beendet' },
+      { ...neuerLead, phase: 'quatsch' },
+      { ...neuerLead, phase: 'angebot', faellig_am: '28.10.2026' },
+      { ...neuerLead, mail: 'kein-at' },
+      { ort: 'nur Ort' },
+    ]) {
+      const antwort = await leadAnlegen(kontext(), eingabe, leereDaten, '2026-10-21');
+      assert.equal(antwort.status, 400, JSON.stringify(eingabe));
+    }
+  });
+  assert.equal(aufrufe.length, 0);
+});
+
+test('Scheitert ein Folgeschritt, meldet die Antwort die lead_id und legt nicht erneut an', async () => {
+  const { leadAnlegen } = await import('../functions/lib/agent.js');
+  const { r, aufrufe } = await mitWf4([[200, { ok: true }], [502, { ok: false }]], () => leadAnlegen(
+    kontext(), { ...neuerLead, phase: 'angebot', faellig_am: '2026-10-28' }, leereDaten, '2026-10-21'));
+  const body = await r.json();
+  assert.equal(body.ok, false);
+  assert.equal(body.angelegt, true);
+  assert.equal(body.lead_id, aufrufe[0].lead_id);
+  assert.deepEqual(body.schon_geschrieben, ['create']);
+  assert.equal(aufrufe.filter((a) => a.aktion === 'create').length, 1);
+});
+
+test('Lesefehler beim Anlegen: Route gibt 502 und schreibt nichts', async () => {
+  const { mitDaten } = await import('../functions/lib/agent-route.js');
+  const { leadAnlegen } = await import('../functions/lib/agent.js');
+  const aufrufe = [];
+  const original = globalThis.fetch;
+  globalThis.fetch = async (_url, optionen) => {
+    if (optionen?.method === 'POST' && optionen.body?.includes?.('"aktion"')) aufrufe.push(optionen.body);
+    return new Response('kaputt', { status: 500 });
+  };
+  try {
+    const context = {
+      request: new Request('https://crm.example.org/api/agent/lead', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(neuerLead),
+      }),
+      env: { ...env, CRM_READ_WEBHOOK_URL: 'https://n8n.example.org/webhook/read', CRM_READ_TOKEN: 't' },
+      data: { accessIdentity: { service: true } },
+    };
+    const r = await mitDaten(context, leadAnlegen);
+    assert.equal(r.status, 502);
+    assert.equal(aufrufe.length, 0);
+  } finally {
+    globalThis.fetch = original;
+  }
+});
+
+// --- Zeitueberschreitung bei WF-4 (21.10.: n8n schrieb nach dem Abbruch trotzdem) ---
+// schreibt: Liste je POST-Aufruf, 'haengt' = keine Antwort bis zum Abbruch. sheet: was der Read-Webhook liefert.
+async function mitLangsamemWf4(schreibt, sheet, fn) {
+  const aufrufe = [];
+  const original = globalThis.fetch;
+  globalThis.fetch = async (_url, optionen) => {
+    if (optionen.method === 'GET') {
+      return new Response(JSON.stringify({ ok: true, leads: sheet.leads, activities: sheet.activities, audits: [] }));
+    }
+    const payload = JSON.parse(optionen.body);
+    aufrufe.push(payload);
+    const art = schreibt[aufrufe.length - 1] || 'ok';
+    if (art === 'haengt' || art === 'haengt-schreibt') {
+      // haengt-schreibt: n8n speichert, die Antwort kommt aber nie an
+      if (art === 'haengt-schreibt' && payload.aktion === 'create') sheet.leads.push({ ...payload.lead, lead_id: payload.lead_id, status: 'neu' });
+      return new Promise((_ok, abbruch) => optionen.signal.addEventListener('abort', () => abbruch(new Error('abort'))));
+    }
+    return new Response(JSON.stringify({ ok: true }), { status: 200 });
+  };
+  try {
+    return { r: await fn(), aufrufe };
+  } finally {
+    globalThis.fetch = original;
+  }
+}
+const langsamEnv = {
+  ...env, CRM_WRITE_TIMEOUT_MS: '20', CRM_NACHLESE_PAUSE_MS: '0',
+  CRM_READ_WEBHOOK_URL: 'https://n8n.example.org/webhook/read', CRM_READ_WEBHOOK_TOKEN: 't',
+};
+const langsamKontext = () => ({ request: new Request('https://crm.example.org/api/agent/lead'), env: langsamEnv });
+
+test('Zeitueberschreitung beim Anlegen: Lead steht im Sheet, Folgeschritte laufen weiter', async () => {
+  const { leadAnlegen } = await import('../functions/lib/agent.js');
+  const sheet = { leads: [...leereDaten.leads], activities: [] };
+  const { r, aufrufe } = await mitLangsamemWf4(['haengt-schreibt'], sheet, () => leadAnlegen(langsamKontext(),
+    { ...neuerLead, phase: 'angebot', faellig_am: '2026-10-28' }, leereDaten, '2026-10-21'));
+  const body = await r.json();
+  assert.equal(body.ok, true, JSON.stringify(body));
+  assert.equal(aufrufe.filter((a) => a.aktion === 'create').length, 1, 'nie zweimal anlegen');
+  assert.deepEqual(body.geschrieben, ['create', 'status', 'next_action', 'next_action_at']);
+});
+
+test('Zeitueberschreitung beim Anlegen ohne Lead im Sheet: 504, angelegt unklar, kein zweites create', async () => {
+  const { leadAnlegen } = await import('../functions/lib/agent.js');
+  const { r, aufrufe } = await mitLangsamemWf4(['haengt'], { leads: [...leereDaten.leads], activities: [] },
+    () => leadAnlegen(langsamKontext(), neuerLead, leereDaten, '2026-10-21'));
+  const body = await r.json();
+  assert.equal(r.status, 504);
+  assert.equal(body.angelegt, 'unklar');
+  assert.match(body.message, /NICHT sofort erneut/);
+  assert.equal(aufrufe.length, 1);
+});
+
+test('Gescheiterte Notiz beim Anlegen wird gemeldet statt verschluckt', async () => {
+  const { leadAnlegen } = await import('../functions/lib/agent.js');
+  const { r } = await mitWf4([[200, { ok: true }], [200, { ok: true }], [200, { ok: true }], [200, { ok: true }],
+    [500, { ok: false }]], () => leadAnlegen(
+    kontext(), { ...neuerLead, phase: 'angebot', faellig_am: '2026-10-28', notiz: 'x' }, leereDaten, '2026-10-21'));
+  const body = await r.json();
+  assert.equal(body.ok, false);
+  assert.equal(body.angelegt, true);
+  assert.match(body.message, /notiz_anhaengen/);
+  assert.deepEqual(body.schon_geschrieben, ['create', 'status', 'next_action', 'next_action_at']);
+});
+
+test('Leere Lead-Liste gilt als Lesefehler, nicht als "keine Dublette"', async () => {
+  const { leadAnlegen } = await import('../functions/lib/agent.js');
+  const { r, aufrufe } = await mitWf4([], () => leadAnlegen(
+    kontext(), neuerLead, { leads: [], activities: [] }, '2026-10-21'));
+  assert.equal(r.status, 502);
+  assert.equal(aufrufe.length, 0);
+});
+
+test('Zeitueberschreitung bei Phase setzen: Wert steht im Sheet, gilt als geschrieben', async () => {
+  const sheet = { leads: [{ lead_id: 'L-1', status: 'angebot', next_action_at: '2026-11-02' }], activities: [] };
+  const { r } = await mitLangsamemWf4(['haengt', 'ok'], sheet, () => phaseSetzen(langsamKontext(), {
+    lead_id: 'L-1', phase: 'angebot', erwartete_phase: 'termin', faellig_am: '2026-11-02',
+  }));
+  assert.equal(r.status, 200, JSON.stringify(r));
+});
+
+test('Leere Leseantwort wird neu gelesen: Eingang findet die Kennung beim zweiten Lesen', async () => {
+  const { mitDaten } = await import('../functions/lib/agent-route.js');
+  const { eingangVermerken } = await import('../functions/lib/agent.js');
+  const lead = { lead_id: 'L-1', firma: 'Schreiber', status: 'fragebogen_raus', vb_kennung: 'K-1' };
+  let lesungen = 0;
+  const original = globalThis.fetch;
+  globalThis.fetch = async (_url, optionen) => {
+    if (optionen.method === 'GET') {
+      lesungen += 1;
+      return new Response(JSON.stringify({ ok: true, leads: lesungen === 1 ? [] : [lead], activities: [], audits: [] }));
+    }
+    return new Response(JSON.stringify({ ok: true }));
+  };
+  try {
+    const context = {
+      request: new Request('https://crm.example.org/api/agent/vorbereitung/eingang', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ kennung: 'K-1' }),
+      }),
+      env: langsamEnv, data: { accessIdentity: { service: true } },
+    };
+    const r = await mitDaten(context, eingangVermerken);
+    assert.equal(r.status, 200);
+    assert.equal(lesungen, 2);
+  } finally {
+    globalThis.fetch = original;
+  }
+});

@@ -8,6 +8,8 @@ export async function onRequestGet(context) {
   const parameter = new URL(context.request.url).searchParams;
   try {
     const daten = await ladeDaten(context);
+    // Leer heisst: Lesen ausgefallen (21.10. zweimal gesehen). Sonst meldet der Agent faelschlich "kein Treffer".
+    if (!daten.leads?.length) throw new Error('leer');
     const treffer = sucheLeads(daten.leads, {
       suche: parameter.get('suche') || '',
       phase: parameter.get('phase') || '',

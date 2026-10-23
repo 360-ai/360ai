@@ -65,9 +65,18 @@ export function leadAkte(daten, leadId) {
 }
 
 export async function ladeDaten(context) {
-  return localBypassEnabled(context.request, context.env) && context.env.LOCAL_DEMO_DATA === 'true'
-    ? createDemoData()
-    : readCrmWebhook(context.env);
+  if (localBypassEnabled(context.request, context.env) && context.env.LOCAL_DEMO_DATA === 'true') {
+    return createDemoData();
+  }
+  // Der Read-Webhook lieferte am 21.10. zweimal kurz eine leere Liste. Leer gibt es im echten CRM nicht:
+  // nach Pause neu lesen, sonst als Lesefehler werfen (sonst "unbekannte Kennung" oder falsches "kein Treffer").
+  const pause = Number(context.env?.CRM_NACHLESE_PAUSE_MS ?? 2000);
+  for (let versuch = 0; versuch < 3; versuch += 1) {
+    if (versuch && pause) await new Promise((fertig) => setTimeout(fertig, pause));
+    const daten = await readCrmWebhook(context.env);
+    if (daten.leads.length) return daten;
+  }
+  throw new Error('Read-Webhook liefert keine Leads');
 }
 
 // Lokale Demo schreibt nicht, sie bestaetigt nur.
@@ -154,7 +163,7 @@ export async function phaseSetzen(context, eingabe) {
 
   const geschrieben = [];
   for (const payload of geprueft) {
-    const antwort = await schreibe(context, payload);
+    const antwort = await schreibeGeprueft(context, payload, feldSteht(payload));
     if (!antwort.ok) {
       if (antwort.status === 422) {
         return json({
@@ -206,7 +215,7 @@ export const datumLang = (iso) => {
 const SIGNATUR = [
   'Viele Grüße', 'Denis', '', 'Denis Schmidt',
   '360ai | KI-Beratung & Automatisierung für den Mittelstand', '',
-  'Wangershäuser Str. 7 · 35066 Frankenberg (Eder)', 'Tel. 0152 2923 9908',
+  'Wangershäuser Str. 7 · 35066 Frankenberg (Eder)', 'Tel. 0151 2900 8128',
   'info@360-ai.org · www.360-ai.org',
 ].join('\n');
 
@@ -296,12 +305,16 @@ async function schreibeFelder(context, leadId, status, felder) {
   }
   const geschrieben = [];
   for (const payload of geprueft) {
-    const antwort = await schreibe(context, payload);
+    const antwort = await schreibeGeprueft(context, payload, feldSteht(payload));
     if (!antwort.ok) return antwortAusFehler(antwort, geschrieben);
     geschrieben.push(payload.feld);
   }
   return null;
 }
+
+// Pruefung fuer schreibeGeprueft: steht der Feldwert schon im Sheet?
+const feldSteht = (payload) => (d) => (d.leads || [])
+  .some((eintrag) => eintrag.lead_id === payload.lead_id && String(eintrag[payload.feld] ?? '') === String(payload.wert));
 
 // Wechselt die Phase nur vorwaerts. Rueckgabe: [Phase danach, Fehlerantwort oder null].
 async function phaseVorwaerts(context, lead, ziel) {
@@ -400,6 +413,150 @@ export async function eingangVermerken(context, eingabe, daten, heute = heuteBer
       drive_url: lead.berichte_drive_url || '',
       ...phaseMitLabel(phase),
     },
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Lead anlegen (Etappe 4, Denis 21.10.2026): direkt in der Zielphase, ohne Umweg ueber neu/analyse.
+
+// Muster wie neueLeadId() in public/app.js: L-JJJJMMTT-kurzform-zufall.
+export function neueLeadId(lead, heute = heuteBerlin()) {
+  const quelle = [lead.firma, lead.ansprechpartner, lead.mail]
+    .map((wert) => String(wert || '').trim()).find(Boolean) || 'lead';
+  const slug = quelle.toLowerCase()
+    .replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 24) || 'lead';
+  const zufall = Math.random().toString(36).slice(2, 6);
+  return 'L-' + heute.replaceAll('-', '') + '-' + slug + '-' + zufall;
+}
+
+// Am Handy setzt die Tastatur gern Leerzeichen, und "www.firma.de" kommt ohne Protokoll.
+export function normWebsite(wert) {
+  const ohneLeer = String(wert || '').replace(/\s+/g, '');
+  if (!ohneLeer) return '';
+  return /^https?:\/\//i.test(ohneLeer) ? ohneLeer.replace(/^https?/i, (p) => p.toLowerCase()) : 'https://' + ohneLeer;
+}
+
+const vergleich = (wert) => String(wert || '').trim().toLocaleLowerCase('de');
+
+export function moeglicheDubletten(leads, lead) {
+  const mail = vergleich(lead.mail);
+  const firma = vergleich(lead.firma);
+  return leads
+    .filter((eintrag) => (mail && vergleich(eintrag.mail) === mail) || (firma && vergleich(eintrag.firma) === firma))
+    .map(kurzLead);
+}
+
+// Nach einer Zeitueberschreitung nachsehen, ob WF-4 doch geschrieben hat. Das Sheet zeigt neue
+// Werte oft erst nach ein paar Sekunden, deshalb bis zu drei Leseversuche mit Pause.
+async function nachgelesen(context, pruefe) {
+  const pause = Number(context.env?.CRM_NACHLESE_PAUSE_MS ?? 3000);
+  for (let versuch = 0; versuch < 3; versuch += 1) {
+    if (pause) await new Promise((fertig) => setTimeout(fertig, pause));
+    try {
+      if (pruefe(await ladeDaten(context))) return true;
+    } catch { /* naechster Versuch */ }
+  }
+  return false;
+}
+
+// Schreibt; bei Zeitueberschreitung gilt der Schritt als erledigt, wenn er nachweislich im Sheet steht.
+async function schreibeGeprueft(context, payload, pruefe) {
+  const antwort = await schreibe(context, payload);
+  if (antwort.ok || antwort.error !== 'write_timeout') return antwort;
+  return await nachgelesen(context, pruefe) ? { ok: true, status: 200, result: { nachgelesen: true } } : antwort;
+}
+
+// POST /api/agent/lead {firma, ansprechpartner, ..., phase?, faellig_am?, next_action?, notiz?, doppelt_ok?}
+export async function leadAnlegen(context, eingabe, daten, heute = heuteBerlin()) {
+  const lead = {};
+  for (const feld of ['firma', 'ansprechpartner', 'strasse', 'ort', 'branche', 'telefon', 'handy', 'mail', 'kontaktquelle']) {
+    lead[feld] = String(eingabe[feld] ?? '').trim();
+  }
+  lead.website = normWebsite(eingabe.website);
+  lead.anrede = String(eingabe.anrede ?? '').trim().toLowerCase();
+
+  const phase = String(eingabe.phase || 'neu').trim();
+  const faellig = String(eingabe.faellig_am || '').trim();
+  const naechste = String(eingabe.next_action || (faellig ? 'wiedervorlage' : '')).trim();
+  const notiz = String(eingabe.notiz || '').trim();
+  if (!STATUSES.includes(phase) || ['ruht', 'beendet'].includes(phase)) {
+    return apiError(400, 'invalid_phase', 'Phase muss eine Pipeline-Phase sein (nicht ruht oder beendet)');
+  }
+
+  const lead_id = neueLeadId(lead, heute);
+  const anlage = validateWritePayload({ aktion: 'create', lead_id, lead });
+  if (!anlage.ok) return apiError(anlage.status, anlage.error, anlage.message);
+  // Folgefelder vorab pruefen, damit nach dem Anlegen nichts an einem Tippfehler scheitert.
+  const felder = [
+    ...(phase !== 'neu' ? [['status', phase]] : []),
+    ...(naechste || phase !== 'neu' ? [['next_action', naechste]] : []),
+    // WF-4 setzt beim Anlegen "analyse heute"; ausserhalb von neu gilt das nicht mehr.
+    ...(faellig || phase !== 'neu' ? [['next_action_at', faellig]] : []),
+  ];
+  for (const [feld, wert] of felder) {
+    const pruefung = validateWritePayload({ lead_id, feld, wert, erwarteter_status: 'neu' });
+    if (!pruefung.ok) return apiError(pruefung.status, pruefung.error, `${feld}: ${pruefung.message}`);
+  }
+
+  // Ein leeres Sheet gibt es nicht; leer heisst, das Lesen ist ausgefallen. Sonst fehlt die Dublettenpruefung.
+  if (!daten.leads?.length) {
+    return apiError(502, 'data_source_unavailable', 'CRM-Daten kamen leer an, bitte gleich noch einmal versuchen');
+  }
+  const dubletten = moeglicheDubletten(daten.leads, lead);
+  if (dubletten.length && eingabe.doppelt_ok !== true) {
+    return json({
+      ok: false, error: 'moegliche_dublette',
+      message: 'Es gibt schon einen Lead mit dieser Firma oder E-Mail. Nur mit doppelt_ok anlegen.',
+      treffer: dubletten,
+    }, { status: 409 });
+  }
+
+  const vorhanden = (d) => (d.leads || []).find((eintrag) => eintrag.lead_id === lead_id);
+  const antwort = await schreibeGeprueft(context, anlage.value, vorhanden);
+  if (!antwort.ok) {
+    if (antwort.error === 'write_timeout') {
+      return json({
+        ok: false, error: 'write_timeout', lead_id, angelegt: 'unklar', schon_geschrieben: [],
+        message: `Keine Antwort vom CRM, ${lead_id} ist auch nach dem Nachlesen nicht zu sehen. `
+          + 'NICHT sofort erneut anlegen: in einer Minute mit leads_suchen nach der Firma suchen.',
+      }, { status: 504 });
+    }
+    return antwortAusFehler(antwort);
+  }
+
+  // Ab hier existiert der Lead. Scheitert ein Folgeschritt, nie erneut anlegen, sondern lead_id melden.
+  const geschrieben = ['create'];
+  let status = 'neu';
+  for (const [feld, wert] of felder) {
+    const pruefung = validateWritePayload({ lead_id, feld, wert, erwarteter_status: status });
+    const ergebnis = await schreibeGeprueft(context, pruefung.value, feldSteht(pruefung.value));
+    if (!ergebnis.ok) {
+      return json({
+        ok: false, error: ergebnis.error, lead_id, angelegt: true, schon_geschrieben: geschrieben,
+        message: `Lead ist angelegt (${lead_id}), aber ${feld} konnte nicht gesetzt werden. `
+          + 'Bitte NICHT erneut anlegen, sondern mit phase_setzen nachholen.',
+      }, { status: ergebnis.status });
+    }
+    geschrieben.push(feld);
+    if (feld === 'status') status = wert;
+  }
+  if (notiz) {
+    const vermerk = validateWritePayload({ aktion: 'notiz', lead_id, wert: AGENT_PRAEFIX + notiz });
+    const ergebnis = vermerk.ok ? await schreibeGeprueft(context, vermerk.value, (d) => (d.activities || [])
+      .some((eintrag) => eintrag.lead_id === lead_id && eintrag.notiz === vermerk.value.wert)) : vermerk;
+    if (!ergebnis.ok) {
+      return json({
+        ok: false, error: ergebnis.error, lead_id, angelegt: true, schon_geschrieben: geschrieben,
+        ...phaseMitLabel(status), next_action: naechste, next_action_at: faellig,
+        message: `Lead ${lead_id} ist vollständig angelegt, nur die Notiz fehlt. `
+          + 'Bitte NICHT erneut anlegen, sondern die Notiz mit notiz_anhaengen nachtragen.',
+      }, { status: ergebnis.status || 502 });
+    }
+    geschrieben.push('notiz');
+  }
+  return json({
+    ok: true, lead_id, ...phaseMitLabel(status), next_action: naechste, next_action_at: faellig, geschrieben,
   });
 }
 

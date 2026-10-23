@@ -25,7 +25,10 @@ export async function schreibeCrm(env, payload, fetchImpl = fetch) {
   }
   let upstream;
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 12000);
+  // WF-4 braucht unter Last bis ~30 s (21.10.: Abbruch nach 12 s, n8n hatte trotzdem geschrieben).
+  const warteMs = Number(env.CRM_WRITE_TIMEOUT_MS) || 30000;
+  let abgelaufen = false;
+  const timeout = setTimeout(() => { abgelaufen = true; controller.abort(); }, warteMs);
   try {
     upstream = await fetchImpl(url, {
       method: 'POST',
@@ -38,6 +41,11 @@ export async function schreibeCrm(env, payload, fetchImpl = fetch) {
       signal: controller.signal,
     });
   } catch {
+    if (abgelaufen) {
+      // Nicht "gescheitert": n8n kann die Aenderung nach dem Abbruch noch gespeichert haben.
+      return fehler(504, 'write_timeout',
+        'Keine Antwort vom CRM. Die Änderung ist eventuell trotzdem gespeichert, bitte nachlesen.');
+    }
     return fehler(502, 'write_unavailable', 'Änderung konnte nicht gespeichert werden');
   } finally {
     clearTimeout(timeout);

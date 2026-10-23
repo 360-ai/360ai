@@ -33,8 +33,8 @@ Integrations → Add integration → Name `360ai CRM`, Beschreibung:
 
 | Feld-ID | Typ | Pflicht |
 |---|---|---|
-| `client_id` | TEXT | ja |
-| `client_secret` | PASSWORD | ja |
+| `clientId` (Bezeichnung „Client ID“, Langdock erzeugt die ID selbst) | TEXT | ja |
+| `clientSecret` (Bezeichnung „Client Secret“) | PASSWORD | ja |
 
 Test-Endpunkt (Schritt 3):
 
@@ -43,8 +43,8 @@ const response = await ld.request({
   method: 'GET',
   url: 'https://360ai-akquise-crm.pages.dev/api/agent/leads?suche=zzz-test',
   headers: {
-    'CF-Access-Client-Id': data.auth.client_id,
-    'CF-Access-Client-Secret': data.auth.client_secret,
+    'CF-Access-Client-Id': data.auth.clientId,
+    'CF-Access-Client-Secret': data.auth.clientSecret,
   },
 });
 return response.json;
@@ -54,13 +54,24 @@ Danach eine Verbindung mit Client ID und Secret aus Schritt 1 anlegen.
 
 ### Gemeinsamer Kopf für alle Actions
 
+**Feld-IDs (getestet 10.10.2026):** Langdock erzeugt die ID aus der Bezeichnung in camelCase (`lead_id` → `leadId`).
+Im Code deshalb `data.input.leadId`, an die CRM-Schnittstelle geht weiter `lead_id`. Die Sandbox kennt kein `URLSearchParams`.
+
+**Bestätigung (getestet 19.10.2026), zwei Stellen:**
+1. In der Integration hat jede Action einen **Aktionstyp**: „Anzeigen“ läuft ohne Bestätigung, „Ändern“/„Löschen“
+   fragen laut Langdock nach. Schreibende Actions auf **Ändern**, lesende auf **Anzeigen**.
+2. Das reicht **nicht**. Im Agenten (Integration anklicken) hat jede Action zwei Symbole: **Haken** = ohne
+   Nachfrage ausführen, **Hand** = Bestätigen-Knopf im Chat. Standard war der Haken, deshalb schrieb
+   `notiz_anhaengen` am 11.10. trotz „Ändern“ direkt. Schreibende Actions im Agenten auf **Hand** stellen.
+Der Test unten auf der Action-Seite („Aktion testen“) führt immer direkt aus. Der Bestätigen-Knopf erscheint auch in der Handy-App.
+
 Jede Action beginnt mit diesem Block (Langdock lädt keine Bibliotheken, deshalb wird er kopiert):
 
 ```javascript
 const BASIS = 'https://360ai-akquise-crm.pages.dev/api/agent';
 const kopf = {
-  'CF-Access-Client-Id': data.auth.client_id,
-  'CF-Access-Client-Secret': data.auth.client_secret,
+  'CF-Access-Client-Id': data.auth.clientId,
+  'CF-Access-Client-Secret': data.auth.clientSecret,
   'Content-Type': 'application/json',
 };
 ```
@@ -78,11 +89,12 @@ um die lead_id und die aktuelle Phase zu bekommen, bevor gelesen oder geschriebe
 
 ```javascript
 // Kopf von oben hier einfügen
-const q = new URLSearchParams();
-if (data.input.suche) q.set('suche', data.input.suche);
-if (data.input.phase) q.set('phase', data.input.phase);
-if (data.input.archiv) q.set('archiv', 'ja');
-const response = await ld.request({ method: 'GET', url: BASIS + '/leads?' + q.toString(), headers: kopf });
+// Langdock-Sandbox kennt kein URLSearchParams (getestet 10.10.2026)
+const teile = [];
+if (data.input.suche) teile.push('suche=' + encodeURIComponent(data.input.suche));
+if (data.input.phase) teile.push('phase=' + encodeURIComponent(data.input.phase));
+if (data.input.archiv) teile.push('archiv=ja');
+const response = await ld.request({ method: 'GET', url: BASIS + '/leads?' + teile.join('&'), headers: kopf });
 return response.json;
 ```
 
@@ -93,36 +105,36 @@ letzten 30 Verlaufseinträge. Braucht die lead_id aus leads_suchen.“
 
 | Input | Typ | Beschreibung |
 |---|---|---|
-| `lead_id` | TEXT, Pflicht | z. B. `L-20260816-avas` |
+| `leadId` | TEXT, Pflicht | z. B. `L-20260816-avas` |
 
 ```javascript
 // Kopf von oben hier einfügen
 const response = await ld.request({
-  method: 'GET', url: BASIS + '/lead?id=' + encodeURIComponent(data.input.lead_id), headers: kopf,
+  method: 'GET', url: BASIS + '/lead?id=' + encodeURIComponent(data.input.leadId), headers: kopf,
 });
 return response.json;
 ```
 
-### Action 3: `notiz_anhaengen` (schreibend, **Bestätigung einschalten**)
+### Action 3: `notiz_anhaengen` (schreibend, Aktionstyp Ändern, im Agenten Hand)
 
 Beschreibung: „Hängt einen datierten Eintrag an den Verlauf eines Leads an, z. B. Gesprächsnotiz oder
 Zusammenfassung. Ändert keine Felder. Wird im CRM mit ‚Langdock:‘ gekennzeichnet.“
 
 | Input | Typ | Beschreibung |
 |---|---|---|
-| `lead_id` | TEXT, Pflicht | aus leads_suchen |
+| `leadId` | TEXT, Pflicht | aus leads_suchen |
 | `text` | MULTI_LINE_TEXT, Pflicht | höchstens 5000 Zeichen |
 
 ```javascript
 // Kopf von oben hier einfügen
 const response = await ld.request({
   method: 'POST', url: BASIS + '/notiz', headers: kopf,
-  body: { lead_id: data.input.lead_id, text: data.input.text },
+  body: { lead_id: data.input.leadId, text: data.input.text },
 });
 return response.json;
 ```
 
-### Action 4: `phase_setzen` (schreibend, **Bestätigung einschalten**)
+### Action 4: `phase_setzen` (schreibend, Aktionstyp Ändern, im Agenten Hand)
 
 Beschreibung: „Setzt die Pipeline-Phase eines Leads. erwartete_phase ist die Phase aus dem letzten
 leads_suchen oder lead_lesen; hat sie sich inzwischen geändert, kommt ein Konflikt zurück. Rücksprünge
@@ -131,25 +143,30 @@ Ruht braucht faellig_am.“
 
 | Input | Typ | Beschreibung |
 |---|---|---|
-| `lead_id` | TEXT, Pflicht | |
+| `leadId` | TEXT, Pflicht | |
 | `phase` | SELECT, Pflicht | Phasenliste unten |
-| `erwartete_phase` | TEXT, Pflicht | aktuelle Phase laut letztem Lesen |
+| `erwartetePhase` | TEXT, Pflicht | aktuelle Phase laut letztem Lesen |
 | `grund` | SELECT | nur bei `beendet`, Werte unten |
 | `notiz` | MULTI_LINE_TEXT | bei `beendet` Pflicht (was ist passiert), sonst optionaler Verlaufseintrag |
-| `faellig_am` | TEXT | JJJJ-MM-TT, Pflicht bei `ruht` |
+| `faelligAm` | TEXT | JJJJ-MM-TT, Pflicht bei `ruht` |
 
 ```javascript
 // Kopf von oben hier einfügen
+// Select-Optionen in Langdock buchstabengenau pruefen (Tippfehler "qulifiziert" am 10.10. gab invalid_phase)
 const body = {
-  lead_id: data.input.lead_id,
-  phase: data.input.phase,
-  erwartete_phase: data.input.erwartete_phase,
+  lead_id: String(data.input.leadId || '').trim(),
+  phase: String(data.input.phase || '').trim(),
+  erwartete_phase: String(data.input.erwartetePhase || '').trim(),
 };
-for (const feld of ['grund', 'notiz', 'faellig_am']) {
-  if (data.input[feld]) body[feld] = data.input[feld];
+if (data.input.grund) body.grund = data.input.grund;
+if (data.input.notiz) body.notiz = data.input.notiz;
+if (data.input.faelligAm) body.faellig_am = String(data.input.faelligAm).trim();
+try {
+  const response = await ld.request({ method: 'POST', url: BASIS + '/phase', headers: kopf, body: body });
+  return response.json;
+} catch (e) {
+  return { ok: false, fehler: String(e) };
 }
-const response = await ld.request({ method: 'POST', url: BASIS + '/phase', headers: kopf, body });
-return response.json;
 ```
 
 ### Werte für die SELECT-Felder
@@ -167,7 +184,8 @@ Die Liste muss zu `public/domain.js`, `functions/lib/validation.js` und WF-4 pas
 
 ## 3. Langdock: Agent „CRM-Assistent“
 
-Agents → Neu → Name `CRM-Assistent`, Integration `360ai CRM` mit allen vier Actions, Modell aus der EU-Liste.
+Agents → Neu → Name `CRM-Assistent`, Integration `360ai CRM` mit allen Actions (1 bis 8), Modell aus der EU-Liste.
+Im Agenten: lesende Actions (`leads_suchen`, `lead_lesen`, `erinnerungen_faellig`) mit Haken, alle schreibenden mit **Hand**.
 
 Anweisungen:
 
@@ -182,6 +200,7 @@ Ablauf:
 4. Bei phase_setzen immer die zuletzt gelesene Phase als erwartete_phase mitgeben.
 5. Bei Verloren immer Grund aus der Liste UND eine Notiz in Denis' Worten, was passiert ist.
 6. Rücksprünge in frühere Phasen machst du nicht. Sag Denis, dass er das im CRM selbst bestätigt.
+7. Fragebogen: vorbereitung_vermerken nur, wenn Denis sagt, dass der Vorbereitungslink verschickt ist (Kennung und Link nennt er). erinnerung_vermerken nur, wenn eine Erinnerung wirklich rausgegangen ist. eingang_vermerken nur, wenn Denis einen Rücklauf meldet, der nicht über den Online-Bogen kam. erinnerungen_faellig darfst du jederzeit abfragen.
 
 Antworte kurz, auf Deutsch, ohne Gedankenstriche. Erfinde keine Daten. Was nicht in der Akte steht, weißt du nicht.
 ```
@@ -216,8 +235,10 @@ dieselben Werte wie in Abschnitt 1). Später übernimmt das der Agent „Nach de
 
 ## 4. Vier neue Actions in der Integration „360ai CRM“
 
-Gleicher Kopf wie oben. Für die Workflows brauchen die Actions **keine** Bestätigung (es sitzt niemand davor).
-Im CRM-Assistenten (Chat) diese vier Actions nicht anhängen.
+Gleicher Kopf wie oben. **Angelegt und einzeln getestet 19.10.2026** am Testlead (Ergebnis unten bei Abschnitt 4 Test).
+Aktionstyp: 5, 7, 8 **Ändern**, 6 **Anzeigen**. Im CRM-Assistenten (Entscheidung 19.10.) alle vier angehängt,
+5, 7, 8 mit Hand, 6 mit Haken. In den Workflows brauchen sie **keine** Bestätigung (es sitzt niemand davor);
+ob ein „Ändern“-Typ im Workflow anhält, beim Bau von Abschnitt 6/7 prüfen.
 
 ### Action 5: `vorbereitung_vermerken`
 
@@ -225,13 +246,13 @@ Beschreibung: „Vermerkt, dass der Vorbereitungslink verschickt wurde. Setzt Fr
 
 | Input | Typ |
 |---|---|
-| `lead_id`, `kennung`, `link` | TEXT, Pflicht |
+| `leadId`, `kennung`, `link` | TEXT, Pflicht |
 | `mail`, `begruessung`, `anrede` (du/sie), `frist`, `termin` (JJJJ-MM-TT) | TEXT |
 
 ```javascript
 // Kopf von oben hier einfügen
-const body = {};
-for (const feld of ['lead_id', 'kennung', 'link', 'mail', 'begruessung', 'anrede', 'frist', 'termin']) {
+const body = { lead_id: data.input.leadId };
+for (const feld of ['kennung', 'link', 'mail', 'begruessung', 'anrede', 'frist', 'termin']) {
   if (data.input[feld]) body[feld] = data.input[feld];
 }
 const response = await ld.request({ method: 'POST', url: BASIS + '/vorbereitung', headers: kopf, body });
@@ -257,12 +278,12 @@ Beschreibung: „Vermerkt im CRM, dass die Erinnerung verschickt wurde. Danach k
 
 | Input | Typ |
 |---|---|
-| `lead_id` | TEXT, Pflicht |
+| `leadId` | TEXT, Pflicht |
 
 ```javascript
 // Kopf von oben hier einfügen
 const response = await ld.request({
-  method: 'POST', url: BASIS + '/vorbereitung/erinnert', headers: kopf, body: { lead_id: data.input.lead_id },
+  method: 'POST', url: BASIS + '/vorbereitung/erinnert', headers: kopf, body: { lead_id: data.input.leadId },
 });
 return response.json;
 ```
@@ -290,6 +311,16 @@ return response.json;
 Antwort bei Erfolg: `{ ok, erneut, lead: { lead_id, firma, ansprechpartner, anrede, mail, begruessung, termin, frist, drive_url, phase } }`.
 Bei unbekannter Kennung HTTP 404 mit `error: "unbekannte_kennung"`.
 
+### Test Abschnitt 4 (19.10.2026)
+
+Testlead `L-20260816-avas-test2` (steht auf Verloren, Phase bleibt deshalb immer `beendet`), Kennung `test-avas2-1910`.
+- 5: alle `vb_*` angekommen, Wiedervorlage auf Frist, `erinnerung_am` 3 Tage vor Frist (7 Tage Laufzeit). Ok.
+- 6: `anzahl: 0` (Testlead ist Verloren, nur „Fragebogen raus“ wird geliefert). Ok, auch im Agent-Chat.
+- 7: `vb_erinnert_am` gesetzt, Notiz. Ok.
+- 8: Fassung 1 setzt `vb_eingang_am` und Wiedervorlage auf Termin; Fassung 2 liefert `erneut: true`, nur Notiz. Ok.
+- Langdock zeigt die Antwort flach an, der `lead`-Block ist trotzdem verschachtelt (zwei schließende Klammern).
+- Nach jedem Test das CRM gegenlesen: leere/falsch benannte Felder überspringt der Code ohne Fehler.
+
 ## 5. Gmail, Kalender, Drive vorbereiten
 
 1. **Gmail (info@):** Für die Erinnerung muss die Aktion **„Send email“** an sein. Dafür ist die Entwurfs-Regel
@@ -297,11 +328,19 @@ Bei unbekannter Kennung HTTP 404 mit `error: "unbekannte_kennung"`.
    Außerdem in Gmail ein Label **`360ai/Fragebogen da`** anlegen.
    **Prüfen:** Hat die Gmail-Integration eine Aktion zum Labeln (z. B. „Add label to email“) und eine Suche
    („Search emails“)? Wenn nicht, entfällt Schritt 6 im Rücklauf-Workflow, der Rest läuft trotzdem.
+   **Geprüft 19.10.2026:** Search emails, Add label to email, Send email, List labels sind vorhanden und an.
+   Forward/Reply sind aus. Schritt 6 im Rücklauf-Workflow bleibt drin.
+   Label `360ai/Fragebogen da` in info@ angelegt (19.10.2026, verschachtelt unter `360ai`).
 2. **Google Calendar** verbinden (Konto, in dem die Kundentermine stehen). **Prüfen:** Gibt es „Search events“
    und „Update event“?
+   **Geprüft 19.10.2026:** Search for events, Get event, Update event, Add event vorhanden und an. Delete event war
+   an (Empfehlung: aus). Verbundenes Konto noch klären.
 3. **Google Drive** verbinden. **Prüfen:** Gibt es „Create file“ oder „Create document“ mit Zielordner?
    Der Drive-Ordner je Lead steht im CRM (`berichte_drive_url`, legt WF-1 an). Fehlt er, landet die Datei
    in einem festen Ordner `360ai Vorbereitungen` (einmal anlegen).
+   **Geprüft 19.10.2026:** Upload file, Create folder, Update file, Move file, Copy file, Search files, List folders
+   vorhanden und an. Kein "Create document". Ob Upload file ein Feld Zielordner hat, beim Workflow-Bau prüfen.
+   **Abschnitt 5 ERLEDIGT 19.10.2026:** Drive-Ordner `360ai Vorbereitungen` angelegt, Kalender und Drive mit info@ verbunden.
 
 Was davon fehlt, bitte melden. Dann baue ich die fehlende Stelle über einen eigenen CRM-Endpunkt (n8n hat
 Zugriff auf Kalender und Drive).
@@ -375,6 +414,19 @@ Rund 30 Läufe im Monat, weit unter den 2.500 inklusive.
    2. **Action `erinnerung_vermerken`:** `lead_id`.
       Reihenfolge bewusst so: Scheitert der Versand, wird nicht vermerkt und der nächste Tag versucht es erneut.
 5. **Fehlerstrategie:** bei Fehler im Loop weiterlaufen, am Ende **Notification** mit den gescheiterten Firmen.
+
+**Gebaut und getestet 20.10.2026** (so steht es in Langdock):
+- Send email: Fehlerbehandlung „Fehler-Callback hinzufügen“ (nicht „Fortfahren“, sonst würde trotz Fehler vermerkt).
+  Fehlerausgang → **Send notification** „Fragebogen-Erinnerung an {{loop.output.currentItem.firma}} ist fehlgeschlagen.
+  Bitte von Hand nachfassen (CRM wurde nicht vermerkt).“ → **Loop end**. Ohne Verbindung zu Loop end meldet Langdock
+  „Kann nicht von innerhalb der Schleife nach außen verzweigen“.
+- Send notification landet in der **Langdock-Inbox** des Workflow-Erstellers, nicht per Mail.
+- **Loop-Variablen:** `{{loop.output.currentItem.<feld>}}`, NICHT `{{loop.<feld>}}` (löst zu undefined auf).
+  Der Picker zeigt Loop-Felder erst, wenn der Loop einmal mit Daten gelaufen ist.
+- Loop-Feld „Array, über das iteriert werden soll“ = `erinnerungen_faellig → faellig` muss gesetzt sein.
+- Testlauf = Knopf „Testlauf“ oben links, läuft den Entwurf einmal. Einzelne Nodes nicht abspielen (ohne Loop-Daten Fehler).
+- Testlead fällig machen: im Sheet (Tab Leads) status `fragebogen_raus`, vb_mail eigene Adresse, vb_frist in ≤ 3 Tagen,
+  vb_versand_am früher, vb_erinnert_am/vb_eingang_am leer. Danach zurück auf `beendet` + Frist in der Vergangenheit.
 
 Den Text erzeugt das CRM aus einer festen Vorlage (`erinnerungsMail` in `functions/lib/agent.js`): Begrüßung aus
 dem Link (oder Du/Sie mit Namen), Termin, Frist, Link, „lieber unvollständig als gar nicht“, Signatur.

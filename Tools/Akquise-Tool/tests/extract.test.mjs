@@ -169,7 +169,7 @@ test('Impressum: Einzelunternehmen ohne Rechtsform wird erkannt und als unsicher
     <p>Anbieter / Verantwortlich f&uuml;r den Inhalt</p>
     <p>Denis Schmidt (Einzelunternehmer)</p><p>360ai</p>
     <p>Wangershaeuser Str. 7</p><p>35066 Frankenberg</p>
-    <p>Telefon: 0152 29239908</p></main></body>`));
+    <p>Telefon: 0151 29008128</p></main></body>`));
   assert.equal(imp.rechtsform, null);
   assert.equal(imp.firmenname_unsicher, true);
   assert.ok(imp.firmenname && /360ai/i.test(imp.firmenname), `erkannt: ${imp.firmenname}`);
